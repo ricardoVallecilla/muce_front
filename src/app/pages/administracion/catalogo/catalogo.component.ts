@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {Properties} from '../../properties'
-
+import { Properties } from '../../properties'
+import { CatalogoService } from '../../../services/catalogos/catalogos.service'
 @Component({
   selector: 'catalogo',
   templateUrl: './catalogo.html'
@@ -8,14 +8,25 @@ import {Properties} from '../../properties'
 })
 export class CatalogoComponent implements OnInit {
 
-  proerties= new Properties();
-  title="Catalogos"
-  acciones= this.proerties.labelLista+this.title;
+  proerties = new Properties();
+  title = "Catalogos"
+  acciones = this.proerties.labelLista + this.title;
 
 
-  constructor() { }
+  constructor(private _catalogoService: CatalogoService) { }
 
   ngOnInit() {
+
+this.cargarCatalogos()
+  }
+
+  cargarCatalogos() {
+    this._catalogoService.obtenerCatalogosPadre()
+    .subscribe((periodos: any[]) => {
+
+    }, (err: any) => console.log(err),
+      () => {
+      });
   }
 
 }

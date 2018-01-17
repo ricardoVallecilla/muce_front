@@ -12,7 +12,12 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {BreadcrumbsComponent} from './layout/admin/breadcrumbs/breadcrumbs.component';
 import {TitleComponent} from './layout/admin/title/title.component';
 import {AuthComponent} from './layout/auth/auth.component';
-
+import { FormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
+import { CommonModule } from '@angular/common';  
+import { HttpClientModule } from '@angular/common/http'; 
+import { GeneralService } from './services/general/general.service'
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -23,13 +28,22 @@ import {AuthComponent} from './layout/auth/auth.component';
     AuthComponent
   ],
   imports: [
+    BrowserAnimationsModule,
+    BrowserModule,
+    CommonModule,
+    HttpClientModule,
+    HttpModule,
+    FormsModule,
     BrowserModule,
     BrowserAnimationsModule,
     RouterModule.forRoot(AppRoutes),
     ClickOutsideModule,
     SharedModule
   ],
-  providers: [],
+  providers: [{
+    provide: LocationStrategy,
+    useClass: HashLocationStrategy
+  },GeneralService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

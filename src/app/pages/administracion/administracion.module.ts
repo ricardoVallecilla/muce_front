@@ -5,6 +5,9 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CatalogoComponent} from './catalogo/catalogo.component';
 import {DataTableModule,PanelModule} from 'primeng/primeng';
 import {SharedModule} from '../../shared/shared.module';
+import {CatalogoService} from '../../services/catalogos/catalogos.service'
+import {GeneralService} from '../../services/general/general.service'
+
 
 //import {WithSocialComponent} from './registration/with-social/with-social.component';
 
@@ -39,12 +42,12 @@ export const AuthenticationRoutes: Routes = [
   imports: [
     CommonModule,
     SharedModule,
-    PanelModule,
-    DataTableModule,
+    PanelModule, DataTableModule,
     RouterModule.forChild(AuthenticationRoutes),
     FormsModule,
     ReactiveFormsModule
   ],
   declarations: [CatalogoComponent]
+  ,providers:[GeneralService,CatalogoService]
 })
 export class AdministracionModule { }
