@@ -1,0 +1,52 @@
+<div class="row">
+  <div class="col-sm-12">
+    <app-card [title]="acciones">
+
+
+      <p-tabView>
+        <p-tabPanel header="Usuarios" leftIcon="fa-calendar">
+          <p-dataTable [value]="cars">
+            <p-column field="vin" header="Vin"></p-column>
+            <p-column field="year" header="Year"></p-column>
+            <p-column field="brand" header="Brand"></p-column>
+            <p-column field="color" header="Color"></p-column>
+          </p-dataTable>
+        </p-tabPanel>
+        <p-tabPanel header="Roles" leftIcon="fa-print">
+          <p-dataTable [value]="roles" *ngIf="bandera==0">
+            <p-column field="nombre" header="Nombre"></p-column>
+            <p-column field="permisos" header="Permisos">
+                <ng-template let-rol="rowData" pTemplate="body">
+                    <ul>
+                      <li *ngFor="let permiso of rol.permisoSet">{{permiso.nombre}}</li>
+                    </ul>
+                  </ng-template>
+            </p-column>
+            <p-column header="Opciones">
+              <ng-template let-rol="rowData" pTemplate="body">
+                <button pButton (click)="modificarPermisos(rol)" icon="fa fa-fw fa-check" label="Modificar Permisos"></button>
+              </ng-template>
+            </p-column>
+
+          </p-dataTable>
+          <div *ngIf="bandera==1">
+            <p-listbox [options]="permisos" [(ngModel)]="permisosSelecionado" multiple="multiple" checkbox="checkbox" filter="filter">
+              <p-header>
+                <i class="fa fa-car"></i>
+                {{rolSeleccionado.nombre}}
+              </p-header>
+            </p-listbox>
+            <button pButton (click)="guardar()" icon="fa fa-fw fa-check" label="Guardar"></button>
+          </div>
+
+        </p-tabPanel>
+        <p-tabPanel header="Godfather III" leftIcon="fa-bell-o" rightIcon="fa-bookmark-o">
+          After a break of more than 15 years, director Francis Ford Coppola and writer Mario Puzo returned to the well for this third
+          and final story of the fictional Corleone crime family. Two decades have passed, and crime kingpin Michael Corleone,
+          now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be completely
+          legitimate.
+        </p-tabPanel>
+      </p-tabView>
+    </app-card>
+  </div>
+</div>

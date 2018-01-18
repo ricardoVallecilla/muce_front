@@ -29,7 +29,7 @@ import { LocationStrategy, HashLocationStrategy } from '@angular/common';
   ],
   imports: [
     BrowserAnimationsModule,
-    BrowserModule,
+    
     CommonModule,
     HttpClientModule,
     HttpModule,

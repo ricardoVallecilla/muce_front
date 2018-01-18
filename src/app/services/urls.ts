@@ -12,7 +12,12 @@ export class UrlServices {
 
     catalogos=this.proxy+"/catalogo/"
     obtenerCatalogosPadre= this.catalogos+""
-  
+    usuarios=this.proxy+"/usuario/"
+    optenerUsuarios=this.usuarios
+    roles=this.proxy+"/rol/"
+    optenerRoles=this.roles
+    permisos=this.proxy+"/permiso/"
+    optenerPermisos=this.permisos
     constructor() {
 
     }

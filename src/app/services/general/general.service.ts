@@ -168,21 +168,21 @@ export class GeneralService {
     private handleError() {
         return (res: Response) => {
             let errMessage: any;
-            // try {
-            //     console.log(res);
-            //     if (res.status == 412) {
-            //         errMessage = { 'status': res.status, 'message': res.text() };
-            //     } else if (res.status == 401) {
-            //         window.location.href = this.urlServices.redirect;
-            //     }
-            //     else {
-            //         errMessage = res.json();
-            //     }
+            try {
+                console.log(res);
+                if (res.status == 412) {
+                    errMessage = { 'status': res.status, 'message': res.text() };
+                } else if (res.status == 401) {
+                   this.autenticar()
+                }
+                else {
+                    errMessage = res.json();
+                }
 
-            // } catch (err) {
-            //     errMessage = res.statusText;
-            // }
-            // // Security errors
+            } catch (err) {
+                errMessage = res.statusText;
+            }
+            // Security errors
             // this.utilService.stopProcess();
             return Observable.throw(errMessage);
         };
