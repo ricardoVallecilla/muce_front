@@ -1,0 +1,28 @@
+<div class="row">
+    <div class="col-sm-12">
+        <app-card [title]="acciones">
+            <p-tabView>
+                <p-tabPanel header="Museo" leftIcon="fa-print">
+                    <p-dataTable [value]="museos" *ngIf="bandera==0">
+                        <p-column field="nombres" header="Nombre"></p-column>
+                        <p-column field="descripcion" header="Descripción"></p-column>
+                        <p-column field="directora" header="Directora"></p-column>
+                        <p-column field="telefono" header="Teléfono"></p-column>
+                        <p-column header="Opciones">
+                            <ng-template let-museo="rowData" pTemplate="body">
+                                <button pButton (click)="modificarMuseo(museo)" icon="fa fa-fw fa-check" label="Modificar"></button>
+                            </ng-template>
+                        </p-column>
+                    </p-dataTable>
+                    <div *ngIf="bandera==1">
+                        <input type="text" pInputText [(ngModel)]="museo.nombres"/><br>
+                        <input type="text" pInputText [(ngModel)]="museo.descripcion"/><br>
+                        <input type="text" pInputText [(ngModel)]="museo.directora"/><br>
+                        <input type="text" pInputText [(ngModel)]="museo.telefono"/><br>
+                        <button pButton (click)="guardar()" icon="fa fa-fw fa-check" label="Guardar"></button>
+                    </div>
+                </p-tabPanel>
+            </p-tabView>
+        </app-card>
+    </div>
+</div>

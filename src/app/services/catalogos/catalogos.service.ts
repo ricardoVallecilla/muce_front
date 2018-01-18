@@ -7,7 +7,7 @@ export class CatalogoService {
 
     url = new UrlServices();
     constructor(private _generalServices: GeneralService) {
-        // _generalServices.autenticar();
+        //  _generalServices.autenticar();
     }
 
     getUsuarioId(){

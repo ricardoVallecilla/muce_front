@@ -4,13 +4,15 @@ import {RouterModule, Routes} from '@angular/router';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CatalogoComponent} from './catalogo/catalogo.component';
 import {UsuarioComponent} from './usuarios/usuarios.component';
-import {DataTableModule,PanelModule,TabViewModule,ListboxModule,ButtonModule} from 'primeng/primeng';
+import {DataTableModule,PanelModule,TabViewModule,ListboxModule,ButtonModule, InputTextModule} from 'primeng/primeng';
 import { BrowserModule } from '@angular/platform-browser';
 
 import {SharedModule} from '../../shared/shared.module';
 import {CatalogoService} from '../../services/catalogos/catalogos.service'
 import {GeneralService} from '../../services/general/general.service'
 import {UsuarioService} from '../../services/usuarios/usuarios.service'
+import { MuseoComponent } from './museo/museo.component';
+import { MuseoServices } from '../../services/museo/museo.services';
 
 //import {WithSocialComponent} from './registration/with-social/with-social.component';
 
@@ -39,6 +41,16 @@ export const AuthenticationRoutes: Routes = [
           status: true,
           descripcion:"Administración de usuarios y asignación de roles."
         }
+      },
+      {
+        path: 'museo',
+        component: MuseoComponent,
+        data: {
+          breadcrumb: 'Museo',
+          icon: 'icofont-layout bg-c-blue',
+          status: true,
+          descripcion:"Administración de museos."
+        }
       }
     ]
   }
@@ -49,12 +61,12 @@ export const AuthenticationRoutes: Routes = [
     
     CommonModule,
     SharedModule,    
-    PanelModule, DataTableModule,TabViewModule,ListboxModule,ButtonModule,
+    PanelModule, DataTableModule,TabViewModule,ListboxModule,ButtonModule,InputTextModule,
     RouterModule.forChild(AuthenticationRoutes),
     FormsModule,
     ReactiveFormsModule
   ],
-  declarations: [UsuarioComponent,CatalogoComponent]
-  ,providers:[GeneralService,CatalogoService,UsuarioService]
+  declarations: [UsuarioComponent,CatalogoComponent, MuseoComponent]
+  ,providers:[GeneralService,CatalogoService,UsuarioService, MuseoServices]
 })
 export class AdministracionModule { }
