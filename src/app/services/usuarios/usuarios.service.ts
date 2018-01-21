@@ -27,6 +27,10 @@ export class UsuarioService {
         return this._generalServices.getResources("post", this.url.optenerRoles,rol)
     }
 
+    actualizarUsuario(usuario): Observable<any> {
+        return this._generalServices.getResources("post", this.url.optenerUsuarios,usuario)
+    }
+
 
     //     getUsuarioId(){
     //         return this._generalServices.getPersonaId();

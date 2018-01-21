@@ -4,15 +4,20 @@
 
 
       <p-tabView>
-        <p-tabPanel header="Usuarios" leftIcon="fa-calendar">
-          <p-dataTable [value]="cars">
-            <p-column field="vin" header="Vin"></p-column>
-            <p-column field="year" header="Year"></p-column>
-            <p-column field="brand" header="Brand"></p-column>
-            <p-column field="color" header="Color"></p-column>
+        <p-tabPanel header="Usuarios" leftIcon="fa-users">
+            <p-messages [(value)]="msgs"></p-messages>
+          <p-dataTable [value]="usuarios">
+            <p-column field="username" header="Usuario"></p-column>
+            <p-column field="nombres" header="Nombres"></p-column>
+            <p-column field="rol" header="Rol" [style]="{'width':'175px'}">
+              <ng-template let-usuario="rowData" pTemplate="body">
+                <p-dropdown [options]="rolItem" [(ngModel)]="usuario.rolId" (ngModelChange)="actualizarRol($event,usuario)"></p-dropdown>
+              </ng-template>
+            </p-column>           
           </p-dataTable>
         </p-tabPanel>
-        <p-tabPanel header="Roles" leftIcon="fa-print">
+        <p-tabPanel header="Roles" leftIcon="fa-user-circle-o">
+            <p-messages [(value)]="msgsRol"></p-messages>
           <p-dataTable [value]="roles" *ngIf="bandera==0">
             <p-column field="nombre" header="Nombre"></p-column>
             <p-column field="permisos" header="Permisos">
@@ -22,7 +27,7 @@
                     </ul>
                   </ng-template>
             </p-column>
-            <p-column header="Opciones">
+            <p-column header="Opciones" [style]="{'width':'175px'}">
               <ng-template let-rol="rowData" pTemplate="body">
                 <button pButton (click)="modificarPermisos(rol)" icon="fa fa-fw fa-check" label="Modificar Permisos"></button>
               </ng-template>
@@ -30,23 +35,37 @@
 
           </p-dataTable>
           <div *ngIf="bandera==1">
-            <p-listbox [options]="permisos" [(ngModel)]="permisosSelecionado" multiple="multiple" checkbox="checkbox" filter="filter">
-              <p-header>
-                <i class="fa fa-car"></i>
-                {{rolSeleccionado.nombre}}
-              </p-header>
-            </p-listbox>
-            <button pButton (click)="guardar()" icon="fa fa-fw fa-check" label="Guardar"></button>
+            <div class="ui-g">
+                <div class="ui-g-12 ui-md-12 ui-lg-6">
+                    <p-listbox [options]="permisos" [style]="{'width':'100%'}" [(ngModel)]="permisosSelecionado" multiple="multiple" checkbox="checkbox" filter="filter">
+                        <p-header>
+                          <i class="fa fa-user-circle-o"></i> ROL {{rolSeleccionado.nombre}}
+                        </p-header>
+                      </p-listbox>
+                </div>
+                <div class="ui-g-12 ui-md-12 ui-lg-6"></div>                  
+                
+                <div class="ui-g-12 ui-md-12 ui-lg-6" style="text-align: right">
+                    <button pButton (click)="guardar()" icon="fa fa-fw fa-check" label="Guardar"></button>
+                </div>
+
+            </div>
+            
+            
           </div>
 
         </p-tabPanel>
-        <p-tabPanel header="Godfather III" leftIcon="fa-bell-o" rightIcon="fa-bookmark-o">
-          After a break of more than 15 years, director Francis Ford Coppola and writer Mario Puzo returned to the well for this third
-          and final story of the fictional Corleone crime family. Two decades have passed, and crime kingpin Michael Corleone,
-          now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be completely
-          legitimate.
-        </p-tabPanel>
+       
       </p-tabView>
     </app-card>
   </div>
 </div>
+
+<p-confirmDialog key="confirmar" width="425" #cdEliminar>
+    <p-footer>
+        <button type="button" id="aceptarEliminarBtn" pButton icon="fa-check" label="Aceptar"
+            (click)="actualizarUsuarioRol();cdEliminar.reject()"></button>
+        <button type="button" id="cambiarConvocatoria();cancelarEliminarBtn" pButton icon="fa-times" label="Cancelar"
+            (click)="cdEliminar.reject()"></button>
+    </p-footer>
+</p-confirmDialog>

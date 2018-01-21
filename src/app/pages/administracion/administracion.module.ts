@@ -4,7 +4,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CatalogoComponent} from './catalogo/catalogo.component';
 import {UsuarioComponent} from './usuarios/usuarios.component';
-import {DataTableModule,PanelModule,TabViewModule,ListboxModule,ButtonModule} from 'primeng/primeng';
+import {DataTableModule,PanelModule,TabViewModule,ListboxModule,MessagesModule,ButtonModule,DropdownModule,ConfirmDialogModule,ConfirmationService} from 'primeng/primeng';
 import { BrowserModule } from '@angular/platform-browser';
 
 import {SharedModule} from '../../shared/shared.module';
@@ -35,7 +35,7 @@ export const AuthenticationRoutes: Routes = [
         component: UsuarioComponent,
         data: {
           breadcrumb: 'Usarios',
-          icon: 'icofont-layout bg-c-blue',
+          icon: 'icofont-users-alt-2 bg-c-blue',
           status: true,
           descripcion:"Administración de usuarios y asignación de roles."
         }
@@ -49,12 +49,12 @@ export const AuthenticationRoutes: Routes = [
     
     CommonModule,
     SharedModule,    
-    PanelModule, DataTableModule,TabViewModule,ListboxModule,ButtonModule,
+    PanelModule, DataTableModule,TabViewModule,ListboxModule,DropdownModule,ConfirmDialogModule,MessagesModule,ButtonModule,
     RouterModule.forChild(AuthenticationRoutes),
     FormsModule,
     ReactiveFormsModule
   ],
   declarations: [UsuarioComponent,CatalogoComponent]
-  ,providers:[GeneralService,CatalogoService,UsuarioService]
+  ,providers:[GeneralService,ConfirmationService,CatalogoService,UsuarioService]
 })
 export class AdministracionModule { }
