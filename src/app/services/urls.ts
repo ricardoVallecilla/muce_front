@@ -18,6 +18,7 @@ export class UrlServices {
     optenerRoles=this.roles
     permisos=this.proxy+"/permiso/"
     optenerPermisos=this.permisos
+    museo=this.proxy + "/museo/"
     constructor() {
 
     }
