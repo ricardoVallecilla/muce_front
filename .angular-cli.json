@@ -25,7 +25,8 @@
         "../node_modules/bootstrap/dist/css/bootstrap.min.css",
         "../node_modules/ti-icons/css/themify-icons.css",
         "assets/icon/icofont/css/icofont.min.css",
-        "styles.css"
+        "styles.css",
+        "muce.css"
       ],
       "scripts": [
         "../node_modules/jquery/dist/jquery.min.js",

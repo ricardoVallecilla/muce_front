@@ -5,7 +5,18 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CatalogoComponent} from './catalogo/catalogo.component';
 import {UsuarioComponent} from './usuarios/usuarios.component';
 
-import {DataTableModule,PanelModule,TabViewModule,ListboxModule,MessagesModule,ButtonModule,DropdownModule,ConfirmDialogModule,ConfirmationService, InputTextModule} from 'primeng/primeng';
+import {DataTableModule,
+  PanelModule,
+  TabViewModule,
+  ListboxModule,
+  MessagesModule,
+  ButtonModule,
+  DropdownModule,
+  ConfirmDialogModule,
+  ConfirmationService,
+  InputTextModule,
+  InputSwitchModule
+} from 'primeng/primeng';
 
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -27,8 +38,8 @@ export const AuthenticationRoutes: Routes = [
         component: CatalogoComponent,
         
         data: {
-          breadcrumb: 'Catalogo',
-          icon: 'icofont-layout bg-c-blue',
+          breadcrumb: 'Catalogos',
+          icon: 'icofont-sub-listing bg-c-blue',
           status: true,
           descripcion:"Administración de catalogos usados en el sistema."
         }
@@ -49,7 +60,7 @@ export const AuthenticationRoutes: Routes = [
         component: MuseoComponent,
         data: {
           breadcrumb: 'Museo',
-          icon: 'icofont-layout bg-c-blue',
+          icon: 'icofont-bank-alt bg-c-blue',
           status: true,
           descripcion:"Administración de museos."
         }
@@ -73,7 +84,7 @@ export const AuthenticationRoutes: Routes = [
     MessagesModule,
     ButtonModule,
     InputTextModule,
-
+    InputSwitchModule,
     RouterModule.forChild(AuthenticationRoutes),
     FormsModule,
     ReactiveFormsModule

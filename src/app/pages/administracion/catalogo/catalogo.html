@@ -1,14 +1,111 @@
-
-
 <div class="row">
-    <div class="col-sm-12">
-      <app-card [title]="acciones">
-        <p-dataTable [value]="cars">
-            <p-column field="vin" header="Vin"></p-column>
-            <p-column field="year" header="Year"></p-column>
-            <p-column field="brand" header="Brand"></p-column>
-            <p-column field="color" header="Color"></p-column>
-        </p-dataTable>
-      </app-card>
-    </div>
+  <div class="col-sm-12">
+    <app-card [title]="acciones">
+
+      <div *ngIf="!padre">
+        <h4>Catalogo Principal {{catalogoPadre.nombre}}</h4>
+
+      </div>
+      <p-messages [(value)]="msgs"></p-messages>
+      <div class="ui-g" *ngIf="bandera==0">
+        <div class="ui-g-12 ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
+          <i class="fa fa-search"></i>
+          <input #gb onkeypress="return event.keyCode != 13;" type="text" pInputText placeholder="Filtro Global">
+        </div>
+         <div class="ui-g-12 ui-md-12 ui-lg-12" style="padding: 0">
+          <p-dataTable [value]="catalogos" [globalFilter]="gb" emptyMessage="{{properties.sinDatos}}">
+            <p-column field="nombre" header="Nombre" [sortable]="true"></p-column>
+            <p-column field="descripcion" header="Descripción" [sortable]="true"></p-column>
+            <p-column field="activo" header="Activo" *ngIf="!padre" [sortable]="true" [style]="{'width':'75px'}">
+              <ng-template let-catalogo="rowData" pTemplate="body">
+                <p-inputSwitch [(ngModel)]="catalogo.activo" onLabel="Si" offLabel="No" name="activo" readonly></p-inputSwitch>
+              </ng-template>
+            </p-column>
+            <p-column header="Opciones" [style]="{'width':'135px','text-align':'center'}">
+              <ng-template let-catalogo="rowData" pTemplate="body">
+                <button type="button" class="buttonAction" pButton (click)="editarCatalogo(catalogo)" icon="{{properties.iconEditar}}" title="Editar"></button>
+                <button type="button" class="buttonAction" *ngIf="padre" pButton (click)="subCatalogos(catalogo,gb)" icon="fa fa-list" title="Sub Catalogos"></button>
+              </ng-template>
+            </p-column>
+          </p-dataTable>
+        </div>
+        <div class="ui-g-12 ui-md-12 ui-lg-12 alineacionBotones">
+          <button pButton (click)="nuevo()" icon="{{properties.nuevo.icon}}" label="{{properties.nuevo.label}}"></button>
+          <button pButton (click)="msgs = [];volver()" *ngIf="!padre" icon="{{properties.atras.icon}}" label="{{properties.atras.label}}"></button>
+
+        </div>
+      </div>
+      <div class="ui-g" *ngIf="bandera==1">
+        <form #form="ngForm" (ngSubmit)="form.valid && guardar()" style="width: 100%" novalidate>
+
+          <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+            <div class="ui-grid-row">
+
+              <div class="ui-grid-col-2">
+                Nombre *:
+              </div>
+              <div class="ui-grid-col-6">
+                <input pInputText type="text" maxlength="150" name="nombre" [(ngModel)]="catalogo.nombre" required />
+              </div>
+              <div class="ui-grid-col-4">
+                <div class="ui-message ui-messages-error ui-corner-all" *ngIf="form.submitted  && !form.form.controls.nombre?.valid">
+                  <i class="fa fa-close"></i>
+                  Nombre es requerido
+                </div>
+              </div>
+            </div>
+
+            <div class="ui-grid-row">
+              <div class="ui-grid-col-2">
+                Descripción *:
+              </div>
+              <div class="ui-grid-col-6">
+                <textarea pInputTextarea style="resize: none; width: 100%" rows="3" maxlength="256" name="descripcion" [(ngModel)]="catalogo.descripcion"
+                  required></textarea>
+              </div>
+              <div class="ui-grid-col-4">
+                <div class="ui-message ui-messages-error ui-corner-all" *ngIf="form.submitted  && !form.form.controls.descripcion?.valid">
+                  <i class="fa fa-close"></i>
+                  Descripción es requerido
+                </div>
+              </div>
+            </div>
+            <div class="ui-grid-row" *ngIf="!padre">
+              <div class="ui-grid-col-2">
+                Activo *:
+              </div>
+              <div class="ui-grid-col-6">
+                <p-inputSwitch [(ngModel)]="catalogo.activo" onLabel="Si" offLabel="No" name="activo" required></p-inputSwitch>
+
+              </div>
+              <div class="ui-grid-col-4">
+                <div class="ui-message ui-messages-error ui-corner-all" *ngIf="form.submitted  && !form.form.controls.activo?.valid">
+                  <i class="fa fa-close"></i>
+                  Activo es requerido
+                </div>
+              </div>
+            </div>
+
+
+
+            <div class="ui-grid-row">
+              <div class="ui-grid-col-2"></div>
+              <div class="ui-grid-col-3">
+                <button pButton type="submit" label="{{properties.guardar.label}}" icon="{{properties.guardar.icon}}" [disabled]="!form.valid"></button>
+              </div>
+              <div class="ui-grid-col-3">
+                <button pButton type="button" *ngIf="padre" (click)="volver()" label="{{properties.cancelar.label}}" icon="{{properties.cancelar.icon}}"
+                  class="ui-button-secondary"></button>
+                <button pButton type="button" *ngIf="!padre" (click)="subCatalogos(catalogoPadre)" label="{{properties.cancelar.label}}"
+                  icon="{{properties.cancelar.icon}}" class="ui-button-secondary"></button>
+              </div>
+              <div class="ui-grid-col-4"></div>
+            </div>
+          </div>
+        </form>
+
+      </div>
+
+    </app-card>
   </div>
+</div>

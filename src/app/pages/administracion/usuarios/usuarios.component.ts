@@ -10,9 +10,9 @@ import { Message,ConfirmationService } from 'primeng/primeng';
   //,styleUrls: ['./with-bg-image.component.css']
 })
 export class UsuarioComponent implements OnInit {
-
-  properties = new Properties();
   title = "Usuarios"
+  properties = new Properties();
+  msgs: Message[] = [];
   acciones = this.properties.labelLista + this.title;
   roles = [];
   bandera = 0;
@@ -21,7 +21,7 @@ export class UsuarioComponent implements OnInit {
   permisosSelecionado = [];
   usuarios=[];
   rolItem=[]
-  msgs: Message[] = [];
+  
   msgsRol: Message[] = [];
   usuarioSeleccionado=null;
   constructor(private _catalogoService: CatalogoService,
@@ -93,6 +93,7 @@ export class UsuarioComponent implements OnInit {
 
   guardar() {
     this.msgsRol = [];
+    
     this.rolSeleccionado.permisoSet = this.permisosSelecionado;
     this._usuarioService.actualizarRol(this.rolSeleccionado)
       .subscribe((rol: any) => {
@@ -104,7 +105,7 @@ export class UsuarioComponent implements OnInit {
       });
   }
 
-  actualizarRol(event,usuario){
+    actualizarRol(event,usuario){
     usuario.rolId=event;
     this.usuarioSeleccionado=usuario;
     

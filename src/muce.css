@@ -1,0 +1,23 @@
+
+.ui-g.form-group > div {
+    padding: 8px; }
+  
+  .ui-panelgrid.form-group .ui-panelgrid-cell {
+    padding: 8px; }
+  .ui-panelgrid.ui-panelgrid-blank .ui-grid-responsive .ui-grid-row {
+    border: 0 none; }
+  
+  .ui-selectoneradio.form-group .ui-grid-row > div, .ui-selectmanycheckbox.form-group .ui-grid-row > div {
+    padding: 8px; }
+
+.alineacionBotones{
+    text-align: right;
+}
+
+/* .ui-grid-row{
+    -webkit-border-radius: 10px;
+-moz-border-radius: 10px;
+border-radius: 10px;
+border: 1px solid #d6d6d6;
+margin-top: 3px;
+} */
