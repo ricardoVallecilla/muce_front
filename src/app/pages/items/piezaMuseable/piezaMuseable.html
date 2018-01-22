@@ -1,0 +1,446 @@
+<div class="row">
+  <div class="col-sm-12">
+
+    <app-card [title]="acciones">
+
+      <p-messages [(value)]="msgs"></p-messages>
+
+      <div class="ui-g">
+        <form #form="ngForm" (ngSubmit)="form.valid && guardar()" style="width: 100%" novalidate>
+
+          <p-fieldset legend="FICHA DE INVENTARIO {{item?.categoriaid.nombre}}">
+
+            <div class="separadorInventario">
+              <h5>INFORMACIÓN TÉCNICA</h5>
+            </div>
+            <istrumentalCientifico [detalle]="detalle"></istrumentalCientifico>
+
+
+            <div class="separadorInventario">
+              <h5>DATOS DE LOCALIZACIÓN</h5>
+            </div>
+            <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+
+              <div class="ui-grid-row">
+                <div class="ui-grid-col-2">
+                  Provincia:
+                </div>
+                <div class="ui-grid-col-4">
+                  {{item.nombre}}
+                </div>
+                <div class="ui-grid-col-2">
+                  Canton *:
+                </div>
+                <div class="ui-grid-col-4">
+                  <input pInputText type="text" maxlength="150" name="codigocontrol" [(ngModel)]="item.codigocontrol" required />
+                </div>
+
+
+              </div>
+              <div class="ui-grid-row">
+                <div class="ui-grid-col-2">
+                  Ciudad *:
+                </div>
+                <div class="ui-grid-col-4">
+                  <input pInputText type="text" maxlength="150" name="marca" [(ngModel)]="item.marca" required />
+                </div>
+                <div class="ui-grid-col-2">
+                  Contenedor *:
+                </div>
+                <div class="ui-grid-col-4">
+                  <input pInputText type="text" maxlength="150" name="modelo" [(ngModel)]="item.modelo" required />
+                </div>
+
+              </div>
+              <div class="ui-grid-row">
+                <div class="ui-grid-col-2">
+                  Dirección:
+                </div>
+                <div class="ui-grid-col-4">
+                  <input pInputText type="text" maxlength="150" name="numeroserie" [(ngModel)]="item.numeroserie" required />
+                </div>
+                <div class="ui-grid-col-2">
+                  No.:
+                </div>
+                <div class="ui-grid-col-4">
+                  <input pInputText type="text" maxlength="150" name="valor" [(ngModel)]="item.valor" required />
+                </div>
+
+              </div>
+              <div class="ui-grid-row">
+                <div class="ui-grid-col-2">
+                  Email:
+                </div>
+                <div class="ui-grid-col-4">
+                  <input pInputText type="text" maxlength="150" name="nombre" [(ngModel)]="item.nombre" required />
+                </div>
+                <div class="ui-grid-col-2">
+                  Teléfono:
+                </div>
+                <div class="ui-grid-col-4">
+                  <input pInputText type="text" maxlength="150" name="custodiodos" [(ngModel)]="item.custodiodos" required />
+                </div>
+
+              </div>
+              <div class="ui-grid-row">
+                <div class="ui-grid-col-2">
+                  Disposición en el contendor *:
+                </div>
+                <div class="ui-grid-col-">
+
+                  <p-inputSwitch [(ngModel)]="item.restaurado" onLabel="Si" offLabel="No" name="restaurado" required></p-inputSwitch>
+
+                </div>
+
+              </div>
+              <div class="ui-grid-row">
+                <div class="ui-grid-col-2">
+                  Responsable:
+                </div>
+                <div class="ui-grid-col-4">
+                  <input pInputText type="text" maxlength="150" name="nombre" [(ngModel)]="item.nombre" required />
+                </div>
+                <div class="ui-grid-col-2">
+                  Cédudala Ciudadania:
+                </div>
+                <div class="ui-grid-col-4">
+                  <input pInputText type="text" maxlength="150" name="custodiodos" [(ngModel)]="item.custodiodos" required />
+                </div>
+
+              </div>
+
+
+
+            </div>
+            <div class="separadorInventario">
+              <h5>CONDICIÓN LEGAL DEL BIEN</h5>
+            </div>
+
+            <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+
+              <div class="ui-grid-row">
+                <div class="ui-grid-col-2">
+                  Proceso jurídico *:
+                </div>
+                <div class="ui-grid-col-4">
+                  <p-inputSwitch [(ngModel)]="item.restaurado" onLabel="Si" offLabel="No" name="restaurado" required></p-inputSwitch>
+                </div>
+              </div>
+            </div>
+            <div class="separadorInventario">
+              <h5>ESTADO GENERAL DEL BIEN</h5>
+            </div>
+            <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+              <div class="ui-grid-row">
+                <div class="ui-grid-col-2">
+                  Estado de conservación:
+                </div>
+                <div class="ui-grid-col-4">
+                  {{item.nombre}}
+                </div>
+              </div>
+              <div class="ui-grid-row">
+                <div class="ui-grid-col-2">
+                  Provincia:
+                </div>
+
+              </div>
+              <div class="ui-grid-row">
+                <div class="ui-grid-col-2">
+                  Intervenciones inadecuadas *:
+                </div>
+                <div class="ui-grid-col-4">
+                  <p-inputSwitch [(ngModel)]="item.restaurado" onLabel="Si" offLabel="No" name="restaurado" required></p-inputSwitch>
+                </div>
+              </div>
+              <div class="ui-grid-row">
+                <div class="ui-grid-col-2">
+                  Estado de integridad:
+                </div>
+                <div class="ui-grid-col-4">
+                  {{item.nombre}}
+                </div>
+              </div>
+
+            </div>
+            <div class="separadorInventario">
+              <h5>CONSERVACION PREVENTIVA EN LUGAR DE EXPOSICIÓN / RESERVA</h5>
+            </div>
+
+
+            <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+
+              <div class="ui-grid-row">
+                <div class="ui-grid-col-2">
+                  Ambientales:
+                </div>
+                <div class="ui-grid-col-10">
+                  <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+
+                    <div class="ui-grid-row">
+                      <div class="ui-grid-col-2">
+                        Humedad:
+                      </div>
+                      <div class="ui-grid-col-4">
+                        {{item.nombre}}
+                      </div>
+                    </div>
+                    <div class="ui-grid-row">
+                      <div class="ui-grid-col-2">
+                        Temperatura:
+                      </div>
+                      <div class="ui-grid-col-4">
+                        {{item.nombre}}
+                      </div>
+                    </div>
+                    <div class="ui-grid-row">
+                      <div class="ui-grid-col-2">
+                        Luz:
+                      </div>
+                      <div class="ui-grid-col-4">
+                        {{item.nombre}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="ui-grid-row">
+                <div class="ui-grid-col-2">
+                  Físicas:
+                </div>
+                <div class="ui-grid-col-10">
+                  <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+
+                    <div class="ui-grid-row">
+                      <div class="ui-grid-col-2">
+                        Montaje:
+                      </div>
+                      <div class="ui-grid-col-4">
+                        {{item.nombre}}
+                      </div>
+                    </div>
+                    <div class="ui-grid-row">
+                      <div class="ui-grid-col-2">
+                        Extintores:
+                      </div>
+                      <div class="ui-grid-col-4">
+                        {{item.nombre}}
+                      </div>
+                    </div>
+                    <div class="ui-grid-row">
+                      <div class="ui-grid-col-2">
+                        Sistema eléctrico defectuoso::
+                      </div>
+                      <div class="ui-grid-col-4">
+                        {{item.nombre}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="ui-grid-row">
+                <div class="ui-grid-col-2">
+                  Seguridad:
+                </div>
+                <div class="ui-grid-col-10">
+                  <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+
+                    <div class="ui-grid-row">
+                      <div class="ui-grid-col-2">
+                        Alarmas:
+                      </div>
+                      <div class="ui-grid-col-4">
+                        {{item.nombre}}
+                      </div>
+                    </div>
+                    <div class="ui-grid-row">
+                      <div class="ui-grid-col-2">
+                        Sensores:
+                      </div>
+                      <div class="ui-grid-col-4">
+                        {{item.nombre}}
+                      </div>
+                    </div>
+                    <div class="ui-grid-row">
+                      <div class="ui-grid-col-2">
+                        Cámaras:
+                      </div>
+                      <div class="ui-grid-col-4">
+                        {{item.nombre}}
+                      </div>
+                    </div>
+                    <div class="ui-grid-row">
+                      <div class="ui-grid-col-2">
+                        Guardias:
+                      </div>
+                      <div class="ui-grid-col-4">
+                        {{item.nombre}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="separadorInventario">
+              <h5>OBSERVACIONES</h5>
+            </div>
+            <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+
+              <div class="ui-grid-row">
+                <div class="ui-grid-col-12">
+                  <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="256" name="detalles" [(ngModel)]="item.detalles"
+                    required></textarea>
+                </div>
+              </div>
+            </div>
+
+            <div class="separadorInventario">
+              <h5>FOTOGRÁFIA</h5>
+            </div>
+            <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+
+              <div class="ui-grid-row">
+                <div class="ui-grid-col-2">
+
+                </div>
+              </div>
+            </div>
+            <div class="separadorInventario">
+              <h5>HISTORIAL DE ITINERANCIA</h5>
+            </div>
+
+            <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+
+              <div class="ui-grid-row">
+                <div class="ui-grid-col-12">
+                  <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="256" name="detalles" [(ngModel)]="item.detalles"
+                    required></textarea>
+                </div>
+              </div>
+            </div>
+            <div class="separadorInventario">
+              <h5>DATOS DE CONTROL DE BIENES UCE</h5>
+            </div>
+
+            <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+
+              <div class="ui-grid-row">
+                <div class="ui-grid-col-2">
+                  Provincia:
+                </div>
+                <div class="ui-grid-col-4">
+                  {{item.nombre}}
+                </div>
+                <div class="ui-grid-col-2">
+                  Fecha de transferencia:
+                </div>
+                <div class="ui-grid-col-4">
+                  {{item.nombre}}
+                </div>
+              </div>
+              <div class="ui-grid-row">
+                <div class="ui-grid-col-2">
+                  Procedencia:
+                </div>
+                <div class="ui-grid-col-4">
+                  {{item.nombre}}
+                </div>
+                <div class="ui-grid-col-2">
+                  Custodio:
+                </div>
+                <div class="ui-grid-col-4">
+                  {{item.nombre}}
+                </div>
+              </div>
+            </div>
+            <div class="separadorInventario">
+              <h5>DATOS DE CONTROL INVENTARIO</h5>
+            </div>
+
+            <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+
+              <div class="ui-grid-row">
+                <div class="ui-grid-col-2">
+                  Entidad investigadora:
+                </div>
+                <div class="ui-grid-col-4">
+                  {{item.nombre}}
+                </div>
+                <div class="ui-grid-col-2">
+                  Inventariado por:
+                </div>
+                <div class="ui-grid-col-4">
+                  {{item.nombre}}
+                </div>
+              </div>
+              <div class="ui-grid-row">
+                <div class="ui-grid-col-2">
+                  Fecha de inventario:
+                </div>
+                <div class="ui-grid-col-4">
+                  {{item.nombre}}
+                </div>
+                <div class="ui-grid-col-2">
+                  Revisado por:
+                </div>
+                <div class="ui-grid-col-4">
+                  {{item.nombre}}
+                </div>
+              </div>
+              <div class="ui-grid-row">
+                <div class="ui-grid-col-2">
+                  Fecha de revisión:
+                </div>
+                <div class="ui-grid-col-4">
+                  {{item.nombre}}
+                </div>
+                <div class="ui-grid-col-2">
+                  Aprobado por:
+                </div>
+                <div class="ui-grid-col-4">
+                  {{item.nombre}}
+                </div>
+              </div>
+              <div class="ui-grid-row">
+                <div class="ui-grid-col-2">
+                  Fecha de aprobación:
+                </div>
+                <div class="ui-grid-col-4">
+                  {{item.nombre}}
+                </div>
+                <div class="ui-grid-col-2">
+                  Registrado por:
+                </div>
+                <div class="ui-grid-col-4">
+                  {{item.nombre}}
+                </div>
+              </div>
+            </div>
+
+            <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+              <div class="ui-grid-row">
+                <div class="ui-grid-col-2"></div>
+                <div class="ui-grid-col-3">
+                  <button pButton type="submit" label="{{properties.guardar.label}}" icon="{{properties.guardar.icon}}" ></button>
+                </div>
+                <div class="ui-grid-col-3">
+                  <button pButton type="button" *ngIf="padre" (click)="volver()" label="{{properties.cancelar.label}}" icon="{{properties.cancelar.icon}}"
+                    class="ui-button-secondary"></button>
+              
+                </div>
+                <div class="ui-grid-col-4"></div>
+              </div>
+            </div>
+          </p-fieldset>
+
+
+
+        </form>
+
+      </div>
+
+    </app-card>
+  </div>
+
+</div>

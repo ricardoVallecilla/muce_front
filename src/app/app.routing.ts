@@ -53,4 +53,14 @@ export const AppRoutes: Routes = [
       }
     ]
   }
+  , {
+    path: '',
+    component: AdminComponent,
+    children: [
+      {
+        path: 'item',
+        loadChildren: './pages/items/items.module#ItemModule'
+      }
+    ]
+  }
 ];

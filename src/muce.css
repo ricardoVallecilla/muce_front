@@ -14,6 +14,9 @@
     text-align: right;
 }
 
+.separadorInventario{
+  margin: 10px 0px ;background: #8db4e2;padding: 5px
+}
 /* .ui-grid-row{
     -webkit-border-radius: 10px;
 -moz-border-radius: 10px;

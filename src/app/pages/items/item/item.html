@@ -1,0 +1,225 @@
+<div class="row">
+  <div class="col-sm-12"*ngIf="!detallePiezaMuseable" >
+    <app-card [title]="'Filtros'">
+      <div class="ui-g">
+          <div class="ui-g-12 ui-md-12 ui-lg-1">Grupo</div>
+        <div class="ui-g-12 ui-md-12 ui-lg-3">
+          
+            <p-dropdown [disabled]="bandera==1" [options]="grupoItem" name="grupo" filter="true" [style]="{'width': '100%'}" [(ngModel)]="grupo"  (ngModelChange)="obtenerCategorias($event)"></p-dropdown>
+        </div>
+        <div class="ui-g-12 ui-md-12 ui-lg-1">Categorias</div>
+        <div class="ui-g-12 ui-md-12 ui-lg-3">
+            
+            <p-dropdown [disabled]="bandera==1" [options]="categoriaItem" filter="true" [style]="{'width': '100%'}" name="categoria" [(ngModel)]="categoria"  ></p-dropdown>
+        </div>
+        <div class="ui-g-12 ui-md-12 ui-lg-4" style="text-align: right">
+            <button [disabled]="grupo==null ||  categoria==null" pButton type="button" icon="{{properties.buscar.icon}}" label="{{properties.buscar.label}}" (click)="buscar()"></button>
+        </div>
+        
+      </div>
+    </app-card>
+    <app-card [title]="acciones">
+
+      <p-messages [(value)]="msgs"></p-messages>
+      <div class="ui-g" *ngIf="bandera==0">
+        <div class="ui-g-12 ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
+          <i class="fa fa-search"></i>
+          <input #gb onkeypress="return event.keyCode != 13;" type="text" pInputText placeholder="Filtro Global">
+        </div>
+        <div class="ui-g-12 ui-md-12 ui-lg-12" style="padding: 0">
+          <p-dataTable [value]="items" [globalFilter]="gb" emptyMessage="{{properties.sinDatos}}">
+            <p-column field="nombre" header="Nombre" [sortable]="true"></p-column>
+            <p-column field="codigocontrol" header="Codigo de Control" [sortable]="true"></p-column>
+            <p-column field="numeroserie" header="Número de Serie" [sortable]="true"></p-column>
+            <p-column field="tipoingreso.nombre" header="Tipo de Ingreso"  [sortable]="true" >
+             
+            </p-column>
+            <p-column header="Opciones" [style]="{'width':'135px','text-align':'center'}">
+              <ng-template let-item="rowData" pTemplate="body">
+                <button type="button" class="buttonAction" pButton (click)="editarItem(item)" icon="{{properties.iconEditar}}" title="Editar"></button>
+                <button type="button" class="buttonAction" *ngIf="item.grupoid.catalogoid==constantes.grupoCultural" pButton (click)="piezaMuseable(item)" icon="{{properties.iconEditar}}" title="Editar"></button>
+                
+              </ng-template>
+            </p-column>
+          </p-dataTable>
+        </div>
+        <div class="ui-g-12 ui-md-12 ui-lg-12 alineacionBotones">
+          <button pButton [disabled]="grupo==null ||  categoria==null" (click)="nuevo()" icon="{{properties.nuevo.icon}}" label="{{properties.nuevo.label}}"></button>
+
+
+        </div>
+      </div>
+      <div class="ui-g" *ngIf="bandera==1">
+        <form #form="ngForm" (ngSubmit)="form.valid && guardar()" style="width: 100%" novalidate>
+
+          <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+            <div class="ui-grid-row">
+              <div class="ui-grid-col-2">
+                Código de Control *:
+              </div>
+              <div class="ui-grid-col-4">
+                <input pInputText type="text" maxlength="150" name="codigocontrol" [(ngModel)]="item.codigocontrol" required />
+              </div>
+              <div class="ui-grid-col-2">
+                Nombre *:
+              </div>
+              <div class="ui-grid-col-4">
+                <input pInputText type="text" maxlength="150" name="nombre" [(ngModel)]="item.nombre" required />
+              </div>
+
+            </div>
+
+            <div class="ui-grid-row">
+              <div class="ui-grid-col-2">
+                Descripción *:
+              </div>
+              <div class="ui-grid-col-10">
+                <textarea pInputTextarea style="resize: none; width: 100%" rows="3" maxlength="256" name="descripcion" [(ngModel)]="item.descripcion"
+                  required></textarea>
+              </div>
+
+            </div>
+            <div class="ui-grid-row">
+              <div class="ui-grid-col-2">
+                Marca:
+              </div>
+              <div class="ui-grid-col-4">
+                <input pInputText type="text" maxlength="150" name="marca" [(ngModel)]="item.marca" required />
+              </div>
+              <div class="ui-grid-col-2">
+                Modelo:
+              </div>
+              <div class="ui-grid-col-4">
+                <input pInputText type="text" maxlength="150" name="modelo" [(ngModel)]="item.modelo" required />
+              </div>
+
+            </div>
+            <div class="ui-grid-row">
+              <div class="ui-grid-col-2">
+                Número de Serie:
+              </div>
+              <div class="ui-grid-col-4">
+                <input pInputText type="text" maxlength="150" name="numeroserie" [(ngModel)]="item.numeroserie" required />
+              </div>
+              <div class="ui-grid-col-2">
+                Valor Costo Histórico:
+              </div>
+              <div class="ui-grid-col-4">
+                <input pInputText type="number" maxlength="150" name="valor" [(ngModel)]="item.valor" required />
+              </div>
+
+            </div>
+            <div class="ui-grid-row">
+              <div class="ui-grid-col-2">
+                Custodio Uno:
+              </div>
+              <div class="ui-grid-col-4">
+                <input pInputText type="text" maxlength="150" name="nombre" [(ngModel)]="item.nombre" required />
+              </div>
+              <div class="ui-grid-col-2">
+                Custodio Dos:
+              </div>
+              <div class="ui-grid-col-4">
+                <input pInputText type="text" maxlength="150" name="custodiodos" [(ngModel)]="item.custodiodos" required />
+              </div>
+
+            </div>
+            <div class="ui-grid-row">
+              <div class="ui-grid-col-2">
+                Fecha de Adquisición *:
+              </div>
+              <div class="ui-grid-col-4">
+                
+                <p-calendar name="fechaadquisicion" [locale]="es" [(ngModel)]="item.fechaadquisicion" [showIcon]="true" required  ></p-calendar> 
+
+              </div>
+              <div class="ui-grid-col-2">
+                Procedencia *:
+              </div>
+              <div class="ui-grid-col-4">
+                <input pInputText type="text" maxlength="150" name="procedencia" [(ngModel)]="item.procedencia" required />
+              </div>
+
+            </div>
+            <div class="ui-grid-row">
+              <div class="ui-grid-col-2">
+                Tipo de Ingreso *:
+              </div>
+              <div class="ui-grid-col-4">
+                <p-dropdown [options]="tipoItem" name="tipoItem" [(ngModel)]="item.tipoingreso"  required></p-dropdown>
+              </div>
+              <div class="ui-grid-col-2">
+                Número de Traspaso:
+              </div>
+              <div class="ui-grid-col-4">
+                <input pInputText type="number" maxlength="150" name="nombre" />
+              </div>
+
+            </div>
+            <div class="ui-grid-row">
+              <div class="ui-grid-col-2">
+                Fecha de Ingreso *:
+              </div>
+              <div class="ui-grid-col-4">
+                <p-calendar name="fechaingreso" [locale]="es" [(ngModel)]="item.fechaingreso" [showIcon]="true" required  ></p-calendar> 
+              </div>
+              <div class="ui-grid-col-2">
+                Tipo de Documento:
+              </div>
+              <div class="ui-grid-col-4">
+                <input pInputText type="text" maxlength="150" name="tipodocumento" [(ngModel)]="item.tipodocumento" required />
+              </div>
+
+            </div>
+            <div class="ui-grid-row">
+              <div class="ui-grid-col-2">
+                Restaurado *:
+              </div>
+              <div class="ui-grid-col-4">
+                <p-inputSwitch [(ngModel)]="item.restaurado" onLabel="Si" offLabel="No" name="restaurado" required></p-inputSwitch>
+              </div>
+              <div class="ui-grid-col-2">
+                Fecha de Restaurado:
+              </div>
+              <div class="ui-grid-col-4">
+                <p-calendar [disabled]="item.restaurado==false" name="fecharestaurado" [locale]="es" [(ngModel)]="item.fecharestaurado" [showIcon]="true" required  ></p-calendar> 
+              </div>
+
+            </div>
+
+            <div class="ui-grid-row">
+              <div class="ui-grid-col-2">
+                Detalles *:
+              </div>
+              <div class="ui-grid-col-10">
+                <textarea pInputTextarea style="resize: none; width: 100%" rows="3" maxlength="256" name="detalles" [(ngModel)]="item.detalles"
+                  required></textarea>
+              </div>
+
+            </div>
+
+            <div class="ui-grid-row">
+              <div class="ui-grid-col-2"></div>
+              <div class="ui-grid-col-3">
+                <button pButton type="submit" label="{{properties.guardar.label}}" icon="{{properties.guardar.icon}}" [disabled]="!form.valid"></button>
+              </div>
+              <div class="ui-grid-col-3">
+                <button pButton type="button" *ngIf="padre" (click)="volver()" label="{{properties.cancelar.label}}" icon="{{properties.cancelar.icon}}"
+                  class="ui-button-secondary"></button>
+                <button pButton type="button" *ngIf="!padre" (click)="subCatalogos(itemPadre)" label="{{properties.cancelar.label}}" icon="{{properties.cancelar.icon}}"
+                  class="ui-button-secondary"></button>
+              </div>
+              <div class="ui-grid-col-4"></div>
+            </div>
+            
+          </div>
+        </form>
+
+      </div>
+
+    </app-card>
+  </div>
+  <div class="col-sm-12" *ngIf="detallePiezaMuseable">
+    <piezaMuseable [item]="item"></piezaMuseable>
+    </div>
+</div>

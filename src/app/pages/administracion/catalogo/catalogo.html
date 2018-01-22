@@ -3,7 +3,7 @@
     <app-card [title]="acciones">
 
       <div *ngIf="!padre">
-        <h4>Catalogo Principal {{catalogoPadre.nombre}}</h4>
+        <h4>Catalogo Principal: {{catalogoPadre.nombre}}</h4>
 
       </div>
       <p-messages [(value)]="msgs"></p-messages>
@@ -18,7 +18,7 @@
             <p-column field="descripcion" header="Descripción" [sortable]="true"></p-column>
             <p-column field="activo" header="Activo" *ngIf="!padre" [sortable]="true" [style]="{'width':'75px'}">
               <ng-template let-catalogo="rowData" pTemplate="body">
-                <p-inputSwitch [(ngModel)]="catalogo.activo" onLabel="Si" offLabel="No" name="activo" readonly></p-inputSwitch>
+                <p-inputSwitch [(ngModel)]="catalogo.activo" onLabel="Si" offLabel="No" name="activo"  ></p-inputSwitch>
               </ng-template>
             </p-column>
             <p-column header="Opciones" [style]="{'width':'135px','text-align':'center'}">

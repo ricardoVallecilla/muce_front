@@ -1,0 +1,153 @@
+<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px" *ngIf="detalle!=null">
+
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Nombre:
+    </div>
+    <div class="ui-grid-col-4">
+      {{detalle.nombre}}
+    </div>
+    <div class="ui-grid-col-2">
+      Tipo de bien *:
+    </div>
+    <div class="ui-grid-col-4">
+      <input pInputText type="text" maxlength="150" name="tipobien" [(ngModel)]="detalle.tipobien" required />
+    </div>
+
+
+  </div>
+
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Otra denominación *:
+    </div>
+    <div class="ui-grid-col-10">
+      <input pInputText type="text" maxlength="150" name="codigocontrol" [(ngModel)]="detalle.codigocontrol" required />
+    </div>
+
+  </div>
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Material *:
+    </div>
+    <div class="ui-grid-col-4">
+      <input pInputText type="text" maxlength="150" name="marca" [(ngModel)]="detalle.marca" required />
+    </div>
+    <div class="ui-grid-col-2">
+      Técnica *:
+    </div>
+    <div class="ui-grid-col-4">
+      <input pInputText type="text" maxlength="150" name="modelo" [(ngModel)]="detalle.modelo" required />
+    </div>
+
+  </div>
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Fabricante:
+    </div>
+    <div class="ui-grid-col-4">
+      <input pInputText type="text" maxlength="150" name="numeroserie" [(ngModel)]="detalle.numeroserie" required />
+    </div>
+    <div class="ui-grid-col-2">
+      Lugar de fabricación:
+    </div>
+    <div class="ui-grid-col-4">
+      <input pInputText type="text" maxlength="150" name="valor" [(ngModel)]="detalle.valor" required />
+    </div>
+
+  </div>
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Fecha fabricación:
+    </div>
+    <div class="ui-grid-col-4">
+      <input pInputText type="text" maxlength="150" name="nombre" [(ngModel)]="detalle.nombre" required />
+    </div>
+    <div class="ui-grid-col-2">
+      Funciona:
+    </div>
+    <div class="ui-grid-col-4">
+      <input pInputText type="text" maxlength="150" name="custodiodos" [(ngModel)]="detalle.custodiodos" required />
+    </div>
+
+  </div>
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      En Uso *:
+    </div>
+    <div class="ui-grid-col-4">
+
+      <p-inputSwitch [(ngModel)]="detalle.restaurado" onLabel="Si" offLabel="No" name="restaurado" required></p-inputSwitch>
+
+    </div>
+    <div class="ui-grid-col-2">
+      Inscripciones *:
+    </div>
+    <div class="ui-grid-col-4">
+      <input pInputText type="text" maxlength="150" name="procedencia" [(ngModel)]="detalle.procedencia" required />
+    </div>
+
+  </div>
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">Dimensiones:</div>
+
+  </div>
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Alto *:
+    </div>
+    <div class="ui-grid-col-2">
+
+      <input pInputText type="text" maxlength="150" name="procedencia" [(ngModel)]="detalle.procedencia" required />
+
+    </div>
+    <div class="ui-grid-col-2">
+      Largo *:
+    </div>
+    <div class="ui-grid-col-2">
+      <input pInputText type="text" maxlength="150" name="procedencia" [(ngModel)]="detalle.procedencia" required />
+    </div>
+    <div class="ui-grid-col-2">
+      Profundidad *:
+    </div>
+    <div class="ui-grid-col-2">
+      <input pInputText type="text" maxlength="150" name="procedencia" [(ngModel)]="detalle.procedencia" required />
+    </div>
+    <div class="ui-grid-col-2">
+      Diámetros *:
+    </div>
+    <div class="ui-grid-col-2">
+
+      <input pInputText type="text" maxlength="150" name="procedencia" [(ngModel)]="detalle.procedencia" required />
+
+    </div>
+    <div class="ui-grid-col-2">
+      Espesor *:
+    </div>
+    <div class="ui-grid-col-2">
+      <input pInputText type="text" maxlength="150" name="procedencia" [(ngModel)]="detalle.procedencia" required />
+    </div>
+    <div class="ui-grid-col-2">
+      Peso *:
+    </div>
+    <div class="ui-grid-col-2">
+      <input pInputText type="text" maxlength="150" name="procedencia" [(ngModel)]="detalle.procedencia" required />
+    </div>
+
+  </div>
+
+
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Detalles *:
+    </div>
+    <div class="ui-grid-col-10">
+      <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="256" name="detalles" [(ngModel)]="detalle.detalles"
+        required></textarea>
+    </div>
+
+  </div>
+
+
+
+</div>

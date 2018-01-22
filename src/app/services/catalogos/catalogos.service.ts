@@ -22,6 +22,11 @@ export class CatalogoService {
     obtenerCatalogosHijos(padreId): Observable<any> {
         return this._generalServices.getResources("get", this.url.obtenerCatalogosHijos+padreId)
     }
+
+    obtenerCatalogosHijosPorPadres(padreIds): Observable<any> {
+        return this._generalServices.getResources("post", this.url.obtenerCatalogosHijosPorPadres,padreIds)
+    }
+
     guardarCatalogo(catalogo): Observable<any> {
         return this._generalServices.getResources("post", this.url.catalogos,catalogo)
     }

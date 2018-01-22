@@ -11,8 +11,14 @@ export class UrlServices {
     token = this.autorizacion + "/uaa/user"
 
     catalogos=this.proxy+"/catalogo/"
+    item=this.proxy+"/item/"
+    filtrarItem=this.item+"filtro"
+    piezaMuseable=this.proxy+"/piezaMuseable/"
+    piezaMuseableByItem=this.piezaMuseable+"item/"
+
     obtenerCatalogosPadre= this.catalogos+"padres"
     obtenerCatalogosHijos= this.catalogos+"hijos/"
+    obtenerCatalogosHijosPorPadres= this.catalogos+"hijos/lista"
     usuarios=this.proxy+"/usuario/"
     optenerUsuarios=this.usuarios
     roles=this.proxy+"/rol/"

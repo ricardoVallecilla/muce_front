@@ -1,0 +1,60 @@
+
+export class PiezaMuseable {
+    piezamuseableid: 0;
+    codigomuseo;
+    contenedor;
+    direccion;
+    direccionelectronica;
+    numero;
+    telefono;
+    disposicioncontenedor;
+    responsable;
+    responsableci;
+    elementosextranos;
+    observaciones;
+    fotografia;
+    historiaitinerancia;
+    entidadinvestigadora;
+    inventariadopor;
+    revisadopor;
+    aprobadopor;
+    fechainventario;
+    fecharevision;
+    fechaaprobacion;
+    registrofotograficopor;
+    usuarioregistroid;
+    fecharegistro;
+    procesojuridico;
+    estadointegridad: any;
+    humedad;
+    camaras;
+    estadoconservacionid: any;
+    ciudadid: any;
+    cantonid: any;
+    provinciaid: any;
+    intervencionesinadecuadas;
+    temperatura;
+    guardias;
+    luz;
+    sensores;
+    alarmas;
+    sistemaelectricodefectuoso;
+    extintores;
+    montaje;
+    itemid:any;
+    constructor(itemid) {
+        this.procesojuridico=false;
+        this.humedad=false;
+        this.camaras=false;
+        this.intervencionesinadecuadas=false;
+        this.temperatura=false;
+        this.guardias=false;
+        this.luz=false;
+        this.sensores=false;
+        this.alarmas=false;
+        this.sistemaelectricodefectuoso=false;
+        this.extintores=false;
+        this.montaje=false;
+        this.itemid=itemid;
+    }
+}

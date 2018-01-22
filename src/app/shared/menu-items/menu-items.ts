@@ -34,23 +34,17 @@ const MENUITEMS = [
   {
     label: 'Navigation',
     main: [
+      
       {
-        state: 'dashboard',
-        short_label: 'D',
-        name: 'Dashboard',
-        type: 'link',
-        icon: 'ti-home'
-      },
-      {
-        state: 'basic',
+        state: 'administracion',
         short_label: 'B',
-        name: 'Basic Components',
+        name: 'Administración',
         type: 'sub',
         icon: 'ti-layout-grid2-alt',
         children: [
           {
-            state: 'button',
-            name: 'Button'
+            state: 'catalogos',
+            name: 'Catalogos'
           },
           {
             state: 'typography',
