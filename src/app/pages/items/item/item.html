@@ -10,7 +10,7 @@
         <div class="ui-g-12 ui-md-12 ui-lg-1">Categorias</div>
         <div class="ui-g-12 ui-md-12 ui-lg-3">
             
-            <p-dropdown [disabled]="bandera==1" [options]="categoriaItem" filter="true" [style]="{'width': '100%'}" name="categoria" [(ngModel)]="categoria"  ></p-dropdown>
+            <p-dropdown [disabled]="bandera==1" [options]="categoriaItem" filter="true" [style]="{'width': '100%'}" name="categoria" [(ngModel)]="categoria" (ngModelChange)="buscar()" ></p-dropdown>
         </div>
         <div class="ui-g-12 ui-md-12 ui-lg-4" style="text-align: right">
             <button [disabled]="grupo==null ||  categoria==null" pButton type="button" icon="{{properties.buscar.icon}}" label="{{properties.buscar.label}}" (click)="buscar()"></button>
@@ -37,7 +37,7 @@
             <p-column header="Opciones" [style]="{'width':'135px','text-align':'center'}">
               <ng-template let-item="rowData" pTemplate="body">
                 <button type="button" class="buttonAction" pButton (click)="editarItem(item)" icon="{{properties.iconEditar}}" title="Editar"></button>
-                <button type="button" class="buttonAction" *ngIf="item.grupoid.catalogoid==constantes.grupoCultural" pButton (click)="piezaMuseable(item)" icon="{{properties.iconEditar}}" title="Editar"></button>
+                <button type="button" class="buttonAction" *ngIf="item.grupoid.catalogoid==constantes.grupoCultural" pButton (click)="piezaMuseable(item)" icon="fa-building" title="Editar"></button>
                 
               </ng-template>
             </p-column>

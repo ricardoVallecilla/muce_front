@@ -5,7 +5,7 @@
       Nombre:
     </div>
     <div class="ui-grid-col-4">
-      {{detalle.nombre}}
+      {{item?.nombre}}
     </div>
     <div class="ui-grid-col-2">
       Tipo de bien *:
@@ -61,7 +61,7 @@
       Fecha fabricación:
     </div>
     <div class="ui-grid-col-4">
-      <input pInputText type="text" maxlength="150" name="nombre" [(ngModel)]="detalle.nombre" required />
+        <p-calendar name="fechaadquisicion" [locale]="es" [(ngModel)]="item.fechaadquisicion" [showIcon]="true" required  ></p-calendar> 
     </div>
     <div class="ui-grid-col-2">
       Funciona:
@@ -90,51 +90,53 @@
   </div>
   <div class="ui-grid-row">
     <div class="ui-grid-col-2">Dimensiones:</div>
+    <div class="ui-grid-col-10">
+      <div class="ui-g">
+          <div class="ui-g-2">
+              Alto *:
+            </div>
+            <div class="ui-g-2">
+        
+              <input pInputText type="text" maxlength="150" name="procedencia" [(ngModel)]="detalle.procedencia" required />
+        
+            </div>
+            <div class="ui-g-2">
+              Largo *:
+            </div>
+            <div class="ui-g-2">
+              <input pInputText type="text" maxlength="150" name="procedencia" [(ngModel)]="detalle.procedencia" required />
+            </div>
+            <div class="ui-g-2">
+              Profundidad *:
+            </div>
+            <div class="ui-g-2">
+              <input pInputText type="text" maxlength="150" name="procedencia" [(ngModel)]="detalle.procedencia" required />
+            </div>
+            <div class="ui-g-2">
+              Diámetros *:
+            </div>
+            <div class="ui-g-2">
+        
+              <input pInputText type="text" maxlength="150" name="procedencia" [(ngModel)]="detalle.procedencia" required />
+        
+            </div>
+            <div class="ui-g-2">
+              Espesor *:
+            </div>
+            <div class="ui-g-2">
+              <input pInputText type="text" maxlength="150" name="procedencia" [(ngModel)]="detalle.procedencia" required />
+            </div>
+            <div class="ui-g-2">
+              Peso *:
+            </div>
+            <div class="ui-g-2">
+              <input pInputText type="text" maxlength="150" name="procedencia" [(ngModel)]="detalle.procedencia" required />
+            </div>
+      </div>
+    </div>
 
   </div>
-  <div class="ui-grid-row">
-    <div class="ui-grid-col-2">
-      Alto *:
-    </div>
-    <div class="ui-grid-col-2">
-
-      <input pInputText type="text" maxlength="150" name="procedencia" [(ngModel)]="detalle.procedencia" required />
-
-    </div>
-    <div class="ui-grid-col-2">
-      Largo *:
-    </div>
-    <div class="ui-grid-col-2">
-      <input pInputText type="text" maxlength="150" name="procedencia" [(ngModel)]="detalle.procedencia" required />
-    </div>
-    <div class="ui-grid-col-2">
-      Profundidad *:
-    </div>
-    <div class="ui-grid-col-2">
-      <input pInputText type="text" maxlength="150" name="procedencia" [(ngModel)]="detalle.procedencia" required />
-    </div>
-    <div class="ui-grid-col-2">
-      Diámetros *:
-    </div>
-    <div class="ui-grid-col-2">
-
-      <input pInputText type="text" maxlength="150" name="procedencia" [(ngModel)]="detalle.procedencia" required />
-
-    </div>
-    <div class="ui-grid-col-2">
-      Espesor *:
-    </div>
-    <div class="ui-grid-col-2">
-      <input pInputText type="text" maxlength="150" name="procedencia" [(ngModel)]="detalle.procedencia" required />
-    </div>
-    <div class="ui-grid-col-2">
-      Peso *:
-    </div>
-    <div class="ui-grid-col-2">
-      <input pInputText type="text" maxlength="150" name="procedencia" [(ngModel)]="detalle.procedencia" required />
-    </div>
-
-  </div>
+ 
 
 
   <div class="ui-grid-row">

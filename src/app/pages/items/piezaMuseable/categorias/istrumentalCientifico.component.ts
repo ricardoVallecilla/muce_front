@@ -24,6 +24,7 @@ export class IstrumentalCientificoComponent implements OnInit {
   grupo = null;
   categoria = null;
   @Input() detalle = null;
+  @Input() item = null;
 
   es = this.properties.es;
   constructor(

@@ -29,7 +29,10 @@ export class PiezaMuseableComponent implements OnInit {
   @Input() item: Item = null;
   detalle=null;
   piezaMuseable: PiezaMuseable = null;
-
+  estadoDelBien=[];
+  estadosBienSelecionados=[]
+  estadoConservacionItem=[]
+  integridadPiezaItem=[]
   es = this.properties.es;
   constructor(
     private _catalogoService: CatalogoService,
@@ -44,6 +47,7 @@ export class PiezaMuseableComponent implements OnInit {
     if (this.item != null) {
       this.acciones = "Detalle de la pieza: " + this.item.nombre;
       this.buscar()
+      this.cargarEstadoBien()
     }
     this.cargarCatalogos()
   }
@@ -67,6 +71,25 @@ export class PiezaMuseableComponent implements OnInit {
 
   }
 
+  cargarEstadoBien(){
+    let padreId;
+    switch (this.item.categoriaid.catalogoid) {
+      case this.constantes.instrumental:
+      padreId=this.constantes.isntrumentalEstadoBien;
+
+        break;
+    
+      default:
+        break;
+    }
+    this._catalogoService.obtenerCatalogosHijosPorPadres([padreId])
+      .subscribe((catalogos: any[]) => {
+        this.estadoDelBien=catalogos;
+      }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }),
+      () => {
+      });
+  }
+
   crearDetalle(){
     switch (this.item.categoriaid.catalogoid) {
       case this.constantes.instrumental:
@@ -76,10 +99,11 @@ export class PiezaMuseableComponent implements OnInit {
       default:
         break;
     }
+    
   }
 
   cargarCatalogos() {
-    this._catalogoService.obtenerCatalogosHijosPorPadres([this.constantes.tipoIngreso, this.constantes.grupo])
+    this._catalogoService.obtenerCatalogosHijosPorPadres([this.constantes.tipoIngreso, this.constantes.grupo,this.constantes.estadoConservacion,this.constantes.integridadPieza])
       .subscribe((catalogos: any[]) => {
         catalogos.filter(x => x.catalogopadreid.catalogoid == this.constantes.tipoIngreso).forEach(x => {
           this.tipoItem.push({ label: x.nombre, value: x })
@@ -87,6 +111,8 @@ export class PiezaMuseableComponent implements OnInit {
         catalogos.filter(x => x.catalogopadreid.catalogoid == this.constantes.grupo).forEach(x => {
           this.grupoItem.push({ label: x.nombre, value: x })
         });
+        this.estadoConservacionItem=catalogos.filter(x => x.catalogopadreid.catalogoid == this.constantes.estadoConservacion)
+        this.integridadPiezaItem=catalogos.filter(x => x.catalogopadreid.catalogoid == this.constantes.integridadPieza)
       }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }),
       () => {
       });

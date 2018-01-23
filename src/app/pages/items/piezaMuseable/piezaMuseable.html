@@ -5,7 +5,7 @@
 
       <p-messages [(value)]="msgs"></p-messages>
 
-      <div class="ui-g">
+      <div class="ui-g" *ngIf="item!=null">
         <form #form="ngForm" (ngSubmit)="form.valid && guardar()" style="width: 100%" novalidate>
 
           <p-fieldset legend="FICHA DE INVENTARIO {{item?.categoriaid.nombre}}">
@@ -13,7 +13,7 @@
             <div class="separadorInventario">
               <h5>INFORMACIÓN TÉCNICA</h5>
             </div>
-            <istrumentalCientifico [detalle]="detalle"></istrumentalCientifico>
+            <istrumentalCientifico [item]="item" [detalle]="detalle"></istrumentalCientifico>
 
 
             <div class="separadorInventario">
@@ -26,13 +26,13 @@
                   Provincia:
                 </div>
                 <div class="ui-grid-col-4">
-                  {{item.nombre}}
+                  <p-dropdown [options]="provinciaid" [(ngModel)]="item.provinciaid" name="provinciaid" (ngModelChange)="actualizarRol($event)"></p-dropdown>
                 </div>
                 <div class="ui-grid-col-2">
                   Canton *:
                 </div>
                 <div class="ui-grid-col-4">
-                  <input pInputText type="text" maxlength="150" name="codigocontrol" [(ngModel)]="item.codigocontrol" required />
+                  <p-dropdown [options]="cantonid" name="cantonid" [(ngModel)]="item.cantonid"></p-dropdown>
                 </div>
 
 
@@ -42,13 +42,13 @@
                   Ciudad *:
                 </div>
                 <div class="ui-grid-col-4">
-                  <input pInputText type="text" maxlength="150" name="marca" [(ngModel)]="item.marca" required />
+                  <input pInputText type="text" maxlength="150" name="codigocontrol" [(ngModel)]="item.ciudadid" required />
                 </div>
                 <div class="ui-grid-col-2">
                   Contenedor *:
                 </div>
                 <div class="ui-grid-col-4">
-                  <input pInputText type="text" maxlength="150" name="modelo" [(ngModel)]="item.modelo" required />
+                  <input pInputText type="text" maxlength="150" name="modelo" [(ngModel)]="item.contenedor" required />
                 </div>
 
               </div>
@@ -57,13 +57,13 @@
                   Dirección:
                 </div>
                 <div class="ui-grid-col-4">
-                  <input pInputText type="text" maxlength="150" name="numeroserie" [(ngModel)]="item.numeroserie" required />
+                  <input pInputText type="text" maxlength="150" name="direccion" [(ngModel)]="item.direccion" required />
                 </div>
                 <div class="ui-grid-col-2">
                   No.:
                 </div>
                 <div class="ui-grid-col-4">
-                  <input pInputText type="text" maxlength="150" name="valor" [(ngModel)]="item.valor" required />
+                  <input pInputText type="text" maxlength="150" name="numero" [(ngModel)]="item.numero" required />
                 </div>
 
               </div>
@@ -72,13 +72,14 @@
                   Email:
                 </div>
                 <div class="ui-grid-col-4">
-                  <input pInputText type="text" maxlength="150" name="nombre" [(ngModel)]="item.nombre" required />
+                  <input pInputText type="text" maxlength="150" name="direccionelectronica" [(ngModel)]="item.direccionelectronica" required
+                  />
                 </div>
                 <div class="ui-grid-col-2">
                   Teléfono:
                 </div>
                 <div class="ui-grid-col-4">
-                  <input pInputText type="text" maxlength="150" name="custodiodos" [(ngModel)]="item.custodiodos" required />
+                  <input pInputText type="text" maxlength="150" name="telefono" [(ngModel)]="item.telefono" required />
                 </div>
 
               </div>
@@ -87,8 +88,9 @@
                   Disposición en el contendor *:
                 </div>
                 <div class="ui-grid-col-">
+                  <input pInputText type="text" maxlength="150" name="disposicioncontenedor" [(ngModel)]="item.disposicioncontenedor" required
+                  />
 
-                  <p-inputSwitch [(ngModel)]="item.restaurado" onLabel="Si" offLabel="No" name="restaurado" required></p-inputSwitch>
 
                 </div>
 
@@ -98,13 +100,13 @@
                   Responsable:
                 </div>
                 <div class="ui-grid-col-4">
-                  <input pInputText type="text" maxlength="150" name="nombre" [(ngModel)]="item.nombre" required />
+                  <input pInputText type="text" maxlength="150" name="responsable" [(ngModel)]="item.responsable" required />
                 </div>
                 <div class="ui-grid-col-2">
                   Cédudala Ciudadania:
                 </div>
                 <div class="ui-grid-col-4">
-                  <input pInputText type="text" maxlength="150" name="custodiodos" [(ngModel)]="item.custodiodos" required />
+                  <input pInputText type="text" maxlength="150" name="cedula" [(ngModel)]="item.cedula" required />
                 </div>
 
               </div>
@@ -135,14 +137,21 @@
                 <div class="ui-grid-col-2">
                   Estado de conservación:
                 </div>
-                <div class="ui-grid-col-4">
-                  {{item.nombre}}
+                <div class="ui-grid-col-6">
+                    <div class="ui-g">
+                        <div class="ui-g-3" *ngFor="let estado of estadoConservacionItem">
+                            <p-radioButton name="estadoConservacion" value="{{estado.catalaogoid}}" label="{{estado.nombre}}" [(ngModel)]="estadoConservacion"></p-radioButton>
+                          </div>
+                    </div>
                 </div>
               </div>
               <div class="ui-grid-row">
-                <div class="ui-grid-col-2">
-                  Provincia:
+                <div class="ui-g">
+                    <div class="ui-g-3" *ngFor="let estado of estadoDelBien">
+                        <p-checkbox name="estadobien" value="{{estado.catalaogoid}}" label="{{estado.nombre}}" [(ngModel)]="estadosBienSelecionados"></p-checkbox>
+                      </div>
                 </div>
+                
 
               </div>
               <div class="ui-grid-row">
@@ -157,8 +166,12 @@
                 <div class="ui-grid-col-2">
                   Estado de integridad:
                 </div>
-                <div class="ui-grid-col-4">
-                  {{item.nombre}}
+                <div class="ui-grid-col-6">
+                    <div class="ui-g">
+                        <div class="ui-g-3" *ngFor="let estado of integridadPiezaItem">
+                            <p-radioButton name="integridad" value="{{estado.catalaogoid}}" label="{{estado.nombre}}" [(ngModel)]="integridadPieza"></p-radioButton>
+                          </div>
+                    </div>
                 </div>
               </div>
 
@@ -182,7 +195,7 @@
                         Humedad:
                       </div>
                       <div class="ui-grid-col-4">
-                        {{item.nombre}}
+                        <p-inputSwitch [(ngModel)]="item.humedad" onLabel="ALTA" offLabel="BAJA" name="humedad" required></p-inputSwitch>
                       </div>
                     </div>
                     <div class="ui-grid-row">
@@ -190,7 +203,7 @@
                         Temperatura:
                       </div>
                       <div class="ui-grid-col-4">
-                        {{item.nombre}}
+                        <p-inputSwitch [(ngModel)]="item.temperatura" onLabel="ALTA" offLabel="BAJA" name="temperatura" required></p-inputSwitch>
                       </div>
                     </div>
                     <div class="ui-grid-row">
@@ -198,7 +211,7 @@
                         Luz:
                       </div>
                       <div class="ui-grid-col-4">
-                        {{item.nombre}}
+                        <p-inputSwitch [(ngModel)]="item.luz" onLabel="DIRECTA" offLabel="INDIRECTA" name="luz" required></p-inputSwitch>
                       </div>
                     </div>
                   </div>
@@ -216,7 +229,7 @@
                         Montaje:
                       </div>
                       <div class="ui-grid-col-4">
-                        {{item.nombre}}
+                        <p-inputSwitch [(ngModel)]="item.luz" onLabel="ADECUADO" offLabel="INADECUADO" name="luz" required></p-inputSwitch>
                       </div>
                     </div>
                     <div class="ui-grid-row">
@@ -224,7 +237,7 @@
                         Extintores:
                       </div>
                       <div class="ui-grid-col-4">
-                        {{item.nombre}}
+                        <p-inputSwitch [(ngModel)]="item.luz" onLabel="SI" offLabel="NO" name="luz" required></p-inputSwitch>
                       </div>
                     </div>
                     <div class="ui-grid-row">
@@ -232,7 +245,7 @@
                         Sistema eléctrico defectuoso::
                       </div>
                       <div class="ui-grid-col-4">
-                        {{item.nombre}}
+                        <p-inputSwitch [(ngModel)]="item.luz" onLabel="SI" offLabel="NO" name="luz" required></p-inputSwitch>
                       </div>
                     </div>
                   </div>
@@ -250,7 +263,7 @@
                         Alarmas:
                       </div>
                       <div class="ui-grid-col-4">
-                        {{item.nombre}}
+                        <p-inputSwitch [(ngModel)]="item.luz" onLabel="SI" offLabel="NO" name="luz" required></p-inputSwitch>
                       </div>
                     </div>
                     <div class="ui-grid-row">
@@ -258,7 +271,7 @@
                         Sensores:
                       </div>
                       <div class="ui-grid-col-4">
-                        {{item.nombre}}
+                        <p-inputSwitch [(ngModel)]="item.luz" onLabel="SI" offLabel="NO" name="luz" required></p-inputSwitch>
                       </div>
                     </div>
                     <div class="ui-grid-row">
@@ -266,7 +279,7 @@
                         Cámaras:
                       </div>
                       <div class="ui-grid-col-4">
-                        {{item.nombre}}
+                        <p-inputSwitch [(ngModel)]="item.luz" onLabel="SI" offLabel="NO" name="luz" required></p-inputSwitch>
                       </div>
                     </div>
                     <div class="ui-grid-row">
@@ -274,7 +287,7 @@
                         Guardias:
                       </div>
                       <div class="ui-grid-col-4">
-                        {{item.nombre}}
+                        <p-inputSwitch [(ngModel)]="item.luz" onLabel="SI" offLabel="NO" name="luz" required></p-inputSwitch>
                       </div>
                     </div>
                   </div>
@@ -336,7 +349,7 @@
                   Fecha de transferencia:
                 </div>
                 <div class="ui-grid-col-4">
-                  {{item.nombre}}
+                    <p-calendar name="fechaadquisicion" [locale]="es" [(ngModel)]="item.fechaadquisicion" [showIcon]="true" required  ></p-calendar> 
                 </div>
               </div>
               <div class="ui-grid-row">
@@ -344,13 +357,13 @@
                   Procedencia:
                 </div>
                 <div class="ui-grid-col-4">
-                  {{item.nombre}}
+                  <input pInputText type="text" maxlength="150" name="codigocontrol"  required />
                 </div>
                 <div class="ui-grid-col-2">
                   Custodio:
                 </div>
                 <div class="ui-grid-col-4">
-                  {{item.nombre}}
+                  <input pInputText type="text" maxlength="150" name="codigocontrol"  required />
                 </div>
               </div>
             </div>
@@ -365,13 +378,13 @@
                   Entidad investigadora:
                 </div>
                 <div class="ui-grid-col-4">
-                  {{item.nombre}}
+                  <input pInputText type="text" maxlength="150" name="codigocontrol"  required />
                 </div>
                 <div class="ui-grid-col-2">
                   Inventariado por:
                 </div>
                 <div class="ui-grid-col-4">
-                  {{item.nombre}}
+                  <input pInputText type="text" maxlength="150" name="codigocontrol"  required />
                 </div>
               </div>
               <div class="ui-grid-row">
@@ -379,13 +392,13 @@
                   Fecha de inventario:
                 </div>
                 <div class="ui-grid-col-4">
-                  {{item.nombre}}
+                    <p-calendar name="fechaadquisicion" [locale]="es" [(ngModel)]="item.fechaadquisicion" [showIcon]="true" required  ></p-calendar> 
                 </div>
                 <div class="ui-grid-col-2">
                   Revisado por:
                 </div>
                 <div class="ui-grid-col-4">
-                  {{item.nombre}}
+                  <input pInputText type="text" maxlength="150" name="codigocontrol"  required />
                 </div>
               </div>
               <div class="ui-grid-row">
@@ -393,13 +406,13 @@
                   Fecha de revisión:
                 </div>
                 <div class="ui-grid-col-4">
-                  {{item.nombre}}
+                    <p-calendar name="fechaadquisicion" [locale]="es" [(ngModel)]="item.fechaadquisicion" [showIcon]="true" required  ></p-calendar> 
                 </div>
                 <div class="ui-grid-col-2">
                   Aprobado por:
                 </div>
                 <div class="ui-grid-col-4">
-                  {{item.nombre}}
+                  <input pInputText type="text" maxlength="150" name="codigocontrol"  required />
                 </div>
               </div>
               <div class="ui-grid-row">
@@ -407,13 +420,13 @@
                   Fecha de aprobación:
                 </div>
                 <div class="ui-grid-col-4">
-                  {{item.nombre}}
+                    <p-calendar name="fechaadquisicion" [locale]="es" [(ngModel)]="item.fechaadquisicion" [showIcon]="true" required  ></p-calendar> 
                 </div>
                 <div class="ui-grid-col-2">
                   Registrado por:
                 </div>
                 <div class="ui-grid-col-4">
-                  {{item.nombre}}
+                  <input pInputText type="text" maxlength="150" name="codigocontrol"  required />
                 </div>
               </div>
             </div>
@@ -422,12 +435,12 @@
               <div class="ui-grid-row">
                 <div class="ui-grid-col-2"></div>
                 <div class="ui-grid-col-3">
-                  <button pButton type="submit" label="{{properties.guardar.label}}" icon="{{properties.guardar.icon}}" ></button>
+                  <button pButton type="submit" label="{{properties.guardar.label}}" icon="{{properties.guardar.icon}}"></button>
                 </div>
                 <div class="ui-grid-col-3">
                   <button pButton type="button" *ngIf="padre" (click)="volver()" label="{{properties.cancelar.label}}" icon="{{properties.cancelar.icon}}"
                     class="ui-button-secondary"></button>
-              
+
                 </div>
                 <div class="ui-grid-col-4"></div>
               </div>

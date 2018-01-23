@@ -20,5 +20,8 @@ export class Constantes{
     instrumental=30
     peleontologia=31
     zoologia=32
+    isntrumentalEstadoBien=58;
+    estadoConservacion=87;
+    integridadPieza=91
 
 }
