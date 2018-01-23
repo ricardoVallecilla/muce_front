@@ -3,23 +3,44 @@
         <app-card [title]="acciones">
             <p-tabView>
                 <p-tabPanel header="Museo" leftIcon="fa-print">
-                    <p-dataTable [value]="museos" *ngIf="bandera==0">
-                        <p-column field="nombres" header="Nombre"></p-column>
-                        <p-column field="descripcion" header="Descripción"></p-column>
-                        <p-column field="directora" header="Directora"></p-column>
-                        <p-column field="telefono" header="Teléfono"></p-column>
-                        <p-column header="Opciones">
-                            <ng-template let-museo="rowData" pTemplate="body">
-                                <button pButton (click)="modificarMuseo(museo)" icon="fa fa-fw fa-check" label="Modificar"></button>
-                            </ng-template>
-                        </p-column>
-                    </p-dataTable>
-                    <div *ngIf="bandera==1">
-                        <input type="text" pInputText [(ngModel)]="museo.nombres"/><br>
-                        <input type="text" pInputText [(ngModel)]="museo.descripcion"/><br>
-                        <input type="text" pInputText [(ngModel)]="museo.directora"/><br>
-                        <input type="text" pInputText [(ngModel)]="museo.telefono"/><br>
-                        <button pButton (click)="guardar()" icon="fa fa-fw fa-check" label="Guardar"></button>
+                    <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px" *ngIf="bandera==0">
+                        <p-dataTable [value]="museos">
+                            <p-column field="nombres" header="Nombre"></p-column>
+                            <p-column field="descripcion" header="Descripción"></p-column>
+                            <p-column field="directora" header="Directora"></p-column>
+                            <p-column field="telefono" header="Teléfono"></p-column>
+                            <p-column header="Opciones">
+                                <ng-template let-museo="rowData" pTemplate="body">
+                                    <button pButton (click)="modificarMuseo(museo)" icon="fa fa-fw fa-check" label="Modificar"></button>
+                                </ng-template>
+                            </p-column>
+                        </p-dataTable>
+                        <br>
+                        <button pButton (click)="nuevo()" icon="fa fa-fw fa-check" label="Nuevo"></button>
+                    </div>
+                    
+                    <div *ngIf="bandera==1" class="ui-g">
+                        <div class="ui-g-12 ui-md-12 ui-lg-6">
+                            <label>Nombre</label>
+                            <input type="text" pInputText [(ngModel)]="museo.nombres"/><br>
+                        </div>
+                        <div class="ui-g-12 ui-md-12 ui-lg-6">
+                            <label>Descipción</label>
+                            <input type="text" pInputText [(ngModel)]="museo.descripcion"/><br>
+                        </div>
+                        <div class="ui-g-12 ui-md-12 ui-lg-6">
+                            <label>Director</label>
+                            <input type="text" pInputText [(ngModel)]="museo.directora"/><br>
+                        </div>
+                        <div class="ui-g-12 ui-md-12 ui-lg-6">
+                            <label>Telefono</label>
+                            <input type="text" pInputText [(ngModel)]="museo.telefono"/><br>
+                        </div>
+                        <br>
+                        <div class="ui-g-12 ui-md-12">
+                            <button pButton (click)="guardar()" icon="fa fa-fw fa-check" label="Guardar"></button>
+                            <button pButton (click)="bandera=0" icon="fa fa-fw fa-check" label="Cancelar"></button>
+                        </div>
                     </div>
                 </p-tabPanel>
             </p-tabView>

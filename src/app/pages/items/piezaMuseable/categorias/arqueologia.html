@@ -1,0 +1,148 @@
+<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px" *ngIf="detalle!=null">
+  
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Categoría morfofuncional *:
+    </div>
+    <div class="ui-grid-col-10">
+      <input pInputText type="text" maxlength="150" name="morfofuncional" required />
+    </div>
+  </div>
+
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Material primario *:
+    </div>
+    <div class="ui-grid-col-4">
+      <input pInputText type="text" maxlength="150" name="codigocontrol" [(ngModel)]="detalle.codigocontrol" required />
+    </div>
+    <div class="ui-grid-col-2">
+      Tipo de material *:
+    </div>
+    <div class="ui-grid-col-4">
+      <input pInputText type="text" maxlength="150" name="codigocontrol" [(ngModel)]="detalle.codigocontrol" required />
+    </div>
+  </div>
+
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Técnica de manufactura *:
+    </div>
+    <div class="ui-grid-col-10">
+      <input pInputText type="text" maxlength="150" name="morfofuncional" required />
+    </div>
+  </div>
+
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Técnica decorativa *:
+    </div>
+    <div class="ui-grid-col-10">
+      <input pInputText type="text" maxlength="150" name="morfofuncional" required />
+    </div>
+  </div>
+
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Periodo histórico *:
+    </div>
+    <div class="ui-grid-col-6">
+      <input pInputText type="text" maxlength="150" name="codigocontrol" [(ngModel)]="detalle.codigocontrol" required />
+    </div>
+    <div class="ui-grid-col-2">
+      Cronología *:
+    </div>
+    <div class="ui-grid-col-2">
+      <input pInputText type="text" maxlength="150" name="codigocontrol" [(ngModel)]="detalle.codigocontrol" required />
+    </div>
+  </div>
+
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Cultura *:
+    </div>
+    <div class="ui-grid-col-6">
+      <input pInputText type="text" maxlength="150" name="codigocontrol" [(ngModel)]="detalle.codigocontrol" required />
+    </div>
+    <div class="ui-grid-col-2">
+      Fase *:
+    </div>
+    <div class="ui-grid-col-2">
+      <input pInputText type="text" maxlength="150" name="codigocontrol" [(ngModel)]="detalle.codigocontrol" required />
+    </div>
+  </div>
+
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">Dimensiones:</div>
+  </div>
+
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Alto *:
+    </div>
+    <div class="ui-grid-col-2">
+      <input pInputText type="text" maxlength="150" name="procedencia" [(ngModel)]="detalle.procedencia" required />
+    </div>
+    <div class="ui-grid-col-2">
+      Largo *:
+    </div>
+    <div class="ui-grid-col-2">
+      <input pInputText type="text" maxlength="150" name="procedencia" [(ngModel)]="detalle.procedencia" required />
+    </div>
+    <div class="ui-grid-col-2">
+      Ancho *:
+    </div>
+    <div class="ui-grid-col-2">
+      <input pInputText type="text" maxlength="150" name="procedencia" [(ngModel)]="detalle.procedencia" required />
+    </div>
+    <div class="ui-grid-col-2">
+      Diámetros *:
+    </div>
+    <div class="ui-grid-col-2">
+
+      <input pInputText type="text" maxlength="150" name="procedencia" [(ngModel)]="detalle.procedencia" required />
+
+    </div>
+    <div class="ui-grid-col-2">
+      Espesor *:
+    </div>
+    <div class="ui-grid-col-2">
+      <input pInputText type="text" maxlength="150" name="procedencia" [(ngModel)]="detalle.procedencia" required />
+    </div>
+    <div class="ui-grid-col-2">
+      Peso *:
+    </div>
+    <div class="ui-grid-col-2">
+      <input pInputText type="text" maxlength="150" name="procedencia" [(ngModel)]="detalle.procedencia" required />
+    </div>
+  </div>
+
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Inscripciones:
+    </div>
+    <div class="ui-grid-col-10">
+      <input pInputText type="text" maxlength="150" name="morfofuncional" required />
+    </div>
+  </div>
+
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Elemento relacionados:
+    </div>
+    <div class="ui-grid-col-10">
+      <input pInputText type="text" maxlength="150" name="morfofuncional" required />
+    </div>
+  </div>
+
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Detalles *:
+    </div>
+    <div class="ui-grid-col-10">
+      <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="256" name="detalles" [(ngModel)]="detalle.detalles"
+        required></textarea>
+    </div>
+  </div>
+
+</div>

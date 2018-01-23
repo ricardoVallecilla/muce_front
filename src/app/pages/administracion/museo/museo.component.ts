@@ -32,6 +32,11 @@ export class MuseoComponent implements OnInit {
         this.museo = museo
         this.bandera = 1;
     }
+
+    nuevo() {
+        this.bandera = 1;
+        this.museo = new Object();
+    }
     
     guardar() {
         this.museoService.guardarMuseo(this.museo)

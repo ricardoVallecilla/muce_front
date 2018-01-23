@@ -31,6 +31,13 @@ import { IstrumentalCientificoComponent } from './piezaMuseable/categorias/istru
 import { PiezaMuseableComponent } from './piezaMuseable/piezaMuseable.component';
 import { MuseoServices } from '../../services/museo/museo.services';
 import { ItemService } from '../../services/item/items.service'
+import { ArqueologiaComponent } from './piezaMuseable/categorias/arqueologia.component';
+import { BotanicaComponent } from './piezaMuseable/categorias/botanica.component';
+import { EntomologiaComponent } from './piezaMuseable/categorias/entomologia.component';
+import { FotografiaComponent } from './piezaMuseable/categorias/fotografia.component';
+import { GeologiaComponent } from './piezaMuseable/categorias/geologia.component';
+import { PaleontologiaComponent } from './piezaMuseable/categorias/paleontologia.component';
+import { ZoologiaComponent } from './piezaMuseable/categorias/zoologia.component';
 
 
 //import {WithSocialComponent} from './registration/with-social/with-social.component';
@@ -96,7 +103,7 @@ export const ItemRoutes: Routes = [
     FormsModule,
     ReactiveFormsModule
   ],
-  declarations: [PiezaMuseableComponent,ItemComponent,IstrumentalCientificoComponent]
+  declarations: [PiezaMuseableComponent,ItemComponent,ArqueologiaComponent,BotanicaComponent, IstrumentalCientificoComponent]
   , providers: [GeneralService, ConfirmationService, CatalogoService, UsuarioService, MuseoServices,ItemService]
 })
 export class ItemModule { }

@@ -13,8 +13,10 @@
             <div class="separadorInventario">
               <h5>INFORMACIÓN TÉCNICA</h5>
             </div>
-            <istrumentalCientifico [detalle]="detalle"></istrumentalCientifico>
-
+            <arqueologia *ngIf="item.categoriaid.catalogoid==25" [detalle]="detalle"></arqueologia>
+            <botanica *ngIf="item.categoriaid.catalogoid==26" [detalle]="detalle"></botanica>
+            <istrumentalCientifico *ngIf="item.categoriaid.catalogoid==30" [detalle]="detalle"></istrumentalCientifico>
+            
 
             <div class="separadorInventario">
               <h5>DATOS DE LOCALIZACIÓN</h5>
