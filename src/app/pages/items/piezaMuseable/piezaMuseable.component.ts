@@ -95,7 +95,12 @@ export class PiezaMuseableComponent implements OnInit {
       case this.constantes.instrumental:
         this.detalle= new InstrumentalCientifico(this.piezaMuseable)
         break;
-    
+      case this.constantes.arqueologia:
+        this.detalle= new InstrumentalCientifico(this.piezaMuseable)
+        break;
+      case this.constantes.botanica:
+        this.detalle= new InstrumentalCientifico(this.piezaMuseable)
+        break;
       default:
         break;
     }
