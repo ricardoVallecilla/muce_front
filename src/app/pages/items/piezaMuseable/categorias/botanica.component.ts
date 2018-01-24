@@ -17,6 +17,7 @@ export class BotanicaComponent implements OnInit {
   msgs: Message[] = [];
   
   @Input() detalle = null;
+  @Input() item = null;
 
   es = this.properties.es;
   constructor(

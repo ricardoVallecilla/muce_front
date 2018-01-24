@@ -1,13 +1,9 @@
 <div class="row">
   <div class="col-sm-12">
-
     <app-card [title]="acciones">
-
       <p-messages [(value)]="msgs"></p-messages>
-
       <div class="ui-g" *ngIf="item!=null">
         <form #form="ngForm" (ngSubmit)="form.valid && guardar()" style="width: 100%" novalidate>
-
           <p-fieldset legend="FICHA DE INVENTARIO {{item?.categoriaid.nombre}}">
 
             <div class="separadorInventario">
@@ -15,7 +11,12 @@
             </div>
             <arqueologia [item]="item" *ngIf="item.categoriaid.catalogoid==25" [detalle]="detalle"></arqueologia>
             <botanica  [item]="item" *ngIf="item.categoriaid.catalogoid==26" [detalle]="detalle"></botanica>
+            <entomologia  [item]="item" *ngIf="item.categoriaid.catalogoid==27" [detalle]="detalle"></entomologia>
+            <fotografia  [item]="item" *ngIf="item.categoriaid.catalogoid==27" [detalle]="detalle"></fotografia>
+            <geologia  [item]="item" *ngIf="item.categoriaid.catalogoid==27" [detalle]="detalle"></geologia>
             <istrumentalCientifico [item]="item" *ngIf="item.categoriaid.catalogoid==30" [detalle]="detalle"></istrumentalCientifico>
+            <paleontologia  [item]="item" *ngIf="item.categoriaid.catalogoid==27" [detalle]="detalle"></paleontologia>
+            <zoologia  [item]="item" *ngIf="item.categoriaid.catalogoid==27" [detalle]="detalle"></zoologia>
             
             <div class="separadorInventario">
               <h5>DATOS DE LOCALIZACIÓN</h5>
@@ -89,10 +90,7 @@
                   Disposición en el contendor *:
                 </div>
                 <div class="ui-grid-col-">
-                  <input pInputText type="text" maxlength="150" name="disposicioncontenedor" [(ngModel)]="item.disposicioncontenedor" required
-                  />
-
-
+                  <input pInputText type="text" maxlength="150" name="disposicioncontenedor" [(ngModel)]="item.disposicioncontenedor" required/>
                 </div>
 
               </div>
@@ -109,11 +107,7 @@
                 <div class="ui-grid-col-4">
                   <input pInputText type="text" maxlength="150" name="cedula" [(ngModel)]="item.cedula" required />
                 </div>
-
               </div>
-
-
-
             </div>
             <div class="separadorInventario">
               <h5>CONDICIÓN LEGAL DEL BIEN</h5>
@@ -447,14 +441,8 @@
               </div>
             </div>
           </p-fieldset>
-
-
-
         </form>
-
       </div>
-
     </app-card>
   </div>
-
 </div>
