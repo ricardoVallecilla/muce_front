@@ -74,11 +74,30 @@ export class PiezaMuseableComponent implements OnInit {
   cargarEstadoBien(){
     let padreId;
     switch (this.item.categoriaid.catalogoid) {
-      case this.constantes.instrumental:
-      padreId=this.constantes.isntrumentalEstadoBien;
-
+      case this.constantes.arqueologia:
+        padreId=this.constantes.arqueologiaEstadoBien;
         break;
-    
+      case this.constantes.botanica:
+        padreId=this.constantes.botanicaEstadoBien;
+        break;
+      case this.constantes.entomologia:
+        padreId=this.constantes.entomologiaEstadoBien;
+        break;
+      case this.constantes.fotografia:
+        padreId=this.constantes.fotografiaEstadoBien;
+        break;
+      case this.constantes.geologia:
+        padreId=this.constantes.geologiaEstadoBien;
+        break;
+      case this.constantes.instrumental:
+        padreId=this.constantes.isntrumentalEstadoBien;
+        break;
+      case this.constantes.peleontologia:
+        padreId=this.constantes.paleontologiaEstadoBien;
+        break;
+      case this.constantes.zoologia:
+        padreId=this.constantes.zoologiaEstadoBien;
+        break;
       default:
         break;
     }
