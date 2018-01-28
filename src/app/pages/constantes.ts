@@ -1,7 +1,3 @@
-
-
-
-
 export class Constantes{
 
     tipoIngreso=9
@@ -21,6 +17,13 @@ export class Constantes{
     peleontologia=31
     zoologia=32
     isntrumentalEstadoBien=58;
+    arqueologiaEstadoBien = 95;
+    botanicaEstadoBien=124;
+    entomologiaEstadoBien=137;
+    fotografiaEstadoBien=146;
+    geologiaEstadoBien=174;
+    paleontologiaEstadoBien=188;
+    zoologiaEstadoBien=202;
     estadoConservacion=87;
     integridadPieza=91
     ubicaciones=33;

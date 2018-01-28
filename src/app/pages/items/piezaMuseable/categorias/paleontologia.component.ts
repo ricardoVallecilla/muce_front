@@ -5,10 +5,10 @@ import { CatalogoService } from '../../../../services/catalogos/catalogos.servic
 
 import { Message, ConfirmationService } from 'primeng/primeng';
 @Component({
-  selector: 'arqueologia',
-  templateUrl: './arqueologia.html'
+  selector: 'paleontologia',
+  templateUrl: './paleontologia.html'
 })
-export class ArqueologiaComponent implements OnInit {
+export class PaleontologiaComponent implements OnInit {
 
   properties = new Properties();
   constantes = new Constantes();

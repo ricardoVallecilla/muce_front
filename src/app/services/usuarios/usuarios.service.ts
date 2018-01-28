@@ -8,7 +8,7 @@ export class UsuarioService {
     url = new UrlServices();
 
     constructor(private _generalServices: GeneralService) {
-        // _generalServices.autenticar('usuario', 'password');
+        _generalServices.autenticar('usuario', 'password');
     }
 
     optenerUsuarios(): Observable<any> {

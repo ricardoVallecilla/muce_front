@@ -103,7 +103,7 @@ export const ItemRoutes: Routes = [
     FormsModule,
     ReactiveFormsModule
   ],
-  declarations: [PiezaMuseableComponent,ItemComponent,ArqueologiaComponent,BotanicaComponent, IstrumentalCientificoComponent]
+  declarations: [PiezaMuseableComponent,ItemComponent,ArqueologiaComponent,BotanicaComponent, EntomologiaComponent, FotografiaComponent, GeologiaComponent, PaleontologiaComponent, ZoologiaComponent, IstrumentalCientificoComponent]
   , providers: [GeneralService, ConfirmationService, CatalogoService, UsuarioService, MuseoServices,ItemService]
 })
 export class ItemModule { }
