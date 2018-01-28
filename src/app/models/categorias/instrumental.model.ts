@@ -5,7 +5,7 @@ export class InstrumentalCientifico {
     nombre;
     otradenominacion;
     tecnica;
-    fabricante0;
+    fabricante;
     lugarfabricacion;
     alto;
     largo;
@@ -18,6 +18,7 @@ export class InstrumentalCientifico {
     enuso: boolean;
     materialid;
     funciona: boolean;
+    fechafabricacion
     piezamuseableid;
 
     constructor(piezamuseableid){

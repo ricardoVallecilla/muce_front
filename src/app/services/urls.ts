@@ -15,6 +15,9 @@ export class UrlServices {
     filtrarItem=this.item+"filtro"
     piezaMuseable=this.proxy+"/piezaMuseable/"
     piezaMuseableByItem=this.piezaMuseable+"item/"
+    guardarPiezaMuseableDetalle=this.piezaMuseable+"detalle"
+    optenerDetalleInstrumental=this.proxy+"/instrumental/piezaMuseable/"
+    downloadFotografia=this.piezaMuseable+"fotografia/"
 
     obtenerCatalogosPadre= this.catalogos+"padres"
     obtenerCatalogosHijos= this.catalogos+"hijos/"

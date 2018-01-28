@@ -23,5 +23,6 @@ export class Constantes{
     isntrumentalEstadoBien=58;
     estadoConservacion=87;
     integridadPieza=91
+    ubicaciones=33;
 
 }

@@ -5,23 +5,19 @@
 
       <p-messages [(value)]="msgs"></p-messages>
 
-      <div class="ui-g" *ngIf="item!=null">
-        <form #form="ngForm" (ngSubmit)="form.valid && guardar()" style="width: 100%" novalidate>
+      <div class="ui-g" *ngIf="piezaMuseable!=null">
+        <form #form="ngForm" (ngSubmit)=" guardar()" style="width: 100%" novalidate>
 
           <p-fieldset legend="FICHA DE INVENTARIO {{item?.categoriaid.nombre}}">
 
             <div class="separadorInventario">
               <h5>INFORMACIÓN TÉCNICA</h5>
-            </div>
-<<<<<<< HEAD
-            <istrumentalCientifico [item]="item" [detalle]="detalle"></istrumentalCientifico>
+            </div>            
 
-=======
-            <arqueologia *ngIf="item.categoriaid.catalogoid==25" [detalle]="detalle"></arqueologia>
+            <arqueologia  *ngIf="item.categoriaid.catalogoid==25" [detalle]="detalle"></arqueologia>
             <botanica *ngIf="item.categoriaid.catalogoid==26" [detalle]="detalle"></botanica>
-            <istrumentalCientifico *ngIf="item.categoriaid.catalogoid==30" [detalle]="detalle"></istrumentalCientifico>
+            <istrumentalCientifico [item]="item" *ngIf="item.categoriaid.catalogoid==30" [detalle]="detalle"></istrumentalCientifico>
             
->>>>>>> 24eabdf8870c76dcb55f3b88b456691d1400c849
 
             <div class="separadorInventario">
               <h5>DATOS DE LOCALIZACIÓN</h5>
@@ -33,13 +29,13 @@
                   Provincia:
                 </div>
                 <div class="ui-grid-col-4">
-                  <p-dropdown [options]="provinciaid" [(ngModel)]="item.provinciaid" name="provinciaid" (ngModelChange)="actualizarRol($event)"></p-dropdown>
+                  <p-dropdown [options]="provinciaItem" [(ngModel)]="piezaMuseable.provinciaid" name="provinciaid" (ngModelChange)="obtenerCanton($event)"></p-dropdown>
                 </div>
                 <div class="ui-grid-col-2">
                   Canton *:
                 </div>
                 <div class="ui-grid-col-4">
-                  <p-dropdown [options]="cantonid" name="cantonid" [(ngModel)]="item.cantonid"></p-dropdown>
+                  <p-dropdown [options]="cantonItem" name="cantonid" [(ngModel)]="piezaMuseable.cantonid"></p-dropdown>
                 </div>
 
 
@@ -49,13 +45,13 @@
                   Ciudad *:
                 </div>
                 <div class="ui-grid-col-4">
-                  <input pInputText type="text" maxlength="150" name="codigocontrol" [(ngModel)]="item.ciudadid" required />
+                  <p-dropdown [options]="cantonItem" name="cantonid" [(ngModel)]="piezaMuseable.ciudadid"></p-dropdown>
                 </div>
                 <div class="ui-grid-col-2">
                   Contenedor *:
                 </div>
                 <div class="ui-grid-col-4">
-                  <input pInputText type="text" maxlength="150" name="modelo" [(ngModel)]="item.contenedor" required />
+                  <input pInputText type="text" maxlength="150" name="modelo" [(ngModel)]="piezaMuseable.contenedor" required />
                 </div>
 
               </div>
@@ -64,13 +60,13 @@
                   Dirección:
                 </div>
                 <div class="ui-grid-col-4">
-                  <input pInputText type="text" maxlength="150" name="direccion" [(ngModel)]="item.direccion" required />
+                  <input pInputText type="text" maxlength="150" name="direccion" [(ngModel)]="piezaMuseable.direccion" required />
                 </div>
                 <div class="ui-grid-col-2">
                   No.:
                 </div>
                 <div class="ui-grid-col-4">
-                  <input pInputText type="text" maxlength="150" name="numero" [(ngModel)]="item.numero" required />
+                  <input pInputText type="text" maxlength="150" name="numero" [(ngModel)]="piezaMuseable.numero" required />
                 </div>
 
               </div>
@@ -79,14 +75,14 @@
                   Email:
                 </div>
                 <div class="ui-grid-col-4">
-                  <input pInputText type="text" maxlength="150" name="direccionelectronica" [(ngModel)]="item.direccionelectronica" required
+                  <input pInputText type="text" maxlength="150" name="direccionelectronica" [(ngModel)]="piezaMuseable.direccionelectronica" required
                   />
                 </div>
                 <div class="ui-grid-col-2">
                   Teléfono:
                 </div>
                 <div class="ui-grid-col-4">
-                  <input pInputText type="text" maxlength="150" name="telefono" [(ngModel)]="item.telefono" required />
+                  <input pInputText type="text" maxlength="150" name="telefono" [(ngModel)]="piezaMuseable.telefono" required />
                 </div>
 
               </div>
@@ -95,7 +91,7 @@
                   Disposición en el contendor *:
                 </div>
                 <div class="ui-grid-col-">
-                  <input pInputText type="text" maxlength="150" name="disposicioncontenedor" [(ngModel)]="item.disposicioncontenedor" required
+                  <input pInputText type="text" maxlength="150" name="disposicioncontenedor" [(ngModel)]="piezaMuseable.disposicioncontenedor" required
                   />
 
 
@@ -107,13 +103,13 @@
                   Responsable:
                 </div>
                 <div class="ui-grid-col-4">
-                  <input pInputText type="text" maxlength="150" name="responsable" [(ngModel)]="item.responsable" required />
+                  <input pInputText type="text" maxlength="150" name="responsable" [(ngModel)]="piezaMuseable.responsable" required />
                 </div>
                 <div class="ui-grid-col-2">
                   Cédudala Ciudadania:
                 </div>
                 <div class="ui-grid-col-4">
-                  <input pInputText type="text" maxlength="150" name="cedula" [(ngModel)]="item.cedula" required />
+                  <input pInputText type="text" maxlength="150" name="cedula" [(ngModel)]="piezaMuseable.cedula" required />
                 </div>
 
               </div>
@@ -132,7 +128,7 @@
                   Proceso jurídico *:
                 </div>
                 <div class="ui-grid-col-4">
-                  <p-inputSwitch [(ngModel)]="item.restaurado" onLabel="Si" offLabel="No" name="restaurado" required></p-inputSwitch>
+                  <p-inputSwitch [(ngModel)]="piezaMuseable.procesojuridico" onLabel="Si" offLabel="No" name="procesojuridico" required></p-inputSwitch>
                 </div>
               </div>
             </div>
@@ -147,7 +143,8 @@
                 <div class="ui-grid-col-6">
                     <div class="ui-g">
                         <div class="ui-g-3" *ngFor="let estado of estadoConservacionItem">
-                            <p-radioButton name="estadoConservacion" value="{{estado.catalaogoid}}" label="{{estado.nombre}}" [(ngModel)]="estadoConservacion"></p-radioButton>
+                          
+                            <p-radioButton name="estadoConservacion" value="{{estado.catalogoid}}" (click)="setearEstadoConservacion()" label="{{estado.nombre}}" [(ngModel)]="estadoConservacion"></p-radioButton>
                           </div>
                     </div>
                 </div>
@@ -155,7 +152,7 @@
               <div class="ui-grid-row">
                 <div class="ui-g">
                     <div class="ui-g-3" *ngFor="let estado of estadoDelBien">
-                        <p-checkbox name="estadobien" value="{{estado.catalaogoid}}" label="{{estado.nombre}}" [(ngModel)]="estadosBienSelecionados"></p-checkbox>
+                        <p-checkbox name="estadobien" value="{{estado.catalogoid}}" label="{{estado.nombre}}" [(ngModel)]="estadosBienSelecionados"></p-checkbox>
                       </div>
                 </div>
                 
@@ -166,7 +163,7 @@
                   Intervenciones inadecuadas *:
                 </div>
                 <div class="ui-grid-col-4">
-                  <p-inputSwitch [(ngModel)]="item.restaurado" onLabel="Si" offLabel="No" name="restaurado" required></p-inputSwitch>
+                  <p-inputSwitch [(ngModel)]="piezaMuseable.intervencionesinadecuadas" onLabel="Si" offLabel="No" name="intervencionesinadecuadas" required></p-inputSwitch>
                 </div>
               </div>
               <div class="ui-grid-row">
@@ -176,7 +173,7 @@
                 <div class="ui-grid-col-6">
                     <div class="ui-g">
                         <div class="ui-g-3" *ngFor="let estado of integridadPiezaItem">
-                            <p-radioButton name="integridad" value="{{estado.catalaogoid}}" label="{{estado.nombre}}" [(ngModel)]="integridadPieza"></p-radioButton>
+                            <p-radioButton name="integridad" value="{{estado.catalogoid}}" label="{{estado.nombre}}" (click)="setearIntegridadPieza()"  [(ngModel)]="integridadPieza"></p-radioButton>
                           </div>
                     </div>
                 </div>
@@ -202,7 +199,7 @@
                         Humedad:
                       </div>
                       <div class="ui-grid-col-4">
-                        <p-inputSwitch [(ngModel)]="item.humedad" onLabel="ALTA" offLabel="BAJA" name="humedad" required></p-inputSwitch>
+                        <p-inputSwitch [(ngModel)]="piezaMuseable.humedad" onLabel="ALTA" offLabel="BAJA" name="humedad" required></p-inputSwitch>
                       </div>
                     </div>
                     <div class="ui-grid-row">
@@ -210,7 +207,7 @@
                         Temperatura:
                       </div>
                       <div class="ui-grid-col-4">
-                        <p-inputSwitch [(ngModel)]="item.temperatura" onLabel="ALTA" offLabel="BAJA" name="temperatura" required></p-inputSwitch>
+                        <p-inputSwitch [(ngModel)]="piezaMuseable.temperatura" onLabel="ALTA" offLabel="BAJA" name="temperatura" required></p-inputSwitch>
                       </div>
                     </div>
                     <div class="ui-grid-row">
@@ -218,7 +215,7 @@
                         Luz:
                       </div>
                       <div class="ui-grid-col-4">
-                        <p-inputSwitch [(ngModel)]="item.luz" onLabel="DIRECTA" offLabel="INDIRECTA" name="luz" required></p-inputSwitch>
+                        <p-inputSwitch [(ngModel)]="piezaMuseable.luz" onLabel="DIRECTA" offLabel="INDIRECTA" name="luz" required></p-inputSwitch>
                       </div>
                     </div>
                   </div>
@@ -236,7 +233,7 @@
                         Montaje:
                       </div>
                       <div class="ui-grid-col-4">
-                        <p-inputSwitch [(ngModel)]="item.luz" onLabel="ADECUADO" offLabel="INADECUADO" name="luz" required></p-inputSwitch>
+                        <p-inputSwitch [(ngModel)]="piezaMuseable.montaje" onLabel="ADECUADO" offLabel="INADECUADO" name="montaje" required></p-inputSwitch>
                       </div>
                     </div>
                     <div class="ui-grid-row">
@@ -244,7 +241,7 @@
                         Extintores:
                       </div>
                       <div class="ui-grid-col-4">
-                        <p-inputSwitch [(ngModel)]="item.luz" onLabel="SI" offLabel="NO" name="luz" required></p-inputSwitch>
+                        <p-inputSwitch [(ngModel)]="piezaMuseable.extintores" onLabel="SI" offLabel="NO" name="extintores" required></p-inputSwitch>
                       </div>
                     </div>
                     <div class="ui-grid-row">
@@ -252,7 +249,7 @@
                         Sistema eléctrico defectuoso::
                       </div>
                       <div class="ui-grid-col-4">
-                        <p-inputSwitch [(ngModel)]="item.luz" onLabel="SI" offLabel="NO" name="luz" required></p-inputSwitch>
+                        <p-inputSwitch [(ngModel)]="piezaMuseable.sistemaelectricodefectuoso" onLabel="SI" offLabel="NO" name="sistemaelectricodefectuoso" required></p-inputSwitch>
                       </div>
                     </div>
                   </div>
@@ -270,7 +267,7 @@
                         Alarmas:
                       </div>
                       <div class="ui-grid-col-4">
-                        <p-inputSwitch [(ngModel)]="item.luz" onLabel="SI" offLabel="NO" name="luz" required></p-inputSwitch>
+                        <p-inputSwitch [(ngModel)]="piezaMuseable.alarmas" onLabel="SI" offLabel="NO" name="alarmas" required></p-inputSwitch>
                       </div>
                     </div>
                     <div class="ui-grid-row">
@@ -278,7 +275,7 @@
                         Sensores:
                       </div>
                       <div class="ui-grid-col-4">
-                        <p-inputSwitch [(ngModel)]="item.luz" onLabel="SI" offLabel="NO" name="luz" required></p-inputSwitch>
+                        <p-inputSwitch [(ngModel)]="piezaMuseable.sensores" onLabel="SI" offLabel="NO" name="sensores" required></p-inputSwitch>
                       </div>
                     </div>
                     <div class="ui-grid-row">
@@ -286,7 +283,7 @@
                         Cámaras:
                       </div>
                       <div class="ui-grid-col-4">
-                        <p-inputSwitch [(ngModel)]="item.luz" onLabel="SI" offLabel="NO" name="luz" required></p-inputSwitch>
+                        <p-inputSwitch [(ngModel)]="piezaMuseable.camaras" onLabel="SI" offLabel="NO" name="camaras" required></p-inputSwitch>
                       </div>
                     </div>
                     <div class="ui-grid-row">
@@ -294,7 +291,7 @@
                         Guardias:
                       </div>
                       <div class="ui-grid-col-4">
-                        <p-inputSwitch [(ngModel)]="item.luz" onLabel="SI" offLabel="NO" name="luz" required></p-inputSwitch>
+                        <p-inputSwitch [(ngModel)]="piezaMuseable.guardias" onLabel="SI" offLabel="NO" name="guardias" required></p-inputSwitch>
                       </div>
                     </div>
                   </div>
@@ -309,7 +306,7 @@
 
               <div class="ui-grid-row">
                 <div class="ui-grid-col-12">
-                  <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="256" name="detalles" [(ngModel)]="item.detalles"
+                  <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="256" name="detalles" [(ngModel)]="piezaMuseable.observaciones"
                     required></textarea>
                 </div>
               </div>
@@ -322,7 +319,9 @@
 
               <div class="ui-grid-row">
                 <div class="ui-grid-col-2">
-
+                    <img *ngIf="foto!=null" style="width: 200px ;height: 200px;" [src]="foto">
+                  <input  name="file" type="file" id="adjuntar" class="ui-g-12 ui-md-12 ui-lg-12 inputUpload" (change)="fileChangeEvent($event)"
+                        placeholder="Subir Archivo..." required />
                 </div>
               </div>
             </div>
@@ -334,7 +333,7 @@
 
               <div class="ui-grid-row">
                 <div class="ui-grid-col-12">
-                  <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="256" name="detalles" [(ngModel)]="item.detalles"
+                  <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="256" name="detalles" [(ngModel)]="piezaMuseable.historiaitinerancia"
                     required></textarea>
                 </div>
               </div>
@@ -350,13 +349,13 @@
                   Provincia:
                 </div>
                 <div class="ui-grid-col-4">
-                  {{item.nombre}}
+                  <p-dropdown [options]="provinciaItem"  name="provinciaid" (ngModelChange)="obtenerCanton($event)"></p-dropdown>
                 </div>
                 <div class="ui-grid-col-2">
                   Fecha de transferencia:
                 </div>
                 <div class="ui-grid-col-4">
-                    <p-calendar name="fechaadquisicion" [locale]="es" [(ngModel)]="item.fechaadquisicion" [showIcon]="true" required  ></p-calendar> 
+                    <p-calendar name="fechaadquisicion" [locale]="es" [showIcon]="true" required  ></p-calendar> 
                 </div>
               </div>
               <div class="ui-grid-row">
@@ -364,13 +363,13 @@
                   Procedencia:
                 </div>
                 <div class="ui-grid-col-4">
-                  <input pInputText type="text" maxlength="150" name="codigocontrol"  required />
+                  <input pInputText type="text" maxlength="150" name="procedencia"  required />
                 </div>
                 <div class="ui-grid-col-2">
                   Custodio:
                 </div>
                 <div class="ui-grid-col-4">
-                  <input pInputText type="text" maxlength="150" name="codigocontrol"  required />
+                  <input pInputText type="text" maxlength="150" name="custodio"  required />
                 </div>
               </div>
             </div>
@@ -385,13 +384,13 @@
                   Entidad investigadora:
                 </div>
                 <div class="ui-grid-col-4">
-                  <input pInputText type="text" maxlength="150" name="codigocontrol"  required />
+                  <input pInputText type="text" maxlength="150" [(ngModel)]="piezaMuseable.entidadinvestigadora" name="entidadinvestigadora"  required />
                 </div>
                 <div class="ui-grid-col-2">
                   Inventariado por:
                 </div>
                 <div class="ui-grid-col-4">
-                  <input pInputText type="text" maxlength="150" name="codigocontrol"  required />
+                  <input pInputText type="text" maxlength="150" [(ngModel)]="piezaMuseable.inventariadopor" name="codigocontrol"  required />
                 </div>
               </div>
               <div class="ui-grid-row">
@@ -399,13 +398,13 @@
                   Fecha de inventario:
                 </div>
                 <div class="ui-grid-col-4">
-                    <p-calendar name="fechaadquisicion" [locale]="es" [(ngModel)]="item.fechaadquisicion" [showIcon]="true" required  ></p-calendar> 
+                    <p-calendar name="fechainventario" [locale]="es" [(ngModel)]="piezaMuseable.fechainventario" [showIcon]="true" required  ></p-calendar> 
                 </div>
                 <div class="ui-grid-col-2">
                   Revisado por:
                 </div>
                 <div class="ui-grid-col-4">
-                  <input pInputText type="text" maxlength="150" name="codigocontrol"  required />
+                  <input pInputText type="text" maxlength="150" [(ngModel)]="piezaMuseable.revisadopor" name="revisadopor"  required />
                 </div>
               </div>
               <div class="ui-grid-row">
@@ -413,13 +412,13 @@
                   Fecha de revisión:
                 </div>
                 <div class="ui-grid-col-4">
-                    <p-calendar name="fechaadquisicion" [locale]="es" [(ngModel)]="item.fechaadquisicion" [showIcon]="true" required  ></p-calendar> 
+                    <p-calendar name="fecharevision" [locale]="es" [(ngModel)]="piezaMuseable.fecharevision" [showIcon]="true" required  ></p-calendar> 
                 </div>
                 <div class="ui-grid-col-2">
                   Aprobado por:
                 </div>
                 <div class="ui-grid-col-4">
-                  <input pInputText type="text" maxlength="150" name="codigocontrol"  required />
+                  <input pInputText type="text" maxlength="150" [(ngModel)]="piezaMuseable.aprobadopor" name="aprobadopor"  required />
                 </div>
               </div>
               <div class="ui-grid-row">
@@ -427,13 +426,13 @@
                   Fecha de aprobación:
                 </div>
                 <div class="ui-grid-col-4">
-                    <p-calendar name="fechaadquisicion" [locale]="es" [(ngModel)]="item.fechaadquisicion" [showIcon]="true" required  ></p-calendar> 
+                    <p-calendar name="fechaaprobacion" [locale]="es" [(ngModel)]="piezaMuseable.fechaaprobacion" [showIcon]="true" required  ></p-calendar> 
                 </div>
                 <div class="ui-grid-col-2">
                   Registrado por:
                 </div>
                 <div class="ui-grid-col-4">
-                  <input pInputText type="text" maxlength="150" name="codigocontrol"  required />
+                  <input pInputText type="text" maxlength="150" name="registrofotograficopor" [(ngModel)]="piezaMuseable.registrofotograficopor"  required />
                 </div>
               </div>
             </div>

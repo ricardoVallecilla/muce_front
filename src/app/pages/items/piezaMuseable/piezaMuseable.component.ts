@@ -2,11 +2,13 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Properties } from '../../properties'
 import { Constantes } from '../../constantes'
 import { Item } from '../../../models/item.model'
+import { PiezaDetalle } from '../../../models/piezaDetalle.model'
 import { PiezaMuseable } from '../../../models/piezaMuseable.model'
 import { InstrumentalCientifico } from '../../../models/categorias/instrumental.model'
 import { CatalogoService } from '../../../services/catalogos/catalogos.service'
 import { ItemService } from '../../../services/item/items.service'
 import { Message, ConfirmationService } from 'primeng/primeng';
+import { BrowserModule, DomSanitizer, SafeResourceUrl } from '@angular/platform-browser'
 @Component({
   selector: 'piezaMuseable',
   templateUrl: './piezaMuseable.html'
@@ -27,14 +29,21 @@ export class PiezaMuseableComponent implements OnInit {
   grupo = null;
   categoria = null;
   @Input() item: Item = null;
-  detalle=null;
+  detalle = null;
   piezaMuseable: PiezaMuseable = null;
-  estadoDelBien=[];
-  estadosBienSelecionados=[]
-  estadoConservacionItem=[]
-  integridadPiezaItem=[]
+  estadoDelBien = [];
+  estadosBienSelecionados = []
+  estadoConservacionItem = []
+  integridadPiezaItem = []
   es = this.properties.es;
+  documento = null;
+  provinciaItem = [{ label: this.properties.labelSeleccione, value: null }]
+  cantonItem = [{ label: this.properties.labelSeleccione, value: null }]
+  estadoConservacion = null;
+  integridadPieza = null;
+  foto = null;
   constructor(
+    private domSanitizer: DomSanitizer,
     private _catalogoService: CatalogoService,
     private _itemService: ItemService
 
@@ -44,12 +53,14 @@ export class PiezaMuseableComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.cargarCatalogos()
     if (this.item != null) {
+      this.cargarEstadoBien();
       this.acciones = "Detalle de la pieza: " + this.item.nombre;
       this.buscar()
-      this.cargarEstadoBien()
+      
     }
-    this.cargarCatalogos()
+    
   }
 
   buscar() {
@@ -60,55 +71,97 @@ export class PiezaMuseableComponent implements OnInit {
           this.crearDetalle();
         } else {
           this.piezaMuseable = piezas[0];
+          this.estadoConservacion=this.piezaMuseable.estadoconservacionid.catalogoid;
+          this.integridadPieza=this.piezaMuseable.estadointegridad.catalogoid;
+          this.obtenerCanton(this.piezaMuseable.provinciaid)
+          this.buscarDetalle(this.piezaMuseable.piezamuseableid)
+          this.descargarFoto();
         }
 
       }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }),
       () => {
       });
   }
-
-  buscarDetalle(){
-
+  descargarFoto(){
+    this._itemService.downloadFotografia(this.piezaMuseable.piezamuseableid).
+          subscribe((foto: any) => {
+            let blob = new Blob([foto.blob()], { type: 'image/jpeg' });
+            this.foto = this.domSanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
+          }, (err: any) => {
+          }, () => { });
   }
+  buscarDetalle(piezaMuseableId) {
+    let tipo;
+    switch (this.item.categoriaid.catalogoid) {
+      case this.constantes.instrumental:
+        tipo=6;
+        break;
+      case this.constantes.arqueologia:
+        this.detalle = new InstrumentalCientifico(this.piezaMuseable)
+        break;
+      case this.constantes.botanica:
+        this.detalle = new InstrumentalCientifico(this.piezaMuseable)
+        break;
+      default:
+        break;
+    }
 
-  cargarEstadoBien(){
+    this._itemService.optenerDetalle(tipo,piezaMuseableId)
+      .subscribe((detalle: any[]) => {
+       this.detalle=detalle=[0]
+
+      }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }),
+      () => {
+      });
+  }
+  setearEstadoConservacion() {
+
+    this.piezaMuseable.estadoconservacionid = this.estadoConservacionItem.find(x => x.catalogoid == this.estadoConservacion)
+    console.log(this.piezaMuseable.estadoconservacionid);
+  }
+  setearIntegridadPieza() {
+    this.piezaMuseable.estadointegridad = this.integridadPiezaItem.find(x => x.catalogoid == this.integridadPieza)
+    console.log(this.piezaMuseable.estadointegridad);
+  }
+  cargarEstadoBien() {
     let padreId;
     switch (this.item.categoriaid.catalogoid) {
       case this.constantes.instrumental:
-      padreId=this.constantes.isntrumentalEstadoBien;
+        padreId = this.constantes.isntrumentalEstadoBien;
 
         break;
-    
+
       default:
         break;
     }
     this._catalogoService.obtenerCatalogosHijosPorPadres([padreId])
       .subscribe((catalogos: any[]) => {
-        this.estadoDelBien=catalogos;
-      }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }),
+        this.estadoDelBien = catalogos;
+      }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de catalogos.' }),
       () => {
       });
   }
 
-  crearDetalle(){
+  crearDetalle() {
     switch (this.item.categoriaid.catalogoid) {
       case this.constantes.instrumental:
-        this.detalle= new InstrumentalCientifico(this.piezaMuseable)
+        this.detalle = new InstrumentalCientifico(this.piezaMuseable)
         break;
       case this.constantes.arqueologia:
-        this.detalle= new InstrumentalCientifico(this.piezaMuseable)
+        this.detalle = new InstrumentalCientifico(this.piezaMuseable)
         break;
       case this.constantes.botanica:
-        this.detalle= new InstrumentalCientifico(this.piezaMuseable)
+        this.detalle = new InstrumentalCientifico(this.piezaMuseable)
         break;
       default:
         break;
     }
-    
+
   }
 
   cargarCatalogos() {
-    this._catalogoService.obtenerCatalogosHijosPorPadres([this.constantes.tipoIngreso, this.constantes.grupo,this.constantes.estadoConservacion,this.constantes.integridadPieza])
+    this._catalogoService.obtenerCatalogosHijosPorPadres([this.constantes.tipoIngreso, this.constantes.grupo,
+    this.constantes.estadoConservacion, this.constantes.integridadPieza, this.constantes.ubicaciones])
       .subscribe((catalogos: any[]) => {
         catalogos.filter(x => x.catalogopadreid.catalogoid == this.constantes.tipoIngreso).forEach(x => {
           this.tipoItem.push({ label: x.nombre, value: x })
@@ -116,13 +169,28 @@ export class PiezaMuseableComponent implements OnInit {
         catalogos.filter(x => x.catalogopadreid.catalogoid == this.constantes.grupo).forEach(x => {
           this.grupoItem.push({ label: x.nombre, value: x })
         });
-        this.estadoConservacionItem=catalogos.filter(x => x.catalogopadreid.catalogoid == this.constantes.estadoConservacion)
-        this.integridadPiezaItem=catalogos.filter(x => x.catalogopadreid.catalogoid == this.constantes.integridadPieza)
+        this.estadoConservacionItem = catalogos.filter(x => x.catalogopadreid.catalogoid == this.constantes.estadoConservacion)
+        this.integridadPiezaItem = catalogos.filter(x => x.catalogopadreid.catalogoid == this.constantes.integridadPieza)
+        catalogos.filter(x => x.catalogopadreid.catalogoid == this.constantes.ubicaciones).forEach(x => {
+          this.provinciaItem.push({ label: x.nombre, value: x })
+        });
+
       }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }),
       () => {
       });
   }
+  obtenerCanton(event) {
+    this._catalogoService.obtenerCatalogosHijosPorPadres([event.catalogoid])
+      .subscribe((catalogos: any[]) => {
+        this.cantonItem = [{ label: this.properties.labelSeleccione, value: null }]
+        catalogos.forEach(x => {
+          this.cantonItem.push({ label: x.nombre, value: x })
+        });
 
+      }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }),
+      () => {
+      });
+  }
   nuevo() {
     this.msgs = [];
     this.acciones = this.properties.labelNuevo + " Item"
@@ -173,11 +241,45 @@ export class PiezaMuseableComponent implements OnInit {
     this.acciones = this.properties.labelLista + this.title;
   }
 
+
+  fileChangeEvent(event) {
+    console.log(event)
+    let e = event.srcElement ? event.srcElement : event.target;
+    this.documento = (e.files);
+
+    this.msgs = [];
+
+
+  }
   guardar() {
     this.msgs = [];
-console.log(this.piezaMuseable);
-console.log(this.detalle);
+    console.log(this.piezaMuseable);
+    console.log(this.detalle);
+    let piezaDetalle = new PiezaDetalle();
 
+    let tipo;
+    switch (this.item.categoriaid.catalogoid) {
+      case this.constantes.instrumental:
+        tipo = 6
+        piezaDetalle.piezainstrumentaldetalle = this.detalle
+        break;
+      case this.constantes.arqueologia:
+        this.detalle = new InstrumentalCientifico(this.piezaMuseable)
+        break;
+      case this.constantes.botanica:
+        this.detalle = new InstrumentalCientifico(this.piezaMuseable)
+        break;
+      default:
+        break;
+    }
+    console.log(JSON.stringify(piezaDetalle))
+    this._itemService.guardarPiezaMuseableDetalle(tipo, piezaDetalle, this.documento)
+      .subscribe((piezas: any) => {
+        console.log('ok')
+
+      }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }),
+      () => {
+      });
     // if (this.item.itemid == null) {
     //   //this.item.museoid = this.museo;
     //   this.item.grupoid = this.grupo;

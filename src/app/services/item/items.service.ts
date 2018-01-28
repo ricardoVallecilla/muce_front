@@ -25,13 +25,34 @@ export class ItemService {
     }
 
     piezaMuseableByItem(itemid): Observable<any> {
-        return this._generalServices.getResources("get", this.url.piezaMuseableByItem+itemid)
+        return this._generalServices.getResources("get", this.url.piezaMuseableByItem + itemid)
     }
 
+    guardarPiezaMuseableDetalle(tipo, detalle, file, estado = null): Observable<any> {
+        var formData = new FormData();
+        formData.append('file', file[0]);
+        formData.append('tipo', tipo);
+        formData.append('detalle', JSON.stringify(detalle));
+        formData.append('estadoGeneral', null);
+        return this._generalServices.getResources("post", this.url.guardarPiezaMuseableDetalle, formData)
+
+    }
+
+    downloadFotografia(id){
+        return this._generalServices.getResources("getFile", this.url.downloadFotografia+id, )
+    }
     obtenerCatalogosHijos(padreId): Observable<any> {
         return this._generalServices.getResources("get", this.url.obtenerCatalogosHijos + padreId)
     }
     guardarItem(item): Observable<any> {
         return this._generalServices.getResources("post", this.url.item, item)
+    }
+    optenerDetalle(tipo, piezaMuseableId): Observable<any> {
+        switch (tipo) {
+            case 6:
+                return this._generalServices.getResources("get", this.url.optenerDetalleInstrumental+piezaMuseableId);
+        }
+
+        // return this._generalServices.getResources("post", this.url.item, item)
     }
 }
