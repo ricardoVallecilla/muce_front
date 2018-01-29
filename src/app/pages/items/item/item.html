@@ -220,6 +220,6 @@
     </app-card>
   </div>
   <div class="col-sm-12" *ngIf="detallePiezaMuseable">
-    <piezaMuseable [item]="item"></piezaMuseable>
+    <piezaMuseable (enviadorCondicion)="obtenerDatoHijo($event)" [item]="item"></piezaMuseable>
     </div>
 </div>

@@ -11,7 +11,7 @@
       Tipo de bien *:
     </div>
     <div class="ui-grid-col-4">
-      <input pInputText type="text" maxlength="150" name="tipobien" [(ngModel)]="detalle.tipobien"  />
+      <input pInputText type="text" maxlength="150" name="tipobien" [(ngModel)]="detalle.tipobien" />
     </div>
 
 
@@ -22,7 +22,7 @@
       Otra denominación *:
     </div>
     <div class="ui-grid-col-10">
-      <input pInputText type="text" maxlength="150" name="otradenominacion" [(ngModel)]="detalle.otradenominacion"  />
+      <input pInputText type="text" maxlength="150" name="otradenominacion" [(ngModel)]="detalle.otradenominacion" />
     </div>
 
   </div>
@@ -30,114 +30,124 @@
     <div class="ui-grid-col-2">
       Material *:
     </div>
-    <div class="ui-grid-col-4">
-      <input pInputText type="text" maxlength="150" name="marca" [(ngModel)]="detalle.tecnica"  />
+    <div class="ui-grid-col-10">
+        <div class="ui-g">
+            <div class="ui-g-3" *ngFor="let estado of materialesItem">
+                <p-checkbox name="materiales" value="{{estado.catalogoid}}" label="{{estado.nombre}}" (click)="impr()" [(ngModel)]="materialesSelecionados"></p-checkbox>
+              </div>
+        </div>
     </div>
+
+
+  </div>
+  <div class="ui-grid-row">
     <div class="ui-grid-col-2">
       Técnica *:
     </div>
     <div class="ui-grid-col-4">
-      <input pInputText type="text" maxlength="150" name="tecnica" [(ngModel)]="detalle.tecnica"  />
+      <input pInputText type="text" maxlength="150" name="tecnica" [(ngModel)]="detalle.tecnica" />
     </div>
-
-  </div>
-  <div class="ui-grid-row">
     <div class="ui-grid-col-2">
       Fabricante:
     </div>
     <div class="ui-grid-col-4">
-      <input pInputText type="text" maxlength="150" name="fabricante" [(ngModel)]="detalle.fabricante"  />
+      <input pInputText type="text" maxlength="150" name="fabricante" [(ngModel)]="detalle.fabricante" />
     </div>
+
+
+  </div>
+  <div class="ui-grid-row">
     <div class="ui-grid-col-2">
       Lugar de fabricación:
     </div>
     <div class="ui-grid-col-4">
-      <input pInputText type="text" maxlength="150" name="lugarfabricacion" [(ngModel)]="detalle.lugarfabricacion"  />
+      <input pInputText type="text" maxlength="150" name="lugarfabricacion" [(ngModel)]="detalle.lugarfabricacion" />
     </div>
-
-  </div>
-  <div class="ui-grid-row">
     <div class="ui-grid-col-2">
       Fecha fabricación:
     </div>
     <div class="ui-grid-col-4">
-        <p-calendar name="fechafabricacion" [locale]="es" [(ngModel)]="item.fechafabricacion" [showIcon]="true"   ></p-calendar> 
+      <p-calendar name="fechafabricacion" [locale]="es" [(ngModel)]="detalle.fechafabricacion" [showIcon]="true"></p-calendar>
     </div>
+
+
+  </div>
+  <div class="ui-grid-row">
     <div class="ui-grid-col-2">
       Funciona:
     </div>
     <div class="ui-grid-col-4">
-      
-      <p-inputSwitch [(ngModel)]="detalle.funciona" onLabel="Si" offLabel="No" name="funciona" ></p-inputSwitch>
-    </div>
 
-  </div>
-  <div class="ui-grid-row">
+      <p-inputSwitch [(ngModel)]="detalle.funciona" onLabel="Si" offLabel="No" name="funciona"></p-inputSwitch>
+    </div>
     <div class="ui-grid-col-2">
       En Uso *:
     </div>
     <div class="ui-grid-col-4">
 
-      <p-inputSwitch [(ngModel)]="detalle.enuso" onLabel="Si" offLabel="No" name="enuso" ></p-inputSwitch>
+      <p-inputSwitch [(ngModel)]="detalle.enuso" onLabel="Si" offLabel="No" name="enuso"></p-inputSwitch>
 
     </div>
+
+
+  </div>
+  <div class="ui-grid-row">
     <div class="ui-grid-col-2">
       Inscripciones *:
     </div>
     <div class="ui-grid-col-4">
-      <input pInputText type="text" maxlength="150" name="procedencia" [(ngModel)]="detalle.inscripciones"  />
+      <input pInputText type="text" maxlength="150" name="procedencia" [(ngModel)]="detalle.inscripciones" />
     </div>
-
   </div>
   <div class="ui-grid-row">
     <div class="ui-grid-col-2">Dimensiones:</div>
     <div class="ui-grid-col-10">
       <div class="ui-g">
-          <div class="ui-g-2">
-              Alto *:
-            </div>
-            <div class="ui-g-2">
-        
-              <input pInputText type="text" maxlength="150" name="alto" [(ngModel)]="detalle.alto"  />
-        
-            </div>
-            <div class="ui-g-2">
-              Largo *:
-            </div>
-            <div class="ui-g-2">
-              <input pInputText type="text" maxlength="150" name="largo" [(ngModel)]="detalle.largo"  />
-            </div>
-            <div class="ui-g-2">
-              Profundidad *:
-            </div>
-            <div class="ui-g-2">
-              <input pInputText type="text" maxlength="150" name="procedencia" [(ngModel)]="detalle.procedencia"  />
-            </div>
-            <div class="ui-g-2">
-              Diámetro *:
-            </div>
-            <div class="ui-g-2">
-        
-              <input pInputText type="text" maxlength="150" name="diametro" [(ngModel)]="detalle.diametro"  />
-        
-            </div>
-            <div class="ui-g-2">
-              Espesor *:
-            </div>
-            <div class="ui-g-2">
-              <input pInputText type="text" maxlength="150" name="espesor" [(ngModel)]="detalle.espesor"  />
-            </div>
-            <div class="ui-g-2">
-              Peso *:
-            </div>
-            <div class="ui-g-2">
-              <input pInputText type="text" maxlength="150" name="peso" [(ngModel)]="detalle.peso"  />
-            </div>
+        <div class="ui-g-2">
+          Alto *:
+        </div>
+        <div class="ui-g-2">
+
+          <input pInputText type="text" maxlength="150" name="alto" [(ngModel)]="detalle.alto" />
+
+        </div>
+        <div class="ui-g-2">
+          Largo *:
+        </div>
+        <div class="ui-g-2">
+          <input pInputText type="text" maxlength="150" name="largo" [(ngModel)]="detalle.largo" />
+        </div>
+        <div class="ui-g-2">
+          Profundidad *:
+        </div>
+        <div class="ui-g-2">
+          <input pInputText type="text" maxlength="150" name="procedencia" [(ngModel)]="detalle.profundidad" />
+        </div>
+        <div class="ui-g-2">
+          Diámetro *:
+        </div>
+        <div class="ui-g-2">
+
+          <input pInputText type="text" maxlength="150" name="diametro" [(ngModel)]="detalle.diametro" />
+
+        </div>
+        <div class="ui-g-2">
+          Espesor *:
+        </div>
+        <div class="ui-g-2">
+          <input pInputText type="text" maxlength="150" name="espesor" [(ngModel)]="detalle.espesor" />
+        </div>
+        <div class="ui-g-2">
+          Peso *:
+        </div>
+        <div class="ui-g-2">
+          <input pInputText type="text" maxlength="150" name="peso" [(ngModel)]="detalle.peso" />
+        </div>
       </div>
     </div>
 
   </div>
- 
+
 
 
   <div class="ui-grid-row">
@@ -145,8 +155,7 @@
       Detalles *:
     </div>
     <div class="ui-grid-col-10">
-      <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="256" name="descripcion" [(ngModel)]="detalle.descripcion"
-        ></textarea>
+      <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="256" name="descripcion" [(ngModel)]="detalle.descripcion"></textarea>
     </div>
 
   </div>

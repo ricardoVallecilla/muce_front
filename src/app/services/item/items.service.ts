@@ -24,16 +24,27 @@ export class ItemService {
         return this._generalServices.getResources("post", this.url.filtrarItem, filtro)
     }
 
+    catalogosDetalle(piezamuseableid,nombrescolumnas): Observable<any> {
+        let filtro = {
+            "piezamuseableid": piezamuseableid,
+            "nombrescolumnas": nombrescolumnas
+        }
+        return this._generalServices.getResources("post", this.url.catalogosDetalle, filtro)
+    }
+
     piezaMuseableByItem(itemid): Observable<any> {
         return this._generalServices.getResources("get", this.url.piezaMuseableByItem + itemid)
     }
-
-    guardarPiezaMuseableDetalle(tipo, detalle, file, estado = null): Observable<any> {
+    estadosBien(piezaMuseableId): Observable<any> {
+        return this._generalServices.getResources("get", this.url.estadosBien + piezaMuseableId)
+    }
+    guardarPiezaMuseableDetalle(tipo, detalle, file, estado = null,catalogosDetalle=null): Observable<any> {
         var formData = new FormData();
-        formData.append('file', file[0]);
+        if(file!=null)formData.append('file', file[0]);
         formData.append('tipo', tipo);
         formData.append('detalle', JSON.stringify(detalle));
-        formData.append('estadoGeneral', null);
+        formData.append('estadoGeneral', estado==null?null:JSON.stringify(estado));
+        if(catalogosDetalle!=null)formData.append('catalogosDetalle', JSON.stringify(catalogosDetalle));
         return this._generalServices.getResources("post", this.url.guardarPiezaMuseableDetalle, formData)
 
     }

@@ -1,7 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Properties } from '../../properties'
 import { Constantes } from '../../constantes'
 import { Item } from '../../../models/item.model'
+import { EstadoBien } from '../../../models/estadogeneral.model'
+import { DetalleCatalogo } from '../../../models/detallecatalogo.model'
 import { PiezaDetalle } from '../../../models/piezaDetalle.model'
 import { PiezaMuseable } from '../../../models/piezaMuseable.model'
 import { InstrumentalCientifico } from '../../../models/categorias/instrumental.model'
@@ -41,7 +43,9 @@ export class PiezaMuseableComponent implements OnInit {
   cantonItem = [{ label: this.properties.labelSeleccione, value: null }]
   estadoConservacion = null;
   integridadPieza = null;
+  materialesSelecionados = []
   foto = null;
+  @Output() enviadorCondicion = new EventEmitter();
   constructor(
     private domSanitizer: DomSanitizer,
     private _catalogoService: CatalogoService,
@@ -58,9 +62,9 @@ export class PiezaMuseableComponent implements OnInit {
       this.cargarEstadoBien();
       this.acciones = "Detalle de la pieza: " + this.item.nombre;
       this.buscar()
-      
+
     }
-    
+
   }
 
   buscar() {
@@ -71,30 +75,36 @@ export class PiezaMuseableComponent implements OnInit {
           this.crearDetalle();
         } else {
           this.piezaMuseable = piezas[0];
-          this.estadoConservacion=this.piezaMuseable.estadoconservacionid.catalogoid;
-          this.integridadPieza=this.piezaMuseable.estadointegridad.catalogoid;
-          this.obtenerCanton(this.piezaMuseable.provinciaid)
-          this.buscarDetalle(this.piezaMuseable.piezamuseableid)
+          if (this.piezaMuseable.fechainventario != null) this.piezaMuseable.fechainventario = new Date(this.piezaMuseable.fechainventario)
+          if (this.piezaMuseable.fecharevision != null) this.piezaMuseable.fecharevision = new Date(this.piezaMuseable.fecharevision)
+          if (this.piezaMuseable.fechaaprobacion != null) this.piezaMuseable.fechaaprobacion = new Date(this.piezaMuseable.fechaaprobacion)
           this.descargarFoto();
+          this.estadoConservacion = this.piezaMuseable.estadoconservacionid.catalogoid;
+          this.integridadPieza = this.piezaMuseable.estadointegridad.catalogoid;
+          this.buscarEstadosBien(this.piezaMuseable.piezamuseableid);
+          this.buscarCatalogosDetalle(this.piezaMuseable.piezamuseableid)
+          this.buscarDetalle(this.piezaMuseable.piezamuseableid)
+          this.obtenerCanton(this.piezaMuseable.provinciaid);
+
         }
 
       }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }),
       () => {
       });
   }
-  descargarFoto(){
+  descargarFoto() {
     this._itemService.downloadFotografia(this.piezaMuseable.piezamuseableid).
-          subscribe((foto: any) => {
-            let blob = new Blob([foto.blob()], { type: 'image/jpeg' });
-            this.foto = this.domSanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
-          }, (err: any) => {
-          }, () => { });
+      subscribe((foto: any) => {
+        let blob = new Blob([foto.blob()], { type: 'image/jpeg' });
+        this.foto = this.domSanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
+      }, (err: any) => {
+      }, () => { });
   }
   buscarDetalle(piezaMuseableId) {
     let tipo;
     switch (this.item.categoriaid.catalogoid) {
       case this.constantes.instrumental:
-        tipo=6;
+        tipo = 6;
         break;
       case this.constantes.arqueologia:
         this.detalle = new InstrumentalCientifico(this.piezaMuseable)
@@ -106,9 +116,68 @@ export class PiezaMuseableComponent implements OnInit {
         break;
     }
 
-    this._itemService.optenerDetalle(tipo,piezaMuseableId)
+    this._itemService.optenerDetalle(tipo, piezaMuseableId)
       .subscribe((detalle: any[]) => {
-       this.detalle=detalle=[0]
+        if (detalle[0].fechafabricacion != undefined && detalle[0].fechafabricacion != null) detalle[0].fechafabricacion = new Date(detalle[0].fechafabricacion)
+        this.detalle = detalle[0]
+        this.detalle.piezamuseableid = this.piezaMuseable
+
+      }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }),
+      () => {
+      });
+  }
+
+  buscarCatalogosDetalle(piezaMuseableId) {
+    let nombresColumna = [];
+    switch (this.item.categoriaid.catalogoid) {
+      case this.constantes.instrumental:
+        nombresColumna = ['tipoMaterialInstrumental'];
+        break;
+      case this.constantes.arqueologia:
+        this.detalle = new InstrumentalCientifico(this.piezaMuseable)
+        break;
+      case this.constantes.botanica:
+        this.detalle = new InstrumentalCientifico(this.piezaMuseable)
+        break;
+      default:
+        break;
+    }
+    if (nombresColumna.length > 0)
+      this._itemService.catalogosDetalle(piezaMuseableId, nombresColumna)
+        .subscribe((catalogos: DetalleCatalogo[]) => {
+
+          switch (this.item.categoriaid.catalogoid) {
+            case this.constantes.instrumental:
+            this.materialesSelecionados=[];
+              catalogos.forEach(x => {
+                this.materialesSelecionados.push(x.piezacatalogoPk.catalogoid+"")
+                
+              });
+
+              break;
+            case this.constantes.arqueologia:
+
+              break;
+            case this.constantes.botanica:
+
+              break;
+            default:
+              break;
+          }
+
+
+        }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }),
+        () => {
+        });
+  }
+
+  buscarEstadosBien(piezaMuseableId) {
+    this._itemService.estadosBien(piezaMuseableId)
+      .subscribe((estados: EstadoBien[]) => {
+        this.estadosBienSelecionados = []
+        estados.forEach(x => {
+          this.estadosBienSelecionados.push(x.piezaCatalogoPk.catalogoid + "");
+        });
 
       }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }),
       () => {
@@ -127,28 +196,28 @@ export class PiezaMuseableComponent implements OnInit {
     let padreId;
     switch (this.item.categoriaid.catalogoid) {
       case this.constantes.arqueologia:
-        padreId=this.constantes.arqueologiaEstadoBien;
+        padreId = this.constantes.arqueologiaEstadoBien;
         break;
       case this.constantes.botanica:
-        padreId=this.constantes.botanicaEstadoBien;
+        padreId = this.constantes.botanicaEstadoBien;
         break;
       case this.constantes.entomologia:
-        padreId=this.constantes.entomologiaEstadoBien;
+        padreId = this.constantes.entomologiaEstadoBien;
         break;
       case this.constantes.fotografia:
-        padreId=this.constantes.fotografiaEstadoBien;
+        padreId = this.constantes.fotografiaEstadoBien;
         break;
       case this.constantes.geologia:
-        padreId=this.constantes.geologiaEstadoBien;
+        padreId = this.constantes.geologiaEstadoBien;
         break;
       case this.constantes.instrumental:
-        padreId=this.constantes.isntrumentalEstadoBien;
+        padreId = this.constantes.isntrumentalEstadoBien;
         break;
       case this.constantes.peleontologia:
-        padreId=this.constantes.paleontologiaEstadoBien;
+        padreId = this.constantes.paleontologiaEstadoBien;
         break;
       case this.constantes.zoologia:
-        padreId=this.constantes.zoologiaEstadoBien;
+        padreId = this.constantes.zoologiaEstadoBien;
         break;
       default:
         break;
@@ -173,20 +242,20 @@ export class PiezaMuseableComponent implements OnInit {
         this.detalle = new InstrumentalCientifico(this.piezaMuseable)
         break;
       case this.constantes.entomologia:
-        this.detalle= new InstrumentalCientifico(this.piezaMuseable)
+        this.detalle = new InstrumentalCientifico(this.piezaMuseable)
         break;
       case this.constantes.fotografia:
-        this.detalle= new InstrumentalCientifico(this.piezaMuseable)
+        this.detalle = new InstrumentalCientifico(this.piezaMuseable)
         break;
       case this.constantes.geologia:
-        this.detalle= new InstrumentalCientifico(this.piezaMuseable)
+        this.detalle = new InstrumentalCientifico(this.piezaMuseable)
         break;
       case this.constantes.peleontologia:
-        this.detalle= new InstrumentalCientifico(this.piezaMuseable)
+        this.detalle = new InstrumentalCientifico(this.piezaMuseable)
         break;
       case this.constantes.zoologia:
-        this.detalle= new InstrumentalCientifico(this.piezaMuseable)
-        break;  
+        this.detalle = new InstrumentalCientifico(this.piezaMuseable)
+        break;
       default:
         break;
     }
@@ -270,9 +339,11 @@ export class PiezaMuseableComponent implements OnInit {
   }
 
   volver() {
-    this.buscar()
-    this.bandera = 0;
-    this.acciones = this.properties.labelLista + this.title;
+    this.enviadorCondicion.emit(false);
+  }
+
+  obtenerDatoHijo(catalogos) {
+    this.materialesSelecionados = catalogos;
   }
 
 
@@ -290,12 +361,18 @@ export class PiezaMuseableComponent implements OnInit {
     console.log(this.piezaMuseable);
     console.log(this.detalle);
     let piezaDetalle = new PiezaDetalle();
-
+    let catalogosDetalle = null;
     let tipo;
     switch (this.item.categoriaid.catalogoid) {
       case this.constantes.instrumental:
         tipo = 6
         piezaDetalle.piezainstrumentaldetalle = this.detalle
+        if (this.materialesSelecionados.length > 0) {
+          catalogosDetalle = [];
+          this.materialesSelecionados.forEach(x => {
+            catalogosDetalle.push(new DetalleCatalogo(x, "tipoMaterialInstrumental"))
+          });
+        }
         break;
       case this.constantes.arqueologia:
         this.detalle = new InstrumentalCientifico(this.piezaMuseable)
@@ -306,9 +383,16 @@ export class PiezaMuseableComponent implements OnInit {
       default:
         break;
     }
-    console.log(JSON.stringify(piezaDetalle))
-    this._itemService.guardarPiezaMuseableDetalle(tipo, piezaDetalle, this.documento)
+    let estadosBien = null;
+    if (this.estadosBienSelecionados.length > 0) {
+      estadosBien = [];
+      this.estadosBienSelecionados.forEach(x => {
+        estadosBien.push(new EstadoBien(x))
+      });
+    }
+    this._itemService.guardarPiezaMuseableDetalle(tipo, piezaDetalle, this.documento, estadosBien, catalogosDetalle)
       .subscribe((piezas: any) => {
+        this.enviadorCondicion.emit(true);
         console.log('ok')
 
       }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }),

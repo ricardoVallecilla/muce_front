@@ -114,7 +114,13 @@ export class ItemComponent implements OnInit {
     this.item=item;
     this.detallePiezaMuseable=true
   }
-
+  obtenerDatoHijo(event){
+    this.detallePiezaMuseable=false
+    if(event){
+      this.msgs=[];
+      this.msgs.push({ severity: 'success', summary: 'Éxito', detail: 'Item Actualizado.' });
+    }
+  }
   obtenerCategorias(event) {
     let filtro
     switch (event.catalogoid) {
@@ -129,6 +135,8 @@ export class ItemComponent implements OnInit {
         filtro = this.constantes.grupoTecnologicoPadre;
         break;
     }
+
+    
     this.categoriaItem = [{ label: this.properties.labelSeleccione, value: null }]
     this._catalogoService.obtenerCatalogosHijosPorPadres([filtro])
       .subscribe((catalogos: any[]) => {

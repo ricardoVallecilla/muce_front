@@ -27,5 +27,6 @@ export class Constantes{
     estadoConservacion=87;
     integridadPieza=91
     ubicaciones=33;
+    materialInstrumentos=316
 
 }
