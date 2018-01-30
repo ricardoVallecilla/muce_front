@@ -26,7 +26,7 @@ export class Item {
         museoid: any
     
     constructor() {
-        
+        this.restaurado=false;
     }
 
 

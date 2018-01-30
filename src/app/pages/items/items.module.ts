@@ -57,7 +57,7 @@ export const ItemRoutes: Routes = [
           breadcrumb: 'Item',
           icon: 'icofont-clip-board bg-c-blue',
           status: true,
-          descripcion: "Administración de catalogos usados en el sistema."
+          descripcion: "Administración de items y piezas patrimoniales."
         }
       }
       // ,

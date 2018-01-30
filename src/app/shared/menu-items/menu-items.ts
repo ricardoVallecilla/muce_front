@@ -49,7 +49,12 @@ const MENUITEMS = [
           {
             state: 'usuarios',
             name: 'Usuarios'
+          },
+          {
+            state: 'museo',
+            name: 'Museos'
           }
+
         ]
       },
       // {

@@ -204,10 +204,9 @@
                 <button pButton type="submit" label="{{properties.guardar.label}}" icon="{{properties.guardar.icon}}" [disabled]="!form.valid"></button>
               </div>
               <div class="ui-grid-col-3">
-                <button pButton type="button" *ngIf="padre" (click)="volver()" label="{{properties.cancelar.label}}" icon="{{properties.cancelar.icon}}"
+                <button pButton type="button" (click)="volver()" label="{{properties.cancelar.label}}" icon="{{properties.cancelar.icon}}"
                   class="ui-button-secondary"></button>
-                <button pButton type="button" *ngIf="!padre" (click)="subCatalogos(itemPadre)" label="{{properties.cancelar.label}}" icon="{{properties.cancelar.icon}}"
-                  class="ui-button-secondary"></button>
+        
               </div>
               <div class="ui-grid-col-4"></div>
             </div>
