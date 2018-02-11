@@ -17,6 +17,7 @@ export class UrlServices {
     piezaMuseableByItem=this.piezaMuseable+"item/"
     guardarPiezaMuseableDetalle=this.piezaMuseable+"detalle"
     optenerDetalleInstrumental=this.proxy+"/instrumental/piezaMuseable/"
+    optenerDetalleEntomologia=this.proxy+"/entomologica/piezaMuseable/"
     downloadFotografia=this.piezaMuseable+"fotografia/"
     estadosBien=this.proxy+"/estadogeneralbien/piezaMuseable/"
     catalogosDetalle=this.proxy+"/piezamuseablecatalogo/piezaMuseable/"

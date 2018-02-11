@@ -24,7 +24,7 @@ export class ItemService {
         return this._generalServices.getResources("post", this.url.filtrarItem, filtro)
     }
 
-    catalogosDetalle(piezamuseableid,nombrescolumnas): Observable<any> {
+    catalogosDetalle(piezamuseableid, nombrescolumnas): Observable<any> {
         let filtro = {
             "piezamuseableid": piezamuseableid,
             "nombrescolumnas": nombrescolumnas
@@ -38,19 +38,19 @@ export class ItemService {
     estadosBien(piezaMuseableId): Observable<any> {
         return this._generalServices.getResources("get", this.url.estadosBien + piezaMuseableId)
     }
-    guardarPiezaMuseableDetalle(tipo, detalle, file, estado = null,catalogosDetalle=null): Observable<any> {
+    guardarPiezaMuseableDetalle(tipo, detalle, file, estado = null, catalogosDetalle = null): Observable<any> {
         var formData = new FormData();
-        if(file!=null)formData.append('file', file[0]);
+        if (file != null) formData.append('file', file[0]);
         formData.append('tipo', tipo);
         formData.append('detalle', JSON.stringify(detalle));
-        formData.append('estadoGeneral', estado==null?null:JSON.stringify(estado));
-        if(catalogosDetalle!=null)formData.append('catalogosDetalle', JSON.stringify(catalogosDetalle));
+        formData.append('estadoGeneral', estado == null ? null : JSON.stringify(estado));
+        if (catalogosDetalle != null) formData.append('catalogosDetalle', JSON.stringify(catalogosDetalle));
         return this._generalServices.getResources("post", this.url.guardarPiezaMuseableDetalle, formData)
 
     }
 
-    downloadFotografia(id){
-        return this._generalServices.getResources("getFile", this.url.downloadFotografia+id, )
+    downloadFotografia(id) {
+        return this._generalServices.getResources("getFile", this.url.downloadFotografia + id, )
     }
     obtenerCatalogosHijos(padreId): Observable<any> {
         return this._generalServices.getResources("get", this.url.obtenerCatalogosHijos + padreId)
@@ -61,7 +61,9 @@ export class ItemService {
     optenerDetalle(tipo, piezaMuseableId): Observable<any> {
         switch (tipo) {
             case 6:
-                return this._generalServices.getResources("get", this.url.optenerDetalleInstrumental+piezaMuseableId);
+                return this._generalServices.getResources("get", this.url.optenerDetalleInstrumental + piezaMuseableId);
+            case 3:
+                return this._generalServices.getResources("get", this.url.optenerDetalleEntomologia + piezaMuseableId);
         }
 
         // return this._generalServices.getResources("post", this.url.item, item)

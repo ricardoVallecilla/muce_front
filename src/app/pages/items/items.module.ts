@@ -40,6 +40,7 @@ import { FotografiaComponent } from './piezaMuseable/categorias/fotografia.compo
 import { GeologiaComponent } from './piezaMuseable/categorias/geologia.component';
 import { PaleontologiaComponent } from './piezaMuseable/categorias/paleontologia.component';
 import { ZoologiaComponent } from './piezaMuseable/categorias/zoologia.component';
+import { DatosRecoleccionComponent } from './piezaMuseable/datosRecoleccion/datosRecoleccion.component';
 
 
 
@@ -108,7 +109,7 @@ export const ItemRoutes: Routes = [
     FormsModule,
     ReactiveFormsModule
   ],
-  declarations: [PiezaMuseableComponent,ItemComponent,ArqueologiaComponent,BotanicaComponent,
+  declarations: [PiezaMuseableComponent,ItemComponent,ArqueologiaComponent,BotanicaComponent,DatosRecoleccionComponent,
      EntomologiaComponent, FotografiaComponent, GeologiaComponent, PaleontologiaComponent, ZoologiaComponent,
       IstrumentalCientificoComponent]
   , providers: [GeneralService, ConfirmationService, CatalogoService, UsuarioService, MuseoServices,ItemService]

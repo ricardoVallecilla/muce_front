@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input ,Output,EventEmitter} from '@angular/core';
 import { Properties } from '../../../properties'
 import { Constantes } from '../../../constantes'
 import { CatalogoService } from '../../../../services/catalogos/catalogos.service'
@@ -18,13 +18,30 @@ export class EntomologiaComponent implements OnInit {
   
   @Input() detalle = null;
   @Input() item = null;
-
+  @Input() tecnicaConservacionSelecionados=[]
+  @Output() enviadorCondicion = new EventEmitter();
+  tecnicasItem=[]
   es = this.properties.es;
   constructor(
     private _catalogoService: CatalogoService,
     ) {}
 
-  ngOnInit() {
+    ngOnInit() {
    
-  }
+      this.cargarCatalogos()
+    }
+  
+    impr() {
+      this.enviadorCondicion.emit(this.tecnicaConservacionSelecionados);
+    console.log(this.tecnicaConservacionSelecionados)
+    }
+    cargarCatalogos() {
+      this._catalogoService.obtenerCatalogosHijosPorPadres([this.constantes.tecnicasConservacionEntomologia])
+        .subscribe((catalogos: any[]) => {
+          this.tecnicasItem=[]
+          this.tecnicasItem=catalogos
+        }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }),
+        () => {
+        });
+    }
 }

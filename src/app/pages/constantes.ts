@@ -28,5 +28,6 @@ export class Constantes{
     integridadPieza=91
     ubicaciones=33;
     materialInstrumentos=316
-
+    tecnicasConservacionEntomologia=447;
+    paises=455
 }
