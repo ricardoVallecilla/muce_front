@@ -17,6 +17,8 @@ export class UrlServices {
     piezaMuseableByItem=this.piezaMuseable+"item/"
     guardarPiezaMuseableDetalle=this.piezaMuseable+"detalle"
     optenerDetalleInstrumental=this.proxy+"/instrumental/piezaMuseable/"
+    optenerDetalleBotanica=this.proxy+"/botanica/piezaMuseable/"
+    optenerDetalleArqueologia=this.proxy+"/arquelogica/piezaMuseable/"
     optenerDetalleEntomologia=this.proxy+"/entomologica/piezaMuseable/"
     downloadFotografia=this.piezaMuseable+"fotografia/"
     estadosBien=this.proxy+"/estadogeneralbien/piezaMuseable/"
@@ -32,6 +34,9 @@ export class UrlServices {
     permisos=this.proxy+"/permiso/"
     optenerPermisos=this.permisos
     museo=this.proxy + "/museo/"
+    movimientos=this.proxy + "/movimiento/"
+    movimientoPiezas=this.movimientos+"piezas"
+    movimientosMuseo=this.movimientos+"museo/"
     constructor() {
 
     }

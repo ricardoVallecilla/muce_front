@@ -14,10 +14,15 @@
           <p-fieldset legend="FICHA DE INVENTARIO {{item?.categoriaid.nombre}}">
 
             <div class="separadorInventario">
-              <h5>INFORMACIÓN TÉCNICA</h5>
+              <h5 style="float: left"  >INFORMACIÓN TÉCNICA</h5>
+              <div style="width: 100%;text-align: right"> 
+                <button pButton type="button"  icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);" ></button>
+                <button pButton type="button"  icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0" ></button>
+              </div>
+              
             </div>
-            <arqueologia [item]="item" *ngIf="item.categoriaid.catalogoid==constantes.arqueologia" [detalle]="detalle"></arqueologia>
-            <botanica  [item]="item" *ngIf="item.categoriaid.catalogoid==constantes.botanica" [detalle]="detalle"></botanica>
+            <arqueologia [item]="item" *ngIf="item.categoriaid.catalogoid==constantes.arqueologia" [detalle]="detalle" [materialesArqueologiaSelecionados]="materialesArqueologiaSelecionados" (enviadorCondicion)="obtenerMaterialesArquelogica($event)"></arqueologia>
+            <botanica  [item]="item" *ngIf="item.categoriaid.catalogoid==constantes.botanica" [detalle]="detalle" [origenesBotanicaSeleccionados]="origenesBotanicaSeleccionados" [tecnicaConservacionBotanicaSelecionados]="tecnicaConservacionBotanicaSelecionados" (enviadorTecnicas)="optenerBotanicaTecnicas($event)" (enviadorOrigenes)="optenerBotanicaOrigenes($event)"></botanica>
             <entomologia  [item]="item" *ngIf="item.categoriaid.catalogoid==constantes.entomologia" [detalle]="detalle"  (enviadorCondicion)="obtenerDatoHijoEntomologia($event)"  [tecnicaConservacionSelecionados]="tecnicaConservacionSelecionados" ></entomologia>
             <fotografia  [item]="item" *ngIf="item.categoriaid.catalogoid==constantes.fotografia" [detalle]="detalle"></fotografia>
             <geologia  [item]="item" *ngIf="item.categoriaid.catalogoid==constantes.geologia" [detalle]="detalle"></geologia>
@@ -26,7 +31,11 @@
             <zoologia  [item]="item" *ngIf="item.categoriaid.catalogoid==constantes.zoologia" [detalle]="detalle"></zoologia>
             
             <div class="separadorInventario">
-              <h5>DATOS DE LOCALIZACIÓN</h5>
+              <h5 style="float: left" >DATOS DE LOCALIZACIÓN</h5>
+              <div style="width: 100%;text-align: right"> 
+                  <button pButton type="button"  icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);" ></button>
+                  <button pButton type="button"  icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0" ></button>
+                </div>
             </div>
             <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
 
@@ -119,9 +128,13 @@
                 </div>
               </div>
             </div>
-            <datosRecoleccion [detalle]="detalle"></datosRecoleccion>
+            <datosRecoleccion [detalle]="detalle" *ngIf="item.categoriaid.catalogoid==constantes.entomologia || item.categoriaid.catalogoid==constantes.botanica"></datosRecoleccion>
             <div class="separadorInventario">
-              <h5>CONDICIÓN LEGAL DEL BIEN</h5>
+              <h5 style="float: left">CONDICIÓN LEGAL DEL BIEN</h5>
+              <div style="width: 100%;text-align: right"> 
+                  <button pButton type="button"  icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);" ></button>
+                  <button pButton type="button"  icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0" ></button>
+                </div>
             </div>
 
             <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
@@ -136,7 +149,11 @@
               </div>
             </div>
             <div class="separadorInventario">
-              <h5>ESTADO GENERAL DEL BIEN</h5>
+              <h5 style="float: left">ESTADO GENERAL DEL BIEN</h5>
+              <div style="width: 100%;text-align: right"> 
+                  <button pButton type="button"  icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);" ></button>
+                  <button pButton type="button"  icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0" ></button>
+                </div>
             </div>
             <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
               <div class="ui-grid-row">
@@ -184,7 +201,11 @@
 
             </div>
             <div class="separadorInventario">
-              <h5>CONSERVACION PREVENTIVA EN LUGAR DE EXPOSICIÓN / RESERVA</h5>
+              <h5 style="float: left">CONSERVACION PREVENTIVA EN LUGAR DE EXPOSICIÓN / RESERVA</h5>
+              <div style="width: 100%;text-align: right"> 
+                  <button pButton type="button"  icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);" ></button>
+                  <button pButton type="button"  icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0" ></button>
+                </div>
             </div>
 
 
@@ -303,7 +324,11 @@
             </div>
 
             <div class="separadorInventario">
-              <h5>OBSERVACIONES</h5>
+              <h5 style="float: left">OBSERVACIONES</h5>
+              <div style="width: 100%;text-align: right"> 
+                  <button pButton type="button"  icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);" ></button>
+                  <button pButton type="button"  icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0" ></button>
+                </div>
             </div>
             <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
 
@@ -316,7 +341,11 @@
             </div>
 
             <div class="separadorInventario">
-              <h5>FOTOGRÁFIA</h5>
+              <h5 style="float: left">FOTOGRÁFIA</h5>
+              <div style="width: 100%;text-align: right"> 
+                  <button pButton type="button"  icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);" ></button>
+                  <button pButton type="button"  icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0" ></button>
+                </div>
             </div>
             <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
 
@@ -329,7 +358,11 @@
               </div>
             </div>
             <div class="separadorInventario">
-              <h5>HISTORIAL DE ITINERANCIA</h5>
+              <h5 style="float: left">HISTORIAL DE ITINERANCIA</h5>
+              <div style="width: 100%;text-align: right"> 
+                  <button pButton type="button"  icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);" ></button>
+                  <button pButton type="button"  icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0" ></button>
+                </div>
             </div>
 
             <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
@@ -342,7 +375,11 @@
               </div>
             </div>
             <div class="separadorInventario">
-              <h5>DATOS DE CONTROL DE BIENES UCE</h5>
+              <h5 style="float: left">DATOS DE CONTROL DE BIENES UCE</h5>
+              <div style="width: 100%;text-align: right"> 
+                  <button pButton type="button"  icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);" ></button>
+                  <button pButton type="button"  icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0" ></button>
+                </div>
             </div>
 
             <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
@@ -377,7 +414,11 @@
               </div>
             </div>
             <div class="separadorInventario">
-              <h5>DATOS DE CONTROL INVENTARIO</h5>
+              <h5 style="float: left">DATOS DE CONTROL INVENTARIO</h5>
+              <div style="width: 100%;text-align: right"> 
+                  <button pButton type="button"  icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);" ></button>
+                  <button pButton type="button"  icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0" ></button>
+                </div>
             </div>
 
             <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">

@@ -28,5 +28,6 @@ export class Properties{
         today: 'Hoy',
         clear: 'Borrar'
     }
+    formatoFecha = "dd/MM/yyyy";
 
 }

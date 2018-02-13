@@ -1,11 +1,11 @@
 <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px" *ngIf="detalle!=null">
-  
+
   <div class="ui-grid-row">
     <div class="ui-grid-col-2">
       Especie:
     </div>
     <div class="ui-grid-col-10">
-      <input pInputText type="text" maxlength="150" name="morfofuncional" required />
+      <input pInputText type="text" maxlength="150" name="especie" [(ngModel)]="detalle.especie" />
     </div>
   </div>
 
@@ -14,7 +14,7 @@
       Autor:
     </div>
     <div class="ui-grid-col-10">
-      <input pInputText type="text" maxlength="150" name="morfofuncional" required />
+      <input pInputText type="text" maxlength="150" name="autor" [(ngModel)]="detalle.autor" />
     </div>
   </div>
 
@@ -23,7 +23,7 @@
       Nombre Común:
     </div>
     <div class="ui-grid-col-10">
-      <input pInputText type="text" maxlength="150" name="morfofuncional" required />
+      <input pInputText type="text" maxlength="150" name="nombrecomun" [(ngModel)]="detalle.nombrecomun" />
     </div>
   </div>
 
@@ -32,7 +32,7 @@
       Plublicado en:
     </div>
     <div class="ui-grid-col-10">
-      <input pInputText type="text" maxlength="150" name="morfofuncional" required />
+      <input pInputText type="text" maxlength="150" name="morfofuncional" [(ngModel)]="detalle.publicado" />
     </div>
   </div>
 
@@ -41,7 +41,7 @@
       Clase:
     </div>
     <div class="ui-grid-col-10">
-      <input pInputText type="text" maxlength="150" name="morfofuncional" required />
+      <input pInputText type="text" maxlength="150" name="morfofuncional" [(ngModel)]="detalle.clase" />
     </div>
   </div>
 
@@ -50,7 +50,7 @@
       Subclase:
     </div>
     <div class="ui-grid-col-10">
-      <input pInputText type="text" maxlength="150" name="morfofuncional" required />
+      <input pInputText type="text" maxlength="150" name="morfofuncional" [(ngModel)]="detalle.subclase" />
     </div>
   </div>
 
@@ -59,7 +59,7 @@
       Orden:
     </div>
     <div class="ui-grid-col-10">
-      <input pInputText type="text" maxlength="150" name="morfofuncional" required />
+      <input pInputText type="text" maxlength="150" name="morfofuncional" [(ngModel)]="detalle.orden" />
     </div>
   </div>
 
@@ -68,16 +68,16 @@
       Familia:
     </div>
     <div class="ui-grid-col-10">
-      <input pInputText type="text" maxlength="150" name="morfofuncional" required />
+      <input pInputText type="text" maxlength="150" name="morfofuncional" [(ngModel)]="detalle.familia" />
     </div>
   </div>
 
   <div class="ui-grid-row">
     <div class="ui-grid-col-2">
-      Genero:
+      Género:
     </div>
     <div class="ui-grid-col-10">
-      <input pInputText type="text" maxlength="150" name="morfofuncional" required />
+      <input pInputText type="text" maxlength="150" name="morfofuncional" [(ngModel)]="detalle.genero" />
     </div>
   </div>
 
@@ -86,7 +86,11 @@
       Origen:
     </div>
     <div class="ui-grid-col-10">
-      <input pInputText type="text" maxlength="150" name="morfofuncional" required />
+      <div class="ui-g">
+        <div class="ui-g-3" *ngFor="let estado of origenItem">
+          <p-checkbox name="origenes" value="{{estado.catalogoid}}" label="{{estado.nombre}}" (click)="imprOrigen()" [(ngModel)]="origenesBotanicaSeleccionados"></p-checkbox>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -95,17 +99,20 @@
       Técnica de conservación:
     </div>
     <div class="ui-grid-col-10">
-      <input pInputText type="text" maxlength="150" name="morfofuncional" required />
+      <div class="ui-g">
+        <div class="ui-g-3" *ngFor="let estado of tecnicasItem">
+          <p-checkbox name="tecnicas" value="{{estado.catalogoid}}" label="{{estado.nombre}}" (click)="impr()" [(ngModel)]="tecnicaConservacionBotanicaSelecionados"></p-checkbox>
+        </div>
+      </div>
     </div>
   </div>
 
   <div class="ui-grid-row">
     <div class="ui-grid-col-2">
-      Detalles *:
+      Descripcion *:
     </div>
     <div class="ui-grid-col-10">
-      <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="256" name="detalles" [(ngModel)]="detalle.detalles"
-        required></textarea>
+      <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="256" name="detalles" [(ngModel)]="detalle.descripcion"></textarea>
     </div>
   </div>
 

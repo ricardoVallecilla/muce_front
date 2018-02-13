@@ -8,10 +8,12 @@ import { PiezaDetalle } from '../../../models/piezaDetalle.model'
 import { PiezaMuseable } from '../../../models/piezaMuseable.model'
 import { InstrumentalCientifico } from '../../../models/categorias/instrumental.model'
 import { Entomologia } from '../../../models/categorias/entomologia.model'
+import { Botanica } from '../../../models/categorias/botanica.model'
 import { CatalogoService } from '../../../services/catalogos/catalogos.service'
 import { ItemService } from '../../../services/item/items.service'
 import { Message, ConfirmationService } from 'primeng/primeng';
 import { BrowserModule, DomSanitizer, SafeResourceUrl } from '@angular/platform-browser'
+import { Arqueologia } from '../../../models/categorias/arqueologia.model';
 @Component({
   selector: 'piezaMuseable',
   templateUrl: './piezaMuseable.html'
@@ -46,6 +48,9 @@ export class PiezaMuseableComponent implements OnInit {
   integridadPieza = null;
   materialesSelecionados = []
   tecnicaConservacionSelecionados = []
+  tecnicaConservacionBotanicaSelecionados = [];
+  origenesBotanicaSeleccionados = [];
+  materialesArqueologiaSelecionados = [];
   foto = null;
   @Output() enviadorCondicion = new EventEmitter();
   constructor(
@@ -70,6 +75,7 @@ export class PiezaMuseableComponent implements OnInit {
   }
 
   buscar() {
+    this.msgs=[];
     this._itemService.piezaMuseableByItem(this.item.itemid)
       .subscribe((piezas: any[]) => {
         if (piezas.length == 0) {
@@ -105,19 +111,19 @@ export class PiezaMuseableComponent implements OnInit {
   buscarDetalle(piezaMuseableId) {
     let tipo;
     switch (this.item.categoriaid.catalogoid) {
+      case this.constantes.arqueologia:
+        tipo = 1
+        break;
+      case this.constantes.botanica:
+        tipo = 2
+        break;
       case this.constantes.instrumental:
         tipo = 6;
         break;
       case this.constantes.entomologia:
         tipo = 3;
         break;
-      case this.constantes.arqueologia:
-        this.detalle = new InstrumentalCientifico(this.piezaMuseable)
-        break;
-      case this.constantes.botanica:
-        this.detalle = new InstrumentalCientifico(this.piezaMuseable)
-        break;
-      
+
       default:
         break;
     }
@@ -140,10 +146,10 @@ export class PiezaMuseableComponent implements OnInit {
         nombresColumna = ['tipoMaterialInstrumental'];
         break;
       case this.constantes.arqueologia:
-        this.detalle = new InstrumentalCientifico(this.piezaMuseable)
+        nombresColumna = ['tipoMaterialArqueologia'];
         break;
       case this.constantes.botanica:
-
+        nombresColumna = ['tecnicaConservacionBotanica', 'origenBotanica'];
         break;
       case this.constantes.entomologia:
         nombresColumna = ['tecnicaConservacionEntomologia'];
@@ -165,10 +171,23 @@ export class PiezaMuseableComponent implements OnInit {
 
               break;
             case this.constantes.arqueologia:
+              this.materialesArqueologiaSelecionados = [];
+              catalogos.forEach(x => {
+                this.materialesArqueologiaSelecionados.push(x.piezacatalogoPk.catalogoid + "")
 
+              });
               break;
             case this.constantes.botanica:
+              this.origenesBotanicaSeleccionados = [];
+              catalogos.filter(x => x.indetificadorcampo == "origenBotanica").forEach(x => {
+                this.origenesBotanicaSeleccionados.push(x.piezacatalogoPk.catalogoid + "")
 
+              });
+              this.tecnicaConservacionBotanicaSelecionados = [];
+              catalogos.filter(x => x.indetificadorcampo == "tecnicaConservacionBotanica").forEach(x => {
+                this.tecnicaConservacionBotanicaSelecionados.push(x.piezacatalogoPk.catalogoid + "")
+
+              });
               break;
             case this.constantes.entomologia:
               this.tecnicaConservacionSelecionados = [];
@@ -253,10 +272,10 @@ export class PiezaMuseableComponent implements OnInit {
         this.detalle = new InstrumentalCientifico(this.piezaMuseable)
         break;
       case this.constantes.arqueologia:
-        this.detalle = new InstrumentalCientifico(this.piezaMuseable)
+        this.detalle = new Arqueologia(this.piezaMuseable)
         break;
       case this.constantes.botanica:
-        this.detalle = new InstrumentalCientifico(this.piezaMuseable)
+        this.detalle = new Botanica(this.piezaMuseable)
         break;
       case this.constantes.entomologia:
         this.detalle = new Entomologia(this.piezaMuseable)
@@ -367,6 +386,19 @@ export class PiezaMuseableComponent implements OnInit {
   obtenerDatoHijoEntomologia(catalogos) {
     this.tecnicaConservacionSelecionados = catalogos;
   }
+
+  obtenerMaterialesArquelogica(catalogos) {
+    this.materialesArqueologiaSelecionados = catalogos;
+  }
+
+  optenerBotanicaOrigenes(catalogos) {
+    this.origenesBotanicaSeleccionados = catalogos;
+  }
+  optenerBotanicaTecnicas(catalogos) {
+    this.tecnicaConservacionBotanicaSelecionados = catalogos;
+  }
+
+
   fileChangeEvent(event) {
     console.log(event)
     let e = event.srcElement ? event.srcElement : event.target;
@@ -395,10 +427,29 @@ export class PiezaMuseableComponent implements OnInit {
         }
         break;
       case this.constantes.arqueologia:
-        this.detalle = new InstrumentalCientifico(this.piezaMuseable)
+        tipo = 1
+        piezaDetalle.piezaarqueologicadetalle = this.detalle
+        if (this.materialesArqueologiaSelecionados.length > 0) {
+          catalogosDetalle = [];
+          this.materialesArqueologiaSelecionados.forEach(x => {
+            catalogosDetalle.push(new DetalleCatalogo(x, "tipoMaterialArqueologia"))
+          });
+        }
         break;
       case this.constantes.botanica:
-        this.detalle = new InstrumentalCientifico(this.piezaMuseable)
+        tipo = 2;
+        piezaDetalle.piezabotanicadetalle = this.detalle
+        catalogosDetalle = [];
+        if (this.tecnicaConservacionBotanicaSelecionados.length > 0) {
+          this.tecnicaConservacionBotanicaSelecionados.forEach(x => {
+            catalogosDetalle.push(new DetalleCatalogo(x, "tecnicaConservacionBotanica"))
+          });
+        }
+        if (this.origenesBotanicaSeleccionados.length > 0) {
+          this.origenesBotanicaSeleccionados.forEach(x => {
+            catalogosDetalle.push(new DetalleCatalogo(x, "origenBotanica"))
+          });
+        }
         break;
       case this.constantes.entomologia:
         tipo = 3

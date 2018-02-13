@@ -19,6 +19,7 @@ import {
   ConfirmationService,
   InputTextModule,
   CalendarModule,
+  DialogModule,
   InputSwitchModule
 } from 'primeng/primeng';
 
@@ -41,7 +42,8 @@ import { GeologiaComponent } from './piezaMuseable/categorias/geologia.component
 import { PaleontologiaComponent } from './piezaMuseable/categorias/paleontologia.component';
 import { ZoologiaComponent } from './piezaMuseable/categorias/zoologia.component';
 import { DatosRecoleccionComponent } from './piezaMuseable/datosRecoleccion/datosRecoleccion.component';
-
+import { MovimientosComponent } from './movimientos/movimientos.component';
+import { MovimientosService } from '../../services/movimientos/movimientos.service'
 
 
 //import {WithSocialComponent} from './registration/with-social/with-social.component';
@@ -59,6 +61,17 @@ export const ItemRoutes: Routes = [
           icon: 'icofont-clip-board bg-c-blue',
           status: true,
           descripcion: "Administración de items y piezas patrimoniales."
+        }
+      },
+      {
+        path: 'movimientos',
+        component: MovimientosComponent,
+
+        data: {
+          breadcrumb: 'Movimientos',
+          icon: 'icofont-external bg-c-blue',
+          status: true,
+          descripcion: "Administración de movimientos de piezas patrimoniales."
         }
       }
       // ,
@@ -105,13 +118,14 @@ export const ItemRoutes: Routes = [
     FieldsetModule,
     InputTextModule,
     InputSwitchModule,
+    DialogModule,
     RouterModule.forChild(ItemRoutes),
     FormsModule,
     ReactiveFormsModule
   ],
   declarations: [PiezaMuseableComponent,ItemComponent,ArqueologiaComponent,BotanicaComponent,DatosRecoleccionComponent,
-     EntomologiaComponent, FotografiaComponent, GeologiaComponent, PaleontologiaComponent, ZoologiaComponent,
+     EntomologiaComponent, FotografiaComponent, GeologiaComponent, PaleontologiaComponent, ZoologiaComponent,MovimientosComponent,
       IstrumentalCientificoComponent]
-  , providers: [GeneralService, ConfirmationService, CatalogoService, UsuarioService, MuseoServices,ItemService]
+  , providers: [GeneralService, ConfirmationService, CatalogoService, UsuarioService, MuseoServices,ItemService,MovimientosService]
 })
 export class ItemModule { }

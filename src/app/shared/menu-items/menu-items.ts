@@ -80,6 +80,10 @@ const MENUITEMS = [
           {
             state: 'item',
             name: 'Item'
+          },
+          {
+            state: 'movimientos',
+            name: 'Movimientos'
           }
         ]
       },

@@ -1,6 +1,7 @@
 export class Constantes{
 
     tipoIngreso=9
+    tipoIngresoPrestamo=13;
     grupo=16
     grupoCultural=19
     grupoTecnologico=18
@@ -30,4 +31,36 @@ export class Constantes{
     materialInstrumentos=316
     tecnicasConservacionEntomologia=447;
     paises=455
+    tecnicasConservacionBotanica=706;
+    origenBotanica=709;
+    materialesArqueologia=713;
+    tipoMovimientosEgreso=722;
+    tipoMovimientosIngreso=729;
+    prestamoInterno=724;
+    traspasoiterno=725;
+    /*
+    740	1	EN DESINFECCIÓN
+739	1	EN RESTAURACIÓN
+738	1	OTRO
+737	1	EN PRÉSTAMO EXTERNO
+736	1	EN PRÉSTAMO INTERNO
+735	1	ESTADOS ITEM MOVIMIENTOS
+
+728	1	OTRO	OTRO	
+727	1	DESINFECCIÓN	DESINFECCIÓN	
+726	1	RESTAURACIÓN	RESTAURACIÓN	
+725	1	TRASPASO INTERNO	TRASPASO INTERNO	
+724	1	PRÉSTAMO INTERNO	PRÉSTAMO INTERNO	
+723	1	PRÉSTAMO EXTERNO	PRÉSTAMO EXTERNO	
+    */
+    estadosPiezasMovimientos=735;
+    diccionarioMovimientoEstado={
+        prestamoInterno:{tipoMovimiento:724,estadoPieza:736},
+        prestamoExterno:{tipoMovimiento:723,estadoPieza:737},
+        restauracion:{tipoMovimiento:726,estadoPieza:739},
+        otro:{tipoMovimiento:728,estadoPieza:738},
+        desinfecion:{tipoMovimiento:727,estadoPieza:740},
+
+    }
+
 }

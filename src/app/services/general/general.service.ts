@@ -37,7 +37,7 @@ export class GeneralService {
                     .subscribe(
                     usuario => {
 
-
+                        
                         let usuarioLocalStorage = { "token": token, "usuario": usuario.principal }
                         //console.log(usuarioLocalStorage);                                     
                         var encrypted = CryptoJS.AES.encrypt(JSON.stringify(usuarioLocalStorage), this.key);

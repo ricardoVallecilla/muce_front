@@ -27,13 +27,12 @@
           <input #gb onkeypress="return event.keyCode != 13;" type="text" pInputText placeholder="Filtro Global">
         </div>
         <div class="ui-g-12 ui-md-12 ui-lg-12" style="padding: 0">
-          <p-dataTable [value]="items" [globalFilter]="gb" emptyMessage="{{properties.sinDatos}}">
+          <p-dataTable [value]="items" [globalFilter]="gb" emptyMessage="{{properties.sinDatos}}" [paginator]="true" [rows]="10">
             <p-column field="nombre" header="Nombre" [sortable]="true"></p-column>
             <p-column field="codigocontrol" header="Codigo de Control" [sortable]="true"></p-column>
             <p-column field="numeroserie" header="Número de Serie" [sortable]="true"></p-column>
-            <p-column field="tipoingreso.nombre" header="Tipo de Ingreso"  [sortable]="true" >
-             
-            </p-column>
+            <p-column field="tipoingreso.nombre" header="Tipo de Ingreso"  [sortable]="true" ></p-column>
+            <p-column field="estadoid.nombre" header="Estado"  [sortable]="true" ></p-column>
             <p-column header="Opciones" [style]="{'width':'135px','text-align':'center'}">
               <ng-template let-item="rowData" pTemplate="body">
                 <button type="button" class="buttonAction" pButton (click)="editarItem(item)" icon="{{properties.iconEditar}}" title="Editar"></button>

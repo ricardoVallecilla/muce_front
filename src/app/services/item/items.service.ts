@@ -23,6 +23,14 @@ export class ItemService {
         }
         return this._generalServices.getResources("post", this.url.filtrarItem, filtro)
     }
+    filtrarItemsMovimientos(museoId, grupoId, categoriaId): Observable<any> {
+        let filtro = {
+            "museoId": museoId,
+            "grupoId": grupoId,
+            "categoriaId": categoriaId
+        }
+        return this._generalServices.getResources("post", this.url.filtrarItem+"/movimiento", filtro)
+    }
 
     catalogosDetalle(piezamuseableid, nombrescolumnas): Observable<any> {
         let filtro = {
@@ -60,6 +68,10 @@ export class ItemService {
     }
     optenerDetalle(tipo, piezaMuseableId): Observable<any> {
         switch (tipo) {
+            case 1:
+                return this._generalServices.getResources("get", this.url.optenerDetalleArqueologia + piezaMuseableId);     
+            case 2:
+                return this._generalServices.getResources("get", this.url.optenerDetalleBotanica + piezaMuseableId);                
             case 6:
                 return this._generalServices.getResources("get", this.url.optenerDetalleInstrumental + piezaMuseableId);
             case 3:

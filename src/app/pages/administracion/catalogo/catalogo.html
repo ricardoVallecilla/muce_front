@@ -13,7 +13,7 @@
           <input #gb onkeypress="return event.keyCode != 13;" type="text" pInputText placeholder="Filtro Global">
         </div>
          <div class="ui-g-12 ui-md-12 ui-lg-12" style="padding: 0">
-          <p-dataTable [value]="catalogos" [globalFilter]="gb" emptyMessage="{{properties.sinDatos}}">
+          <p-dataTable [value]="catalogos" [globalFilter]="gb" emptyMessage="{{properties.sinDatos}}" [paginator]="true" [rows]="10">
             <p-column field="nombre" header="Nombre" [sortable]="true"></p-column>
             <p-column field="descripcion" header="Descripción" [sortable]="true"></p-column>
             <p-column field="activo" header="Activo" *ngIf="!padre" [sortable]="true" [style]="{'width':'75px'}">
