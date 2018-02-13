@@ -13,14 +13,11 @@ import { CatalogoService } from '../../../services/catalogos/catalogos.service'
 import { ItemService } from '../../../services/item/items.service'
 import { Message, ConfirmationService } from 'primeng/primeng';
 import { BrowserModule, DomSanitizer, SafeResourceUrl } from '@angular/platform-browser'
-<<<<<<< HEAD
 import { Arqueologia } from '../../../models/categorias/arqueologia.model';
-=======
 import { FotografiaModel } from '../../../models/categorias/fotografia.model';
 import { GeologiaModel } from '../../../models/categorias/geologia.model';
 import { PaleontologiaModel } from '../../../models/categorias/paleontologia.model';
 import { ZoologiaModel } from '../../../models/categorias/zoolgia.model';
->>>>>>> 3e8aef1308be29a1550cdc698772f7e9f86ea2db
 @Component({
   selector: 'piezaMuseable',
   templateUrl: './piezaMuseable.html'
@@ -130,8 +127,6 @@ export class PiezaMuseableComponent implements OnInit {
       case this.constantes.entomologia:
         tipo = 3;
         break;
-<<<<<<< HEAD
-=======
       case this.constantes.fotografia:
         tipo = 5
         break;
@@ -146,7 +141,6 @@ export class PiezaMuseableComponent implements OnInit {
       case this.constantes.zoologia:
         tipo = 9
         break;
->>>>>>> 3e8aef1308be29a1550cdc698772f7e9f86ea2db
 
       default:
         break;
