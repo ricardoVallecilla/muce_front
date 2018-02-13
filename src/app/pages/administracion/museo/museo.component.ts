@@ -79,7 +79,7 @@ export class MuseoComponent implements OnInit {
         this.obtenerTodoMuseos()
     }
     
-    guardar() {
+    guardar() { 
         let index: number = this.custodiosModel.findIndex(x => x.value == this.museo.cutodioId.id);
         if (index != -1) {
             this.museo.cutodioId = this.custodiosModel[index]

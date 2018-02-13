@@ -16,7 +16,7 @@ export class MuseoServices {
         return this._generalServices.getResources("get", this.url.museo)
     }
 
-    guardarMuseo(museo, file): Observable<any> {
+    guardarMuseo(museo, file): Observable<any> { 
         const formData = new FormData()
         if(file != null) formData.append('file', file[0]);
         formData.append('museo', JSON.stringify(museo));

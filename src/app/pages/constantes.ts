@@ -30,5 +30,5 @@ export class Constantes{
     materialInstrumentos=316
 
     //museo
-    rolCustodio = 3
+    rolCustodio = 3 
 }

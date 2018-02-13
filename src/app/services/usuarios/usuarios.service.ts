@@ -15,7 +15,7 @@ export class UsuarioService {
         return this._generalServices.getResources("get", this.url.optenerUsuarios)
     }
 
-    obtenerUsuariosByRol(rolId): Observable<any[]> {
+    obtenerUsuariosByRol(rolId): Observable<any[]> { 
         return this._generalServices.getResources("get", this.url.obtenerUsuariosByRol + '/' + rolId)
     }
 

@@ -26,7 +26,7 @@ export class UrlServices {
     obtenerCatalogosHijosPorPadres= this.catalogos+"hijos/lista"
     usuarios=this.proxy+"/usuario/"
     optenerUsuarios=this.usuarios
-    obtenerUsuariosByRol = this.optenerUsuarios + 'rol'
+    obtenerUsuariosByRol = this.optenerUsuarios + 'rol' 
     roles=this.proxy+"/rol/"
     optenerRoles=this.roles
     permisos=this.proxy+"/permiso/"
