@@ -29,14 +29,19 @@ export class UrlServices {
     obtenerCatalogosHijosPorPadres= this.catalogos+"hijos/lista"
     usuarios=this.proxy+"/usuario/"
     optenerUsuarios=this.usuarios
+    obtenerUsuariosByRol = this.optenerUsuarios + 'rol' 
     roles=this.proxy+"/rol/"
     optenerRoles=this.roles
     permisos=this.proxy+"/permiso/"
     optenerPermisos=this.permisos
     museo=this.proxy + "/museo/"
+<<<<<<< HEAD
     movimientos=this.proxy + "/movimiento/"
     movimientoPiezas=this.movimientos+"piezas"
     movimientosMuseo=this.movimientos+"museo/"
+=======
+    guardarMuseoFile = this.museo + 'file'
+>>>>>>> 3e8aef1308be29a1550cdc698772f7e9f86ea2db
     constructor() {
 
     }

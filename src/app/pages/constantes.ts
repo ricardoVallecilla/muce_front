@@ -31,6 +31,7 @@ export class Constantes{
     materialInstrumentos=316
     tecnicasConservacionEntomologia=447;
     paises=455
+<<<<<<< HEAD
     tecnicasConservacionBotanica=706;
     origenBotanica=709;
     materialesArqueologia=713;
@@ -63,4 +64,9 @@ export class Constantes{
 
     }
 
+=======
+
+    //museo
+    rolCustodio = 3
+>>>>>>> 3e8aef1308be29a1550cdc698772f7e9f86ea2db
 }

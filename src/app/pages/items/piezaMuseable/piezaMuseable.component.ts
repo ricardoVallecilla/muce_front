@@ -13,7 +13,14 @@ import { CatalogoService } from '../../../services/catalogos/catalogos.service'
 import { ItemService } from '../../../services/item/items.service'
 import { Message, ConfirmationService } from 'primeng/primeng';
 import { BrowserModule, DomSanitizer, SafeResourceUrl } from '@angular/platform-browser'
+<<<<<<< HEAD
 import { Arqueologia } from '../../../models/categorias/arqueologia.model';
+=======
+import { FotografiaModel } from '../../../models/categorias/fotografia.model';
+import { GeologiaModel } from '../../../models/categorias/geologia.model';
+import { PaleontologiaModel } from '../../../models/categorias/paleontologia.model';
+import { ZoologiaModel } from '../../../models/categorias/zoolgia.model';
+>>>>>>> 3e8aef1308be29a1550cdc698772f7e9f86ea2db
 @Component({
   selector: 'piezaMuseable',
   templateUrl: './piezaMuseable.html'
@@ -123,6 +130,23 @@ export class PiezaMuseableComponent implements OnInit {
       case this.constantes.entomologia:
         tipo = 3;
         break;
+<<<<<<< HEAD
+=======
+      case this.constantes.fotografia:
+        tipo = 5
+        break;
+      case this.constantes.geologia:
+        tipo = 7
+        break;
+      
+      case this.constantes.peleontologia:
+        tipo = 8
+        break;
+
+      case this.constantes.zoologia:
+        tipo = 9
+        break;
+>>>>>>> 3e8aef1308be29a1550cdc698772f7e9f86ea2db
 
       default:
         break;
@@ -154,6 +178,19 @@ export class PiezaMuseableComponent implements OnInit {
       case this.constantes.entomologia:
         nombresColumna = ['tecnicaConservacionEntomologia'];
         break;
+      case this.constantes.fotografia:
+        nombresColumna = [''];
+        break;
+      case this.constantes.geologia:
+        nombresColumna = [''];
+        break;
+      case this.constantes.peleontologia:
+        nombresColumna = [''];
+        break;
+      case this.constantes.zoologia:
+        nombresColumna = [''];
+        break;
+
       default:
         break;
     }
@@ -195,13 +232,31 @@ export class PiezaMuseableComponent implements OnInit {
                 this.tecnicaConservacionSelecionados.push(x.piezacatalogoPk.catalogoid + "")
 
               });
-
               break;
+            
+            case this.constantes.fotografia:
+              catalogos.forEach(x => {
+              });
+              break;  
+            
+            case this.constantes.geologia:
+              catalogos.forEach(x => {
+              });
+              break;   
+
+            case this.constantes.peleontologia:
+              catalogos.forEach(x => {
+              });
+              break;   
+            
+            case this.constantes.zoologia:
+              catalogos.forEach(x => {
+              });
+              break;   
+
             default:
               break;
           }
-
-
         }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }),
         () => {
         });
@@ -281,16 +336,16 @@ export class PiezaMuseableComponent implements OnInit {
         this.detalle = new Entomologia(this.piezaMuseable)
         break;
       case this.constantes.fotografia:
-        this.detalle = new InstrumentalCientifico(this.piezaMuseable)
+        this.detalle = new FotografiaModel(this.piezaMuseable)
         break;
       case this.constantes.geologia:
-        this.detalle = new InstrumentalCientifico(this.piezaMuseable)
+        this.detalle = new GeologiaModel(this.piezaMuseable)
         break;
       case this.constantes.peleontologia:
-        this.detalle = new InstrumentalCientifico(this.piezaMuseable)
+        this.detalle = new PaleontologiaModel(this.piezaMuseable)
         break;
       case this.constantes.zoologia:
-        this.detalle = new InstrumentalCientifico(this.piezaMuseable)
+        this.detalle = new ZoologiaModel(this.piezaMuseable)
         break;
       default:
         break;
