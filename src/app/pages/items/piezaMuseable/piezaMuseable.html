@@ -16,14 +16,14 @@
             <div class="separadorInventario">
               <h5>INFORMACIÓN TÉCNICA</h5>
             </div>
-            <!-- <arqueologia [item]="item" *ngIf="item.categoriaid.catalogoid==constantes.arqueologia" [detalle]="detalle"></arqueologia>
+            <arqueologia [item]="item" *ngIf="item.categoriaid.catalogoid==constantes.arqueologia" [detalle]="detalle"></arqueologia>
             <botanica  [item]="item" *ngIf="item.categoriaid.catalogoid==constantes.botanica" [detalle]="detalle"></botanica>
-            <entomologia  [item]="item" *ngIf="item.categoriaid.catalogoid==constantes.entomologia" [detalle]="detalle"></entomologia>
+            <entomologia  [item]="item" *ngIf="item.categoriaid.catalogoid==constantes.entomologia" [detalle]="detalle"  (enviadorCondicion)="obtenerDatoHijoEntomologia($event)"  [tecnicaConservacionSelecionados]="tecnicaConservacionSelecionados" ></entomologia>
             <fotografia  [item]="item" *ngIf="item.categoriaid.catalogoid==constantes.fotografia" [detalle]="detalle"></fotografia>
-            <geologia  [item]="item" *ngIf="item.categoriaid.catalogoid==constantes" [detalle]="detalle.geologia"></geologia> -->
+            <geologia  [item]="item" *ngIf="item.categoriaid.catalogoid==constantes.geologia" [detalle]="detalle"></geologia>
             <istrumentalCientifico [item]="item" *ngIf="item.categoriaid.catalogoid==constantes.instrumental" (enviadorCondicion)="obtenerDatoHijo($event)"  [materialesSelecionados]="materialesSelecionados" [detalle]="detalle"></istrumentalCientifico>
-            <!-- <paleontologia  [item]="item" *ngIf="item.categoriaid.catalogoid==constantes" [detalle]="detalle.peleontologia"></paleontologia>
-            <zoologia  [item]="item" *ngIf="item.categoriaid.catalogoid==constantes" [detalle]="detalle,zoologia"></zoologia> -->
+            <paleontologia  [item]="item" *ngIf="item.categoriaid.catalogoid==constantes.peleontologia" [detalle]="detalle"></paleontologia>
+            <zoologia  [item]="item" *ngIf="item.categoriaid.catalogoid==constantes.zoologia" [detalle]="detalle"></zoologia>
             
             <div class="separadorInventario">
               <h5>DATOS DE LOCALIZACIÓN</h5>
@@ -119,6 +119,7 @@
                 </div>
               </div>
             </div>
+            <datosRecoleccion [detalle]="detalle"></datosRecoleccion>
             <div class="separadorInventario">
               <h5>CONDICIÓN LEGAL DEL BIEN</h5>
             </div>

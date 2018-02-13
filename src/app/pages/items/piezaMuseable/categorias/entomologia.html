@@ -1,4 +1,118 @@
 <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px" *ngIf="detalle!=null">
 
-  
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Nombre:
+    </div>
+    <div class="ui-grid-col-10">
+      {{item?.nombre}}
+    </div>
   </div>
+
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Nombre científico *:
+    </div>
+    <div class="ui-grid-col-10">
+      <input pInputText type="text" maxlength="150" name="otradenominacion" [(ngModel)]="detalle.nombrecientifico" />
+    </div>
+
+  </div>
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Autor *:
+    </div>
+    <div class="ui-grid-col-10">
+      <input pInputText type="text" maxlength="150" name="otradenominacion" [(ngModel)]="detalle.autor" />
+    </div>
+
+  </div>
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Nombre común *:
+    </div>
+    <div class="ui-grid-col-10">
+      <input pInputText type="text" maxlength="150" name="otradenominacion" [(ngModel)]="detalle.nombrecomun" />
+    </div>
+
+  </div>
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Publicado en *:
+    </div>
+    <div class="ui-grid-col-10">
+      <input pInputText type="text" maxlength="150" name="otradenominacion" [(ngModel)]="detalle.publicado" />
+    </div>
+
+  </div>
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Clase *:
+    </div>
+    <div class="ui-grid-col-10">
+      <input pInputText type="text" maxlength="150" name="otradenominacion" [(ngModel)]="detalle.clase" />
+    </div>
+
+  </div>
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Orden *:
+    </div>
+    <div class="ui-grid-col-10">
+      <input pInputText type="text" maxlength="150" name="otradenominacion" [(ngModel)]="detalle.orden" />
+    </div>
+
+  </div>
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Familia *:
+    </div>
+    <div class="ui-grid-col-10">
+      <input pInputText type="text" maxlength="150" name="otradenominacion" [(ngModel)]="detalle.familia" />
+    </div>
+
+  </div>
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Sexo *:
+    </div>
+    <div class="ui-grid-col-4">
+      <input pInputText type="text" maxlength="150" name="tecnica" [(ngModel)]="detalle.sexo" />
+    </div>
+    <div class="ui-grid-col-2">
+      Etapa de vida:
+    </div>
+    <div class="ui-grid-col-4">
+      <input pInputText type="text" maxlength="150" name="fabricante" [(ngModel)]="detalle.etapavida" />
+    </div>
+
+
+  </div>
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Técnica de conservación/exhibición *:
+    </div>
+    <div class="ui-grid-col-10">
+        <div class="ui-g">
+            <div class="ui-g-3" *ngFor="let estado of tecnicasItem">
+                <p-checkbox name="materiales" value="{{estado.catalogoid}}" label="{{estado.nombre}}" (click)="impr()" [(ngModel)]="tecnicaConservacionSelecionados"></p-checkbox>
+              </div>
+        </div>
+    </div>
+
+
+  </div>
+
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Descripción *:
+    </div>
+    <div class="ui-grid-col-10">
+      <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="256" name="descripcion" [(ngModel)]="detalle.descripcion"></textarea>
+    </div>
+
+  </div>
+
+
+
+</div>

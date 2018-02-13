@@ -7,6 +7,7 @@ import { DetalleCatalogo } from '../../../models/detallecatalogo.model'
 import { PiezaDetalle } from '../../../models/piezaDetalle.model'
 import { PiezaMuseable } from '../../../models/piezaMuseable.model'
 import { InstrumentalCientifico } from '../../../models/categorias/instrumental.model'
+import { Entomologia } from '../../../models/categorias/entomologia.model'
 import { CatalogoService } from '../../../services/catalogos/catalogos.service'
 import { ItemService } from '../../../services/item/items.service'
 import { Message, ConfirmationService } from 'primeng/primeng';
@@ -44,6 +45,7 @@ export class PiezaMuseableComponent implements OnInit {
   estadoConservacion = null;
   integridadPieza = null;
   materialesSelecionados = []
+  tecnicaConservacionSelecionados = []
   foto = null;
   @Output() enviadorCondicion = new EventEmitter();
   constructor(
@@ -100,12 +102,14 @@ export class PiezaMuseableComponent implements OnInit {
       }, (err: any) => {
       }, () => { });
   }
-  
   buscarDetalle(piezaMuseableId) {
     let tipo;
     switch (this.item.categoriaid.catalogoid) {
       case this.constantes.instrumental:
         tipo = 6;
+        break;
+      case this.constantes.entomologia:
+        tipo = 3;
         break;
       case this.constantes.arqueologia:
         this.detalle = new InstrumentalCientifico(this.piezaMuseable)
@@ -113,6 +117,7 @@ export class PiezaMuseableComponent implements OnInit {
       case this.constantes.botanica:
         this.detalle = new InstrumentalCientifico(this.piezaMuseable)
         break;
+      
       default:
         break;
     }
@@ -138,7 +143,10 @@ export class PiezaMuseableComponent implements OnInit {
         this.detalle = new InstrumentalCientifico(this.piezaMuseable)
         break;
       case this.constantes.botanica:
-        this.detalle = new InstrumentalCientifico(this.piezaMuseable)
+
+        break;
+      case this.constantes.entomologia:
+        nombresColumna = ['tecnicaConservacionEntomologia'];
         break;
       default:
         break;
@@ -149,10 +157,10 @@ export class PiezaMuseableComponent implements OnInit {
 
           switch (this.item.categoriaid.catalogoid) {
             case this.constantes.instrumental:
-            this.materialesSelecionados=[];
+              this.materialesSelecionados = [];
               catalogos.forEach(x => {
-                this.materialesSelecionados.push(x.piezacatalogoPk.catalogoid+"")
-                
+                this.materialesSelecionados.push(x.piezacatalogoPk.catalogoid + "")
+
               });
 
               break;
@@ -160,6 +168,14 @@ export class PiezaMuseableComponent implements OnInit {
 
               break;
             case this.constantes.botanica:
+
+              break;
+            case this.constantes.entomologia:
+              this.tecnicaConservacionSelecionados = [];
+              catalogos.forEach(x => {
+                this.tecnicaConservacionSelecionados.push(x.piezacatalogoPk.catalogoid + "")
+
+              });
 
               break;
             default:
@@ -243,7 +259,7 @@ export class PiezaMuseableComponent implements OnInit {
         this.detalle = new InstrumentalCientifico(this.piezaMuseable)
         break;
       case this.constantes.entomologia:
-        this.detalle = new InstrumentalCientifico(this.piezaMuseable)
+        this.detalle = new Entomologia(this.piezaMuseable)
         break;
       case this.constantes.fotografia:
         this.detalle = new InstrumentalCientifico(this.piezaMuseable)
@@ -348,6 +364,9 @@ export class PiezaMuseableComponent implements OnInit {
   }
 
 
+  obtenerDatoHijoEntomologia(catalogos) {
+    this.tecnicaConservacionSelecionados = catalogos;
+  }
   fileChangeEvent(event) {
     console.log(event)
     let e = event.srcElement ? event.srcElement : event.target;
@@ -380,6 +399,16 @@ export class PiezaMuseableComponent implements OnInit {
         break;
       case this.constantes.botanica:
         this.detalle = new InstrumentalCientifico(this.piezaMuseable)
+        break;
+      case this.constantes.entomologia:
+        tipo = 3
+        piezaDetalle.piezaentomologicadetalle = this.detalle
+        if (this.tecnicaConservacionSelecionados.length > 0) {
+          catalogosDetalle = [];
+          this.tecnicaConservacionSelecionados.forEach(x => {
+            catalogosDetalle.push(new DetalleCatalogo(x, "tecnicaConservacionEntomologia"))
+          });
+        }
         break;
       default:
         break;

@@ -122,6 +122,9 @@ export class ItemComponent implements OnInit {
     }
   }
   obtenerCategorias(event) {
+    if(event!=null){
+      this.grupo=event
+    }
     let filtro
     switch (event.catalogoid) {
       case this.constantes.grupoCultural:
