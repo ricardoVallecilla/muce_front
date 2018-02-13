@@ -1,20 +1,20 @@
 export class FotografiaModel {
 
-    detalleId
-    alto
-    autor
-    descripcion
-    elementosRelacionado
-    feachaRegistro
-    fondo
-    inscripciones
-    largo
-    procedimiento
-    sigloano
+    detalleid
+    titulo
     tematica
     tipologia
-    titulo
-    usuarioRregistroId
+    procedimiento
+    autor
+    sigloanos
+    fondo
+    alto
+    largo
+    inscripciones
+    descripcion
+    elementosrelacionado
+    usuarioregistroid
+    fecharegistro
     piezamuseableid
 
     constructor(piezamuseableid){
