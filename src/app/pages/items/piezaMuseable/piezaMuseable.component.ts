@@ -100,6 +100,7 @@ export class PiezaMuseableComponent implements OnInit {
       }, (err: any) => {
       }, () => { });
   }
+  
   buscarDetalle(piezaMuseableId) {
     let tipo;
     switch (this.item.categoriaid.catalogoid) {

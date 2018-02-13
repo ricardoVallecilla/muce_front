@@ -8,11 +8,15 @@ export class UsuarioService {
     url = new UrlServices();
 
     constructor(private _generalServices: GeneralService) {
-        _generalServices.autenticar('usuario', 'password');
+        // _generalServices.autenticar('usuario', 'password');
     }
 
     optenerUsuarios(): Observable<any> {
         return this._generalServices.getResources("get", this.url.optenerUsuarios)
+    }
+
+    obtenerUsuariosByRol(rolId): Observable<any[]> {
+        return this._generalServices.getResources("get", this.url.obtenerUsuariosByRol + '/' + rolId)
     }
 
     optenerRoles(): Observable<any> {

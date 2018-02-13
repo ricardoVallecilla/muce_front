@@ -29,4 +29,6 @@ export class Constantes{
     ubicaciones=33;
     materialInstrumentos=316
 
+    //museo
+    rolCustodio = 3
 }

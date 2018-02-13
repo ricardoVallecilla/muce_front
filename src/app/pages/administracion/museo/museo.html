@@ -1,49 +1,112 @@
 <div class="row">
     <div class="col-sm-12">
         <app-card [title]="acciones">
-            <p-tabView>
-                <p-tabPanel header="Museo" leftIcon="fa-print">
-                    <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px" *ngIf="bandera==0">
-                        <p-dataTable [value]="museos">
-                            <p-column field="nombres" header="Nombre"></p-column>
-                            <p-column field="descripcion" header="Descripción"></p-column>
-                            <p-column field="directora" header="Directora"></p-column>
-                            <p-column field="telefono" header="Teléfono"></p-column>
-                            <p-column header="Opciones">
-                                <ng-template let-museo="rowData" pTemplate="body">
-                                    <button pButton (click)="modificarMuseo(museo)" icon="fa fa-fw fa-check" label="Modificar"></button>
-                                </ng-template>
-                            </p-column>
-                        </p-dataTable>
-                        <br>
-                        <button pButton (click)="nuevo()" icon="fa fa-fw fa-check" label="Nuevo"></button>
+            <p-messages [(value)]="msgs"></p-messages>
+            <div class="ui-g" *ngIf="bandera==0">
+                <div class="ui-g-12 ui-md-12 ui-lg-12" style="padding: 0">
+                    <p-dataTable [value]="museos" emptyMessage="{{properties.sinDatos}}">
+                        <p-column field="nombres" header="Nombre" [sortable]="true"></p-column>
+                        <p-column field="descripcion" header="Descripción" [sortable]="true" [style]="{'overflow-x': 'hidden'}"></p-column>
+                        <p-column field="directora" header="Directora" [sortable]="true"></p-column>
+                        <p-column field="telefono" header="Teléfono" [sortable]="true"></p-column>
+                        <p-column header="Opciones" [style]="{'width':'135px','text-align':'center'}">
+                            <ng-template let-museo="rowData" pTemplate="body">
+                                <button type="button" class="buttonAction" pButton (click)="modificarMuseo(museo)" icon="{{properties.iconEditar}}" title="Editar"></button> 
+                            </ng-template>
+                        </p-column>
+                    </p-dataTable>
+                </div>
+                <div class="ui-g-12 ui-md-12 ui-lg-12 alineacionBotones">
+                    <button pButton (click)="nuevo()" icon="fa fa-fw fa-check" label="Nuevo"></button>
+                </div>
+            </div>
+            <div class="ui-g" *ngIf="bandera==1">
+                <form #form="ngForm" (ngSubmit)="form.valid && guardar()" style="width: 100%" novalidate>
+                    <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+                        <div class="ui-grid-row">
+                            <div class="ui-grid-col-2">
+                                Nombre *:
+                            </div>
+                            <div class="ui-grid-col-4">
+                                <input type="text" pInputText maxlength="150" name="nombre" [(ngModel)]="museo.nombres" required/>
+                            </div>
+                            <div class="ui-grid-col-2">
+                                Teléfono *:
+                            </div>
+                            <div class="ui-grid-col-4">
+                                <input pInputText type="text" maxlength="15" name="telefono" [(ngModel)]="museo.telefono" required />
+                            </div>
+                        </div>
+                        <div class="ui-grid-row">
+                            <div class="ui-grid-col-2">
+                                Ubicación *:
+                            </div>
+                            <div class="ui-grid-col-10">
+                                <input pInputText type="text" maxlength="150" name="ubicacion" [(ngModel)]="museo.ubicacion" required />
+                            </div>
+                        </div>
+                        <div class="ui-grid-row">
+                            <div class="ui-grid-col-2">
+                                Director *:
+                            </div>
+                            <div class="ui-grid-col-4">
+                                <input type="text" pInputText maxlength="150" name="director" [(ngModel)]="museo.directora" required/>
+                            </div>
+                            <div class="ui-grid-col-2">
+                                Custodio *:
+                            </div>
+                            <div class="ui-grid-col-4">
+                                <p-dropdown name="dCustodio" [options]="custodios" [(ngModel)]="museo.cutodioId.id"
+                                    [autoWidth]="false" [filter]="true" required></p-dropdown>
+                            </div>
+                        </div>
+                        <div class="ui-grid-row">
+                            <div class="ui-grid-col-2">
+                                Descripción *:
+                            </div>
+                            <div class="ui-grid-col-10">
+                                <textarea pInputTextarea style="resize: none; width: 100%" rows="3" maxlength="256" 
+                                    name="descripcion" [(ngModel)]="museo.descripcion" required></textarea>
+                            </div>
+                        </div>
+                        <div class="ui-grid-row">
+                            <div class="ui-grid-col-2">
+                                Color *:
+                            </div>
+                            <div class="ui-grid-col-4">
+                                <input type="color" name="color" [(ngModel)]="museo.color" required/>
+                            </div>
+                        </div>
+                        <div class="ui-grid-row">
+                            <div class="ui-grid-col-2">
+                                Logo *:
+                            </div>
+                            <div class="ui-grid-col-10">
+                                <img *ngIf="urlImage != null" style="width: 200px ;height: 200px;" [src]="urlImage">
+                                <img *ngIf="urlImage == null" style="width: 200px ;height: 200px;" src="data:image/jpeg;base64,{{museo.logo}}">
+                            </div>
+                        </div>
+                        <div class="ui-grid-row">
+                            <div class="ui-grid-col-2"></div>
+                            <div class="ui-grid-col-4">
+                                <input id="image" type="file" accept="image/jpeg" (change)="fileChangeEvent($event)"
+                                    placeholder="Subir Archivo..." class="ui-g-12 ui-md-12 ui-lg-12 inputUpload">
+                            </div>
+                        </div>
+                        <div class="ui-grid-row">
+                            <div class="ui-grid-col-2"></div>
+                            <div class="ui-grid-col-3">
+                                <button pButton type="submit" label="{{properties.guardar.label}}" icon="{{properties.guardar.icon}}" [disabled]="!form.valid"></button>
+                            </div>
+                            <div class="ui-grid-col-3">
+                                <button pButton type="button" (click)="bandera=0" label="{{properties.cancelar.label}}" icon="{{properties.cancelar.icon}}"
+                                class="ui-button-secondary"></button>
+                            </div>
+                            <div class="ui-grid-col-4"></div>
+                        </div>
                     </div>
-                    
-                    <div *ngIf="bandera==1" class="ui-g">
-                        <div class="ui-g-12 ui-md-12 ui-lg-6">
-                            <label>Nombre</label>
-                            <input type="text" pInputText [(ngModel)]="museo.nombres"/><br>
-                        </div>
-                        <div class="ui-g-12 ui-md-12 ui-lg-6">
-                            <label>Descipción</label>
-                            <input type="text" pInputText [(ngModel)]="museo.descripcion"/><br>
-                        </div>
-                        <div class="ui-g-12 ui-md-12 ui-lg-6">
-                            <label>Director</label>
-                            <input type="text" pInputText [(ngModel)]="museo.directora"/><br>
-                        </div>
-                        <div class="ui-g-12 ui-md-12 ui-lg-6">
-                            <label>Telefono</label>
-                            <input type="text" pInputText [(ngModel)]="museo.telefono"/><br>
-                        </div>
-                        <br>
-                        <div class="ui-g-12 ui-md-12">
-                            <button pButton (click)="guardar()" icon="fa fa-fw fa-check" label="Guardar"></button>
-                            <button pButton (click)="bandera=0" icon="fa fa-fw fa-check" label="Cancelar"></button>
-                        </div>
-                    </div>
-                </p-tabPanel>
-            </p-tabView>
+                </form>  
+            </div>
         </app-card>
     </div>
 </div>
