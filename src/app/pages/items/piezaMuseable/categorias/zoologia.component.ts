@@ -19,12 +19,26 @@ export class ZoologiaComponent implements OnInit {
   @Input() detalle = null;
   @Input() item = null;
 
+  tecnicasItem = []
+
   es = this.properties.es;
   constructor(
     private _catalogoService: CatalogoService,
     ) {}
 
   ngOnInit() {
-   
+    this.cargarCatalogos()
   }
+
+  cargarCatalogos() {
+    // this._catalogoService.obtenerCatalogosHijosPorPadres([this.constantes.materialesArqueologia])
+    //   .subscribe((catalogos: any[]) => {
+    //     this.tecnicasItem = catalogos
+    //   }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }),
+    //   () => {
+    //   });
+
+    this.tecnicasItem = [{label: 'Piel vaciada', value: 1}, {label: 'Piel naturalizada', value: 2},{label: 'Esqueleto', value: 3}]
+  }
+
 }

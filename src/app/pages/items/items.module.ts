@@ -44,6 +44,7 @@ import { ZoologiaComponent } from './piezaMuseable/categorias/zoologia.component
 import { DatosRecoleccionComponent } from './piezaMuseable/datosRecoleccion/datosRecoleccion.component';
 import { MovimientosComponent } from './movimientos/movimientos.component';
 import { MovimientosService } from '../../services/movimientos/movimientos.service'
+import { ArtesComponent } from './piezaMuseable/categorias/artes.component';
 
 
 //import {WithSocialComponent} from './registration/with-social/with-social.component';
@@ -125,7 +126,7 @@ export const ItemRoutes: Routes = [
   ],
   declarations: [PiezaMuseableComponent,ItemComponent,ArqueologiaComponent,BotanicaComponent,DatosRecoleccionComponent,
      EntomologiaComponent, FotografiaComponent, GeologiaComponent, PaleontologiaComponent, ZoologiaComponent,MovimientosComponent,
-      IstrumentalCientificoComponent]
+      IstrumentalCientificoComponent, ArtesComponent]
   , providers: [GeneralService, ConfirmationService, CatalogoService, UsuarioService, MuseoServices,ItemService,MovimientosService]
 })
 export class ItemModule { }
