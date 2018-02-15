@@ -4,7 +4,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {WithBgImageComponent} from './login/with-bg-image/with-bg-image.component';
 import {WithSocialComponent} from './registration/with-social/with-social.component';
-
+import { GeneralService } from '../../services/general/general.service'
 export const AuthenticationRoutes: Routes = [
   {
     path: '',
@@ -14,13 +14,6 @@ export const AuthenticationRoutes: Routes = [
         component: WithBgImageComponent,
         data: {
           breadcrumb: 'Login'
-        }
-      },
-      {
-        path: 'registration',
-        component: WithSocialComponent,
-        data: {
-          breadcrumb: 'Registration'
         }
       }
     ]
@@ -34,6 +27,7 @@ export const AuthenticationRoutes: Routes = [
     FormsModule,
     ReactiveFormsModule
   ],
-  declarations: [WithBgImageComponent, WithSocialComponent]
+  declarations: [WithBgImageComponent, WithSocialComponent],
+  providers:[GeneralService]
 })
 export class AuthenticationModule { }

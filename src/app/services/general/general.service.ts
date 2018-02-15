@@ -20,8 +20,8 @@ export class GeneralService {
     autenticar(username=null, password=null) {
         let params = new URLSearchParams();
         let headers = new Headers();
-        username="registro";
-        password="password"
+       if (username==null) username="registro";
+       if (password==null) password="password"
         headers.append('Authorization', 'Basic ' + btoa("uce.edu.ec.muce.seguridad:uce.edu.ec.muce.seguridad"))
         let options = new RequestOptions({ headers: headers });
         console.log(params.toString());
@@ -91,10 +91,10 @@ export class GeneralService {
 
 
                     },
-                    err => { this._router.navigate(['/pages/login/131231sd1123']); }
+                    err => { this._router.navigate(['/authentication/login/131231sd1123']); }
                     );
             },
-            err => { this._router.navigate(['/pages/login/131231sd1123']); }
+            err => { this._router.navigate(['/authentication/login/131231sd1123']); }
             );
     }
 
@@ -128,7 +128,7 @@ export class GeneralService {
     logout() {
         localStorage.removeItem(this.strSesion);
         localStorage.removeItem("nombres");
-        this._router.navigate(['/pages/login']);
+        this._router.navigate(['/authentication/login']);
     }
 
 
@@ -173,7 +173,7 @@ export class GeneralService {
                 if (res.status == 412) {
                     errMessage = { 'status': res.status, 'message': res.text() };
                 } else if (res.status == 401) {
-                   this.autenticar()
+                    this._router.navigate(['/authentication/login']);
                 }
                 else {
                     errMessage = res.json();

@@ -42,6 +42,7 @@ export class MovimientosComponent implements OnInit {
   verPopUpItem = false;
   tiposMovimientosGeneral = [];
   movimientos = [];
+  movimientosPendientes=0;
   constructor(
     private domSanitizer: DomSanitizer,
     private _museoServices: MuseoServices,
@@ -237,6 +238,7 @@ export class MovimientosComponent implements OnInit {
         nuevoEstadoPiezas = this.tiposMovimientosGeneral.find(x => x.catalogoid == this.constantes.diccionarioMovimientoEstado.restauracion.estadoPieza);
         break;
       case this.constantes.diccionarioMovimientoEstado.prestamoInterno.tipoMovimiento:
+        
         nuevoEstadoPiezas = this.tiposMovimientosGeneral.find(x => x.catalogoid == this.constantes.diccionarioMovimientoEstado.prestamoInterno.estadoPieza);
         break;
       case this.constantes.diccionarioMovimientoEstado.prestamoExterno.tipoMovimiento:
@@ -254,6 +256,8 @@ export class MovimientosComponent implements OnInit {
     this._movimientosService.guardarMovimiento(objGuardar)
       .subscribe((museos: any[]) => {
         this.msgs.push({ severity: 'success', summary: 'Éxito', detail: 'Movimiento Actualizado.' });
+        this.buscar();
+        this.bandera=0;
       }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo Actualizar el movimiento.' }),
       () => {
       });

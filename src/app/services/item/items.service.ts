@@ -51,7 +51,7 @@ export class ItemService {
         if (file != null) formData.append('file', file[0]);
         formData.append('tipo', tipo);
         formData.append('detalle', JSON.stringify(detalle));
-        formData.append('estadoGeneral', estado == null ? null : JSON.stringify(estado));
+        if(estado!=null)formData.append('estadoGeneral', JSON.stringify(estado));
         if (catalogosDetalle != null) formData.append('catalogosDetalle', JSON.stringify(catalogosDetalle));
         return this._generalServices.getResources("post", this.url.guardarPiezaMuseableDetalle, formData)
 

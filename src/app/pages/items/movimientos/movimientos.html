@@ -1,380 +1,386 @@
 <div class="row">
   <div class="col-sm-12">
     <app-card [title]="'Lista de Movimientos'">
+      <p-tabView>
+        <p-tabPanel header="Movimientos" >
 
-      <p-messages [(value)]="msgs"></p-messages>
-      <div class="ui-g" *ngIf="bandera==0">
-        <div class="ui-g-12 ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
-          <i class="fa fa-search"></i>
-          <input #gb onkeypress="return event.keyCode != 13;" type="text" pInputText placeholder="Filtro Global">
-        </div>
-        <div class="ui-g-12 ui-md-12 ui-lg-12" style="padding: 0">
-          <p-dataTable [value]="movimientos" [globalFilter]="gb" emptyMessage="{{properties.sinDatos}}" [paginator]="true" [rows]="10">
-            <p-column field="fechamovimiento" header="Fecha Movimiento" [sortable]="true">
-              <ng-template let-movimiento="rowData" pTemplate="body">
-                {{movimiento.fechamovimiento | date: properties.formatoFecha}}
-              </ng-template>
-            </p-column>
+          <p-messages [(value)]="msgs"></p-messages>
+          <div class="ui-g" *ngIf="bandera==0">
+            <div class="ui-g-12 ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
+              <i class="fa fa-search"></i>
+              <input #gb onkeypress="return event.keyCode != 13;" type="text" pInputText placeholder="Filtro Global">
+            </div>
+            <div class="ui-g-12 ui-md-12 ui-lg-12" style="padding: 0">
+              <p-dataTable [value]="movimientos" [globalFilter]="gb" emptyMessage="{{properties.sinDatos}}" [paginator]="true" [rows]="10">
+                <p-column field="fechamovimiento" header="Fecha Movimiento" [sortable]="true">
+                  <ng-template let-movimiento="rowData" pTemplate="body">
+                    {{movimiento.fechamovimiento | date: properties.formatoFecha}}
+                  </ng-template>
+                </p-column>
 
-            <p-column field="tipomovimientoid.nombre" header="Tipo Movimiento" [sortable]="true"></p-column>
-            <p-column field="institucion" header="Institución" [sortable]="true"></p-column>
-            <p-column field="documentorespaldo" header="Documento Respaldo" [sortable]="true"></p-column>
-            <p-column field="fechainicioprestamo" header="Fecha Inicio" [sortable]="true">
-              <ng-template let-movimiento="rowData" pTemplate="body">
-                {{movimiento.fechainicioprestamo | date: properties.formatoFecha}}
-              </ng-template>
-            </p-column>
-            <p-column field="fechafinprestamo" header="Fecha Entrega" [sortable]="true">
-              <ng-template let-movimiento="rowData" pTemplate="body">
-                {{movimiento.fechafinprestamo | date: properties.formatoFecha}}
-              </ng-template>
-            </p-column>
-            <p-column header="Opciones">
-                <ng-template let-movimiento="rowData" pTemplate="body">
+                <p-column field="tipomovimientoid.nombre" header="Tipo Movimiento" [sortable]="true"></p-column>
+                <p-column field="institucion" header="Institución" [sortable]="true"></p-column>
+                <p-column field="documentorespaldo" header="Documento Respaldo" [sortable]="true"></p-column>
+                <p-column field="fechainicioprestamo" header="Fecha Inicio" [sortable]="true">
+                  <ng-template let-movimiento="rowData" pTemplate="body">
+                    {{movimiento.fechainicioprestamo | date: properties.formatoFecha}}
+                  </ng-template>
+                </p-column>
+                <p-column field="fechafinprestamo" header="Fecha Entrega" [sortable]="true">
+                  <ng-template let-movimiento="rowData" pTemplate="body">
+                    {{movimiento.fechafinprestamo | date: properties.formatoFecha}}
+                  </ng-template>
+                </p-column>
+                <p-column header="Opciones">
+                  <ng-template let-movimiento="rowData" pTemplate="body">
                     <button pButton (click)="ver(movimiento)" icon="fa fa-fw fa-check" label="Modificar"></button>
-                </ng-template>
-            </p-column>
+                  </ng-template>
+                </p-column>
 
-          </p-dataTable>
-        </div>
-        <div class="ui-g-12 ui-md-12 ui-lg-12 alineacionBotones">
-          <button pButton (click)="nuevo()" icon="{{properties.nuevo.icon}}" label="{{properties.nuevo.label}}"></button>
+              </p-dataTable>
+            </div>
+            <div class="ui-g-12 ui-md-12 ui-lg-12 alineacionBotones">
+              <button pButton (click)="nuevo()" icon="{{properties.nuevo.icon}}" label="{{properties.nuevo.label}}"></button>
 
 
-        </div>
-      </div>
-      <div class="ui-g" *ngIf="bandera==1">
-        <div style="width: 100%">
-          <button pButton type="button" style="width: 100%" (click)="volver()" label="Atrás"></button>
+            </div>
+          </div>
+          <div class="ui-g" *ngIf="bandera==1">
+            <div style="width: 100%">
+              <button pButton type="button" style="width: 100%" (click)="volver()" label="Atrás"></button>
 
-        </div>
-        <br>
-        <p-messages [(value)]="msgs"></p-messages>
+            </div>
+            <br>
+            <p-messages [(value)]="msgs"></p-messages>
 
-        <div class="ui-g" style="width: 100%">
-          <form #form="ngForm" (ngSubmit)=" guardar()" style="width: 100%" novalidate>
+            <div class="ui-g" style="width: 100%">
+              <form #form="ngForm" (ngSubmit)=" guardar()" style="width: 100%" novalidate>
 
-            <p-fieldset legend="ACTA DE MOVIMIENTO">
+                <p-fieldset legend="ACTA DE MOVIMIENTO">
 
-              <div class="separadorInventario">
-                <h5 style="float: left">1. INSTITUCIÓN SOLICITANTE O DEPOSITARIA</h5>
-                <div style="width: 100%;text-align: right">
-                  <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
-                  <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
-                </div>
+                  <div class="separadorInventario">
+                    <h5 style="float: left">1. INSTITUCIÓN SOLICITANTE O DEPOSITARIA</h5>
+                    <div style="width: 100%;text-align: right">
+                      <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+                      <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+                    </div>
 
-              </div>
-              <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+                  </div>
+                  <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
 
-                <div class="ui-grid-row">
-                  <div class="ui-grid-col-2">
-                    Institución:
-                  </div>
-                  <div class="ui-grid-col-4">
-                    <input pInputText type="text" maxlength="150" name="institucion" [(ngModel)]="movimiento.institucion" />
-                  </div>
-                </div>
-                <div class="ui-grid-row">
-                  <div class="ui-grid-col-2">
-                    Dirección:
-                  </div>
-                  <div class="ui-grid-col-4">
-                    <input pInputText type="text" maxlength="150" name="direccion" [(ngModel)]="movimiento.direccion" />
-                  </div>
-                </div>
-                <div class="ui-grid-row">
-                  <div class="ui-grid-col-2">
-                    País:
-                  </div>
-                  <div class="ui-grid-col-4">
-                    <input pInputText type="text" maxlength="150" name="pais" [(ngModel)]="movimiento.pais" />
-                  </div>
-                </div>
-                <div class="ui-grid-row">
-                  <div class="ui-grid-col-2">
-                    Provincia:
-                  </div>
-                  <div class="ui-grid-col-4">
-                    <input pInputText type="text" maxlength="150" name="provincia" [(ngModel)]="movimiento.provincia" />
-                  </div>
-                </div>
-                <div class="ui-grid-row">
-                  <div class="ui-grid-col-2">
-                    Ciudad:
-                  </div>
-                  <div class="ui-grid-col-4">
-                    <input pInputText type="text" maxlength="150" name="ciudad" [(ngModel)]="movimiento.ciudad" />
-                  </div>
-                </div>
-                <div class="ui-grid-row">
-                  <div class="ui-grid-col-2">
-                    Teléfono:
-                  </div>
-                  <div class="ui-grid-col-4">
-                    <input pInputText type="text" maxlength="150" name="telefono" [(ngModel)]="movimiento.telefono" />
-                  </div>
-                </div>
-                <div class="ui-grid-row">
-                  <div class="ui-grid-col-2">
-                    Correo electrónico:
-                  </div>
-                  <div class="ui-grid-col-4">
-                    <input pInputText type="text" maxlength="150" name="email" [(ngModel)]="movimiento.email" />
-                  </div>
-                </div>
-
-              </div>
-              <div class="separadorInventario">
-                <h5 style="float: left">2. TIPO DE EGRESO</h5>
-                <div style="width: 100%;text-align: right">
-                  <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
-                  <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
-                </div>
-
-              </div>
-              <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
-
-                <div class="ui-grid-row">
-                  <div class="ui-grid-col-6">
-                    <div class="ui-g">
-                      <div class="ui-g-6">
-                        <p-radioButton name="tipo" value="1" label="EGRESO" [(ngModel)]="tipo"></p-radioButton>
+                    <div class="ui-grid-row">
+                      <div class="ui-grid-col-2">
+                        Institución:
                       </div>
-                      <div class="ui-g-6">
-                        <p-radioButton name="tipo" value="2" label="INGRESO" [(ngModel)]="tipo"></p-radioButton>
+                      <div class="ui-grid-col-4">
+                        <input pInputText type="text" maxlength="150" name="institucion" [(ngModel)]="movimiento.institucion" />
                       </div>
-                      <div class="ui-g-6">
+                    </div>
+                    <div class="ui-grid-row">
+                      <div class="ui-grid-col-2">
+                        Dirección:
+                      </div>
+                      <div class="ui-grid-col-4">
+                        <input pInputText type="text" maxlength="150" name="direccion" [(ngModel)]="movimiento.direccion" />
+                      </div>
+                    </div>
+                    <div class="ui-grid-row">
+                      <div class="ui-grid-col-2">
+                        País:
+                      </div>
+                      <div class="ui-grid-col-4">
+                        <input pInputText type="text" maxlength="150" name="pais" [(ngModel)]="movimiento.pais" />
+                      </div>
+                    </div>
+                    <div class="ui-grid-row">
+                      <div class="ui-grid-col-2">
+                        Provincia:
+                      </div>
+                      <div class="ui-grid-col-4">
+                        <input pInputText type="text" maxlength="150" name="provincia" [(ngModel)]="movimiento.provincia" />
+                      </div>
+                    </div>
+                    <div class="ui-grid-row">
+                      <div class="ui-grid-col-2">
+                        Ciudad:
+                      </div>
+                      <div class="ui-grid-col-4">
+                        <input pInputText type="text" maxlength="150" name="ciudad" [(ngModel)]="movimiento.ciudad" />
+                      </div>
+                    </div>
+                    <div class="ui-grid-row">
+                      <div class="ui-grid-col-2">
+                        Teléfono:
+                      </div>
+                      <div class="ui-grid-col-4">
+                        <input pInputText type="text" maxlength="150" name="telefono" [(ngModel)]="movimiento.telefono" />
+                      </div>
+                    </div>
+                    <div class="ui-grid-row">
+                      <div class="ui-grid-col-2">
+                        Correo electrónico:
+                      </div>
+                      <div class="ui-grid-col-4">
+                        <input pInputText type="text" maxlength="150" name="email" [(ngModel)]="movimiento.email" />
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="separadorInventario">
+                    <h5 style="float: left">2. TIPO DE EGRESO</h5>
+                    <div style="width: 100%;text-align: right">
+                      <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+                      <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+                    </div>
+
+                  </div>
+                  <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+
+                    <div class="ui-grid-row">
+                      <div class="ui-grid-col-6">
                         <div class="ui-g">
-                          <div class="ui-g-12" *ngFor="let estado of tiposEgresos">
-                            <p-radioButton [disabled]="tipo=='2'" name="integridad" value="{{estado.catalogoid}}" label="{{estado.nombre}}" (click)="cambiarTipo()"
-                              [(ngModel)]="tipoSeleccionado"></p-radioButton>
+                          <div class="ui-g-6">
+                            <p-radioButton name="tipo" value="1" label="EGRESO" [(ngModel)]="tipo"></p-radioButton>
+                          </div>
+                          <div class="ui-g-6">
+                            <p-radioButton name="tipo" value="2" label="INGRESO" [(ngModel)]="tipo"></p-radioButton>
+                          </div>
+                          <div class="ui-g-6">
+                            <div class="ui-g">
+                              <div class="ui-g-12" *ngFor="let estado of tiposEgresos">
+                                <p-radioButton [disabled]="tipo=='2'" name="integridad" value="{{estado.catalogoid}}" label="{{estado.nombre}}" (click)="cambiarTipo()"
+                                  [(ngModel)]="tipoSeleccionado"></p-radioButton>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="ui-g-6">
+                            <div class="ui-g">
+                              <div class="ui-g-12" *ngFor="let estado of tiposIngresos">
+                                <p-radioButton [disabled]="tipo=='1'" name="integridad2" value="{{estado.catalogoid}}" label="{{estado.nombre}}" (click)="cambiarTipo()"
+                                  [(ngModel)]="tipoSeleccionado"></p-radioButton>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="ui-g-2" *ngIf="tipoSeleccionado == constantes.prestamoInterno || tipoSeleccionado == constantes.traspasoiterno">
+                            Museo Destino:
+                          </div>
+                          <div class="ui-g-10" *ngIf="tipoSeleccionado == constantes.prestamoInterno || tipoSeleccionado == constantes.traspasoiterno">
+                            <p-dropdown [options]="museoItem" filter="true" [style]="{'width': '100%'}" name="museo" [(ngModel)]="museoSeleccionado"
+                              (ngModelChange)="cambiarMuseo()"></p-dropdown>
+                          </div>
+
+                          <div class="ui-g-12">
+                            <label for="">Observaciones:</label>
+                            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="256" name="observaciones" [(ngModel)]="movimiento.observaciones"></textarea>
                           </div>
                         </div>
                       </div>
-                      <div class="ui-g-6">
+                      <div class="ui-grid-col-6">
                         <div class="ui-g">
-                          <div class="ui-g-12" *ngFor="let estado of tiposIngresos">
-                            <p-radioButton [disabled]="tipo=='1'" name="integridad2" value="{{estado.catalogoid}}" label="{{estado.nombre}}" (click)="cambiarTipo()"
-                              [(ngModel)]="tipoSeleccionado"></p-radioButton>
+                          <div class="ui-g-12">
+                            <label>Documento de respaldo: (Oficio, Memorando, Resolución,etc.)</label>
+                            <input pInputText type="text" maxlength="150" name="documentorespaldo" [(ngModel)]="movimiento.documentorespaldo" />
                           </div>
+                          <div class="ui-g-12">
+                            <label>Fecha de inicio:</label>
+                            <p-calendar name="fechainicioprestamo" [locale]="es" [showIcon]="true" [(ngModel)]="movimiento.fechainicioprestamo"></p-calendar>
+                          </div>
+                          <div class="ui-g-12">
+                            <label>Fecha de entrega:</label>
+                            <p-calendar name="fechafinprestamo" [locale]="es" [showIcon]="true" [(ngModel)]="movimiento.fechafinprestamo"></p-calendar>
+                          </div>
+                          <div class="ui-g-12">
+                            <label>Aseguradora:</label>
+                            <input pInputText type="text" maxlength="150" name="aseguradora" [(ngModel)]="movimiento.aseguradora" />
+                          </div>
+                          <div class="ui-g-12">
+                            <label>Número de seguro:</label>
+                            <input pInputText type="text" maxlength="150" name="numeroseguro" [(ngModel)]="movimiento.numeroseguro" />
+                          </div>
+                          <div class="ui-g-12">
+                            <label>Valor seguro</label>
+                            <input pInputText type="text" maxlength="150" name="valorseguro" [(ngModel)]="movimiento.valorseguro" />
+                          </div>
+                          <div class="ui-g-12">
+                            <label>Forma de envío:</label>
+                            <input pInputText type="text" maxlength="150" name="formaenvio" [(ngModel)]="movimiento.formaenvio" />
+                          </div>
+
                         </div>
                       </div>
-                      <div class="ui-g-2" *ngIf="tipoSeleccionado == constantes.prestamoInterno || tipoSeleccionado == constantes.traspasoiterno">
-                        Museo Destino:
-                      </div>
-                      <div class="ui-g-10" *ngIf="tipoSeleccionado == constantes.prestamoInterno || tipoSeleccionado == constantes.traspasoiterno">
-                        <p-dropdown [options]="museoItem" filter="true" [style]="{'width': '100%'}" name="museo" [(ngModel)]="museoSeleccionado"
-                          (ngModelChange)="cambiarMuseo()"></p-dropdown>
-                      </div>
-
-                      <div class="ui-g-12">
-                        <label for="">Observaciones:</label>
-                        <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="256" name="observaciones" [(ngModel)]="movimiento.observaciones"></textarea>
-                      </div>
                     </div>
-                  </div>
-                  <div class="ui-grid-col-6">
-                    <div class="ui-g">
-                      <div class="ui-g-12">
-                        <label>Documento de respaldo: (Oficio, Memorando, Resolución,etc.)</label>
-                        <input pInputText type="text" maxlength="150" name="documentorespaldo" [(ngModel)]="movimiento.documentorespaldo" />
-                      </div>
-                      <div class="ui-g-12">
-                        <label>Fecha de inicio:</label>
-                        <p-calendar name="fechainicioprestamo" [locale]="es" [showIcon]="true" [(ngModel)]="movimiento.fechainicioprestamo"></p-calendar>
-                      </div>
-                      <div class="ui-g-12">
-                        <label>Fecha de entrega:</label>
-                        <p-calendar name="fechafinprestamo" [locale]="es" [showIcon]="true" [(ngModel)]="movimiento.fechafinprestamo"></p-calendar>
-                      </div>
-                      <div class="ui-g-12">
-                        <label>Aseguradora:</label>
-                        <input pInputText type="text" maxlength="150" name="aseguradora" [(ngModel)]="movimiento.aseguradora" />
-                      </div>
-                      <div class="ui-g-12">
-                        <label>Número de seguro:</label>
-                        <input pInputText type="text" maxlength="150" name="numeroseguro" [(ngModel)]="movimiento.numeroseguro" />
-                      </div>
-                      <div class="ui-g-12">
-                        <label>Valor seguro</label>
-                        <input pInputText type="text" maxlength="150" name="valorseguro" [(ngModel)]="movimiento.valorseguro" />
-                      </div>
-                      <div class="ui-g-12">
-                        <label>Forma de envío:</label>
-                        <input pInputText type="text" maxlength="150" name="formaenvio" [(ngModel)]="movimiento.formaenvio" />
-                      </div>
+                    <div class="ui-grid-row">
 
                     </div>
                   </div>
-                </div>
-                <div class="ui-grid-row">
 
-                </div>
-              </div>
+                  <div class="separadorInventario">
+                    <h5 style="float: left">3. DATOS DEL FUNCIONARIO QUE ENTREGA</h5>
+                    <div style="width: 100%;text-align: right">
+                      <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+                      <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+                    </div>
 
-              <div class="separadorInventario">
-                <h5 style="float: left">3. DATOS DEL FUNCIONARIO QUE ENTREGA</h5>
-                <div style="width: 100%;text-align: right">
-                  <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
-                  <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
-                </div>
+                  </div>
+                  <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
 
-              </div>
-              <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
-
-                <div class="ui-grid-row">
-                  <div class="ui-grid-col-2">
-                    Nombre:
-                  </div>
-                  <div class="ui-grid-col-4">
-                    <input pInputText type="text" maxlength="150" name="entreganombre" [(ngModel)]="movimiento.entreganombre" />
-                  </div>
-                </div>
-                <div class="ui-grid-row">
-                  <div class="ui-grid-col-2">
-                    Cargo:
-                  </div>
-                  <div class="ui-grid-col-4">
-                    <input pInputText type="text" maxlength="150" name="entregacargo" [(ngModel)]="movimiento.entregacargo" />
-                  </div>
-                </div>
-                <div class="ui-grid-row">
-                  <div class="ui-grid-col-2">
-                    Reserva:
-                  </div>
-                  <div class="ui-grid-col-4">
-                    <input pInputText type="text" maxlength="150" name="entregareserva" [(ngModel)]="movimiento.entregareserva" />
-                  </div>
-                </div>
-                <div class="ui-grid-row">
-                  <div class="ui-grid-col-2">
-                    C.I:
-                  </div>
-                  <div class="ui-grid-col-4">
-                    <input pInputText type="text" maxlength="150" name="entregaci" [(ngModel)]="movimiento.entregaci" />
-                  </div>
-                </div>
-                <div class="ui-grid-row">
-                  <div class="ui-grid-col-2">
-                    Firma:
-                  </div>
-                  <div class="ui-grid-col-4">
-                    <textarea pInputTextarea style="resize: none; width: 100%" rows="3" maxlength="256" name="detalles"></textarea>
-                  </div>
-                </div>
+                    <div class="ui-grid-row">
+                      <div class="ui-grid-col-2">
+                        Nombre:
+                      </div>
+                      <div class="ui-grid-col-4">
+                        <input pInputText type="text" maxlength="150" name="entreganombre" [(ngModel)]="movimiento.entreganombre" />
+                      </div>
+                    </div>
+                    <div class="ui-grid-row">
+                      <div class="ui-grid-col-2">
+                        Cargo:
+                      </div>
+                      <div class="ui-grid-col-4">
+                        <input pInputText type="text" maxlength="150" name="entregacargo" [(ngModel)]="movimiento.entregacargo" />
+                      </div>
+                    </div>
+                    <div class="ui-grid-row">
+                      <div class="ui-grid-col-2">
+                        Reserva:
+                      </div>
+                      <div class="ui-grid-col-4">
+                        <input pInputText type="text" maxlength="150" name="entregareserva" [(ngModel)]="movimiento.entregareserva" />
+                      </div>
+                    </div>
+                    <div class="ui-grid-row">
+                      <div class="ui-grid-col-2">
+                        C.I:
+                      </div>
+                      <div class="ui-grid-col-4">
+                        <input pInputText type="text" maxlength="150" name="entregaci" [(ngModel)]="movimiento.entregaci" />
+                      </div>
+                    </div>
+                    <div class="ui-grid-row">
+                      <div class="ui-grid-col-2">
+                        Firma:
+                      </div>
+                      <div class="ui-grid-col-4">
+                        <textarea pInputTextarea style="resize: none; width: 100%" rows="3" maxlength="256" name="detalles"></textarea>
+                      </div>
+                    </div>
 
 
-              </div>
-
-              <div class="separadorInventario">
-                <h5 style="float: left">4. DATOS DEL FUNCIONARIO RECEPTOR</h5>
-                <div style="width: 100%;text-align: right">
-                  <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
-                  <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
-                </div>
-
-              </div>
-              <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
-
-                <div class="ui-grid-row">
-                  <div class="ui-grid-col-2">
-                    Nombre:
                   </div>
-                  <div class="ui-grid-col-4">
-                    <input pInputText type="text" maxlength="150" name="receptornombre" [(ngModel)]="movimiento.receptornombre" />
-                  </div>
-                </div>
-                <div class="ui-grid-row">
-                  <div class="ui-grid-col-2">
-                    Cargo:
-                  </div>
-                  <div class="ui-grid-col-4">
-                    <input pInputText type="text" maxlength="150" name="receptorcargo" [(ngModel)]="movimiento.receptorcargo" />
-                  </div>
-                </div>
-                <div class="ui-grid-row">
-                  <div class="ui-grid-col-2">
-                    Reserva:
-                  </div>
-                  <div class="ui-grid-col-4">
-                    <input pInputText type="text" maxlength="150" name="receptorreserva" [(ngModel)]="movimiento.receptorreserva" />
-                  </div>
-                </div>
-                <div class="ui-grid-row">
-                  <div class="ui-grid-col-2">
-                    C.I:
-                  </div>
-                  <div class="ui-grid-col-4">
-                    <input pInputText type="text" maxlength="150" name="receptorci" [(ngModel)]="movimiento.receptorci" />
-                  </div>
-                </div>
-                <div class="ui-grid-row">
-                  <div class="ui-grid-col-2">
-                    Firma:
-                  </div>
-                  <div class="ui-grid-col-4">
-                    <textarea pInputTextarea style="resize: none; width: 100%" rows="3" maxlength="256" name="detalles"></textarea>
-                  </div>
-                </div>
-              </div>
-              <div class="separadorInventario">
-                <h5 style="float: left">5. BIENES A SER ENTREGADOS</h5>
-                <div style="width: 100%;text-align: right">
-                  <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
-                  <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
-                </div>
 
-              </div>
-              <div class="ui-g" style="margin: 10px 0px">
-                <p-dataTable [value]="piezasAgregadas" emptyMessage="No se han agregado piezas" [(selection)]="piezasSeleccionados">
-                  <p-column field="nombre" header="Nombre" [sortable]="true"></p-column>
-                  <p-column field="codigocontrol" header="Codigo de Control" [sortable]="true"></p-column>
-                  <p-column field="numeroserie" header="Número de Serie" [sortable]="true"></p-column>
-                  <p-column field="tipoingreso.nombre" header="Tipo de Ingreso" [sortable]="true">
+                  <div class="separadorInventario">
+                    <h5 style="float: left">4. DATOS DEL FUNCIONARIO RECEPTOR</h5>
+                    <div style="width: 100%;text-align: right">
+                      <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+                      <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+                    </div>
 
-                  </p-column>
-                  <p-column [style]="{'width':'38px'}" header="Seleccionar" selectionMode="multiple"></p-column>
-                </p-dataTable>
-                <div class="ui-g-12 ui-md-12 ui-lg-12 alineacionBotones">
-                  <button pButton type="button" (click)="agregarItem()" icon="{{properties.nuevo.icon}}" label="Agregar"></button>
-                  <button pButton type="button" (click)="quitarSeleccionados()" icon="{{properties.nuevo.icon}}" label="Quitar Seleccionados"></button>
-                  <button pButton type="button" (click)="quitarTodos()" icon="{{properties.nuevo.icon}}" label="Quitar Todos"></button>
+                  </div>
+                  <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
 
-                </div>
+                    <div class="ui-grid-row">
+                      <div class="ui-grid-col-2">
+                        Nombre:
+                      </div>
+                      <div class="ui-grid-col-4">
+                        <input pInputText type="text" maxlength="150" name="receptornombre" [(ngModel)]="movimiento.receptornombre" />
+                      </div>
+                    </div>
+                    <div class="ui-grid-row">
+                      <div class="ui-grid-col-2">
+                        Cargo:
+                      </div>
+                      <div class="ui-grid-col-4">
+                        <input pInputText type="text" maxlength="150" name="receptorcargo" [(ngModel)]="movimiento.receptorcargo" />
+                      </div>
+                    </div>
+                    <div class="ui-grid-row">
+                      <div class="ui-grid-col-2">
+                        Reserva:
+                      </div>
+                      <div class="ui-grid-col-4">
+                        <input pInputText type="text" maxlength="150" name="receptorreserva" [(ngModel)]="movimiento.receptorreserva" />
+                      </div>
+                    </div>
+                    <div class="ui-grid-row">
+                      <div class="ui-grid-col-2">
+                        C.I:
+                      </div>
+                      <div class="ui-grid-col-4">
+                        <input pInputText type="text" maxlength="150" name="receptorci" [(ngModel)]="movimiento.receptorci" />
+                      </div>
+                    </div>
+                    <div class="ui-grid-row">
+                      <div class="ui-grid-col-2">
+                        Firma:
+                      </div>
+                      <div class="ui-grid-col-4">
+                        <textarea pInputTextarea style="resize: none; width: 100%" rows="3" maxlength="256" name="detalles"></textarea>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="separadorInventario">
+                    <h5 style="float: left">5. BIENES A SER ENTREGADOS</h5>
+                    <div style="width: 100%;text-align: right">
+                      <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+                      <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+                    </div>
 
-              </div>
-              <div class="separadorInventario">
-                <h5 style="float: left">NOTA IMPORTANTE</h5>
-                <div style="width: 100%;text-align: right">
-                  <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
-                  <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
-                </div>
+                  </div>
+                  <div class="ui-g" style="margin: 10px 0px">
+                    <p-dataTable [value]="piezasAgregadas" emptyMessage="No se han agregado piezas" [(selection)]="piezasSeleccionados">
+                      <p-column field="nombre" header="Nombre" [sortable]="true"></p-column>
+                      <p-column field="codigocontrol" header="Codigo de Control" [sortable]="true"></p-column>
+                      <p-column field="numeroserie" header="Número de Serie" [sortable]="true"></p-column>
+                      <p-column field="tipoingreso.nombre" header="Tipo de Ingreso" [sortable]="true">
 
-              </div>
-              <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
-                <p style="border: 1px solid black">La institución solicitante se coompromete a mantener y devolver el bien científico-cultural en las mismas
-                  condiciones en que fue entregado. Los costos de conservación / restauracion en caso de algún siniestro
-                  durante la custodia, deberán ser asumidos en su totalidad por la institución solicitante.
-                </p>
-              </div>
-              <div class="ui-grid-row">
-                <div class="ui-grid-col-2"></div>
-                <div class="ui-grid-col-3">
-                  <button pButton type="submit" label="{{properties.guardar.label}}" icon="{{properties.guardar.icon}}" [disabled]="!form.valid"></button>
-                </div>
-                <div class="ui-grid-col-3">
-                  <button pButton type="button" (click)="volver()" label="{{properties.cancelar.label}}" icon="{{properties.cancelar.icon}}"
-                    class="ui-button-secondary"></button>
+                      </p-column>
+                      <p-column [style]="{'width':'38px'}" header="Seleccionar" selectionMode="multiple"></p-column>
+                    </p-dataTable>
+                    <div class="ui-g-12 ui-md-12 ui-lg-12 alineacionBotones">
+                      <button pButton type="button" (click)="agregarItem()" icon="{{properties.nuevo.icon}}" label="Agregar"></button>
+                      <button pButton type="button" (click)="quitarSeleccionados()" icon="{{properties.nuevo.icon}}" label="Quitar Seleccionados"></button>
+                      <button pButton type="button" (click)="quitarTodos()" icon="{{properties.nuevo.icon}}" label="Quitar Todos"></button>
 
-                </div>
-                <div class="ui-grid-col-4"></div>
-              </div>
-            </p-fieldset>
-          </form>
-        </div>
+                    </div>
 
-      </div>
+                  </div>
+                  <div class="separadorInventario">
+                    <h5 style="float: left">NOTA IMPORTANTE</h5>
+                    <div style="width: 100%;text-align: right">
+                      <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+                      <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+                    </div>
 
+                  </div>
+                  <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+                    <p style="border: 1px solid black">La institución solicitante se coompromete a mantener y devolver el bien científico-cultural en las mismas
+                      condiciones en que fue entregado. Los costos de conservación / restauracion en caso de algún siniestro
+                      durante la custodia, deberán ser asumidos en su totalidad por la institución solicitante.
+                    </p>
+                  </div>
+                  <div class="ui-grid-row">
+                    <div class="ui-grid-col-2"></div>
+                    <div class="ui-grid-col-3">
+                      <button pButton type="submit" label="{{properties.guardar.label}}" icon="{{properties.guardar.icon}}" [disabled]="!form.valid"></button>
+                    </div>
+                    <div class="ui-grid-col-3">
+                      <button pButton type="button" (click)="volver()" label="{{properties.cancelar.label}}" icon="{{properties.cancelar.icon}}"
+                        class="ui-button-secondary"></button>
+
+                    </div>
+                    <div class="ui-grid-col-4"></div>
+                  </div>
+                </p-fieldset>
+              </form>
+            </div>
+
+          </div>
+        </p-tabPanel>
+        <p-tabPanel header="Movimientos Pendientes ({{movimientosPendientes}})" >
+
+        </p-tabPanel>
+      </p-tabView>
     </app-card>
 
   </div>

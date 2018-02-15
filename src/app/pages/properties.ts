@@ -3,7 +3,7 @@
 
 
 export class Properties{
-
+    key = "HackersSeeIT2";
     labelLista:string="Lista de "
     labelNuevo="Nuevo"
     labelActualizar="Actualizar"

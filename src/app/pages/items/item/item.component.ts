@@ -5,6 +5,9 @@ import { Item } from '../../../models/item.model'
 import { CatalogoService } from '../../../services/catalogos/catalogos.service'
 import { ItemService } from '../../../services/item/items.service'
 import { Message, ConfirmationService } from 'primeng/primeng';
+import * as CryptoJS from 'crypto-js';
+import { MuseoServices } from '../../../services/museo/museo.services';
+
 @Component({
   selector: 'item',
   templateUrl: './item.html'
@@ -26,59 +29,38 @@ export class ItemComponent implements OnInit {
   categoria = null;
   item: Item = null;
   detallePiezaMuseable=false;
-  museo = {
-    "museoid": 0,
-    "nombres": "aaa",
-    "descripcion": "5555",
-    "ubicacion": "aaa",
-    "telefono": "123",
-    "directora": "aaa",
-    "usuarioregistroid": null,
-    "fecharegistro": null,
-    "cutodioId": {
-      "id": 0,
-      "username": "registro",
-      "password": "$2a$10$D4OLKI6yy68crm.3imC9X.P2xqKHs5TloWUcr6z5XdOqnTrAK84ri",
-      "enabled": true,
-      "nombres": "ricardo",
-      "rolId": {
-        "rolid": 1,
-        "nombre": "administrador",
-        "descripcion": "adminsitrador del sistema",
-        "permisoSet": [
-          {
-            "permisoid": 1,
-            "nombre": "catalogos",
-            "detalle": "catalogo",
-            "url": "/administracion/catalogos"
-          },
-          {
-            "permisoid": 2,
-            "nombre": "usuarios",
-            "detalle": "adminsitracion de usuarios y permisos",
-            "url": "/administracion/usuarios"
-          }
-        ]
-      },
-      "museoId": null,
-      "accountNonExpired": true,
-      "credentialsNonExpired": true,
-      "accountNonLocked": true,
-      "authorities": []
-    },
-    "color": "eee",
-    "fotografia": null
-  }
+  museo = null;
   es = this.properties.es;
   constructor(
     private _catalogoService: CatalogoService,
-    private _itemService: ItemService
+    private _itemService: ItemService,
+    private _museoServices:MuseoServices
 
-  ) { }
+  ) {
+    
+
+   }
 
   ngOnInit() {
-
+    if (localStorage.getItem("sesion") != null) {
+      var decrypted = CryptoJS.AES.decrypt(localStorage.getItem("sesion"), this.properties.key);
+      let persona = JSON.parse(decrypted.toString(CryptoJS.enc.Utf8))
+      //console.log(persona)
+      this.museo = persona.usuario.museoId;
+      this.buscarMuseo();
+      console.log(this.museo);
+    }
     this.cargarCatalogos()
+  }
+
+  buscarMuseo(){
+    this._museoServices.obtenerMuseosbyId(this.museo.museoid)
+      .subscribe((museo: any) => {
+        this.museo = museo;
+      console.log(this.museo);
+      }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }),
+      () => {
+      });
   }
 
   buscar() {

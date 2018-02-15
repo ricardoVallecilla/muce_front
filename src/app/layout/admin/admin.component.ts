@@ -1,6 +1,8 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {animate, AUTO_STYLE, state, style, transition, trigger} from '@angular/animations';
 import {MenuItems} from '../../shared/menu-items/menu-items';
+import * as CryptoJS from 'crypto-js';
+import { Properties } from '../../pages/properties'
 
 @Component({
   selector: 'app-admin',
@@ -77,6 +79,8 @@ export class AdminComponent implements OnInit {
   configOpenRightBar: string;
   isSidebarChecked: boolean;
   isHeaderChecked: boolean;
+  usuario:string;
+  museo:string;
 
   @ViewChild('searchFriends') search_friends: ElementRef;
 /*  @ViewChild('toggleButton') toggle_button: ElementRef;
@@ -126,6 +130,15 @@ export class AdminComponent implements OnInit {
   }
 
   ngOnInit() {
+    let properties = new Properties();
+    if (localStorage.getItem("sesion") != null) {
+      var decrypted = CryptoJS.AES.decrypt(localStorage.getItem("sesion"), properties.key);
+      let persona = JSON.parse(decrypted.toString(CryptoJS.enc.Utf8))
+      //console.log(persona)
+      this.museo = persona.usuario.museoId.nombres;
+      this.usuario=persona.usuario.nombres;
+      console.log(this.museo);
+    }
   }
 
   onResize(event) {
