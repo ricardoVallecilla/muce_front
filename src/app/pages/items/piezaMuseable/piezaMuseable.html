@@ -22,6 +22,7 @@
               
             </div>
             <arqueologia [item]="item" *ngIf="item.categoriaid.catalogoid==constantes.arqueologia" [detalle]="detalle" [materialesArqueologiaSelecionados]="materialesArqueologiaSelecionados" (enviadorCondicion)="obtenerMaterialesArquelogica($event)"></arqueologia>
+            <arqueologia [item]="item" *ngIf="item.categoriaid.catalogoid==constantes.arqueologia" [detalle]="detalle" [materialesArqueologiaSelecionados]="materialesArqueologiaSelecionados" (enviadorCondicion)="obtenerMaterialesArquelogica($event)"></arqueologia>
             <botanica  [item]="item" *ngIf="item.categoriaid.catalogoid==constantes.botanica" [detalle]="detalle" [origenesBotanicaSeleccionados]="origenesBotanicaSeleccionados" [tecnicaConservacionBotanicaSelecionados]="tecnicaConservacionBotanicaSelecionados" (enviadorTecnicas)="optenerBotanicaTecnicas($event)" (enviadorOrigenes)="optenerBotanicaOrigenes($event)"></botanica>
             <entomologia  [item]="item" *ngIf="item.categoriaid.catalogoid==constantes.entomologia" [detalle]="detalle"  (enviadorCondicion)="obtenerDatoHijoEntomologia($event)"  [tecnicaConservacionSelecionados]="tecnicaConservacionSelecionados" ></entomologia>
             <fotografia  [item]="item" *ngIf="item.categoriaid.catalogoid==constantes.fotografia" [detalle]="detalle"></fotografia>
