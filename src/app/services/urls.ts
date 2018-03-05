@@ -37,7 +37,14 @@ export class UrlServices {
     museo=this.proxy + "/museo/"
     movimientos=this.proxy + "/movimiento/"
     movimientoPiezas=this.movimientos+"piezas"
+    movimientoPiezasDevolucion=this.movimientos+"devolucion/piezas"
     movimientosMuseo=this.movimientos+"museo/"
+    movimientosMuseoPendientes=this.movimientos+"museo/pendientes/"
+    confirmarMovimiento=this.movimientos+"confirmar"
+    confirmarMovimientoPiezas=this.movimientos+"confirmar/piezas"
+    movimientoPrestamosInternos=this.movimientos+"pendientesDevolucionInterna/"
+    movimientoPendientesIngreso=this.movimientos+"pendientesIngreso/"
+    movimientosItem=this.movimientos+"pieza/movimientos/"
     guardarMuseoFile = this.museo + 'file'
     constructor() {
 

@@ -14,13 +14,20 @@ export class ItemService {
         return this._generalServices.getPersonaId();
     }
 
+    todosItem() {
+        return this._generalServices.getResources("get", this.url.item)
+    }
 
-    filtrarItem(museoId, grupoId, categoriaId): Observable<any> {
-        let filtro = {
-            "museoId": museoId,
-            "grupoId": grupoId,
-            "categoriaId": categoriaId
-        }
+    filtrarItem(museoId, grupoId = null, categoriaId = null): Observable<any> {
+        let filtro;
+        if (grupoId != null && categoriaId != null)
+            filtro = {
+                "museoId": museoId,
+                "grupoId": grupoId,
+                "categoriaId": categoriaId
+            }
+        else
+            filtro = { "museoId": museoId }
         return this._generalServices.getResources("post", this.url.filtrarItem, filtro)
     }
     filtrarItemsMovimientos(museoId, grupoId, categoriaId): Observable<any> {
@@ -29,7 +36,7 @@ export class ItemService {
             "grupoId": grupoId,
             "categoriaId": categoriaId
         }
-        return this._generalServices.getResources("post", this.url.filtrarItem+"/movimiento", filtro)
+        return this._generalServices.getResources("post", this.url.filtrarItem + "/movimiento", filtro)
     }
 
     catalogosDetalle(piezamuseableid, nombrescolumnas): Observable<any> {
@@ -51,7 +58,7 @@ export class ItemService {
         if (file != null) formData.append('file', file[0]);
         formData.append('tipo', tipo);
         formData.append('detalle', JSON.stringify(detalle));
-        if(estado!=null)formData.append('estadoGeneral', JSON.stringify(estado));
+        if (estado != null) formData.append('estadoGeneral', JSON.stringify(estado));
         if (catalogosDetalle != null) formData.append('catalogosDetalle', JSON.stringify(catalogosDetalle));
         return this._generalServices.getResources("post", this.url.guardarPiezaMuseableDetalle, formData)
 
@@ -69,9 +76,9 @@ export class ItemService {
     optenerDetalle(tipo, piezaMuseableId): Observable<any> {
         switch (tipo) {
             case 1:
-                return this._generalServices.getResources("get", this.url.optenerDetalleArqueologia + piezaMuseableId);     
+                return this._generalServices.getResources("get", this.url.optenerDetalleArqueologia + piezaMuseableId);
             case 2:
-                return this._generalServices.getResources("get", this.url.optenerDetalleBotanica + piezaMuseableId);                
+                return this._generalServices.getResources("get", this.url.optenerDetalleBotanica + piezaMuseableId);
             case 6:
                 return this._generalServices.getResources("get", this.url.optenerDetalleInstrumental + piezaMuseableId);
             case 3:
@@ -79,5 +86,9 @@ export class ItemService {
         }
 
         // return this._generalServices.getResources("post", this.url.item, item)
+    }
+
+    movimientosItem(itemid): Observable<any> {
+        return this._generalServices.getResources("get", this.url.movimientosItem + itemid)
     }
 }

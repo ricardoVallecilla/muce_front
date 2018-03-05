@@ -1,21 +1,26 @@
 <div class="row">
-  <div class="col-sm-12"*ngIf="!detallePiezaMuseable" >
+  <div class="col-sm-12" *ngIf="!detallePiezaMuseable">
     <app-card [title]="'Filtros'">
       <div class="ui-g">
-          <div class="ui-g-12 ui-md-12 ui-lg-1">Grupo</div>
+        <div class="ui-g-12 ui-md-12 ui-lg-1">Grupo</div>
         <div class="ui-g-12 ui-md-12 ui-lg-3">
-          
-            <p-dropdown [disabled]="bandera==1" [options]="grupoItem" name="grupo" filter="true" [style]="{'width': '100%'}" [(ngModel)]="grupo"  (ngModelChange)="obtenerCategorias($event)"></p-dropdown>
+
+          <p-dropdown [disabled]="bandera==1" [options]="grupoItem" name="grupo" filter="true" [style]="{'width': '100%'}" [(ngModel)]="grupo"
+            (ngModelChange)="obtenerCategorias($event)"></p-dropdown>
         </div>
         <div class="ui-g-12 ui-md-12 ui-lg-1">Categorias</div>
         <div class="ui-g-12 ui-md-12 ui-lg-3">
-            
-            <p-dropdown [disabled]="bandera==1" [options]="categoriaItem" filter="true" [style]="{'width': '100%'}" name="categoria" [(ngModel)]="categoria" (ngModelChange)="buscar()" ></p-dropdown>
+
+          <p-dropdown [disabled]="bandera==1" [options]="categoriaItem" filter="true" [style]="{'width': '100%'}" name="categoria"
+            [(ngModel)]="categoria" (ngModelChange)="buscar()"></p-dropdown>
         </div>
         <div class="ui-g-12 ui-md-12 ui-lg-4" style="text-align: right">
-            <button [disabled]="grupo==null ||  categoria==null" pButton type="button" icon="{{properties.buscar.icon}}" label="{{properties.buscar.label}}" (click)="buscar()"></button>
+          <button [disabled]="grupo==null || categoria!=null" pButton type="button" icon="{{properties.buscar.icon}}" label="Buscar Todos"
+            (click)="buscarTodos()"></button>
+          <button [disabled]="grupo==null ||  categoria==null" pButton type="button" icon="{{properties.buscar.icon}}" label="{{properties.buscar.label}}"
+            (click)="buscar()"></button>
         </div>
-        
+
       </div>
     </app-card>
     <app-card [title]="acciones">
@@ -28,16 +33,20 @@
         </div>
         <div class="ui-g-12 ui-md-12 ui-lg-12" style="padding: 0">
           <p-dataTable [value]="items" [globalFilter]="gb" emptyMessage="{{properties.sinDatos}}" [paginator]="true" [rows]="10">
+            <p-column *ngIf="categoria==null" field="categoriaid.nombre" header="Categoria" [sortable]="true"></p-column>
             <p-column field="nombre" header="Nombre" [sortable]="true"></p-column>
             <p-column field="codigocontrol" header="Codigo de Control" [sortable]="true"></p-column>
             <p-column field="numeroserie" header="Número de Serie" [sortable]="true"></p-column>
-            <p-column field="tipoingreso.nombre" header="Tipo de Ingreso"  [sortable]="true" ></p-column>
-            <p-column field="estadoid.nombre" header="Estado"  [sortable]="true" ></p-column>
+            <!-- <p-column field="tipoingreso.nombre" header="Tipo de Ingreso"  [sortable]="true" ></p-column> -->
+            <p-column field="estadoid.nombre" header="Estado" [sortable]="true"></p-column>
             <p-column header="Opciones" [style]="{'width':'135px','text-align':'center'}">
               <ng-template let-item="rowData" pTemplate="body">
                 <button type="button" class="buttonAction" pButton (click)="editarItem(item)" icon="{{properties.iconEditar}}" title="Editar"></button>
-                <button type="button" class="buttonAction" *ngIf="item.grupoid.catalogoid==constantes.grupoCultural" pButton (click)="piezaMuseable(item)" icon="fa-building" title="Editar"></button>
-                
+                <button type="button" class="buttonAction" *ngIf="item.grupoid.catalogoid==constantes.grupoCultural" pButton (click)="piezaMuseable(item)"
+                  icon="fa-building" title="Inventario"></button>
+                <button type="button" class="buttonAction" *ngIf="item.grupoid.catalogoid==constantes.grupoCultural" pButton (click)="verMovimientos(item)"
+                  icon="fas fa-align-justify" title="Movimientos Pieza"></button>
+
               </ng-template>
             </p-column>
           </p-dataTable>
@@ -128,8 +137,8 @@
                 Fecha de Adquisición *:
               </div>
               <div class="ui-grid-col-4">
-                
-                <p-calendar name="fechaadquisicion" [locale]="es" [(ngModel)]="item.fechaadquisicion" [showIcon]="true" required  ></p-calendar> 
+
+                <p-calendar name="fechaadquisicion" [locale]="es" [(ngModel)]="item.fechaadquisicion" [showIcon]="true" required></p-calendar>
 
               </div>
               <div class="ui-grid-col-2">
@@ -145,7 +154,7 @@
                 Tipo de Ingreso *:
               </div>
               <div class="ui-grid-col-4">
-                <p-dropdown [options]="tipoItem" name="tipoItem" [(ngModel)]="item.tipoingreso"  required></p-dropdown>
+                <p-dropdown [options]="tipoItem" name="tipoItem" [(ngModel)]="item.tipoingreso" required></p-dropdown>
               </div>
               <div class="ui-grid-col-2">
                 Número de Traspaso:
@@ -160,7 +169,7 @@
                 Fecha de Ingreso *:
               </div>
               <div class="ui-grid-col-4">
-                <p-calendar name="fechaingreso" [locale]="es" [(ngModel)]="item.fechaingreso" [showIcon]="true" required  ></p-calendar> 
+                <p-calendar name="fechaingreso" [locale]="es" [(ngModel)]="item.fechaingreso" [showIcon]="true" required></p-calendar>
               </div>
               <div class="ui-grid-col-2">
                 Tipo de Documento:
@@ -181,7 +190,8 @@
                 Fecha de Restaurado:
               </div>
               <div class="ui-grid-col-4">
-                <p-calendar [disabled]="item.restaurado==false" name="fecharestaurado" [locale]="es" [(ngModel)]="item.fecharestaurado" [showIcon]="true" required  ></p-calendar> 
+                <p-calendar [disabled]="item.restaurado==false" name="fecharestaurado" [locale]="es" [(ngModel)]="item.fecharestaurado" [showIcon]="true"
+                  required></p-calendar>
               </div>
 
             </div>
@@ -205,11 +215,11 @@
               <div class="ui-grid-col-3">
                 <button pButton type="button" (click)="volver()" label="{{properties.cancelar.label}}" icon="{{properties.cancelar.icon}}"
                   class="ui-button-secondary"></button>
-        
+
               </div>
               <div class="ui-grid-col-4"></div>
             </div>
-            
+
           </div>
         </form>
 
@@ -219,5 +229,50 @@
   </div>
   <div class="col-sm-12" *ngIf="detallePiezaMuseable">
     <piezaMuseable (enviadorCondicion)="obtenerDatoHijo($event)" [item]="item"></piezaMuseable>
-    </div>
+  </div>
 </div>
+
+<p-dialog [(visible)]="verPopUp" [style]="{'overflow': 'auto','max-height':'650px'}" [responsive]="true" showEffect="fade"
+  [modal]="true" [draggable]="false" resizable="false" resizable="false" minWidth="1100" [positionTop]="140" [positionLeft]="350">
+  <p-header>
+    LISTA DE MOVIMIENTOS
+  </p-header>
+
+  <p-dataTable [value]="movimientos" emptyMessage="{{properties.sinDatos}}" [paginator]="true" [rows]="10">
+    <p-column field="tipomovimientoid.nombre" header="Tipo Movimiento" [sortable]="true"></p-column>
+    <p-column field="fechamovimiento" header="Fecha Movimiento" [sortable]="true" [style]="{'width':'155px','text-align': 'center'}">
+      <ng-template let-movimiento="rowData" pTemplate="body">
+        {{movimiento.fechamovimiento | date: properties.formatoFecha}}
+      </ng-template>
+    </p-column>
+
+
+
+    <p-column field="institucion" header="I. Solicitante o Depositaria" [sortable]="true"></p-column>
+
+    <p-column field="fechainicioprestamo" header="Fecha Inicio" [sortable]="true" [style]="{'width':'155px'}">
+      <ng-template let-movimiento="rowData" pTemplate="body">
+        {{movimiento.fechainicioprestamo | date: properties.formatoFecha}}
+      </ng-template>
+    </p-column>
+    <p-column field="fechafinprestamo" header="Fecha Entrega" [sortable]="true" [style]="{'width':'155px'}">
+      <ng-template let-movimiento="rowData" pTemplate="body">
+        {{movimiento.fechafinprestamo | date: properties.formatoFecha}}
+      </ng-template>
+    </p-column>
+
+
+  </p-dataTable>
+  <p-footer>
+    <div class="ui-g">
+
+      <div class="ui-g-12" style="text-align: center">
+
+        <button pButton type="button" icon="{{properties.atras.icon}}" label="Atras" (click)="verPopUp=false"></button>
+      </div>
+
+    </div>
+
+  </p-footer>
+
+</p-dialog>

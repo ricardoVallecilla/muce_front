@@ -41,7 +41,7 @@ export class Movimiento {
     documentorespaldo
     museoid
     museoreceptorid
-
+    movimientorelacionadoid
 
     constructor(museoid){
         this.museoid=museoid

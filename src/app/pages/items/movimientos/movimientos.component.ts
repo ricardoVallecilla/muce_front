@@ -24,6 +24,7 @@ export class MovimientosComponent implements OnInit {
   msgs: Message[] = [];
   es = this.properties.es;
   bandera = 0;
+  banderaPendientes = 0;
   tiposEgresos = [];
   tiposIngresos = [];
   key = "HackersSeeIT2";
@@ -42,7 +43,12 @@ export class MovimientosComponent implements OnInit {
   verPopUpItem = false;
   tiposMovimientosGeneral = [];
   movimientos = [];
-  movimientosPendientes=0;
+  movimientosPendientes = 0;
+  movimientosPendientesLista = [];
+  tipoFormulario = null;
+  desabilitados = true;
+  movimientosPendientesDevolucion = []
+
   constructor(
     private domSanitizer: DomSanitizer,
     private _museoServices: MuseoServices,
@@ -65,11 +71,13 @@ export class MovimientosComponent implements OnInit {
     if (localStorage.getItem("sesion") != null) {
       var decrypted = CryptoJS.AES.decrypt(localStorage.getItem("sesion"), this.key);
       let persona = JSON.parse(decrypted.toString(CryptoJS.enc.Utf8))
-      //console.log(persona)
       this.museo = persona.usuario.museoId;
     }
     this.cargarMuseos();
     this.cargarMovimientos();
+    this.cargarMovimientosPendientes();
+
+
 
   }
 
@@ -80,13 +88,37 @@ export class MovimientosComponent implements OnInit {
     this.verPopUpItem = true;
 
   }
+  cargarMovimientosPendientes() {
+    this._movimientosService.obtenerMovimientosPendientes(this.museo.museoid)
+      .subscribe((movimientos: any[]) => {
+        this.movimientosPendientesLista = movimientos;
+        this.movimientosPendientes = this.movimientosPendientesLista.length;
+      }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo cargar los movimientos.' }),
+        () => {
+        });
+
+  }
   cargarMovimientos() {
     this._movimientosService.obtenerMovimientos(this.museo.museoid)
       .subscribe((movimientos: any[]) => {
-        this.movimientos = movimientos;
+        console.log(movimientos)
+        let movimientosLocal=[]
+        movimientos.forEach(x => {
+          
+           if(x.museoreceptorid==this.museo.museoid && x.confirmacion==null){
+            console.log("si",x)
+          }else{
+            console.log("no",x)
+            movimientosLocal.push(x);
+          }
+          
+        });
+        //this.movimientos = movimientos;
+
+        this.movimientos = movimientosLocal
       }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo cargar los movimientos.' }),
-      () => {
-      });
+        () => {
+        });
 
   }
   cambiarMuseo() {
@@ -107,8 +139,8 @@ export class MovimientosComponent implements OnInit {
         });
 
       }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Categorias.' }),
-      () => {
-      });
+        () => {
+        });
   }
 
 
@@ -117,8 +149,8 @@ export class MovimientosComponent implements OnInit {
       .subscribe((items: any[]) => {
         this.items = items;
       }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }),
-      () => {
-      });
+        () => {
+        });
   }
 
   cargarMuseos() {
@@ -132,8 +164,8 @@ export class MovimientosComponent implements OnInit {
 
         });
       }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }),
-      () => {
-      });
+        () => {
+        });
   }
   cargarCatalogos() {
 
@@ -143,38 +175,18 @@ export class MovimientosComponent implements OnInit {
         this.tiposEgresos = catalogos.filter(x => x.catalogopadreid.catalogoid == this.constantes.tipoMovimientosEgreso);
         this.tiposIngresos = catalogos.filter(x => x.catalogopadreid.catalogoid == this.constantes.tipoMovimientosIngreso);
       }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }),
-      () => {
-      });
+        () => {
+        });
   }
 
-  cambiarTipo() {
-    console.log(this.tipoSeleccionado)
-    switch (this.tipoSeleccionado) {
-      case this.constantes.prestamoInterno + "":
-      case this.constantes.traspasoiterno + "":
-        this.movimiento = new Movimiento(this.museo.museoid);
-        this.movimiento.institucion = this.museo.nombres
-        this.movimiento.direccion = this.museo.ubicacion
-        this.movimiento.pais = "Ecuador"
-        this.movimiento.provincia = "Pichinca"
-        this.movimiento.ciudad = "Quito"
-        this.movimiento.telefono = this.museo.telefono
-        this.movimiento.entreganombre = this.museo.cutodioId.nombres
-        this.movimiento.entregacargo = "Custodio"
-        this.movimiento.entregareserva = this.museo.nombres
 
-        break;
 
-      default:
-        break;
-    }
-    this.movimiento.entreganombre = this.museo.cutodioId.nombres
-    this.movimiento.entregacargo = "Custodio"
-    this.movimiento.entregareserva = this.museo.nombres
-  }
+
+
   nuevo() {
     this.msgs = [];
     this.movimiento = new Movimiento(this.museo.museoid);
+    this.tipoFormulario = 1;
     this.bandera = 1;
   }
 
@@ -182,6 +194,8 @@ export class MovimientosComponent implements OnInit {
     this.msgs = [];
     this.bandera = 0;
   }
+
+
 
   cancerlarAgregar() {
     this.verPopUpItem = false;
@@ -218,52 +232,63 @@ export class MovimientosComponent implements OnInit {
 
   }
 
-  guardar() {
+  actualizarVista(event) {
 
-    this.movimiento.tipomovimientoid = this.tiposMovimientosGeneral.find(x => x.catalogoid + "" == this.tipoSeleccionado);
-    if (this.tipoSeleccionado==this.constantes.prestamoInterno+""){
-      this.movimiento.museoreceptorid=this.museoSeleccionado.museoid;
-    }
-    let piezas = [];
-    this.piezasAgregadas.forEach(element => {
-      piezas.push({ movimientopiezaPK: { movimientoid: null, itemid: element.itemid } })
-    });
+    console.log("desde hijo", event)
 
-    let nuevoEstadoPiezas = null;
-    switch (Number(this.tipoSeleccionado)) {
-      case this.constantes.diccionarioMovimientoEstado.desinfecion.tipoMovimiento:
-        nuevoEstadoPiezas = this.tiposMovimientosGeneral.find(x => x.catalogoid == this.constantes.diccionarioMovimientoEstado.desinfecion.estadoPieza);
-        break;
-      case this.constantes.diccionarioMovimientoEstado.restauracion.tipoMovimiento:
-        nuevoEstadoPiezas = this.tiposMovimientosGeneral.find(x => x.catalogoid == this.constantes.diccionarioMovimientoEstado.restauracion.estadoPieza);
-        break;
-      case this.constantes.diccionarioMovimientoEstado.prestamoInterno.tipoMovimiento:
-        
-        nuevoEstadoPiezas = this.tiposMovimientosGeneral.find(x => x.catalogoid == this.constantes.diccionarioMovimientoEstado.prestamoInterno.estadoPieza);
-        break;
-      case this.constantes.diccionarioMovimientoEstado.prestamoExterno.tipoMovimiento:
-        nuevoEstadoPiezas = this.tiposMovimientosGeneral.find(x => x.catalogoid == this.constantes.diccionarioMovimientoEstado.prestamoExterno.estadoPieza);
-        break;
-
-      default:
-        break;
-    }
-
-
-
-
-    let objGuardar = { movimiento: this.movimiento, piezas: piezas, nuevoestadositem: nuevoEstadoPiezas }
-    this._movimientosService.guardarMovimiento(objGuardar)
-      .subscribe((museos: any[]) => {
+    switch (event) {
+      case 1:
         this.msgs.push({ severity: 'success', summary: 'Éxito', detail: 'Movimiento Actualizado.' });
-        this.buscar();
-        this.bandera=0;
-      }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo Actualizar el movimiento.' }),
-      () => {
-      });
+        this.cargarMovimientos();
+        this.cargarMovimientosPendientes();
+        this.bandera = 0
+        break;
+
+      case 2:
+        this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo Actualizar el movimiento.' })
+        break;
+      case 3:
+        this.cargarMovimientos();
+        this.cargarMovimientosPendientes();
+        this.bandera = 0
+        break;
+      case 4:
+        this.cargarMovimientos();
+        this.cargarMovimientosPendientes();
+        this.banderaPendientes = 0
+        break;
+      case 5:
+        this.msgs.push({ severity: 'success', summary: 'Éxito', detail: 'Movimiento Actualizado.' });
+        this.cargarMovimientos();
+        this.cargarMovimientosPendientes();
+        this.banderaPendientes = 0
+        break;
+
+      case 6:
+        this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo Actualizar el movimiento.' })
+        break;
+    }
+
+
 
   }
+
   ver(movimiento: Movimiento) {
+    movimiento.fechamovimiento = movimiento.fechamovimiento ? new Date(movimiento.fechamovimiento) : null;
+    movimiento.fechainicioprestamo = movimiento.fechainicioprestamo ? new Date(movimiento.fechainicioprestamo) : null;
+    movimiento.fechafinprestamo = movimiento.fechafinprestamo ? new Date(movimiento.fechafinprestamo) : null;
+    this.movimiento = movimiento
+    this.tipoFormulario = 3;
+
+    this.tipoSeleccionado = movimiento.tipomovimientoid.catalogoid + "";
+
+    this.bandera = 1;
+  }
+
+
+
+
+  confirmarMovimmiento(movimiento) {
     movimiento.fechamovimiento = movimiento.fechamovimiento ? new Date(movimiento.fechamovimiento) : null;
     movimiento.fechainicioprestamo = movimiento.fechainicioprestamo ? new Date(movimiento.fechainicioprestamo) : null;
     movimiento.fechafinprestamo = movimiento.fechafinprestamo ? new Date(movimiento.fechafinprestamo) : null;
@@ -274,9 +299,10 @@ export class MovimientosComponent implements OnInit {
     else
       this.tipo = "2"
 
-    this.tipoSeleccionado=movimiento.tipomovimientoid.catalogoid+"";
-    
-    this.bandera = 1;
+    this.tipoSeleccionado = movimiento.tipomovimientoid.catalogoid + "";
+    this.tipoFormulario = 2
+    this.banderaPendientes = 1;
+
   }
   cargarItemsMovimiento() {
 
@@ -284,7 +310,7 @@ export class MovimientosComponent implements OnInit {
       .subscribe((items: any[]) => {
         this.piezasAgregadas = items;
       }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo cargar los movimientos.' }),
-      () => {
-      });
+        () => {
+        });
   }
 }

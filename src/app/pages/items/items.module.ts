@@ -17,6 +17,7 @@ import {
   CheckboxModule,
   RadioButtonModule,
   ConfirmationService,
+  
   InputTextModule,
   CalendarModule,
   DialogModule,
@@ -45,6 +46,7 @@ import { DatosRecoleccionComponent } from './piezaMuseable/datosRecoleccion/dato
 import { MovimientosComponent } from './movimientos/movimientos.component';
 import { MovimientosService } from '../../services/movimientos/movimientos.service'
 import { ArtesComponent } from './piezaMuseable/categorias/artes.component';
+import { FormularioMovimientoComponent } from './movimientos/formulario/formularioMovimiento.component';
 
 
 //import {WithSocialComponent} from './registration/with-social/with-social.component';
@@ -61,7 +63,7 @@ export const ItemRoutes: Routes = [
           breadcrumb: 'Item',
           icon: 'icofont-clip-board bg-c-blue',
           status: true,
-          descripcion: "Administración de items y piezas patrimoniales."
+          descripcion: "Administración de items y piezas patrimoniales. aaaaaaaaaaaaaaaaa"
         }
       },
       {
@@ -125,7 +127,7 @@ export const ItemRoutes: Routes = [
     ReactiveFormsModule
   ],
   declarations: [PiezaMuseableComponent,ItemComponent,ArqueologiaComponent,BotanicaComponent,DatosRecoleccionComponent,
-     EntomologiaComponent, FotografiaComponent, GeologiaComponent, PaleontologiaComponent, ZoologiaComponent,MovimientosComponent,
+     EntomologiaComponent, FotografiaComponent, GeologiaComponent, PaleontologiaComponent, ZoologiaComponent,MovimientosComponent,FormularioMovimientoComponent,
       IstrumentalCientificoComponent, ArtesComponent]
   , providers: [GeneralService, ConfirmationService, CatalogoService, UsuarioService, MuseoServices,ItemService,MovimientosService]
 })

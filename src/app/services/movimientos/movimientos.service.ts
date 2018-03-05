@@ -10,17 +10,42 @@ export class MovimientosService {
         //  _generalServices.autenticar();
     }
 
-    obtenerMovimientos(museoid) : Observable<any> {
-        return this._generalServices.getResources("get", this.url.movimientosMuseo+museoid)
-    }
-    
-    obtenerItemsMovimiento(movimientoid) : Observable<any> {
-        return this._generalServices.getResources("get", this.url.movimientoPiezas+"/"+movimientoid)
+    obtenerMovimientos(museoid): Observable<any> {
+        return this._generalServices.getResources("get", this.url.movimientosMuseo + museoid)
     }
 
-    
+    obtenerMovimientosPendientes(museoid): Observable<any> {
+        return this._generalServices.getResources("get", this.url.movimientosMuseoPendientes + museoid)
+    }
+
+    obtenerItemsMovimiento(movimientoid): Observable<any> {
+        return this._generalServices.getResources("get", this.url.movimientoPiezas + "/" + movimientoid)
+    }
+
+    confirmarMovimiento(movimientoid): Observable<any> {
+        return this._generalServices.getResources("get", this.url.confirmarMovimiento + "/" + movimientoid)
+    }
+
+    confirmarMovimientoPiezas(movimientoid): Observable<any> {
+        return this._generalServices.getResources("get", this.url.confirmarMovimientoPiezas + "/" + movimientoid)
+    }
+
     guardarMovimiento(item): Observable<any> {
         return this._generalServices.getResources("post", this.url.movimientoPiezas, item)
     }
-   
+    
+    guardarMovimientoDevolucion(item): Observable<any> {
+        return this._generalServices.getResources("post", this.url.movimientoPiezasDevolucion, item)
+    }
+
+    cargarMovimientoPendientesIngreso(museoid,tipoid): Observable<any> {
+        return this._generalServices.getResources("get", this.url.movimientoPendientesIngreso+museoid+"/"+tipoid)
+    }
+
+    cargarMovimientoPrestamosInternos(museoid,tipoid): Observable<any> {
+        return this._generalServices.getResources("get", this.url.movimientoPrestamosInternos+museoid+"/"+tipoid)
+    }
+
+
+
 }

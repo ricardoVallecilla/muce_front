@@ -18,7 +18,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http'; 
 import { GeneralService } from './services/general/general.service'
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
-
+import { BlockUIModule } from 'ng-block-ui';
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +29,7 @@ import { LocationStrategy, HashLocationStrategy } from '@angular/common';
   ],
   imports: [
     BrowserAnimationsModule,
-    
+    BlockUIModule,
     CommonModule,
     HttpClientModule,
     HttpModule,

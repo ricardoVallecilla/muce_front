@@ -28,18 +28,20 @@ export class ItemComponent implements OnInit {
   grupo = null;
   categoria = null;
   item: Item = null;
-  detallePiezaMuseable=false;
+  detallePiezaMuseable = false;
   museo = null;
   es = this.properties.es;
+  verPopUp = false;
+  movimientos = [];
   constructor(
     private _catalogoService: CatalogoService,
     private _itemService: ItemService,
-    private _museoServices:MuseoServices
+    private _museoServices: MuseoServices
 
   ) {
-    
 
-   }
+
+  }
 
   ngOnInit() {
     if (localStorage.getItem("sesion") != null) {
@@ -53,24 +55,40 @@ export class ItemComponent implements OnInit {
     this.cargarCatalogos()
   }
 
-  buscarMuseo(){
+  buscarMuseo() {
     this._museoServices.obtenerMuseosbyId(this.museo.museoid)
       .subscribe((museo: any) => {
         this.museo = museo;
-      console.log(this.museo);
+        console.log(this.museo);
       }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }),
-      () => {
-      });
+        () => {
+        });
   }
 
   buscar() {
+    this.items = []
     this._itemService.filtrarItem(this.museo.museoid, this.grupo.catalogoid, this.categoria.catalogoid)
       .subscribe((items: any[]) => {
         this.items = items;
       }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }),
-      () => {
-      });
+        () => {
+        });
   }
+
+
+
+  buscarTodos() {
+    this.items = []
+    this._itemService.filtrarItem(this.museo.museoid)
+      .subscribe((items: any[]) => {
+        this.items = items;
+      }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }),
+        () => {
+        });
+  }
+
+
+
   cargarCatalogos() {
     this._catalogoService.obtenerCatalogosHijosPorPadres([this.constantes.tipoIngreso, this.constantes.grupo])
       .subscribe((catalogos: any[]) => {
@@ -81,8 +99,8 @@ export class ItemComponent implements OnInit {
           this.grupoItem.push({ label: x.nombre, value: x })
         });
       }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }),
-      () => {
-      });
+        () => {
+        });
   }
 
   nuevo() {
@@ -92,20 +110,20 @@ export class ItemComponent implements OnInit {
     this.item = new Item();
   }
 
-  piezaMuseable(item){
-    this.item=item;
-    this.detallePiezaMuseable=true
+  piezaMuseable(item) {
+    this.item = item;
+    this.detallePiezaMuseable = true
   }
-  obtenerDatoHijo(event){
-    this.detallePiezaMuseable=false
-    if(event){
-      this.msgs=[];
+  obtenerDatoHijo(event) {
+    this.detallePiezaMuseable = false
+    if (event) {
+      this.msgs = [];
       this.msgs.push({ severity: 'success', summary: 'Éxito', detail: 'Item Actualizado.' });
     }
   }
   obtenerCategorias(event) {
-    if(event!=null){
-      this.grupo=event
+    if (event != null) {
+      this.grupo = event
     }
     let filtro
     switch (event.catalogoid) {
@@ -121,7 +139,7 @@ export class ItemComponent implements OnInit {
         break;
     }
 
-    
+
     this.categoriaItem = [{ label: this.properties.labelSeleccione, value: null }]
     this._catalogoService.obtenerCatalogosHijosPorPadres([filtro])
       .subscribe((catalogos: any[]) => {
@@ -130,8 +148,8 @@ export class ItemComponent implements OnInit {
         });
 
       }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Categorias.' }),
-      () => {
-      });
+        () => {
+        });
   }
 
   editarItem(item) {
@@ -150,7 +168,16 @@ export class ItemComponent implements OnInit {
     this.bandera = 0;
     this.acciones = this.properties.labelLista + this.title;
   }
+  verMovimientos(item) {
+    this._itemService.movimientosItem(item.itemid)
+      .subscribe((item: any) => {
+        this.movimientos = item
+        this.verPopUp=true;
+        
 
+
+      }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo obtener los movimientos de el Item.' }));
+  }
   guardar() {
     this.msgs = [];
 
@@ -168,8 +195,6 @@ export class ItemComponent implements OnInit {
         this.volver()
 
 
-      }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo actualizar el Item.' }),
-      () => {
-      });
+      }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo actualizar el Item.' }));
   }
 }

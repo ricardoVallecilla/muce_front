@@ -42,6 +42,7 @@
     "font-awesome": "^4.7.0",
     "jquery": "^3.2.1",
     "jquery-sparkline": "^2.4.0",
+    "ng-block-ui": "^0.9.4",
     "ng-click-outside": "^2.4.1",
     "ng-select": "^1.0.0-beta.6",
     "ng2-currency-mask": "^4.3.4",

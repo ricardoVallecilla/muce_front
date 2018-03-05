@@ -36,8 +36,14 @@ export class Constantes{
     materialesArqueologia=713;
     tipoMovimientosEgreso=722;
     tipoMovimientosIngreso=729;
+    prestamoExterno=723;
     prestamoInterno=724;
-    traspasoiterno=725;
+    traspasointerno=725;
+    devolucionOtro=730
+    devolucionDesinfeccion=731
+    devolucionRestauracion=732
+    devolucionPrestamoInterno=733
+    devolucionPrestamoExterno=734
     /*
     740	1	EN DESINFECCIÓN
 739	1	EN RESTAURACIÓN
