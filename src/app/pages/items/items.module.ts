@@ -47,6 +47,14 @@ import { MovimientosComponent } from './movimientos/movimientos.component';
 import { MovimientosService } from '../../services/movimientos/movimientos.service'
 import { ArtesComponent } from './piezaMuseable/categorias/artes.component';
 import { FormularioMovimientoComponent } from './movimientos/formulario/formularioMovimiento.component';
+import { Seccion2ArqueologiaComponent } from './catalogacion/arqueologia/seccion2.component';
+import { CatalogacionComponent } from './catalogacion/catalogacion.component';
+import { YacimientoComponent } from './catalogacion/arqueologia/yacimiento.component';
+import { Seccion3ArqueologiaComponent } from './catalogacion/arqueologia/seccion3.component';
+import { UsoAcademicoComponent } from './catalogacion/usoAcademico.component';
+import { Seccion2EntomologiaComponent } from './catalogacion/entomologia/seccion2.component';
+import { Seccion3EntomologiaComponent } from './catalogacion/entomologia/seccion3.component';
+
 
 
 //import {WithSocialComponent} from './registration/with-social/with-social.component';
@@ -63,7 +71,7 @@ export const ItemRoutes: Routes = [
           breadcrumb: 'Item',
           icon: 'icofont-clip-board bg-c-blue',
           status: true,
-          descripcion: "Administración de items y piezas patrimoniales. aaaaaaaaaaaaaaaaa"
+          descripcion: "Administración de items y piezas patrimoniales."
         }
       },
       {
@@ -128,7 +136,8 @@ export const ItemRoutes: Routes = [
   ],
   declarations: [PiezaMuseableComponent,ItemComponent,ArqueologiaComponent,BotanicaComponent,DatosRecoleccionComponent,
      EntomologiaComponent, FotografiaComponent, GeologiaComponent, PaleontologiaComponent, ZoologiaComponent,MovimientosComponent,FormularioMovimientoComponent,
-      IstrumentalCientificoComponent, ArtesComponent]
+      IstrumentalCientificoComponent, ArtesComponent,Seccion2ArqueologiaComponent,CatalogacionComponent,YacimientoComponent,Seccion3ArqueologiaComponent,
+      UsoAcademicoComponent,Seccion2EntomologiaComponent,Seccion3EntomologiaComponent]
   , providers: [GeneralService, ConfirmationService, CatalogoService, UsuarioService, MuseoServices,ItemService,MovimientosService]
 })
 export class ItemModule { }

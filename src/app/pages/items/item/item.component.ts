@@ -29,6 +29,7 @@ export class ItemComponent implements OnInit {
   categoria = null;
   item: Item = null;
   detallePiezaMuseable = false;
+  catalogacion = false;
   museo = null;
   es = this.properties.es;
   verPopUp = false;
@@ -67,19 +68,21 @@ export class ItemComponent implements OnInit {
 
   buscar() {
     this.items = []
+
+    if (this.categoria!=null)
     this._itemService.filtrarItem(this.museo.museoid, this.grupo.catalogoid, this.categoria.catalogoid)
       .subscribe((items: any[]) => {
         this.items = items;
-      }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }),
-        () => {
-        });
+      }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }));
+     else
+      this.buscarTodos(); 
   }
 
 
 
   buscarTodos() {
     this.items = []
-    this._itemService.filtrarItem(this.museo.museoid)
+    this._itemService.filtrarItem(this.museo.museoid, this.grupo.catalogoid)
       .subscribe((items: any[]) => {
         this.items = items;
       }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }),
@@ -113,9 +116,16 @@ export class ItemComponent implements OnInit {
   piezaMuseable(item) {
     this.item = item;
     this.detallePiezaMuseable = true
+    this.catalogacion=false;
+  }
+  verCatalogacion(item) {
+    this.item = item;
+    this.detallePiezaMuseable = false
+    this.catalogacion=true;
   }
   obtenerDatoHijo(event) {
     this.detallePiezaMuseable = false
+    this.catalogacion=false;
     if (event) {
       this.msgs = [];
       this.msgs.push({ severity: 'success', summary: 'Éxito', detail: 'Item Actualizado.' });

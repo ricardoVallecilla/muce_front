@@ -1,0 +1,149 @@
+<div class="separadorInventario">
+    <h5>DATOS DE LA EXTRACCIÓN DEL BIEN ARQUEOLÓGICO</h5>
+    <div style="width: 100%;text-align: right"> 
+            <button pButton type="button"  icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);" ></button>
+            <button pButton type="button"  icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0" ></button>
+          </div>
+</div>
+<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px" *ngIf="detalle!=null">
+        <div class="ui-grid-row">
+                <div class="ui-grid-col-2">
+                        Método de descubrimiento:
+                </div>
+                <div class="ui-grid-col-10">
+                    <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+        
+                        <div class="ui-grid-row">
+                            <div class="ui-grid-col-5">
+                                    Prospección empírica (huaquería)
+                            </div>
+                            <div class="ui-grid-col-7">
+                                <p-checkbox [(ngModel)]="detalle.empirica" binary="true"></p-checkbox>
+                            </div>
+                        </div>
+                        <div class="ui-grid-row">
+                            <div class="ui-grid-col-5">
+                                    Prospección arqueológica:
+                            </div>
+                            <div class="ui-grid-col-7">
+                                <p-checkbox [(ngModel)]="detalle.arqueologia" binary="true"></p-checkbox>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+        
+            </div>
+    <div class="ui-grid-row">
+        Observaciones:
+    </div>
+    <div class="ui-grid-row">
+        <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="256" name="detalles" [(ngModel)]="detalle.extraccionobservacion"></textarea>
+    </div>
+    <div class="ui-grid-row">
+        Datos de la persona responsable del hallazgo del bien arqueológico:
+    </div>
+    <div class="ui-grid-row">
+        <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="256" name="detalles" [(ngModel)]="detalle.extraccionresponsable"></textarea>
+    </div>
+    <div class="ui-grid-row">
+        Datos del arqueólogo responsable del bien arqueológico:
+    </div>
+    <div class="ui-grid-row">
+        <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="256" name="detalles" [(ngModel)]="detalle.extraccionarqueologo"></textarea>
+    </div>
+    <div class="ui-grid-row">
+        Breve biografía del arqueólogo:
+    </div>
+    <div class="ui-grid-row">
+        <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="256" name="detalles" [(ngModel)]="detalle.biografiaarqueologo"></textarea>
+    </div>
+    <div class="ui-grid-row">
+        Publicaciones del arqueólogo:
+    </div>
+    <div class="ui-grid-row">
+        <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="256" name="detalles" [(ngModel)]="detalle.publicacionarqueologo"></textarea>
+    </div>
+    <div class="ui-grid-row">
+        Relación del arqueólogo con la Universidad Central del Ecuador:
+    </div>
+    <div class="ui-grid-row">
+        <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="256" name="detalles" [(ngModel)]="detalle.arqueologouniversidad"></textarea>
+    </div>
+</div>
+<div class="separadorInventario">
+    <h5>CONTEXTO SOCIAL DEL BIEN ARQUEOLÓGICO</h5>
+    <div style="width: 100%;text-align: right"> 
+            <button pButton type="button"  icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);" ></button>
+            <button pButton type="button"  icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0" ></button>
+          </div>
+</div>
+<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px" *ngIf="detalle!=null">
+
+    <div class="ui-grid-row">
+        Uso social del bien arqueológico:
+    </div>
+    <div class="ui-grid-row">
+        <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="256" name="detalles" [(ngModel)]="detalle.usosocial"></textarea>
+    </div>
+    <div class="ui-grid-row">
+        Uso primario:
+    </div>
+    <div class="ui-grid-row">
+        <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="256" name="detalles" [(ngModel)]="detalle.usoprimario"></textarea>
+    </div>
+    <div class="ui-grid-row">
+        Uso alternativo:
+    </div>
+    <div class="ui-grid-row">
+        <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="256" name="detalles" [(ngModel)]="detalle.usoalternativo"></textarea>
+    </div>
+    <div class="ui-grid-row">
+        Restricciones de uso:
+    </div>
+    <div class="ui-grid-row">
+        <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="256" name="detalles" [(ngModel)]="detalle.usorestricciones"></textarea>
+    </div>
+    <div class="ui-grid-row">
+        Asociaciones con creencias mágico-religiosas:
+    </div>
+    <div class="ui-grid-row">
+        <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="256" name="detalles" [(ngModel)]="detalle.creencias"></textarea>
+    </div>
+    <div class="ui-grid-row">
+        Peculiaridades del uso del bien arqueológico:
+    </div>
+    <div class="ui-grid-row">
+        <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="256" name="detalles" [(ngModel)]="detalle.peculiaridades"></textarea>
+    </div>
+    <div class="ui-grid-row">
+        Pertenencia del bien arqueológico (chamán, gobernante, poblador, etc):
+    </div>
+    <div class="ui-grid-row">
+        <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="256" name="detalles" [(ngModel)]="detalle.pertenencia"></textarea>
+    </div>
+    <div class="ui-grid-row">
+        Cuándo se utiliza el bien arqueológico:
+    </div>
+    <div class="ui-grid-row">
+        <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="256" name="detalles" [(ngModel)]="detalle.usocuando"></textarea>
+    </div>
+    <div class="ui-grid-row">
+        Dónde se utiliza el bien arqueológico:
+    </div>
+    <div class="ui-grid-row">
+        <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="256" name="detalles" [(ngModel)]="detalle.usodonde"></textarea>
+    </div>
+    <div class="ui-grid-row">
+        Dónde se coloca el bien arqueológico al ser utilizado:
+    </div>
+    <div class="ui-grid-row">
+        <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="256" name="detalles" [(ngModel)]="detalle.usocolocacion"></textarea>
+    </div>
+    <div class="ui-grid-row">
+        Vida aproximada del bien arqueológico:
+    </div>
+    <div class="ui-grid-row">
+        <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="256" name="detalles" [(ngModel)]="detalle.vida"></textarea>
+    </div>
+</div>

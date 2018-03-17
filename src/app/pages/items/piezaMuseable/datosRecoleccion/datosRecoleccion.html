@@ -1,5 +1,9 @@
 <div class="separadorInventario">
   <h5>DATOS DE LOCALIZACIÓN</h5>
+  <div style="width: 100%;text-align: right"> 
+    <button pButton type="button"  icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);" ></button>
+    <button pButton type="button"  icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0" ></button>
+  </div>
 </div>
 <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px" *ngIf="detalle!=null">
 

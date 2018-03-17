@@ -1,0 +1,63 @@
+<div class="separadorInventario">
+      <h5>PROCESOS DE LOCALIZACIÓN DEL ESPÉCIMEN</h5>
+      <div style="width: 100%;text-align: right">
+            <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+            <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+      </div>
+</div>
+<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px" *ngIf="detalle!=null">
+
+      <div class="ui-grid-row">
+            Metodología de recolección:
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="256" name="detalles" [(ngModel)]="detalle.metodologiarecoleccion"></textarea>
+      </div>
+      <div class="ui-grid-row">
+            Materiales utilizados:
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="256" name="detalles" [(ngModel)]="detalle.materialesutilizados"></textarea>
+      </div>
+      <div class="ui-grid-row">
+            Permisos mediambientales:
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="256" name="detalles" [(ngModel)]="detalle.permisos"></textarea>
+      </div>
+</div>
+<div class="separadorInventario">
+      <h5>CONTEXTO GEOGRÁFICO</h5>
+      <div style="width: 100%;text-align: right">
+            <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+            <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+      </div>
+</div>
+<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px" *ngIf="detalle!=null">
+
+
+      <div class="ui-grid-row">
+                  Análisis geográfico:
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="256" name="detalles" [(ngModel)]="detalle.analisisgeografico"></textarea>
+      </div>
+      <div class="ui-grid-row">
+                  Tipo de ecosistema:
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="256" name="detalles" [(ngModel)]="detalle.tipoecosistema"></textarea>
+      </div>
+      <div class="ui-grid-row">
+                  Comportamiento del espécimen en relación a su área geográfica:
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="256" name="detalles" [(ngModel)]="detalle.comportamiento"></textarea>
+      </div>
+      <div class="ui-grid-row">
+                  Relación del espécimen con el clima:
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="256" name="detalles" [(ngModel)]="detalle.relacionclima"></textarea>
+      </div>
+</div>

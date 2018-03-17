@@ -24159,3 +24159,6 @@ body.dark #styleSelector .form-control {
   width: 100% !important;
 }
 
+h5{
+  float: left;
+}

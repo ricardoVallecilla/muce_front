@@ -18,16 +18,16 @@ export class ItemService {
         return this._generalServices.getResources("get", this.url.item)
     }
 
-    filtrarItem(museoId, grupoId = null, categoriaId = null): Observable<any> {
+    filtrarItem(museoId, grupoId , categoriaId = null): Observable<any> {
         let filtro;
-        if (grupoId != null && categoriaId != null)
+        if ( categoriaId != null)
             filtro = {
                 "museoId": museoId,
                 "grupoId": grupoId,
                 "categoriaId": categoriaId
             }
         else
-            filtro = { "museoId": museoId }
+            filtro = { "museoId": museoId ,"grupoId": grupoId}
         return this._generalServices.getResources("post", this.url.filtrarItem, filtro)
     }
     filtrarItemsMovimientos(museoId, grupoId, categoriaId): Observable<any> {
@@ -59,6 +59,15 @@ export class ItemService {
         formData.append('tipo', tipo);
         formData.append('detalle', JSON.stringify(detalle));
         if (estado != null) formData.append('estadoGeneral', JSON.stringify(estado));
+        if (catalogosDetalle != null) formData.append('catalogosDetalle', JSON.stringify(catalogosDetalle));
+        return this._generalServices.getResources("post", this.url.guardarPiezaMuseableDetalle, formData)
+
+    }
+    guardarCatalogacion(tipo, detalle, catalogosDetalle = null): Observable<any> {
+        var formData = new FormData();
+        
+        formData.append('tipo', tipo);
+        formData.append('detalle', JSON.stringify(detalle));        
         if (catalogosDetalle != null) formData.append('catalogosDetalle', JSON.stringify(catalogosDetalle));
         return this._generalServices.getResources("post", this.url.guardarPiezaMuseableDetalle, formData)
 

@@ -16,6 +16,7 @@ export class UrlServices {
     piezaMuseable=this.proxy+"/piezaMuseable/"
     piezaMuseableByItem=this.piezaMuseable+"item/"
     guardarPiezaMuseableDetalle=this.piezaMuseable+"detalle"
+    guardarCatalogacion=this.piezaMuseable+"catalogacion"
     optenerDetalleInstrumental=this.proxy+"/instrumental/piezaMuseable/"
     optenerDetalleBotanica=this.proxy+"/botanica/piezaMuseable/"
     optenerDetalleArqueologia=this.proxy+"/arquelogica/piezaMuseable/"

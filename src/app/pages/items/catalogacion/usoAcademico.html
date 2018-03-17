@@ -1,0 +1,129 @@
+<div class="separadorInventario">
+    <h5>USO ACADÉMICO Y/O CIENTÍFICO DEL BIEN</h5>
+    <div style="width: 100%;text-align: right"> 
+            <button pButton type="button"  icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);" ></button>
+            <button pButton type="button"  icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0" ></button>
+          </div>
+</div>
+
+<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px" *ngIf="piezaMuseable!=null">
+
+    <div class="ui-grid-row">
+        ¿Cuándo de utiliza?
+    </div>
+    <div class="ui-grid-row">
+        <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="256" name="usocuando" [(ngModel)]="piezaMuseable.usocuando"></textarea>
+    </div>
+    <div class="ui-grid-row">
+        ¿Dónde se utiliza?
+    </div>
+    <div class="ui-grid-row">
+        <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="256" name="usodonde" [(ngModel)]="piezaMuseable.usodonde"></textarea>
+    </div>
+
+    <div class="ui-grid-row">
+        ¿Cómo se utiliza?
+
+    </div>
+    <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="256" name="usocomo" [(ngModel)]="piezaMuseable.usocomo"></textarea>
+    </div>
+    <div class="ui-grid-row">
+        Finalidad de uso:
+    </div>
+    <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="256" name="usofinalidad" [(ngModel)]="piezaMuseable.usofinalidad"></textarea>
+    </div>
+
+    <div class="ui-grid-row">
+        ¿Quién lo utiliza?
+
+    </div>
+    <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="256" name="usoquien" [(ngModel)]="piezaMuseable.usoquien"></textarea>
+    </div>
+    <div class="ui-grid-row">
+        ¿Cómo se maneja el bien?
+    </div>
+    <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="256" name="usomanjeo" [(ngModel)]="piezaMuseable.usomanejo"></textarea>
+    </div>
+</div>
+
+<div class="separadorInventario">
+    <h5>CONTEXTO ACADÉMICO DEL BIEN</h5>
+    <div style="width: 100%;text-align: right"> 
+            <button pButton type="button"  icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);" ></button>
+            <button pButton type="button"  icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0" ></button>
+          </div>
+</div>
+
+<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px" *ngIf="piezaMuseable!=null">
+
+    <div class="ui-grid-row">
+        Materias donde fue utilizado:
+    </div>
+    <div class="ui-grid-row">
+        <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="256" name="materias" [(ngModel)]="piezaMuseable.materias"></textarea>
+    </div>
+    <div class="ui-grid-row">
+        Laboratorios donde fue utilizado:
+    </div>
+    <div class="ui-grid-row">
+        <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="256" name="laboratorios" [(ngModel)]="piezaMuseable.laboratorios"></textarea>
+    </div>
+
+    <div class="ui-grid-row">
+        Docentes que lo utilizaron:
+    </div>
+    <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="256" name="docentes" [(ngModel)]="piezaMuseable.docentes"></textarea>
+    </div>
+    <div class="ui-grid-row">
+        Aporte del objeto a la construcción del conocimiento:
+    </div>
+    <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="256" name="aporte" [(ngModel)]="piezaMuseable.aporte"></textarea>
+    </div>
+
+    <div class="ui-grid-row">
+        Observaciones:
+
+    </div>
+    <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="256" name="observaciones" [(ngModel)]="piezaMuseable.observacionesacademico"></textarea>
+    </div>
+
+</div>
+
+<div class="separadorInventario">
+    <h5>BIBLIOGRAFÍA EN LA QUE APARECE</h5>
+    <div style="width: 100%;text-align: right"> 
+            <button pButton type="button"  icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);" ></button>
+            <button pButton type="button"  icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0" ></button>
+          </div>
+</div>
+
+<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px" *ngIf="piezaMuseable!=null">
+
+    <div class="ui-grid-row">
+        <textarea pInputTextarea style="resize: none; width: 100%" rows="12" maxlength="256" name="piezaMuseables" [(ngModel)]="piezaMuseable.bibliografias"></textarea>
+    </div>
+
+</div>
+
+<div class="separadorInventario">
+    <h5>LINKS</h5>
+    <div style="width: 100%;text-align: right"> 
+            <button pButton type="button"  icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);" ></button>
+            <button pButton type="button"  icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0" ></button>
+          </div>
+</div>
+
+<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px" *ngIf="piezaMuseable!=null">
+
+    <div class="ui-grid-row">
+        <textarea pInputTextarea style="resize: none; width: 100%" rows="12" maxlength="256" name="piezaMuseables" [(ngModel)]="piezaMuseable.links"></textarea>
+    </div>
+
+</div>

@@ -57,6 +57,7 @@ export class PiezaMuseableComponent implements OnInit {
   materialesArqueologiaSelecionados = [];
   foto = null;
   @Output() enviadorCondicion = new EventEmitter();
+  @Input() esCatalogacion=false;
   constructor(
     private domSanitizer: DomSanitizer,
     private _catalogoService: CatalogoService,
@@ -90,10 +91,10 @@ export class PiezaMuseableComponent implements OnInit {
           if (this.piezaMuseable.fechainventario != null) this.piezaMuseable.fechainventario = new Date(this.piezaMuseable.fechainventario)
           if (this.piezaMuseable.fecharevision != null) this.piezaMuseable.fecharevision = new Date(this.piezaMuseable.fecharevision)
           if (this.piezaMuseable.fechaaprobacion != null) this.piezaMuseable.fechaaprobacion = new Date(this.piezaMuseable.fechaaprobacion)
-          this.descargarFoto();
+          if(!this.esCatalogacion)this.descargarFoto();
           this.estadoConservacion = this.piezaMuseable.estadoconservacionid.catalogoid;
           this.integridadPieza = this.piezaMuseable.estadointegridad.catalogoid;
-          this.buscarEstadosBien(this.piezaMuseable.piezamuseableid);
+          if(!this.esCatalogacion)this.buscarEstadosBien(this.piezaMuseable.piezamuseableid);
           this.buscarCatalogosDetalle(this.piezaMuseable.piezamuseableid)
           this.buscarDetalle(this.piezaMuseable.piezamuseableid)
           this.obtenerCanton(this.piezaMuseable.provinciaid);

@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-sm-12" *ngIf="!detallePiezaMuseable">
+  <div class="col-sm-12" *ngIf="!detallePiezaMuseable && !catalogacion">
     <app-card [title]="'Filtros'">
       <div class="ui-g">
         <div class="ui-g-12 ui-md-12 ui-lg-1">Grupo</div>
@@ -44,6 +44,8 @@
                 <button type="button" class="buttonAction" pButton (click)="editarItem(item)" icon="{{properties.iconEditar}}" title="Editar"></button>
                 <button type="button" class="buttonAction" *ngIf="item.grupoid.catalogoid==constantes.grupoCultural" pButton (click)="piezaMuseable(item)"
                   icon="fa-building" title="Inventario"></button>
+                <button type="button" class="buttonAction" *ngIf="item.grupoid.catalogoid==constantes.grupoCultural" pButton (click)="verCatalogacion(item)"
+                  icon="fa-building" title="Catalogacion"></button>
                 <button type="button" class="buttonAction" *ngIf="item.grupoid.catalogoid==constantes.grupoCultural" pButton (click)="verMovimientos(item)"
                   icon="fas fa-align-justify" title="Movimientos Pieza"></button>
 
@@ -229,6 +231,9 @@
   </div>
   <div class="col-sm-12" *ngIf="detallePiezaMuseable">
     <piezaMuseable (enviadorCondicion)="obtenerDatoHijo($event)" [item]="item"></piezaMuseable>
+  </div>
+  <div class="col-sm-12" *ngIf="catalogacion">
+    <catalogacion [item]="item"></catalogacion>
   </div>
 </div>
 
