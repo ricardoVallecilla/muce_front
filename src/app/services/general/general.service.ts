@@ -145,14 +145,14 @@ export class GeneralService {
             if (tipo == "get") {
                 return this._http["get"](url, optionsToken)
                     .map((res: Response) => {
-                        this.blockUI.stop(); 
+                        this.blockUI.stop();
                         result = res.json();
                         return result;
                     }).catch(this.handleError());
             } else if (tipo == "post") {
                 return this._http["post"](url, body, optionsToken)
                     .map((res: Response) => {
-                        this.blockUI.stop(); 
+                        this.blockUI.stop();
                         result = res.json();
                         return result;
                     }).catch(this.handleError());
@@ -160,7 +160,14 @@ export class GeneralService {
                 optionsToken = new RequestOptions({ headers: headersToken, responseType: ResponseContentType.Blob });
                 return this._http["get"](url, optionsToken)
                     .map((res: Response) => {
-                        this.blockUI.stop(); 
+                        this.blockUI.stop();
+                        return res;
+                    }).catch(this.handleError());
+            } else if (tipo == "postFile") {
+                optionsToken = new RequestOptions({ headers: headersToken, responseType: ResponseContentType.Blob });
+                return this._http["post"](url, body, optionsToken)
+                    .map((res: Response) => {
+                        this.blockUI.stop();
                         return res;
                     }).catch(this.handleError());
             }
@@ -172,7 +179,7 @@ export class GeneralService {
 
     private handleError() {
         return (res: Response) => {
-            this.blockUI.stop(); 
+            this.blockUI.stop();
             let errMessage: any;
             try {
                 console.log(res);

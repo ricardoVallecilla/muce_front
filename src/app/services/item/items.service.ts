@@ -69,12 +69,24 @@ export class ItemService {
         formData.append('tipo', tipo);
         formData.append('detalle', JSON.stringify(detalle));        
         if (catalogosDetalle != null) formData.append('catalogosDetalle', JSON.stringify(catalogosDetalle));
-        return this._generalServices.getResources("post", this.url.guardarPiezaMuseableDetalle, formData)
+        return this._generalServices.getResources("post", this.url.guardarCatalogacion, formData)
 
+    }
+
+    subirFoto(tipo,file,id){
+        var formData = new FormData();
+        formData.append('file', file[0]);
+        formData.append('tipo', tipo);
+        formData.append('id', id);
+      
+        return this._generalServices.getResources("postFile", this.url.subirFoto, formData)
     }
 
     downloadFotografia(id) {
         return this._generalServices.getResources("getFile", this.url.downloadFotografia + id, )
+    }
+    downloadFotografiaTipo(id,tipo) {
+        return this._generalServices.getResources("getFile", this.url.downloadFotografiaTipo + id+"/"+tipo )
     }
     obtenerCatalogosHijos(padreId): Observable<any> {
         return this._generalServices.getResources("get", this.url.obtenerCatalogosHijos + padreId)

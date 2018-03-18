@@ -38,8 +38,8 @@ export class PiezaMuseableComponent implements OnInit {
   grupo = null;
   categoria = null;
   @Input() item: Item = null;
-  detalle = null;
-  piezaMuseable: PiezaMuseable = null;
+  @Input() detalle = null;
+  @Input() piezaMuseable: PiezaMuseable = null;
   estadoDelBien = [];
   estadosBienSelecionados = []
   estadoConservacionItem = []
@@ -57,7 +57,8 @@ export class PiezaMuseableComponent implements OnInit {
   materialesArqueologiaSelecionados = [];
   foto = null;
   @Output() enviadorCondicion = new EventEmitter();
-  @Input() esCatalogacion=false;
+  @Output() enviadorCatalogos = new EventEmitter();
+  @Input() esCatalogacion = false;
   constructor(
     private domSanitizer: DomSanitizer,
     private _catalogoService: CatalogoService,
@@ -80,30 +81,44 @@ export class PiezaMuseableComponent implements OnInit {
   }
 
   buscar() {
-    this.msgs=[];
-    this._itemService.piezaMuseableByItem(this.item.itemid)
-      .subscribe((piezas: any[]) => {
-        if (piezas.length == 0) {
-          this.piezaMuseable = new PiezaMuseable(this.item);
-          this.crearDetalle();
-        } else {
-          this.piezaMuseable = piezas[0];
-          if (this.piezaMuseable.fechainventario != null) this.piezaMuseable.fechainventario = new Date(this.piezaMuseable.fechainventario)
-          if (this.piezaMuseable.fecharevision != null) this.piezaMuseable.fecharevision = new Date(this.piezaMuseable.fecharevision)
-          if (this.piezaMuseable.fechaaprobacion != null) this.piezaMuseable.fechaaprobacion = new Date(this.piezaMuseable.fechaaprobacion)
-          if(!this.esCatalogacion)this.descargarFoto();
-          this.estadoConservacion = this.piezaMuseable.estadoconservacionid.catalogoid;
-          this.integridadPieza = this.piezaMuseable.estadointegridad.catalogoid;
-          if(!this.esCatalogacion)this.buscarEstadosBien(this.piezaMuseable.piezamuseableid);
-          this.buscarCatalogosDetalle(this.piezaMuseable.piezamuseableid)
-          this.buscarDetalle(this.piezaMuseable.piezamuseableid)
-          this.obtenerCanton(this.piezaMuseable.provinciaid);
+    this.msgs = [];
 
-        }
+    if (this.esCatalogacion) {
+      if (this.piezaMuseable.fechainventario != null) this.piezaMuseable.fechainventario = new Date(this.piezaMuseable.fechainventario)
+      if (this.piezaMuseable.fecharevision != null) this.piezaMuseable.fecharevision = new Date(this.piezaMuseable.fecharevision)
+      if (this.piezaMuseable.fechaaprobacion != null) this.piezaMuseable.fechaaprobacion = new Date(this.piezaMuseable.fechaaprobacion)
+      if (!this.esCatalogacion) this.descargarFoto();
+      this.estadoConservacion = this.piezaMuseable.estadoconservacionid.catalogoid;
+      this.integridadPieza = this.piezaMuseable.estadointegridad.catalogoid;
+      if (!this.esCatalogacion) this.buscarEstadosBien(this.piezaMuseable.piezamuseableid);
+      this.buscarCatalogosDetalle(this.piezaMuseable.piezamuseableid)
+      this.buscarDetalle(this.piezaMuseable.piezamuseableid)
+      this.obtenerCanton(this.piezaMuseable.provinciaid);
+    } else {
+      this._itemService.piezaMuseableByItem(this.item.itemid)
+        .subscribe((piezas: any[]) => {
+          if (piezas.length == 0) {
+            this.piezaMuseable = new PiezaMuseable(this.item);
+            this.crearDetalle();
+          } else {
+            this.piezaMuseable = piezas[0];
+            if (this.piezaMuseable.fechainventario != null) this.piezaMuseable.fechainventario = new Date(this.piezaMuseable.fechainventario)
+            if (this.piezaMuseable.fecharevision != null) this.piezaMuseable.fecharevision = new Date(this.piezaMuseable.fecharevision)
+            if (this.piezaMuseable.fechaaprobacion != null) this.piezaMuseable.fechaaprobacion = new Date(this.piezaMuseable.fechaaprobacion)
+            if (!this.esCatalogacion) this.descargarFoto();
+            this.estadoConservacion = this.piezaMuseable.estadoconservacionid.catalogoid;
+            this.integridadPieza = this.piezaMuseable.estadointegridad.catalogoid;
+            if (!this.esCatalogacion) this.buscarEstadosBien(this.piezaMuseable.piezamuseableid);
+            this.buscarCatalogosDetalle(this.piezaMuseable.piezamuseableid)
+            this.buscarDetalle(this.piezaMuseable.piezamuseableid)
+            this.obtenerCanton(this.piezaMuseable.provinciaid);
 
-      }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }),
-      () => {
-      });
+          }
+
+        }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }));
+    }
+
+
   }
   descargarFoto() {
     this._itemService.downloadFotografia(this.piezaMuseable.piezamuseableid).
@@ -134,7 +149,7 @@ export class PiezaMuseableComponent implements OnInit {
       case this.constantes.geologia:
         tipo = 7
         break;
-      
+
       case this.constantes.peleontologia:
         tipo = 8
         break;
@@ -146,16 +161,14 @@ export class PiezaMuseableComponent implements OnInit {
       default:
         break;
     }
+    if (!this.esCatalogacion)
+      this._itemService.optenerDetalle(tipo, piezaMuseableId)
+        .subscribe((detalle: any[]) => {
+          if (detalle[0].fechafabricacion != undefined && detalle[0].fechafabricacion != null) detalle[0].fechafabricacion = new Date(detalle[0].fechafabricacion)
+          this.detalle = detalle[0]
+          this.detalle.piezamuseableid = this.piezaMuseable
 
-    this._itemService.optenerDetalle(tipo, piezaMuseableId)
-      .subscribe((detalle: any[]) => {
-        if (detalle[0].fechafabricacion != undefined && detalle[0].fechafabricacion != null) detalle[0].fechafabricacion = new Date(detalle[0].fechafabricacion)
-        this.detalle = detalle[0]
-        this.detalle.piezamuseableid = this.piezaMuseable
-
-      }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }),
-      () => {
-      });
+        }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }));
   }
 
   buscarCatalogosDetalle(piezaMuseableId) {
@@ -228,33 +241,33 @@ export class PiezaMuseableComponent implements OnInit {
 
               });
               break;
-            
+
             case this.constantes.fotografia:
               catalogos.forEach(x => {
               });
-              break;  
-            
+              break;
+
             case this.constantes.geologia:
               catalogos.forEach(x => {
               });
-              break;   
+              break;
 
             case this.constantes.peleontologia:
               catalogos.forEach(x => {
               });
-              break;   
-            
+              break;
+
             case this.constantes.zoologia:
               catalogos.forEach(x => {
               });
-              break;   
+              break;
 
             default:
               break;
           }
         }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }),
-        () => {
-        });
+          () => {
+          });
   }
 
   buscarEstadosBien(piezaMuseableId) {
@@ -266,8 +279,8 @@ export class PiezaMuseableComponent implements OnInit {
         });
 
       }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }),
-      () => {
-      });
+        () => {
+        });
   }
   setearEstadoConservacion() {
 
@@ -312,8 +325,8 @@ export class PiezaMuseableComponent implements OnInit {
       .subscribe((catalogos: any[]) => {
         this.estadoDelBien = catalogos;
       }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de catalogos.' }),
-      () => {
-      });
+        () => {
+        });
   }
 
   crearDetalle() {
@@ -365,8 +378,8 @@ export class PiezaMuseableComponent implements OnInit {
         });
 
       }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }),
-      () => {
-      });
+        () => {
+        });
   }
   obtenerCanton(event) {
     this._catalogoService.obtenerCatalogosHijosPorPadres([event.catalogoid])
@@ -377,8 +390,8 @@ export class PiezaMuseableComponent implements OnInit {
         });
 
       }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }),
-      () => {
-      });
+        () => {
+        });
   }
   nuevo() {
     this.msgs = [];
@@ -409,8 +422,8 @@ export class PiezaMuseableComponent implements OnInit {
         });
 
       }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Categorias.' }),
-      () => {
-      });
+        () => {
+        });
   }
 
   editarItem(item) {
@@ -430,22 +443,39 @@ export class PiezaMuseableComponent implements OnInit {
 
   obtenerDatoHijo(catalogos) {
     this.materialesSelecionados = catalogos;
+    if (this.esCatalogacion) this.enviadorCatalogos.emit(catalogos)
   }
 
 
   obtenerDatoHijoEntomologia(catalogos) {
     this.tecnicaConservacionSelecionados = catalogos;
+    if (this.esCatalogacion) {
+      let catalogosDetalle = [];
+      this.tecnicaConservacionSelecionados.forEach(x => {
+        catalogosDetalle.push(new DetalleCatalogo(x, "tecnicaConservacionEntomologia"))
+      });
+      this.enviadorCatalogos.emit(catalogos);
+    }
   }
 
   obtenerMaterialesArquelogica(catalogos) {
     this.materialesArqueologiaSelecionados = catalogos;
+    if (this.esCatalogacion) {
+      let catalogosDetalle = []
+      this.materialesArqueologiaSelecionados.forEach(x => {
+        catalogosDetalle.push(new DetalleCatalogo(x, "tipoMaterialArqueologia"))
+      });
+      this.enviadorCatalogos.emit(catalogosDetalle);
+    }
   }
 
   optenerBotanicaOrigenes(catalogos) {
     this.origenesBotanicaSeleccionados = catalogos;
+    if (this.esCatalogacion) this.enviadorCatalogos.emit(catalogos)
   }
   optenerBotanicaTecnicas(catalogos) {
     this.tecnicaConservacionBotanicaSelecionados = catalogos;
+    if (this.esCatalogacion) this.enviadorCatalogos.emit(catalogos)
   }
 
 
@@ -527,8 +557,8 @@ export class PiezaMuseableComponent implements OnInit {
         console.log('ok')
 
       }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }),
-      () => {
-      });
+        () => {
+        });
     // if (this.item.itemid == null) {
     //   //this.item.museoid = this.museo;
     //   this.item.grupoid = this.grupo;

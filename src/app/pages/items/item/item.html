@@ -43,9 +43,9 @@
               <ng-template let-item="rowData" pTemplate="body">
                 <button type="button" class="buttonAction" pButton (click)="editarItem(item)" icon="{{properties.iconEditar}}" title="Editar"></button>
                 <button type="button" class="buttonAction" *ngIf="item.grupoid.catalogoid==constantes.grupoCultural" pButton (click)="piezaMuseable(item)"
-                  icon="fa-building" title="Inventario"></button>
+                  icon="fa-columns" title="Inventario"></button>
                 <button type="button" class="buttonAction" *ngIf="item.grupoid.catalogoid==constantes.grupoCultural" pButton (click)="verCatalogacion(item)"
-                  icon="fa-building" title="Catalogacion"></button>
+                  icon="fa-archive" title="Catalogacion"></button>
                 <button type="button" class="buttonAction" *ngIf="item.grupoid.catalogoid==constantes.grupoCultural" pButton (click)="verMovimientos(item)"
                   icon="fas fa-align-justify" title="Movimientos Pieza"></button>
 
@@ -233,7 +233,7 @@
     <piezaMuseable (enviadorCondicion)="obtenerDatoHijo($event)" [item]="item"></piezaMuseable>
   </div>
   <div class="col-sm-12" *ngIf="catalogacion">
-    <catalogacion [item]="item"></catalogacion>
+    <catalogacion (enviadorCondicion)="obtenerDatoHijo($event)" [item]="item"></catalogacion>
   </div>
 </div>
 

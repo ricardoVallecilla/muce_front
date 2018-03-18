@@ -1,8 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Properties } from '../../properties'
 import { Constantes } from '../../constantes'
 import { CatalogoService } from '../../../services/catalogos/catalogos.service'
-
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser'
 import { Message, ConfirmationService } from 'primeng/primeng';
 import { ItemService } from '../../../services/item/items.service';
 import { PiezaMuseable } from '../../../models/piezaMuseable.model';
@@ -23,8 +23,12 @@ export class CatalogacionComponent implements OnInit {
   @Input() item = null;
   piezaMuseable=null;
   es = this.properties.es;
+  foto=null;
+  @Output() enviadorCondicion = new EventEmitter();
+  catalogoDetalle=[];
   paisItem = [{ label: this.properties.labelSeleccione, value: null }]
   constructor(
+    private domSanitizer: DomSanitizer,
     private _catalogoService: CatalogoService,
     private _itemService: ItemService,
   ) { }
@@ -47,11 +51,24 @@ export class CatalogacionComponent implements OnInit {
           if (this.piezaMuseable.fecharevision != null) this.piezaMuseable.fecharevision = new Date(this.piezaMuseable.fecharevision)
           if (this.piezaMuseable.fechaaprobacion != null) this.piezaMuseable.fechaaprobacion = new Date(this.piezaMuseable.fechaaprobacion)
           this.buscarDetalle(this.piezaMuseable.piezamuseableid)
+          this.descargarFoto();
 
 
         }
 
       }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }));
+  }
+
+  volver(){
+    this.enviadorCondicion.emit(false);
+  }
+  descargarFoto() {
+    this._itemService.downloadFotografia(this.piezaMuseable.piezamuseableid).
+      subscribe((foto: any) => {
+        let blob = new Blob([foto.blob()], { type: 'image/jpeg' });
+        this.foto = this.domSanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
+      }, (err: any) => {
+      }, () => { });
   }
   buscarDetalle(piezaMuseableId) {
     let tipo;
@@ -156,7 +173,7 @@ export class CatalogacionComponent implements OnInit {
         break;
     }
     let estadosBien = null;
-    this._itemService.guardarCatalogacion(tipo, piezaDetalle, catalogosDetalle)
+    this._itemService.guardarCatalogacion(tipo, piezaDetalle, this.catalogoDetalle)
       .subscribe((piezas: any) => {
         //this.enviadorCondicion.emit(true);
         console.log('ok')
@@ -164,5 +181,27 @@ export class CatalogacionComponent implements OnInit {
       }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }),
       () => {
       });
+  }
+
+  obtenerCatalogos(event){
+    this.catalogoDetalle=event;
+  }
+
+  fileChangeEvent(event,tipo=null) {
+    console.log(event)
+    let e = event.srcElement ? event.srcElement : event.target;
+    let tipoLocal;
+    let id;
+    
+    if (tipo!=null){
+      tipoLocal=1;
+      id=this.piezaMuseable.piezamuseableid;
+    }
+    this._itemService.subirFoto(tipo,e.files,id)
+      .subscribe((foto: any) => {
+        let blob = new Blob([foto.blob()], { type: 'image/jpeg' });
+        this.foto = this.domSanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
+
+      }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo cargar la lista imagen.' }));
   }
 }
