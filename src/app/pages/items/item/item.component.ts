@@ -7,6 +7,8 @@ import { ItemService } from '../../../services/item/items.service'
 import { Message, ConfirmationService } from 'primeng/primeng';
 import * as CryptoJS from 'crypto-js';
 import { MuseoServices } from '../../../services/museo/museo.services';
+import { Router } from '@angular/router';
+import { GeneralService } from '../../../services/general/general.service';
 
 @Component({
   selector: 'item',
@@ -35,6 +37,8 @@ export class ItemComponent implements OnInit {
   verPopUp = false;
   movimientos = [];
   constructor(
+    private _generalService:GeneralService,
+    private _router: Router,
     private _catalogoService: CatalogoService,
     private _itemService: ItemService,
     private _museoServices: MuseoServices
@@ -93,7 +97,8 @@ export class ItemComponent implements OnInit {
 
 
   cargarCatalogos() {
-    this._catalogoService.obtenerCatalogosHijosPorPadres([this.constantes.tipoIngreso, this.constantes.grupo])
+    try {
+      this._catalogoService.obtenerCatalogosHijosPorPadres([this.constantes.tipoIngreso, this.constantes.grupo])
       .subscribe((catalogos: any[]) => {
         catalogos.filter(x => x.catalogopadreid.catalogoid == this.constantes.tipoIngreso).forEach(x => {
           this.tipoItem.push({ label: x.nombre, value: x })
@@ -104,6 +109,12 @@ export class ItemComponent implements OnInit {
       }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }),
         () => {
         });
+    } catch (error) {
+      console.log(error)
+      this._generalService.stopBlock();
+      this._router.navigate(['/authentication/login']);
+    }
+    
   }
 
   nuevo() {

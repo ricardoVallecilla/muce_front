@@ -64,8 +64,12 @@
                 <p-tabPanel header="REGISTRO FOTOGRÁFICO DEL ECOSISTEMA" *ngSwitchCase="constantes.entomologia">
                     <entomologia-seccion3 *ngIf="detalle!=null" [detalle]="detalle"></entomologia-seccion3>
                 </p-tabPanel>
+                <p-tabPanel header="REGISTRO GRÁFICOS PUBLICADOS" *ngSwitchCase="constantes.instrumental">
+                    <instrumental-seccion2 *ngIf="detalle!=null" [detalle]="detalle"></instrumental-seccion2>
+                </p-tabPanel>
+                
                 <p-tabPanel header="USO ACADÉMICO Y/O CIENTÍFICO DEL BIEN">
-                    <usoAcademico [detalle]="detalle"></usoAcademico>
+                    <usoAcademico *ngIf="piezaMuseable!=null" [piezaMuseable]="piezaMuseable"></usoAcademico>
                 </p-tabPanel>
 
             </p-tabView>
@@ -86,3 +90,12 @@
         </app-card>
     </div>
 </div>
+
+<p-confirmDialog key="validacionInventario" width="425" #cdNotificar2>
+    <p-footer>
+        
+        <button type="button" id="cancelarEliminarBtn" pButton icon="{{properties.cancelar.icon}}" label="Aceptar"
+            (click)="volver()"></button>
+        <!-- </td> -->
+    </p-footer>
+</p-confirmDialog>

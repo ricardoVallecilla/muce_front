@@ -1,0 +1,141 @@
+<div class="separadorInventario">
+    <h5>REGISTRO GRÁFICOS PUBLICADOS</h5>
+    <div style="width: 100%;text-align: right">
+        <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+        <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+    </div>
+</div>
+<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+
+    <div class="ui-grid-row">
+        <div class="ui-grid-col-12">
+            <img *ngIf="fotoregistros!=null" style="width: 100%" [src]="fotoregistros">
+            <input name="file" type="file" accept="image/*" id="adjuntar" class="ui-g-12 ui-md-12 ui-lg-12 inputUpload" (change)="fileChangeEvent($event,6)"
+                placeholder="Subir Archivo..." required />
+        </div>
+    </div>
+    <div class="ui-grid-row">
+        Datos de los registros:
+
+    </div>
+    <div class="ui-grid-row">
+        <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="550" name="detalles" [(ngModel)]="detalle.datosregistros"></textarea>
+    </div>
+
+</div>
+<div class="separadorInventario">
+    <h5>REGISTRO DE PLANOS</h5>
+    <div style="width: 100%;text-align: right">
+        <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+        <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+    </div>
+</div>
+<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+
+    <div class="ui-grid-row">
+        <div class="ui-grid-col-12">
+            <img *ngIf="fotoplano!=null" style="width: 100%" [src]="fotoplano">
+            <input name="file" type="file" accept="image/*" id="adjuntar" class="ui-g-12 ui-md-12 ui-lg-12 inputUpload" (change)="fileChangeEvent($event,7)"
+                placeholder="Subir Archivo..." required />
+        </div>
+    </div>
+
+    <div class="ui-grid-row">
+        Fotógrafo:
+
+    </div>
+    <div class="ui-grid-row">
+        <input pInputText type="text" maxlength="150" name="fotografoplanos" [(ngModel)]="detalle.fotografoplanos" required />
+    </div>
+    <div class="ui-grid-row">
+        Lugar y fecha de registro:
+    </div>
+    <div class="ui-grid-row">
+        <input pInputText type="text" maxlength="150" name="lugarplano" [(ngModel)]="detalle.lugarplano" required />
+    </div>
+    <div class="ui-grid-row">
+        Nombre Archivo pdf:
+    </div>
+    <div class="ui-grid-row">
+        <input pInputText type="text" maxlength="150" name="pdf" [(ngModel)]="detalle.pdfplano" required />
+    </div>
+</div>
+<div class="separadorInventario">
+    <h5>REGISTRO DE INSTRUCTIVO</h5>
+    <div style="width: 100%;text-align: right">
+        <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+        <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+    </div>
+</div>
+<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+
+    <div class="ui-grid-row">
+        <div class="ui-grid-col-12">
+            <img *ngIf="fotoinstructivo!=null" style="width: 100%" [src]="fotoinstructivo">
+            <input name="file" type="file" accept="image/*" id="adjuntar" class="ui-g-12 ui-md-12 ui-lg-12 inputUpload" (change)="fileChangeEvent($event,8)"
+                placeholder="Subir Archivo..." required />
+        </div>
+    </div>
+
+    <div class="ui-grid-row">
+        Fotógrafo:
+
+    </div>
+    <div class="ui-grid-row">
+        <input pInputText type="text" maxlength="150" name="fotografoinstructivo" [(ngModel)]="detalle.fotografoinstructivo" required />
+    </div>
+    <div class="ui-grid-row">
+        Lugar y fecha de registro:
+    </div>
+    <div class="ui-grid-row">
+        <input pInputText type="text" maxlength="150" name="lugarinstructivo" [(ngModel)]="detalle.lugarinstructivo" required />
+    </div>
+    <div class="ui-grid-row">
+        Nombre Archivo pdf:
+    </div>
+    <div class="ui-grid-row">
+        <input pInputText type="text" maxlength="150" name="pdf" [(ngModel)]="detalle.pdfinstructivo" required />
+    </div>
+</div>
+
+<div class="separadorInventario">
+    <h5>CONTEXTO DE INVENCIÓN</h5>
+    <div style="width: 100%;text-align: right">
+        <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+        <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+    </div>
+</div>
+<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px" *ngIf="detalle!=null">
+
+    <div class="ui-grid-row">
+        Contexto social:
+    </div>
+    <div class="ui-grid-row">
+        <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="550" name="detalles" [(ngModel)]="detalle.social"></textarea>
+    </div>
+    <div class="ui-grid-row">
+        Biografía del inventor:
+    </div>
+    <div class="ui-grid-row">
+        <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="550" name="detalles" [(ngModel)]="detalle.inventor"></textarea>
+    </div>
+    
+</div>
+<div class="separadorInventario">
+    <h5>CONTEXTO DE PRODUCCIÓN</h5>
+    <div style="width: 100%;text-align: right">
+        <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+        <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+    </div>
+</div>
+<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px" *ngIf="detalle!=null">
+
+    <div class="ui-grid-row">
+        Historia del fabricante:
+    </div>
+    <div class="ui-grid-row">
+        <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="550" name="detalles" [(ngModel)]="detalle.historiafabricante"></textarea>
+    </div>
+   
+    
+</div>

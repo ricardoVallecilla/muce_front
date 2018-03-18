@@ -16,7 +16,7 @@ export class UsoAcademicoComponent implements OnInit {
   acciones = "Detalle de la pieza: ";
   msgs: Message[] = [];
   
-  @Input() detalle = null;
+  @Input() piezaMuseable = null;
   @Input() item = null;
 
   es = this.properties.es;

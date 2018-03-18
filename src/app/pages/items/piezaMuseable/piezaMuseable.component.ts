@@ -443,7 +443,13 @@ export class PiezaMuseableComponent implements OnInit {
 
   obtenerDatoHijo(catalogos) {
     this.materialesSelecionados = catalogos;
-    if (this.esCatalogacion) this.enviadorCatalogos.emit(catalogos)
+    if (this.esCatalogacion){
+      let catalogosDetalle = [];
+          this.materialesSelecionados.forEach(x => {
+            catalogosDetalle.push(new DetalleCatalogo(x, "tipoMaterialInstrumental"))
+          });
+          this.enviadorCatalogos.emit(catalogosDetalle)
+    }
   }
 
 
@@ -454,7 +460,7 @@ export class PiezaMuseableComponent implements OnInit {
       this.tecnicaConservacionSelecionados.forEach(x => {
         catalogosDetalle.push(new DetalleCatalogo(x, "tecnicaConservacionEntomologia"))
       });
-      this.enviadorCatalogos.emit(catalogos);
+      this.enviadorCatalogos.emit(catalogosDetalle);
     }
   }
 

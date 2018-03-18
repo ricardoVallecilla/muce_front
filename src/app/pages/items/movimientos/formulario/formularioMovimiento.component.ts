@@ -358,7 +358,7 @@ export class FormularioMovimientoComponent implements OnInit {
         message: "El siguiente movimiento modificará el estado de las piezas y no se podra modificar una vez creado.",
         header: "Advertencia",
         icon: this.properties.iconAdvertencia,
-      });
+      }); 
     } else {
       this.confirmationService.confirm({
         key: "validacionItems",

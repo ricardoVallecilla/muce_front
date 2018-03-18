@@ -54,10 +54,21 @@ export class GeneralService {
 
 
                             },
-                            err => { }
+                            err => { 
+                                //console.log("error",err.status)
+                                if (err.status == 401) {
+                                    this.stopBlock()
+                                    this._router.navigate(['/authentication/login']);
+                                }
+                            }
                         );
                 },
-                err => { }
+                err => { 
+                    this.stopBlock()
+                    if (err.status == 401) {
+                        this._router.navigate(['/authentication/login']);
+                    }
+                 }
             );
     }
 
@@ -101,12 +112,12 @@ export class GeneralService {
 
     checkCredentials() {
         if (localStorage.getItem(this.strSesion) == null) {
-            this._router.navigate(['/pages/login']);
+            this._router.navigate(['/authentication/login']);
         }
     }
     getCredentials() {
         if (localStorage.getItem(this.strSesion) == null) {
-            this._router.navigate(['/pages/login']);
+            this._router.navigate(['/authentication/login']);
         } else {
             var decrypted = CryptoJS.AES.decrypt(localStorage.getItem(this.strSesion), this.key);
             let persona = JSON.parse(decrypted.toString(CryptoJS.enc.Utf8))
@@ -118,7 +129,7 @@ export class GeneralService {
 
     getPersonaId() {
         if (localStorage.getItem(this.strSesion) == null) {
-            this._router.navigate(['/pages/login']);
+            this._router.navigate(['/authentication/login']);
         } else {
             var decrypted = CryptoJS.AES.decrypt(localStorage.getItem(this.strSesion), this.key);
             let persona = JSON.parse(decrypted.toString(CryptoJS.enc.Utf8))
@@ -176,7 +187,9 @@ export class GeneralService {
         return null;
     }
 
-
+    stopBlock(){
+        this.blockUI.stop();
+    }
     private handleError() {
         return (res: Response) => {
             this.blockUI.stop();

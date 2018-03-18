@@ -3,6 +3,7 @@ import {animate, AUTO_STYLE, state, style, transition, trigger} from '@angular/a
 import {MenuItems} from '../../shared/menu-items/menu-items';
 import * as CryptoJS from 'crypto-js';
 import { Properties } from '../../pages/properties'
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin',
@@ -87,7 +88,7 @@ export class AdminComponent implements OnInit {
 /*  @ViewChild('toggleButton') toggle_button: ElementRef;
   @ViewChild('sideMenu') side_menu: ElementRef;*/
 
-  constructor(public menuItems: MenuItems) {
+  constructor(public menuItems: MenuItems, private _router: Router) {
     this.navType = 'st2';
     this.themeLayout = 'vertical';
     this.vNavigationView = 'view1';
@@ -140,6 +141,8 @@ export class AdminComponent implements OnInit {
       this.rol=persona.usuario.rolId.nombre.charAt(0).toUpperCase()+  persona.usuario.rolId.nombre.slice(1);
       this.usuario=persona.usuario.nombres;
       console.log(persona);
+    }else{
+      this.logout();
     }
   }
 
@@ -196,4 +199,9 @@ export class AdminComponent implements OnInit {
   toggleOpenedSidebar() {
     this.isCollapsedSideBar = this.isCollapsedSideBar === 'yes-block' ? 'no-block' : 'yes-block';
   }
+  logout() {
+    localStorage.removeItem("sesion");
+    localStorage.removeItem("nombres");
+    this._router.navigate(['/authentication/login']);
+}
 }

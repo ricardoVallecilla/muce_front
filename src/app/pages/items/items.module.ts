@@ -54,6 +54,7 @@ import { Seccion3ArqueologiaComponent } from './catalogacion/arqueologia/seccion
 import { UsoAcademicoComponent } from './catalogacion/usoAcademico.component';
 import { Seccion2EntomologiaComponent } from './catalogacion/entomologia/seccion2.component';
 import { Seccion3EntomologiaComponent } from './catalogacion/entomologia/seccion3.component';
+import { Seccion2InstrumentalComponent } from './catalogacion/instrumental/seccion2.component';
 
 
 
@@ -137,7 +138,7 @@ export const ItemRoutes: Routes = [
   declarations: [PiezaMuseableComponent,ItemComponent,ArqueologiaComponent,BotanicaComponent,DatosRecoleccionComponent,
      EntomologiaComponent, FotografiaComponent, GeologiaComponent, PaleontologiaComponent, ZoologiaComponent,MovimientosComponent,FormularioMovimientoComponent,
       IstrumentalCientificoComponent, ArtesComponent,Seccion2ArqueologiaComponent,CatalogacionComponent,YacimientoComponent,Seccion3ArqueologiaComponent,
-      UsoAcademicoComponent,Seccion2EntomologiaComponent,Seccion3EntomologiaComponent]
+      UsoAcademicoComponent,Seccion2EntomologiaComponent,Seccion3EntomologiaComponent,Seccion2InstrumentalComponent]
   , providers: [GeneralService, ConfirmationService, CatalogoService, UsuarioService, MuseoServices,ItemService,MovimientosService]
 })
 export class ItemModule { }

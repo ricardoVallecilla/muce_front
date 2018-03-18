@@ -24162,3 +24162,12 @@ body.dark #styleSelector .form-control {
 h5{
   float: left;
 }
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: white;
+  height: 25px;
+  text-align: center;
+}

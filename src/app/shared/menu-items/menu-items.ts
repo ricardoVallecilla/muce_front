@@ -32,7 +32,7 @@ export interface Menu {
 
 const MENUITEMS = [
   {
-    label: 'Navigation',
+    label: 'Navegación',
     main: [
       
       {
