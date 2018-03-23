@@ -13,6 +13,7 @@ export class UrlServices {
     catalogos=this.proxy+"/catalogo/"
     item=this.proxy+"/item/"
     filtrarItem=this.item+"filtro"
+    cantidadItem=this.item+"count"
     piezaMuseable=this.proxy+"/piezaMuseable/"
     piezaMuseableByItem=this.piezaMuseable+"item/"
     guardarPiezaMuseableDetalle=this.piezaMuseable+"detalle"

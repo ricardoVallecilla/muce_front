@@ -30,4 +30,6 @@ export class Properties{
     }
     formatoFecha = "dd/MM/yyyy";
 
+    cantidadRegistros=10
+
 }

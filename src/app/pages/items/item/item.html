@@ -32,7 +32,7 @@
           <input #gb onkeypress="return event.keyCode != 13;" type="text" pInputText placeholder="Filtro Global">
         </div>
         <div class="ui-g-12 ui-md-12 ui-lg-12" style="padding: 0">
-          <p-dataTable [value]="items" [globalFilter]="gb" emptyMessage="{{properties.sinDatos}}" [paginator]="true" [rows]="10">
+          <p-dataTable [value]="items" [globalFilter]="gb" emptyMessage="{{properties.sinDatos}}" [lazy]="true" [paginator]="true" [rows]="properties.cantidadRegistros" (onLazyLoad)="loadLazy($event)" [totalRecords]="totalRecords">
             <p-column *ngIf="categoria==null" field="categoriaid.nombre" header="Categoria" [sortable]="true"></p-column>
             <p-column field="nombre" header="Nombre" [sortable]="true"></p-column>
             <p-column field="codigocontrol" header="Codigo de Control" [sortable]="true"></p-column>

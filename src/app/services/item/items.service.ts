@@ -18,17 +18,33 @@ export class ItemService {
         return this._generalServices.getResources("get", this.url.item)
     }
 
-    filtrarItem(museoId, grupoId , categoriaId = null): Observable<any> {
+    filtrarItem(museoId, grupoId , categoriaId = null,pagina,registros): Observable<any> {
         let filtro;
         if ( categoriaId != null)
             filtro = {
                 "museoId": museoId,
                 "grupoId": grupoId,
-                "categoriaId": categoriaId
+                "categoriaId": categoriaId,
+                "pagina":pagina,
+                "registros":registros
+            }
+        else
+            filtro = { "museoId": museoId ,"grupoId": grupoId,"pagina":pagina, "registros":registros}
+        return this._generalServices.getResources("post", this.url.filtrarItem, filtro)
+    }
+    cantidad(museoId, grupoId , categoriaId = null): Observable<any> {
+        let filtro;
+        if ( categoriaId != null)
+            filtro = {
+                "museoId": museoId,
+                "grupoId": grupoId,
+                "categoriaId": categoriaId,
+                "pagina":0,
+                "registros":0
             }
         else
             filtro = { "museoId": museoId ,"grupoId": grupoId}
-        return this._generalServices.getResources("post", this.url.filtrarItem, filtro)
+        return this._generalServices.getResources("post", this.url.cantidadItem, filtro)
     }
     filtrarItemsMovimientos(museoId, grupoId, categoriaId): Observable<any> {
         let filtro = {

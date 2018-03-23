@@ -36,8 +36,9 @@ export class ItemComponent implements OnInit {
   es = this.properties.es;
   verPopUp = false;
   movimientos = [];
+  totalRecords=null;
   constructor(
-    private _generalService:GeneralService,
+    private _generalService: GeneralService,
     private _router: Router,
     private _catalogoService: CatalogoService,
     private _itemService: ItemService,
@@ -73,25 +74,56 @@ export class ItemComponent implements OnInit {
   buscar() {
     this.items = []
 
-    if (this.categoria!=null)
-    this._itemService.filtrarItem(this.museo.museoid, this.grupo.catalogoid, this.categoria.catalogoid)
-      .subscribe((items: any[]) => {
-        this.items = items;
-      }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }));
-     else
-      this.buscarTodos(); 
+    if (this.categoria != null) {
+      this._itemService.cantidad(this.museo.museoid, this.grupo.catalogoid, this.categoria.catalogoid)
+        .subscribe((cantidad: number) => {
+          this.totalRecords=cantidad
+          if (cantidad > 0) {
+            this._itemService.filtrarItem(this.museo.museoid, this.grupo.catalogoid, this.categoria.catalogoid,0,this.properties.cantidadRegistros)
+              .subscribe((items: any[]) => {
+                this.items = items;
+              }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }));
+          }
+
+        }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }));
+
+
+    } else
+      this.buscarTodos();
   }
 
-
-
-  buscarTodos() {
-    this.items = []
-    this._itemService.filtrarItem(this.museo.museoid, this.grupo.catalogoid)
+  loadLazy(event) {
+    console.log(event)
+    if(this.categoria!=null)
+    this._itemService.filtrarItem(this.museo.museoid, this.grupo.catalogoid, this.categoria.catalogoid,event.first,event.rows)
+    .subscribe((items: any[]) => {
+      this.items = items;
+    }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }));
+    else{
+      this._itemService.filtrarItem(this.museo.museoid, this.grupo.catalogoid,null,event.first,event.rows)
       .subscribe((items: any[]) => {
         this.items = items;
       }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }),
         () => {
         });
+    }
+  }
+
+  buscarTodos() {
+    this.items = []
+    this._itemService.cantidad(this.museo.museoid, this.grupo.catalogoid)
+        .subscribe((cantidad: number) => {
+          this.totalRecords=cantidad
+          if (cantidad > 0) {
+            this._itemService.filtrarItem(this.museo.museoid, this.grupo.catalogoid, null,0,this.properties.cantidadRegistros)
+              .subscribe((items: any[]) => {
+                this.items = items;
+              }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }));
+          }
+
+        }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }));
+
+
   }
 
 
@@ -99,24 +131,24 @@ export class ItemComponent implements OnInit {
   cargarCatalogos() {
     try {
       this._catalogoService.obtenerCatalogosHijosPorPadres([this.constantes.tipoIngreso, this.constantes.grupo])
-      .subscribe((catalogos: any[]) => {
-        catalogos.filter(x => x.catalogopadreid.catalogoid == this.constantes.tipoIngreso).forEach(x => {
-          this.tipoItem.push({ label: x.nombre, value: x })
-        });
-        catalogos.filter(x => x.catalogopadreid.catalogoid == this.constantes.grupo).forEach(x => {
-          this.grupoItem.push({ label: x.nombre, value: x })
-        });
-      }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }),
-        () => {
-        });
+        .subscribe((catalogos: any[]) => {
+          catalogos.filter(x => x.catalogopadreid.catalogoid == this.constantes.tipoIngreso).forEach(x => {
+            this.tipoItem.push({ label: x.nombre, value: x })
+          });
+          catalogos.filter(x => x.catalogopadreid.catalogoid == this.constantes.grupo).forEach(x => {
+            this.grupoItem.push({ label: x.nombre, value: x })
+          });
+        }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }),
+          () => {
+          });
     } catch (error) {
       console.log(error)
       this._generalService.stopBlock();
       this._router.navigate(['/authentication/login']);
     }
-    
-  }
 
+  }
+ 
   nuevo() {
     this.msgs = [];
     this.acciones = this.properties.labelNuevo + " Item"
@@ -127,16 +159,16 @@ export class ItemComponent implements OnInit {
   piezaMuseable(item) {
     this.item = item;
     this.detallePiezaMuseable = true
-    this.catalogacion=false;
+    this.catalogacion = false;
   }
   verCatalogacion(item) {
     this.item = item;
     this.detallePiezaMuseable = false
-    this.catalogacion=true;
+    this.catalogacion = true;
   }
   obtenerDatoHijo(event) {
     this.detallePiezaMuseable = false
-    this.catalogacion=false;
+    this.catalogacion = false;
     if (event) {
       this.msgs = [];
       this.msgs.push({ severity: 'success', summary: 'Éxito', detail: 'Item Actualizado.' });
@@ -193,8 +225,8 @@ export class ItemComponent implements OnInit {
     this._itemService.movimientosItem(item.itemid)
       .subscribe((item: any) => {
         this.movimientos = item
-        this.verPopUp=true;
-        
+        this.verPopUp = true;
+
 
 
       }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo obtener los movimientos de el Item.' }));
