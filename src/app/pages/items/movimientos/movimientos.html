@@ -31,7 +31,7 @@
                 </p-column>
                 <p-column header="Museo" [sortable]="true" [style]="{'width':'155px','text-align': 'center','margin':'5px'}">
                   <ng-template let-movimiento="rowData" pTemplate="body">
-                    <span *ngIf="movimiento.museoid==museo.museoid" style="border-radius: 23px 23px 23px 23px;
+                    <span *ngIf="!movimiento.receptor" style="border-radius: 23px 23px 23px 23px;
                       -moz-border-radius: 23px 23px 23px 23px;
                       -webkit-border-radius: 10px 10px 10px 10px;
                       border: 0px solid #000000;
@@ -40,7 +40,7 @@
                       color: white;
                       padding-top: 4px;
                       padding-bottom: 4px;width:85px">Emisor</span>
-                    <span *ngIf="movimiento.museoreceptorid==museo.museoid" style="border-radius: 23px 23px 23px 23px;
+                    <span *ngIf="movimiento.receptor" style="border-radius: 23px 23px 23px 23px;
                       -moz-border-radius: 23px 23px 23px 23px;
                       -webkit-border-radius: 10px 10px 10px 10px;
                       border: 0px solid #000000;

@@ -26,6 +26,7 @@ export class BotanicaComponent implements OnInit {
   @Output() enviadorOrigenes = new EventEmitter();
   origenItem=[];
   tecnicasItem=[];
+  diccionarioImpresion={};
   constructor(
     private _catalogoService: CatalogoService,
     ) {}
@@ -36,7 +37,7 @@ export class BotanicaComponent implements OnInit {
 
   impr() {
     this.enviadorTecnicas.emit(this.tecnicaConservacionBotanicaSelecionados);
-    console.log();
+   
     
 
 
@@ -44,12 +45,15 @@ export class BotanicaComponent implements OnInit {
   }
   imprOrigen() {
     this.enviadorOrigenes.emit(this.origenesBotanicaSeleccionados);
-    console.log();
+    
   
   }
   cargarCatalogos() {
     this._catalogoService.obtenerCatalogosHijosPorPadres([this.constantes.tecnicasConservacionBotanica,this.constantes.origenBotanica])
       .subscribe((catalogos: any[]) => {
+        catalogos.forEach(x => {
+          this.diccionarioImpresion[x.catalogoid+""]=x.nombre
+        });
         this.origenItem=catalogos.filter(x => x.catalogopadreid.catalogoid == this.constantes.origenBotanica);
         this.tecnicasItem=catalogos.filter(x => x.catalogopadreid.catalogoid == this.constantes.tecnicasConservacionBotanica);
       }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }),

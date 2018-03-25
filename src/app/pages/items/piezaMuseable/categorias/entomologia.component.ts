@@ -22,6 +22,7 @@ export class EntomologiaComponent implements OnInit {
   @Output() enviadorCondicion = new EventEmitter();
   tecnicasItem=[]
   es = this.properties.es;
+  diccionarioImpresion={}
   constructor(
     private _catalogoService: CatalogoService,
     ) {}
@@ -33,11 +34,14 @@ export class EntomologiaComponent implements OnInit {
   
     impr() {
       this.enviadorCondicion.emit(this.tecnicaConservacionSelecionados);
-    console.log(this.tecnicaConservacionSelecionados)
+ 
     }
     cargarCatalogos() {
       this._catalogoService.obtenerCatalogosHijosPorPadres([this.constantes.tecnicasConservacionEntomologia])
         .subscribe((catalogos: any[]) => {
+          catalogos.forEach(x => {
+            this.diccionarioImpresion[x.catalogoid+""]=x.nombre
+          });
           this.tecnicasItem=[]
           this.tecnicasItem=catalogos
         }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }),

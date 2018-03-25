@@ -49,7 +49,7 @@ export class YacimientoComponent implements OnInit {
   descargarFoto(tipo) {
     this._itemService.downloadFotografiaTipo(this.detalle.detalleid,tipo).
       subscribe((foto: any) => {
-        console.log(foto)
+        
         if(tipo==2){
           let blob = new Blob([foto.blob()], { type: 'image/jpeg' });
            this.fotoyacimiento = this.domSanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
@@ -88,7 +88,7 @@ export class YacimientoComponent implements OnInit {
   }
 
   fileChangeEvent(event,tipo=null) {
-    console.log(event)
+    
     let e = event.srcElement ? event.srcElement : event.target;
     let tipoLocal;
     let id=this.detalle.detalleid;

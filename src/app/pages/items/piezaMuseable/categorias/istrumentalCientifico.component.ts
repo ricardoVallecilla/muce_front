@@ -25,7 +25,7 @@ export class IstrumentalCientificoComponent implements OnInit {
   categoria = null;
   @Input() detalle = null;
   @Input() item = null;
-
+  diccionarioImpresion={}
   es = this.properties.es;
   constructor(
     private _catalogoService: CatalogoService,
@@ -43,11 +43,14 @@ export class IstrumentalCientificoComponent implements OnInit {
 
   impr() {
     this.enviadorCondicion.emit(this.materialesSelecionados);
-  console.log(this.materialesSelecionados)
+  
   }
   cargarCatalogos() {
     this._catalogoService.obtenerCatalogosHijosPorPadres([this.constantes.materialInstrumentos])
       .subscribe((catalogos: any[]) => {
+        catalogos.forEach(x => {
+          this.diccionarioImpresion[x.catalogoid+""]=x.nombre
+        });
         this.materialesItem=catalogos
       }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }),
       () => {

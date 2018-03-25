@@ -10,6 +10,7 @@ import { BrowserModule, DomSanitizer, SafeResourceUrl } from '@angular/platform-
 import { Movimiento } from '../../../models/movimiento.model';
 import * as CryptoJS from 'crypto-js';
 import { forEach } from '@angular/router/src/utils/collection';
+import { EstilosReportes } from '../../estiloImpresion';
 @Component({
   selector: 'movimientos',
   templateUrl: './movimientos.html'
@@ -123,15 +124,31 @@ export class MovimientosComponent implements OnInit {
           this.movimientos = []
           this._movimientosService.obtenerMovimientos(this.museo.museoid, first, rows)
             .subscribe((movimientos: any[]) => {
-              console.log(movimientos)
+              
               let movimientosLocal = []
               movimientos.forEach(x => {
 
                 if (x.museoreceptorid == this.museo.museoid && x.confirmacion == null) {
 
                 } else {
+                  /**
+                   * devolucionOtro=730
+    devolucionDesinfeccion=731
+    devolucionRestauracion=732
+    devolucionPrestamoInterno=733
+    devolucionPrestamoExterno=734
+                   */
+                  if(x.tipomovimientoid.catalogoid==this.constantes.devolucionOtro 
+                    ||x.tipomovimientoid.catalogoid==this.constantes.devolucionDesinfeccion
+                    ||x.tipomovimientoid.catalogoid==this.constantes.devolucionRestauracion                  
+                  ){
+                    x.receptor=true;
+                  }else if (x.museoid==this.museo.museoid){
+                    x.receptor=false;                  
+                  }
 
                   movimientosLocal.push(x);
+
                 }
 
               });
@@ -173,7 +190,7 @@ export class MovimientosComponent implements OnInit {
   cargarMuseos() {
     this._museoServices.obtenerTodoMuseos()
       .subscribe((museos: any[]) => {
-        console.log(museos)
+        
         if (this.museo) this.museo = museos.find(x => x.museoid == this.museo.museoid);
         this.museoItem = [{ label: this.properties.labelSeleccione, value: null }];
         let museosLocales = []
@@ -225,7 +242,7 @@ export class MovimientosComponent implements OnInit {
   }
 
   agregarItems() {
-    console.log(this.itemsSeleccionados)
+    
     let piezas = [...this.piezasAgregadas];
     this.itemsSeleccionados.forEach(x => {
       let encontrado = this.piezasAgregadas.find(x2 => x2.itemid == x.itemid)
@@ -257,7 +274,7 @@ export class MovimientosComponent implements OnInit {
 
   actualizarVista(event) {
 
-    console.log("desde hijo", event)
+    
 
     switch (event) {
       case 1:
@@ -336,4 +353,7 @@ export class MovimientosComponent implements OnInit {
         () => {
         });
   }
+
+
+ 
 }

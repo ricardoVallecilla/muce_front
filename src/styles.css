@@ -24171,3 +24171,13 @@ h5{
   height: 25px;
   text-align: center;
 }
+
+.impresion{
+  display: none !important;
+}
+h5{
+  float: left;
+}
+.margin{
+  margin: 10px 0px
+}

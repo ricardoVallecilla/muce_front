@@ -1,4 +1,4 @@
-<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px" *ngIf="detalle!=null">
+<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin"  *ngIf="detalle!=null">
 
   <div class="ui-grid-row">
     <div class="ui-grid-col-2">
@@ -6,6 +6,9 @@
     </div>
     <div class="ui-grid-col-10">
       <input pInputText type="text" maxlength="150" name="especie" [(ngModel)]="detalle.especie" />
+      <div class="impresion">
+          {{detalle.especie}}
+        </div>
     </div>
   </div>
 
@@ -15,6 +18,9 @@
     </div>
     <div class="ui-grid-col-10">
       <input pInputText type="text" maxlength="150" name="autor" [(ngModel)]="detalle.autor" />
+      <div class="impresion">
+          {{detalle.autor}}
+        </div>
     </div>
   </div>
 
@@ -24,6 +30,9 @@
     </div>
     <div class="ui-grid-col-10">
       <input pInputText type="text" maxlength="150" name="nombrecomun" [(ngModel)]="detalle.nombrecomun" />
+      <div class="impresion">
+          {{detalle.nombrecomun}}
+        </div>
     </div>
   </div>
 
@@ -33,6 +42,9 @@
     </div>
     <div class="ui-grid-col-10">
       <input pInputText type="text" maxlength="150" name="morfofuncional" [(ngModel)]="detalle.publicado" />
+      <div class="impresion">
+          {{detalle.publicado}}
+        </div>
     </div>
   </div>
 
@@ -42,6 +54,9 @@
     </div>
     <div class="ui-grid-col-10">
       <input pInputText type="text" maxlength="150" name="morfofuncional" [(ngModel)]="detalle.clase" />
+      <div class="impresion">
+          {{detalle.clase}}
+        </div>
     </div>
   </div>
 
@@ -51,6 +66,9 @@
     </div>
     <div class="ui-grid-col-10">
       <input pInputText type="text" maxlength="150" name="morfofuncional" [(ngModel)]="detalle.subclase" />
+      <div class="impresion">
+          {{detalle.subclase}}
+        </div>
     </div>
   </div>
 
@@ -60,6 +78,9 @@
     </div>
     <div class="ui-grid-col-10">
       <input pInputText type="text" maxlength="150" name="morfofuncional" [(ngModel)]="detalle.orden" />
+      <div class="impresion">
+          {{detalle.orden}}
+        </div>
     </div>
   </div>
 
@@ -69,6 +90,9 @@
     </div>
     <div class="ui-grid-col-10">
       <input pInputText type="text" maxlength="150" name="morfofuncional" [(ngModel)]="detalle.familia" />
+      <div class="impresion">
+          {{detalle.familia}}
+        </div>
     </div>
   </div>
 
@@ -78,6 +102,9 @@
     </div>
     <div class="ui-grid-col-10">
       <input pInputText type="text" maxlength="150" name="morfofuncional" [(ngModel)]="detalle.genero" />
+      <div class="impresion">
+          {{detalle.genero}}
+        </div>
     </div>
   </div>
 
@@ -86,11 +113,19 @@
       Origen:
     </div>
     <div class="ui-grid-col-10">
-      <div class="ui-g">
+      <div class="ui-g ocultar">
         <div class="ui-g-3" *ngFor="let estado of origenItem">
           <p-checkbox name="origenes" value="{{estado.catalogoid}}" label="{{estado.nombre}}" (click)="imprOrigen()" [(ngModel)]="origenesBotanicaSeleccionados"></p-checkbox>
         </div>
       </div>
+      <div class="ui-g impresion" style="width: 100%">
+          <div class="ui-g-3" *ngFor="let estado of origenesBotanicaSeleccionados">
+              
+              <input type="checkbox" style="display: initial !important"  checked>{{diccionarioImpresion[estado]}}
+              
+            </div>
+          
+        </div>
     </div>
   </div>
 
@@ -99,11 +134,19 @@
       Técnica de conservación:
     </div>
     <div class="ui-grid-col-10">
-      <div class="ui-g">
+      <div class="ui-g ocultar">
         <div class="ui-g-3" *ngFor="let estado of tecnicasItem">
           <p-checkbox name="tecnicas" value="{{estado.catalogoid}}" label="{{estado.nombre}}" (click)="impr()" [(ngModel)]="tecnicaConservacionBotanicaSelecionados"></p-checkbox>
         </div>
       </div>
+      <div class="ui-g impresion" style="width: 100%">
+          <div class="ui-g-3" *ngFor="let estado of tecnicaConservacionBotanicaSelecionados">
+              
+              <input type="checkbox" style="display: initial !important"  checked>{{diccionarioImpresion[estado]}}
+              
+            </div>
+          
+        </div>
     </div>
   </div>
 
@@ -113,6 +156,9 @@
     </div>
     <div class="ui-grid-col-10">
       <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="550" name="detalles" [(ngModel)]="detalle.descripcion"></textarea>
+      <div class="impresion">
+          {{detalle.descripcion}}
+        </div>
     </div>
   </div>
 

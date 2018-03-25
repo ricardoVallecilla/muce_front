@@ -64,7 +64,7 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     setTimeout(() => {
       this.editorContent = this.editorContent;
-      console.log('you can use the quill instance object to do something', this.editor);
+     
       // this.editor.disable();
     }, 2800);
 

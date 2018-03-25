@@ -79,7 +79,7 @@ export class CatalogacionComponent implements OnInit {
 
     this._itemService.downloadFotografiaTipo(this.piezaMuseable.piezamuseableid, tipo).
       subscribe((foto: any) => {
-        console.log(foto)
+        
         let blob = new Blob([foto.blob()], { type: 'image/jpeg' });
         switch (tipo) {
           case 1:
@@ -146,8 +146,7 @@ export class CatalogacionComponent implements OnInit {
 
 
   guardar() {
-    console.log(this.piezaMuseable);
-    console.log(this.detalle);
+    
 
     let piezaDetalle = new PiezaDetalle();
     let catalogosDetalle = null;
@@ -189,7 +188,7 @@ export class CatalogacionComponent implements OnInit {
   }
 
   fileChangeEvent(event, tipo = null) {
-    console.log(event)
+    
     let e = event.srcElement ? event.srcElement : event.target;
     let tipoLocal;
     let id;

@@ -1,322 +1,419 @@
 <form #form="ngForm" (ngSubmit)=" confirmar()" style="width: 100%" novalidate>
 
   <p-fieldset legend="ACTA DE MOVIMIENTO">
+    <div id="print-section">
+      <div class="separadorInventario">
+        <h5>1. INSTITUCIÓN SOLICITANTE O DEPOSITARIA</h5>
+        <div style="width: 100%;text-align: right">
+          <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+          <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+        </div>
 
-    <div class="separadorInventario">
-      <h5 style="float: left">1. INSTITUCIÓN SOLICITANTE O DEPOSITARIA</h5>
-      <div style="width: 100%;text-align: right">
-        <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
-        <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
       </div>
+      <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin">
 
-    </div>
-    <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
-
-      <div class="ui-grid-row">
-        <div class="ui-grid-col-2">
-          Institución:
-        </div>
-        <div class="ui-grid-col-4">
-          <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="institucion" [(ngModel)]="movimiento.institucion"
-          />
-        </div>
-      </div>
-      <div class="ui-grid-row">
-        <div class="ui-grid-col-2">
-          Dirección:
-        </div>
-        <div class="ui-grid-col-4">
-          <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="direccion" [(ngModel)]="movimiento.direccion"
-          />
-        </div>
-      </div>
-      <div class="ui-grid-row">
-        <div class="ui-grid-col-2">
-          País:
-        </div>
-        <div class="ui-grid-col-4">
-          <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="pais" [(ngModel)]="movimiento.pais" />
-        </div>
-      </div>
-      <div class="ui-grid-row">
-        <div class="ui-grid-col-2">
-          Provincia:
-        </div>
-        <div class="ui-grid-col-4">
-          <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="provincia" [(ngModel)]="movimiento.provincia"
-          />
-        </div>
-      </div>
-      <div class="ui-grid-row">
-        <div class="ui-grid-col-2">
-          Ciudad:
-        </div>
-        <div class="ui-grid-col-4">
-          <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="ciudad" [(ngModel)]="movimiento.ciudad" />
-        </div>
-      </div>
-      <div class="ui-grid-row">
-        <div class="ui-grid-col-2">
-          Teléfono:
-        </div>
-        <div class="ui-grid-col-4">
-          <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="telefono" [(ngModel)]="movimiento.telefono"
-          />
-        </div>
-      </div>
-      <div class="ui-grid-row">
-        <div class="ui-grid-col-2">
-          Correo electrónico:
-        </div>
-        <div class="ui-grid-col-4">
-          <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="email" [(ngModel)]="movimiento.email" />
-        </div>
-      </div>
-
-    </div>
-    <div class="separadorInventario">
-      <h5 style="float: left">2. TIPO DE MOVIMIENTO</h5>
-      <div style="width: 100%;text-align: right">
-        <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
-        <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
-      </div>
-
-    </div>
-    <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
-
-      <div class="ui-grid-row">
-        <div class="ui-grid-col-6">
-          <div class="ui-g">
-            <div class="ui-g-6">
-              <p-radioButton [disabled]="desabilitados" (click)="tipoSeleccionado=null" name="tipo" value="1" label="EGRESO" [(ngModel)]="tipo"></p-radioButton>
-            </div>
-            <div class="ui-g-6">
-              <p-radioButton [disabled]="desabilitados" (click)="tipoSeleccionado=null" name="tipo" value="2" label="INGRESO" [(ngModel)]="tipo"></p-radioButton>
-            </div>
-            <div class="ui-g-6">
-              <div class="ui-g">
-                <div class="ui-g-12" *ngFor="let estado of tiposEgresos">
-                  <p-radioButton [disabled]="tipo=='2' || desabilitados" name="integridad" value="{{estado.catalogoid}}" label="{{estado.nombre}}"
-                    (click)="cambiarTipo()" [(ngModel)]="tipoSeleccionado"></p-radioButton>
-                </div>
-              </div>
-            </div>
-            <div class="ui-g-6">
-              <div class="ui-g">
-                <div class="ui-g-12" *ngFor="let estado of tiposIngresos">
-                  <p-radioButton [disabled]="tipo=='1' || desabilitados" name="integridad2" value="{{estado.catalogoid}}" label="{{estado.nombre}}"
-                    (click)="cambiarTipo()" [(ngModel)]="tipoSeleccionado"></p-radioButton>
-                </div>
-              </div>
-            </div>
-            <div class="ui-g-2" *ngIf="tipoSeleccionado == constantes.prestamoInterno || tipoSeleccionado == constantes.traspasoiterno">
-              Museo Destino:
-            </div>
-            <div class="ui-g-10" *ngIf="tipoSeleccionado == constantes.prestamoInterno || tipoSeleccionado == constantes.traspasoiterno">
-              <p-dropdown [options]="museoItem" filter="true" [style]="{'width': '100%'}" name="museo" [(ngModel)]="museoSeleccionado"
-                (ngModelChange)="cambiarMuseo()"></p-dropdown>
-            </div>
-
-            <div class="ui-g-12">
-              <label for="">Observaciones:</label>
-              <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="550" name="observaciones" [(ngModel)]="movimiento.observaciones"></textarea>
+        <div class="ui-grid-row">
+          <div class="ui-grid-col-2">
+            Institución:
+          </div>
+          <div class="ui-grid-col-10">
+            <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="institucion" [(ngModel)]="movimiento.institucion"
+            />
+            <div class="impresion">
+              {{movimiento.institucion}}
             </div>
           </div>
         </div>
-        <div class="ui-grid-col-6">
-          <div class="ui-g">
-            <div class="ui-g-12">
-              <label>Documento de respaldo: (Oficio, Memorando, Resolución,etc.)</label>
-              <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="documentorespaldo" [(ngModel)]="movimiento.documentorespaldo"
-              />
+        <div class="ui-grid-row">
+          <div class="ui-grid-col-2">
+            Dirección:
+          </div>
+          <div class="ui-grid-col-10">
+            <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="direccion" [(ngModel)]="movimiento.direccion"
+            />
+            <div class="impresion">
+              {{movimiento.direccion}}
             </div>
-            <div class="ui-g-12">
-              <label>Fecha de inicio:</label>
-              <p-calendar name="fechainicioprestamo" [disabled]="desabilitados" [locale]="es" [showIcon]="true" [(ngModel)]="movimiento.fechainicioprestamo"></p-calendar>
+          </div>
+        </div>
+        <div class="ui-grid-row">
+          <div class="ui-grid-col-2">
+            País:
+          </div>
+          <div class="ui-grid-col-10">
+            <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="pais" [(ngModel)]="movimiento.pais" />
+            <div class="impresion">
+              {{movimiento.pais}}
             </div>
-            <div class="ui-g-12">
-              <label>Fecha de entrega:</label>
-              <p-calendar name="fechafinprestamo" [disabled]="desabilitados" [locale]="es" [showIcon]="true" [(ngModel)]="movimiento.fechafinprestamo"></p-calendar>
+          </div>
+        </div>
+        <div class="ui-grid-row">
+          <div class="ui-grid-col-2">
+            Provincia:
+          </div>
+          <div class="ui-grid-col-10">
+            <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="provincia" [(ngModel)]="movimiento.provincia"
+            />
+            <div class="impresion">
+              {{movimiento.provincia}}
             </div>
-            <div class="ui-g-12">
-              <label>Aseguradora:</label>
-              <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="aseguradora" [(ngModel)]="movimiento.aseguradora"
-              />
+          </div>
+        </div>
+        <div class="ui-grid-row">
+          <div class="ui-grid-col-2">
+            Ciudad:
+          </div>
+          <div class="ui-grid-col-10">
+            <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="ciudad" [(ngModel)]="movimiento.ciudad" />
+            <div class="impresion">
+              {{movimiento.ciudad}}
             </div>
-            <div class="ui-g-12">
-              <label>Número de seguro:</label>
-              <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="numeroseguro" [(ngModel)]="movimiento.numeroseguro"
-              />
+          </div>
+        </div>
+        <div class="ui-grid-row">
+          <div class="ui-grid-col-2">
+            Teléfono:
+          </div>
+          <div class="ui-grid-col-10">
+            <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="telefono" [(ngModel)]="movimiento.telefono"
+            />
+            <div class="impresion">
+              {{movimiento.telefono}}
             </div>
-            <div class="ui-g-12">
-              <label>Valor seguro</label>
-              <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="valorseguro" [(ngModel)]="movimiento.valorseguro"
-              />
+          </div>
+        </div>
+        <div class="ui-grid-row">
+          <div class="ui-grid-col-2">
+            Correo electrónico:
+          </div>
+          <div class="ui-grid-col-10">
+            <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="email" [(ngModel)]="movimiento.email" />
+            <div class="impresion">
+              {{movimiento.email}}
             </div>
-            <div class="ui-g-12">
-              <label>Forma de envío:</label>
-              <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="formaenvio" [(ngModel)]="movimiento.formaenvio"
-              />
-            </div>
+          </div>
+        </div>
 
+      </div>
+      <div class="separadorInventario">
+        <h5>2. TIPO DE MOVIMIENTO</h5>
+        <div style="width: 100%;text-align: right">
+          <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+          <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+        </div>
+
+      </div>
+      <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin">
+
+        <div class="ui-grid-row">
+          <div class="ui-grid-col-6" style="padding: 0">
+            <div class="ui-g ocultar">
+              <div class="ui-g-6">
+                <p-radioButton [disabled]="desabilitados" (click)="tipoSeleccionado=null" name="tipo" value="1" label="EGRESO" [(ngModel)]="tipo"></p-radioButton>
+              </div>
+              <div class="ui-g-6">
+                <p-radioButton [disabled]="desabilitados" (click)="tipoSeleccionado=null" name="tipo" value="2" label="INGRESO" [(ngModel)]="tipo"></p-radioButton>
+              </div>
+              <div class="ui-g-6">
+                <div class="ui-g">
+                  <div class="ui-g-12" *ngFor="let estado of tiposEgresos">
+                    <p-radioButton [disabled]="tipo=='2' || desabilitados" name="integridad" value="{{estado.catalogoid}}" label="{{estado.nombre}}"
+                      (click)="cambiarTipo()" [(ngModel)]="tipoSeleccionado"></p-radioButton>
+                  </div>
+                </div>
+              </div>
+              <div class="ui-g-6">
+                <div class="ui-g">
+                  <div class="ui-g-12" *ngFor="let estado of tiposIngresos">
+                    <p-radioButton [disabled]="tipo=='1' || desabilitados" name="integridad2" value="{{estado.catalogoid}}" label="{{estado.nombre}}"
+                      (click)="cambiarTipo()" [(ngModel)]="tipoSeleccionado"></p-radioButton>
+                  </div>
+                </div>
+              </div>
+              <div class="ui-g-2" *ngIf="tipoSeleccionado == constantes.prestamoInterno || tipoSeleccionado == constantes.traspasointerno">
+                Museo Destino:
+              </div>
+              <div class="ui-g-10" *ngIf="tipoSeleccionado == constantes.prestamoInterno || tipoSeleccionado == constantes.traspasointerno">
+                <p-dropdown [options]="museoItem" filter="true" [style]="{'width': '100%'}" name="museo" [(ngModel)]="museoSeleccionado"
+                  (ngModelChange)="cambiarMuseo()"></p-dropdown>
+              </div>
+
+              <div class="ui-g-12">
+                <label for="">Observaciones:</label>
+                <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="550" name="observaciones" [(ngModel)]="movimiento.observaciones"></textarea>
+
+              </div>
+            </div>
+            <div class="ui-g impresion">
+              <div class="ui-g-12">
+                {{tipo=='1'?'EGRESO':'INGRESO'}}
+              </div>
+              <div class="ui-g-12">
+                
+                {{diccionarioImpresion[tipoSeleccionado]}}
+              </div>
+              <div class="ui-g-12">
+                Observaciones:
+              </div>
+              <div class="ui-g-12">
+                {{movimiento.observaciones}}
+              </div>
+
+            </div>
+          </div>
+          <div class="ui-grid-col-6" style="padding: 0">
+            <div class="ui-g">
+              <div class="ui-g-12">
+                <div class="ui-g-12">Documento de respaldo: (Oficio, Memorando, Resolución,etc.)</div>
+
+                <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="documentorespaldo" [(ngModel)]="movimiento.documentorespaldo"
+                />
+                <div class="impresion">
+                  {{movimiento.documentorespaldo}}
+                </div>
+              </div>
+              <div class="ui-g-12">
+                <div class="ui-g-12">Fecha de inicio:</div>
+
+                <p-calendar name="fechainicioprestamo" [disabled]="desabilitados" [locale]="es" [showIcon]="true" [(ngModel)]="movimiento.fechainicioprestamo"></p-calendar>
+                <div class="impresion">
+                  {{movimiento.fechainicioprestamo | date: properties.formatoFecha}}
+                </div>
+              </div>
+              <div class="ui-g-12">
+                <div class="ui-g-12">Fecha de entrega:</div>
+
+                <p-calendar name="fechafinprestamo" [disabled]="desabilitados" [locale]="es" [showIcon]="true" [(ngModel)]="movimiento.fechafinprestamo"></p-calendar>
+                <div class="impresion">
+                  {{movimiento.fechafinprestamo | date: properties.formatoFecha}}
+                </div>
+              </div>
+              <div class="ui-g-12">
+                  
+                <div class="ui-g-12">Aseguradora:</div>
+                <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="aseguradora" [(ngModel)]="movimiento.aseguradora"
+                />
+                <div class="impresion">
+                  {{movimiento.aseguradora}}
+                </div>
+              </div>
+              <div class="ui-g-12">
+                
+                <div class="ui-g-12">Número de seguro:</div>
+                <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="numeroseguro" [(ngModel)]="movimiento.numeroseguro"
+                />
+                <div class="impresion">
+                  {{movimiento.numeroseguro}}
+                </div>
+              </div>
+              <div class="ui-g-12">
+                
+                <div class="ui-g-12">Valor seguro:</div>
+                <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="valorseguro" [(ngModel)]="movimiento.valorseguro"
+                />
+                <div class="impresion">
+                  {{movimiento.valorseguro}}
+                </div>
+              </div>
+              <div class="ui-g-12">
+                
+                <div class="ui-g-12">Forma de envío:</div>
+                <p-inputSwitch [disabled]="desabilitados" [(ngModel)]="movimiento.formaenvio" onLabel="AÉREA" offLabel="TERRESTRE" name="formaenvio"
+                  required></p-inputSwitch>
+                <div class="impresion">
+                  {{movimiento.formaenvio?'AÉREA':'TERRESTRE'}}
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <div class="ui-grid-row">
+
+        </div>
+      </div>
+
+      <div class="separadorInventario">
+        <h5>3. DATOS DEL FUNCIONARIO QUE ENTREGA</h5>
+        <div style="width: 100%;text-align: right">
+          <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+          <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+        </div>
+
+      </div>
+      <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin">
+
+        <div class="ui-grid-row">
+          <div class="ui-grid-col-2">
+            Nombre:
+          </div>
+          <div class="ui-grid-col-10">
+            <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="entreganombre" [(ngModel)]="movimiento.entreganombre"
+            />
+            <div class="impresion">
+              {{movimiento.entreganombre}}
+            </div>
+          </div>
+        </div>
+        <div class="ui-grid-row">
+          <div class="ui-grid-col-2">
+            Cargo:
+          </div>
+          <div class="ui-grid-col-10">
+            <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="entregacargo" [(ngModel)]="movimiento.entregacargo"
+            />
+            <div class="impresion">
+              {{movimiento.entregacargo}}
+            </div>
+          </div>
+        </div>
+        <div class="ui-grid-row">
+          <div class="ui-grid-col-2">
+            Reserva:
+          </div>
+          <div class="ui-grid-col-10">
+            <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="entregareserva" [(ngModel)]="movimiento.entregareserva"
+            />
+            <div class="impresion">
+              {{movimiento.entregareserva}}
+            </div>
+          </div>
+        </div>
+        <div class="ui-grid-row">
+          <div class="ui-grid-col-2">
+            C.I:
+          </div>
+          <div class="ui-grid-col-10">
+            <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="entregaci" [(ngModel)]="movimiento.entregaci"
+            />
+            <div class="impresion">
+              {{movimiento.entregaci}}
+            </div>
+          </div>
+        </div>
+        <div class="ui-grid-row">
+          <div class="ui-grid-col-2">
+            Firma:
+          </div>
+          <div class="ui-grid-col-10">
+            <textarea pInputTextarea [readonly]="desabilitados" style="resize: none; width: 100%" rows="3" maxlength="550" name="detalles"></textarea>
+            <div class="impresion" style="height: 70px">
+
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+      
+      <div class="separadorInventario">
+        <h5>4. DATOS DEL FUNCIONARIO RECEPTOR</h5>
+        <div style="width: 100%;text-align: right">
+          <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+          <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+        </div>
+
+      </div>
+      <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin">
+
+        <div class="ui-grid-row">
+          <div class="ui-grid-col-2">
+            Nombre:
+          </div>
+          <div class="ui-grid-col-10">
+            <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="receptornombre" [(ngModel)]="movimiento.receptornombre"
+            />
+            <div class="impresion">
+              {{movimiento.receptornombre}}
+            </div>
+          </div>
+        </div>
+        <div class="ui-grid-row">
+          <div class="ui-grid-col-2">
+            Cargo:
+          </div>
+          <div class="ui-grid-col-10">
+            <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="receptorcargo" [(ngModel)]="movimiento.receptorcargo"
+            />
+            <div class="impresion">
+              {{movimiento.receptorcargo}}
+            </div>
+          </div>
+        </div>
+        <div class="ui-grid-row">
+          <div class="ui-grid-col-2">
+            Reserva:
+          </div>
+          <div class="ui-grid-col-10">
+            <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="receptorreserva" [(ngModel)]="movimiento.receptorreserva"
+            />
+            <div class="impresion">
+              {{movimiento.receptorreserva}}
+            </div>
+          </div>
+        </div>
+        <div class="ui-grid-row">
+          <div class="ui-grid-col-2">
+            C.I:
+          </div>
+          <div class="ui-grid-col-10">
+            <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="receptorci" [(ngModel)]="movimiento.receptorci"
+            />
+            <div class="impresion">
+              {{movimiento.receptorci}}
+            </div>
+          </div>
+        </div>
+        <div class="ui-grid-row">
+          <div class="ui-grid-col-2">
+            Firma:
+          </div>
+          <div class="ui-grid-col-10">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="3" maxlength="550" name="detalles"></textarea>
+            <div class="impresion" style="height: 70px">
+
+            </div>
           </div>
         </div>
       </div>
-      <div class="ui-grid-row">
+      <div class="separadorInventario">
+        <h5>5. BIENES A SER ENTREGADOS</h5>
+        <div style="width: 100%;text-align: right">
+          <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+          <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+        </div>
 
       </div>
-    </div>
+      <div class="ui-g" style="margin: 10px 0px;padding: 0">
+        <p-dataTable [value]="piezasAgregadas" emptyMessage="No se han agregado piezas" [(selection)]="piezasSeleccionados">
+          <p-column field="categoriaid.nombre" header="Categoría" [sortable]="true"></p-column>
+          <p-column field="nombre" header="Nombre" [sortable]="true"></p-column>
+          <p-column field="codigocontrol" header="Código de Control" [sortable]="true"></p-column>
+          <p-column field="numeroserie" header="Número de Serie" [sortable]="true"></p-column>
+          <p-column *ngIf="tipoFormulario==1" [style]="{'width':'38px'}" header="Seleccionar" selectionMode="multiple"></p-column>
+        </p-dataTable>
+        <div class="ui-g-12 ui-md-12 ui-lg-12 alineacionBotones" *ngIf="!desabilitados && !esDevolucion">
+          <button pButton type="button" (click)="agregarItem()" icon="{{properties.nuevo.icon}}" label="Agregar"></button>
+          <button pButton type="button" (click)="quitarSeleccionados()" icon="{{properties.nuevo.icon}}" label="Quitar Seleccionados"></button>
+          <button pButton type="button" (click)="quitarTodos()" icon="{{properties.nuevo.icon}}" label="Quitar Todos"></button>
 
-    <div class="separadorInventario">
-      <h5 style="float: left">3. DATOS DEL FUNCIONARIO QUE ENTREGA</h5>
-      <div style="width: 100%;text-align: right">
-        <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
-        <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
-      </div>
-
-    </div>
-    <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
-
-      <div class="ui-grid-row">
-        <div class="ui-grid-col-2">
-          Nombre:
         </div>
-        <div class="ui-grid-col-4">
-          <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="entreganombre" [(ngModel)]="movimiento.entreganombre"
-          />
-        </div>
-      </div>
-      <div class="ui-grid-row">
-        <div class="ui-grid-col-2">
-          Cargo:
-        </div>
-        <div class="ui-grid-col-4">
-          <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="entregacargo" [(ngModel)]="movimiento.entregacargo"
-          />
-        </div>
-      </div>
-      <div class="ui-grid-row">
-        <div class="ui-grid-col-2">
-          Reserva:
-        </div>
-        <div class="ui-grid-col-4">
-          <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="entregareserva" [(ngModel)]="movimiento.entregareserva"
-          />
-        </div>
-      </div>
-      <div class="ui-grid-row">
-        <div class="ui-grid-col-2">
-          C.I:
-        </div>
-        <div class="ui-grid-col-4">
-          <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="entregaci" [(ngModel)]="movimiento.entregaci"
-          />
-        </div>
-      </div>
-      <div class="ui-grid-row">
-        <div class="ui-grid-col-2">
-          Firma:
-        </div>
-        <div class="ui-grid-col-4">
-          <textarea pInputTextarea [readonly]="desabilitados" style="resize: none; width: 100%" rows="3" maxlength="550" name="detalles"></textarea>
-        </div>
-      </div>
-
-
-    </div>
-
-    <div class="separadorInventario">
-      <h5 style="float: left">4. DATOS DEL FUNCIONARIO RECEPTOR</h5>
-      <div style="width: 100%;text-align: right">
-        <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
-        <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
-      </div>
-
-    </div>
-    <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
-
-      <div class="ui-grid-row">
-        <div class="ui-grid-col-2">
-          Nombre:
-        </div>
-        <div class="ui-grid-col-4">
-          <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="receptornombre" [(ngModel)]="movimiento.receptornombre"
-          />
-        </div>
-      </div>
-      <div class="ui-grid-row">
-        <div class="ui-grid-col-2">
-          Cargo:
-        </div>
-        <div class="ui-grid-col-4">
-          <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="receptorcargo" [(ngModel)]="movimiento.receptorcargo"
-          />
-        </div>
-      </div>
-      <div class="ui-grid-row">
-        <div class="ui-grid-col-2">
-          Reserva:
-        </div>
-        <div class="ui-grid-col-4">
-          <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="receptorreserva" [(ngModel)]="movimiento.receptorreserva"
-          />
-        </div>
-      </div>
-      <div class="ui-grid-row">
-        <div class="ui-grid-col-2">
-          C.I:
-        </div>
-        <div class="ui-grid-col-4">
-          <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="receptorci" [(ngModel)]="movimiento.receptorci"
-          />
-        </div>
-      </div>
-      <div class="ui-grid-row">
-        <div class="ui-grid-col-2">
-          Firma:
-        </div>
-        <div class="ui-grid-col-4">
-          <textarea pInputTextarea style="resize: none; width: 100%" rows="3" maxlength="550" name="detalles"></textarea>
-        </div>
-      </div>
-    </div>
-    <div class="separadorInventario">
-      <h5 style="float: left">5. BIENES A SER ENTREGADOS</h5>
-      <div style="width: 100%;text-align: right">
-        <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
-        <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
-      </div>
-
-    </div>
-    <div class="ui-g" style="margin: 10px 0px">
-      <p-dataTable [value]="piezasAgregadas" emptyMessage="No se han agregado piezas" [(selection)]="piezasSeleccionados">
-        <p-column field="categoriaid.nombre" header="Tipo de Ingreso" [sortable]="true"></p-column>
-        <p-column field="nombre" header="Nombre" [sortable]="true"></p-column>
-        <p-column field="codigocontrol" header="Codigo de Control" [sortable]="true"></p-column>
-        <p-column field="numeroserie" header="Número de Serie" [sortable]="true"></p-column>
-        <p-column *ngIf="tipoFormulario==1" [style]="{'width':'38px'}" header="Seleccionar" selectionMode="multiple"></p-column>
-      </p-dataTable>
-      <div class="ui-g-12 ui-md-12 ui-lg-12 alineacionBotones" *ngIf="!desabilitados && !esDevolucion">
-        <button pButton type="button" (click)="agregarItem()" icon="{{properties.nuevo.icon}}" label="Agregar"></button>
-        <button pButton type="button" (click)="quitarSeleccionados()" icon="{{properties.nuevo.icon}}" label="Quitar Seleccionados"></button>
-        <button pButton type="button" (click)="quitarTodos()" icon="{{properties.nuevo.icon}}" label="Quitar Todos"></button>
 
       </div>
+      <div class="separadorInventario">
+        <h5>NOTA IMPORTANTE</h5>
+        <div style="width: 100%;text-align: right">
+          <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+          <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+        </div>
 
-    </div>
-    <div class="separadorInventario">
-      <h5 style="float: left">NOTA IMPORTANTE</h5>
-      <div style="width: 100%;text-align: right">
-        <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
-        <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
       </div>
-
-    </div>
-    <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
-      <p style="border: 1px solid black">La institución solicitante se coompromete a mantener y devolver el bien científico-cultural en las mismas condiciones
-        en que fue entregado. Los costos de conservación / restauracion en caso de algún siniestro durante la custodia, deberán
-        ser asumidos en su totalidad por la institución solicitante.
-      </p>
+      <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin">
+        <p style="border: 1px solid black;margin: 0">La institución solicitante se coompromete a mantener y devolver el bien científico-cultural en las mismas condiciones
+          en que fue entregado. Los costos de conservación / restauracion en caso de algún siniestro durante la custodia,
+          deberán ser asumidos en su totalidad por la institución solicitante.
+        </p>
+      </div>
     </div>
     <div class="ui-grid-row">
       <div class="ui-grid-col-2"></div>
@@ -330,7 +427,10 @@
           class="ui-button-secondary"></button>
 
       </div>
-      <div class="ui-grid-col-4"></div>
+      <div class="ui-grid-col-3">
+        <button pButton type="button" (click)="print()" label="{{properties.imprimir.label}}" icon="{{properties.imprimir.icon}}"
+          class="ui-button-secondary"></button>
+      </div>
     </div>
   </p-fieldset>
 </form>
@@ -353,7 +453,7 @@
     <div class="ui-g-12 ui-md-12 ui-lg-2">
 
       <p-dropdown [disabled]="bandera==1" [options]="categoriaItem" filter="true" [style]="{'width': '100%'}" name="categoria"
-        [(ngModel)]="categoria" ></p-dropdown>
+        [(ngModel)]="categoria"></p-dropdown>
     </div>
     <div class="ui-g-12 ui-md-12 ui-lg-3">
 
@@ -374,7 +474,7 @@
     </div>
   </div>
   <div class="ui-g">
-    
+
     <div class="ui-g-12 ui-md-12 ui-lg-12" style="padding: 0">
       <p-dataTable [value]="items" [globalFilter]="gb" emptyMessage="{{properties.sinDatos}}" [(selection)]="itemsSeleccionados"
         [lazy]="true" [paginator]="true" [rows]="properties.cantidadRegistros" (onLazyLoad)="loadItemLazy($event)" [totalRecords]="totalRecords">

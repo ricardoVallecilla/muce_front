@@ -1,4 +1,4 @@
-<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px" *ngIf="detalle!=null">
+<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin"  *ngIf="detalle!=null">
 
   <div class="ui-grid-row">
     <div class="ui-grid-col-2">
@@ -15,6 +15,9 @@
     </div>
     <div class="ui-grid-col-10">
       <input pInputText type="text" maxlength="150" name="otradenominacion" [(ngModel)]="detalle.nombrecientifico" />
+      <div class="impresion">
+          {{detalle.nombrecientifico}}
+        </div>
     </div>
 
   </div>
@@ -24,6 +27,9 @@
     </div>
     <div class="ui-grid-col-10">
       <input pInputText type="text" maxlength="150" name="otradenominacion" [(ngModel)]="detalle.autor" />
+      <div class="impresion">
+          {{detalle.autor}}
+        </div>
     </div>
 
   </div>
@@ -33,6 +39,9 @@
     </div>
     <div class="ui-grid-col-10">
       <input pInputText type="text" maxlength="150" name="otradenominacion" [(ngModel)]="detalle.nombrecomun" />
+      <div class="impresion">
+          {{detalle.nombrecomun}}
+        </div>
     </div>
 
   </div>
@@ -42,6 +51,9 @@
     </div>
     <div class="ui-grid-col-10">
       <input pInputText type="text" maxlength="150" name="otradenominacion" [(ngModel)]="detalle.publicado" />
+      <div class="impresion">
+          {{detalle.publicado}}
+        </div>
     </div>
 
   </div>
@@ -51,6 +63,9 @@
     </div>
     <div class="ui-grid-col-10">
       <input pInputText type="text" maxlength="150" name="otradenominacion" [(ngModel)]="detalle.clase" />
+      <div class="impresion">
+          {{detalle.clase}}
+        </div>
     </div>
 
   </div>
@@ -60,6 +75,9 @@
     </div>
     <div class="ui-grid-col-10">
       <input pInputText type="text" maxlength="150" name="otradenominacion" [(ngModel)]="detalle.orden" />
+      <div class="impresion">
+          {{detalle.orden}}
+        </div>
     </div>
 
   </div>
@@ -69,6 +87,9 @@
     </div>
     <div class="ui-grid-col-10">
       <input pInputText type="text" maxlength="150" name="otradenominacion" [(ngModel)]="detalle.familia" />
+      <div class="impresion">
+          {{detalle.familia}}
+        </div>
     </div>
 
   </div>
@@ -78,12 +99,18 @@
     </div>
     <div class="ui-grid-col-4">
       <input pInputText type="text" maxlength="150" name="tecnica" [(ngModel)]="detalle.sexo" />
+      <div class="impresion">
+          {{detalle.sexo}}
+        </div>
     </div>
     <div class="ui-grid-col-2">
       Etapa de vida:
     </div>
     <div class="ui-grid-col-4">
       <input pInputText type="text" maxlength="150" name="fabricante" [(ngModel)]="detalle.etapavida" />
+      <div class="impresion">
+          {{detalle.etapavida}}
+        </div>
     </div>
 
 
@@ -93,11 +120,19 @@
       Técnica de conservación/exhibición *:
     </div>
     <div class="ui-grid-col-10">
-        <div class="ui-g">
+        <div class="ui-g ocultar">
             <div class="ui-g-3" *ngFor="let estado of tecnicasItem">
                 <p-checkbox name="materiales" value="{{estado.catalogoid}}" label="{{estado.nombre}}" (click)="impr()" [(ngModel)]="tecnicaConservacionSelecionados"></p-checkbox>
               </div>
         </div>
+        <div class="ui-g impresion" style="width: 100%">
+            <div class="ui-g-3" *ngFor="let estado of tecnicaConservacionSelecionados">
+                
+                <input type="checkbox" style="display: initial !important"  checked>{{diccionarioImpresion[estado]}}
+                
+              </div>
+            
+          </div>
     </div>
 
 
@@ -109,6 +144,9 @@
     </div>
     <div class="ui-grid-col-10">
       <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="550" name="descripcion" [(ngModel)]="detalle.descripcion"></textarea>
+      <div class="impresion">
+          {{detalle.descripcion}}
+        </div>
     </div>
 
   </div>

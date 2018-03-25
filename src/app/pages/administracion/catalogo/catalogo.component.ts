@@ -31,7 +31,7 @@ export class CatalogoComponent implements OnInit {
     this._catalogoService.cantidadCatalogosPadre()
       .subscribe((cantidad: number) => {
         this.totalRecords = cantidad;
-        console.log(this.totalRecords)
+        
         this._catalogoService.obtenerCatalogosPadre(first, rows)
           .subscribe((catalogos: any[]) => {
             this.catalogos = [];
@@ -71,7 +71,7 @@ export class CatalogoComponent implements OnInit {
   }
 
   loadLazy(event) {
-    console.log(event)
+    
     if (this.padre)
       this.cargarCatalogos(event.first, event.rows);
     else

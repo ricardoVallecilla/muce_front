@@ -21,6 +21,7 @@ export class ArqueologiaComponent implements OnInit {
   @Input() materialesArqueologiaSelecionados = []
   @Output() enviadorCondicion = new EventEmitter();
   materialesItem = []
+  diccionarioImpresion={}
   es = this.properties.es;
   constructor(
     private _catalogoService: CatalogoService,
@@ -37,6 +38,9 @@ export class ArqueologiaComponent implements OnInit {
   cargarCatalogos() {
     this._catalogoService.obtenerCatalogosHijosPorPadres([this.constantes.materialesArqueologia])
       .subscribe((catalogos: any[]) => {
+        catalogos.forEach(x => {
+          this.diccionarioImpresion[x.catalogoid+""]=x.nombre
+        });
         this.materialesItem = catalogos
       }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }),
       () => {

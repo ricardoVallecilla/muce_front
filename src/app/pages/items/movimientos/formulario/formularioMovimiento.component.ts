@@ -10,6 +10,7 @@ import { BrowserModule, DomSanitizer, SafeResourceUrl } from '@angular/platform-
 import { Movimiento } from '../../../../models/movimiento.model';
 import * as CryptoJS from 'crypto-js';
 import { forEach } from '@angular/router/src/utils/collection';
+import { EstilosReportes } from '../../../estiloImpresion';
 @Component({
   selector: 'formularioMovimiento',
   templateUrl: './formularioMovimiento.html'
@@ -57,6 +58,7 @@ export class FormularioMovimientoComponent implements OnInit {
   grupo;
   esfiltroTexto;
   textoFiltra;
+  diccionarioImpresion = {}
   constructor(
     private confirmationService: ConfirmationService,
     private domSanitizer: DomSanitizer,
@@ -125,7 +127,7 @@ export class FormularioMovimientoComponent implements OnInit {
         this.movimiento.provincia = "Pichinca"
         this.movimiento.ciudad = "Quito"
         this.movimiento.receptorcargo = "Custodio"
-        console.log(movimiento)
+        
         this.museoSeleccionado = this.museoItem.find(x => (x.value != null && x.value.museoid == movimiento.museoid)).value
         this.cambiarMuseo();
 
@@ -207,7 +209,7 @@ export class FormularioMovimientoComponent implements OnInit {
 
 
   buscar(first = 0, rows = this.properties.cantidadRegistros) {
-
+    if( this.categoria!=null)
     this._itemService.cantidadfiltrarItemsMovimientos(this.museo.museoid, this.constantes.tipoIngresoPrestamo, this.categoria.catalogoid)
       .subscribe((cantidad: number) => {
         this.totalRecords = cantidad;
@@ -252,10 +254,16 @@ export class FormularioMovimientoComponent implements OnInit {
   cargarMuseos() {
     this._museoServices.obtenerTodoMuseos()
       .subscribe((museos: any[]) => {
-        console.log(museos)
-        this.museo = museos.find(x => x.museoid == this.museo.museoid);
+     
+        if(this.museo)this.museo = museos.find(x => x.museoid == this.museo.museoid);
         this.museoItem = [{ label: this.properties.labelSeleccione, value: null }];
-        museos.filter(x => x.museoid != this.museo.museoid).forEach(x => {
+        let museosLocales=[]
+        if (this.museo) {
+          museosLocales = museos.filter(x => x.museoid != this.museo.museoid)
+        } else {
+          museosLocales = museos;
+        }
+        museosLocales.forEach(x => {
           this.museoItem.push({ label: x.nombres, value: x });
 
         });
@@ -268,6 +276,9 @@ export class FormularioMovimientoComponent implements OnInit {
     this._catalogoService.obtenerCatalogosHijosPorPadres([this.constantes.tipoMovimientosEgreso,
     this.constantes.tipoMovimientosIngreso, this.constantes.estadosPiezasMovimientos, this.constantes.grupo])
       .subscribe((catalogos: any[]) => {
+        catalogos.forEach(x => {
+          this.diccionarioImpresion[x.catalogoid + ""] = x.nombre
+        });
         this.tiposMovimientosGeneral = catalogos;
         this.tiposEgresos = catalogos.filter(x => x.catalogopadreid.catalogoid == this.constantes.tipoMovimientosEgreso);
         this.tiposIngresos = catalogos.filter(x => x.catalogopadreid.catalogoid == this.constantes.tipoMovimientosIngreso);
@@ -283,7 +294,7 @@ export class FormularioMovimientoComponent implements OnInit {
 
 
   cambiarTipo() {
-    console.log(this.tipoSeleccionado)
+    
     switch (this.tipoSeleccionado) {
       case this.constantes.prestamoInterno + "":
       case this.constantes.traspasointerno + "":
@@ -518,5 +529,24 @@ export class FormularioMovimientoComponent implements OnInit {
       .subscribe((items: any[]) => {
         this.piezasAgregadas = items;
       }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo cargar los movimientos.' }));
+  }
+
+  print() {
+    let printSectionId = "print-section"
+    let popupWinindow
+    let innerContents = document.getElementById(printSectionId).innerHTML;
+    let innerContents2 = innerContents.replace('*:"', ':');
+    popupWinindow = window.open('', '_blank', 'scrollbars=no,menubar=no,toolbar=no,location=no,status=no,titlebar=no');
+    popupWinindow.document.open();
+    let tituloReporte="ACTA DE EGRESO DE OBRAS / MOVIMIENTO"
+    let estilosReporte = new EstilosReportes()
+    //formatoFecha = "dd/MM/yyyy";
+    let fechaDate = new Date(this.movimiento.fechamovimiento);
+    let fecha=fechaDate.getDay()+"/"+fechaDate.getMonth()+"/"+fechaDate.getFullYear();
+    popupWinindow.document.write('<html><head><style>' + estilosReporte.estilo + '</style></head><body onload="window.print();window.close()"> <div >'
+      + this.properties.cabezeraReporte(tituloReporte,this.movimiento.movimientoid, fecha,1)
+      + innerContents2
+      + '</div></html>');
+    popupWinindow.document.close();
   }
 }

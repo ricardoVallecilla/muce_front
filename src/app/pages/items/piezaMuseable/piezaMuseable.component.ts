@@ -18,6 +18,7 @@ import { FotografiaModel } from '../../../models/categorias/fotografia.model';
 import { GeologiaModel } from '../../../models/categorias/geologia.model';
 import { PaleontologiaModel } from '../../../models/categorias/paleontologia.model';
 import { ZoologiaModel } from '../../../models/categorias/zoolgia.model';
+import { EstilosReportes } from '../../estiloImpresion';
 @Component({
   selector: 'piezaMuseable',
   templateUrl: './piezaMuseable.html'
@@ -59,6 +60,7 @@ export class PiezaMuseableComponent implements OnInit {
   @Output() enviadorCondicion = new EventEmitter();
   @Output() enviadorCatalogos = new EventEmitter();
   @Input() esCatalogacion = false;
+  diccionarioImpresion = {}
   constructor(
     private domSanitizer: DomSanitizer,
     private _catalogoService: CatalogoService,
@@ -285,11 +287,11 @@ export class PiezaMuseableComponent implements OnInit {
   setearEstadoConservacion() {
 
     this.piezaMuseable.estadoconservacionid = this.estadoConservacionItem.find(x => x.catalogoid == this.estadoConservacion)
-    console.log(this.piezaMuseable.estadoconservacionid);
+    
   }
   setearIntegridadPieza() {
     this.piezaMuseable.estadointegridad = this.integridadPiezaItem.find(x => x.catalogoid == this.integridadPieza)
-    console.log(this.piezaMuseable.estadointegridad);
+   
   }
   cargarEstadoBien() {
     let padreId;
@@ -323,10 +325,12 @@ export class PiezaMuseableComponent implements OnInit {
     }
     this._catalogoService.obtenerCatalogosHijosPorPadres([padreId])
       .subscribe((catalogos: any[]) => {
-        this.estadoDelBien = catalogos;
-      }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de catalogos.' }),
-        () => {
+        catalogos.forEach(x => {
+          this.diccionarioImpresion[x.catalogoid + ""] = x.nombre
         });
+        this.estadoDelBien = catalogos;
+
+      }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de catalogos.' }));
   }
 
   crearDetalle() {
@@ -372,7 +376,13 @@ export class PiezaMuseableComponent implements OnInit {
           this.grupoItem.push({ label: x.nombre, value: x })
         });
         this.estadoConservacionItem = catalogos.filter(x => x.catalogopadreid.catalogoid == this.constantes.estadoConservacion)
+        this.estadoConservacionItem.forEach(x => {
+          this.diccionarioImpresion[x.catalogoid + ""] = x.nombre
+        });
         this.integridadPiezaItem = catalogos.filter(x => x.catalogopadreid.catalogoid == this.constantes.integridadPieza)
+        this.integridadPiezaItem.forEach(x => {
+          this.diccionarioImpresion[x.catalogoid + ""] = x.nombre
+        });
         catalogos.filter(x => x.catalogopadreid.catalogoid == this.constantes.ubicaciones).forEach(x => {
           this.provinciaItem.push({ label: x.nombre, value: x })
         });
@@ -443,12 +453,12 @@ export class PiezaMuseableComponent implements OnInit {
 
   obtenerDatoHijo(catalogos) {
     this.materialesSelecionados = catalogos;
-    if (this.esCatalogacion){
+    if (this.esCatalogacion) {
       let catalogosDetalle = [];
-          this.materialesSelecionados.forEach(x => {
-            catalogosDetalle.push(new DetalleCatalogo(x, "tipoMaterialInstrumental"))
-          });
-          this.enviadorCatalogos.emit(catalogosDetalle)
+      this.materialesSelecionados.forEach(x => {
+        catalogosDetalle.push(new DetalleCatalogo(x, "tipoMaterialInstrumental"))
+      });
+      this.enviadorCatalogos.emit(catalogosDetalle)
     }
   }
 
@@ -486,7 +496,7 @@ export class PiezaMuseableComponent implements OnInit {
 
 
   fileChangeEvent(event) {
-    console.log(event)
+   
     let e = event.srcElement ? event.srcElement : event.target;
     this.documento = (e.files);
 
@@ -496,8 +506,7 @@ export class PiezaMuseableComponent implements OnInit {
   }
   guardar() {
     this.msgs = [];
-    console.log(this.piezaMuseable);
-    console.log(this.detalle);
+ 
     let piezaDetalle = new PiezaDetalle();
     let catalogosDetalle = null;
     let tipo;
@@ -560,27 +569,31 @@ export class PiezaMuseableComponent implements OnInit {
     this._itemService.guardarPiezaMuseableDetalle(tipo, piezaDetalle, this.documento, estadosBien, catalogosDetalle)
       .subscribe((piezas: any) => {
         this.enviadorCondicion.emit(true);
-        console.log('ok')
+      
 
       }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }),
         () => {
         });
-    // if (this.item.itemid == null) {
-    //   //this.item.museoid = this.museo;
-    //   this.item.grupoid = this.grupo;
-    //   this.item.categoriaid = this.categoria
 
-    // }
+  }
+  estadoSeleccionado(vale) {
+    
+    return true
+  }
 
-    // this._itemService.guardarItem(this.item)
-    //   .subscribe((item: any) => {
-    //     this.item = item
-    //     this.msgs.push({ severity: 'success', summary: 'Éxito', detail: 'Item Actualizado.' });
-    //     this.volver()
-
-
-    //   }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo actualizar el Item.' }),
-    //   () => {
-    //   });
+  print() {
+    let printSectionId = "print-section"
+    let popupWinindow
+    let innerContents = document.getElementById(printSectionId).innerHTML;
+    let innerContents2 = innerContents.replace('*:"', ':');
+    popupWinindow = window.open('', '_blank', 'scrollbars=no,menubar=no,toolbar=no,location=no,status=no,titlebar=no');
+    popupWinindow.document.open();
+    let tituloReporte="FICHA INVENTARIO "+this.item.categoriaid.nombre.toUpperCase();
+    let estilosReporte = new EstilosReportes()
+    popupWinindow.document.write('<html><head><style>' + estilosReporte.estilo + '</style></head><body onload="window.print();window.close()"> <div >'
+      + this.properties.cabezeraReporte(tituloReporte,this.item.numeroserie, this.item.codigocontrol)
+      + innerContents2
+      + '</div></html>');
+    popupWinindow.document.close();
   }
 }
