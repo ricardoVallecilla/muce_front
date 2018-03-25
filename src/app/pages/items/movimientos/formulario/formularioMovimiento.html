@@ -342,30 +342,47 @@
     Piezas Patrimoniales
   </p-header>
   <div class="ui-g">
+
+    <div class="ui-g-12 ui-md-12 ui-lg-1">Grupo</div>
+    <div class="ui-g-12 ui-md-12 ui-lg-2">
+
+      <p-dropdown [disabled]="bandera==1" [options]="grupoItem" name="grupo" filter="true" [style]="{'width': '100%'}" [(ngModel)]="grupo"
+        (ngModelChange)="obtenerCategorias($event)"></p-dropdown>
+    </div>
     <div class="ui-g-12 ui-md-12 ui-lg-1">Categorias</div>
+    <div class="ui-g-12 ui-md-12 ui-lg-2">
+
+      <p-dropdown [disabled]="bandera==1" [options]="categoriaItem" filter="true" [style]="{'width': '100%'}" name="categoria"
+        [(ngModel)]="categoria" ></p-dropdown>
+    </div>
     <div class="ui-g-12 ui-md-12 ui-lg-3">
 
-      <p-dropdown [options]="categoriaItem" filter="true" [style]="{'width': '100%'}" name="categoria" [(ngModel)]="categoria"
-        (ngModelChange)="buscar()"></p-dropdown>
     </div>
-    <div class="ui-g-12 ui-md-12 ui-lg-4" style="text-align: right">
-      <button [disabled]="categoria==null" pButton type="button" icon="{{properties.buscar.icon}}" label="{{properties.buscar.label}}"
+    <div class="ui-g-12 ui-md-12 ui-lg-3" style="text-align: right">
+
+      <button [disabled]="grupo==null ||  categoria==null" pButton type="button" icon="{{properties.buscar.icon}}" label="{{properties.buscar.label}}"
         (click)="buscar()"></button>
     </div>
 
+
   </div>
-  <div class="ui-g">
+  <div class="ui-g" *ngIf="bandera==0">
     <div class="ui-g-12 ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
       <i class="fa fa-search"></i>
-      <input #gb onkeypress="return event.keyCode != 13;" type="text" pInputText placeholder="Filtro Global">
+      <input onkeypress="return event.keyCode != 13;" style="width: 80%" type="text" [(ngModel)]="textoFiltra" pInputText placeholder="Filtro Global">
+      <button pButton type="button" icon="fa-search" label="Filtrar" style="width: 18%" [disabled]="museo==null" (click)="filtrarItem()"></button>
     </div>
+  </div>
+  <div class="ui-g">
+    
     <div class="ui-g-12 ui-md-12 ui-lg-12" style="padding: 0">
-      <p-dataTable [value]="items" [globalFilter]="gb" emptyMessage="{{properties.sinDatos}}" [paginator]="true" [rows]="10" [(selection)]="itemsSeleccionados">
-
+      <p-dataTable [value]="items" [globalFilter]="gb" emptyMessage="{{properties.sinDatos}}" [(selection)]="itemsSeleccionados"
+        [lazy]="true" [paginator]="true" [rows]="properties.cantidadRegistros" (onLazyLoad)="loadItemLazy($event)" [totalRecords]="totalRecords">
+        <p-column field="categoriaid.nombre" header="Categoria" [sortable]="true"></p-column>
         <p-column field="nombre" header="Nombre" [sortable]="true"></p-column>
         <p-column field="codigocontrol" header="Codigo de Control" [sortable]="true"></p-column>
         <p-column field="numeroserie" header="Número de Serie" [sortable]="true"></p-column>
-        
+
         <p-column [style]="{'width':'38px'}" header="Seleccionar" selectionMode="multiple"></p-column>
       </p-dataTable>
     </div>
@@ -458,21 +475,18 @@
 </p-dialog>
 
 <p-confirmDialog key="confirmarNotificacion" width="425" #cdNotificar>
-    <p-footer>
-        <!-- <td align="center" class="buttonAction"> -->
-        <button type="button" id="aceptarEliminarBtn" pButton icon="{{properties.guardar.icon}}" label="Aceptar"
-            (click)="guardar();cdNotificar.reject()"></button>
-        <button type="button" id="cancelarEliminarBtn" pButton icon="{{properties.cancelar.icon}}" label="Cancelar"
-            (click)="cdNotificar.reject()"></button>
-        <!-- </td> -->
-    </p-footer>
+  <p-footer>
+    <!-- <td align="center" class="buttonAction"> -->
+    <button type="button" id="aceptarEliminarBtn" pButton icon="{{properties.guardar.icon}}" label="Aceptar" (click)="guardar();cdNotificar.reject()"></button>
+    <button type="button" id="cancelarEliminarBtn" pButton icon="{{properties.cancelar.icon}}" label="Cancelar" (click)="cdNotificar.reject()"></button>
+    <!-- </td> -->
+  </p-footer>
 </p-confirmDialog>
 
 <p-confirmDialog key="validacionItems" width="425" #cdNotificar2>
-    <p-footer>
-        
-        <button type="button" id="cancelarEliminarBtn" pButton icon="{{properties.cancelar.icon}}" label="Aceptar"
-            (click)="cdNotificar2.reject()"></button>
-        <!-- </td> -->
-    </p-footer>
+  <p-footer>
+
+    <button type="button" id="cancelarEliminarBtn" pButton icon="{{properties.cancelar.icon}}" label="Aceptar" (click)="cdNotificar2.reject()"></button>
+    <!-- </td> -->
+  </p-footer>
 </p-confirmDialog>

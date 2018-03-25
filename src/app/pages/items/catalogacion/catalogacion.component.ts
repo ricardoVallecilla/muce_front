@@ -21,14 +21,17 @@ export class CatalogacionComponent implements OnInit {
 
   @Input() detalle = null;
   @Input() item = null;
-  piezaMuseable=null;
+  piezaMuseable = null;
   es = this.properties.es;
-  foto=null;
+  foto = null;
+  fotodos;
+  fototres = null;
+  fotocuatro = null;
   @Output() enviadorCondicion = new EventEmitter();
-  catalogoDetalle=[];
+  catalogoDetalle = [];
   paisItem = [{ label: this.properties.labelSeleccione, value: null }]
   constructor(
-    
+
     private confirmationService: ConfirmationService,
     private domSanitizer: DomSanitizer,
     private _catalogoService: CatalogoService,
@@ -58,7 +61,10 @@ export class CatalogacionComponent implements OnInit {
           if (this.piezaMuseable.fecharevision != null) this.piezaMuseable.fecharevision = new Date(this.piezaMuseable.fecharevision)
           if (this.piezaMuseable.fechaaprobacion != null) this.piezaMuseable.fechaaprobacion = new Date(this.piezaMuseable.fechaaprobacion)
           this.buscarDetalle(this.piezaMuseable.piezamuseableid)
-          this.descargarFoto();
+          this.descargarFoto(1);
+          this.descargarFoto(9);
+          this.descargarFoto(10);
+          this.descargarFoto(11);
 
 
         }
@@ -66,14 +72,30 @@ export class CatalogacionComponent implements OnInit {
       }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }));
   }
 
-  volver(){
+  volver() {
     this.enviadorCondicion.emit(false);
   }
-  descargarFoto() {
-    this._itemService.downloadFotografia(this.piezaMuseable.piezamuseableid).
+  descargarFoto(tipo) {
+
+    this._itemService.downloadFotografiaTipo(this.piezaMuseable.piezamuseableid, tipo).
       subscribe((foto: any) => {
+        console.log(foto)
         let blob = new Blob([foto.blob()], { type: 'image/jpeg' });
-        this.foto = this.domSanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
+        switch (tipo) {
+          case 1:
+            this.foto = this.domSanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
+            break;
+          case 9:
+            this.fotodos = this.domSanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
+            break;
+          case 10:
+            this.fototres = this.domSanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
+            break;
+          case 11:
+            this.fotocuatro = this.domSanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
+            break;
+        }
+
       }, (err: any) => {
       }, () => { });
   }
@@ -123,7 +145,7 @@ export class CatalogacionComponent implements OnInit {
   }
 
 
-  guardar(){
+  guardar() {
     console.log(this.piezaMuseable);
     console.log(this.detalle);
 
@@ -134,7 +156,7 @@ export class CatalogacionComponent implements OnInit {
       case this.constantes.instrumental:
         tipo = 6
         piezaDetalle.piezainstrumentaldetalle = this.detalle
-       
+
         break;
       case this.constantes.arqueologia:
         tipo = 1
@@ -158,28 +180,41 @@ export class CatalogacionComponent implements OnInit {
         //console.log('ok')
 
       }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }),
-      () => {
-      });
+        () => {
+        });
   }
 
-  obtenerCatalogos(event){
-    this.catalogoDetalle=event;
+  obtenerCatalogos(event) {
+    this.catalogoDetalle = event;
   }
 
-  fileChangeEvent(event,tipo=null) {
+  fileChangeEvent(event, tipo = null) {
     console.log(event)
     let e = event.srcElement ? event.srcElement : event.target;
     let tipoLocal;
     let id;
-    
-    if (tipo!=null){
-      tipoLocal=1;
-      id=this.piezaMuseable.piezamuseableid;
+
+    if (tipo != null) {
+      tipoLocal = 1;
+      id = this.piezaMuseable.piezamuseableid;
     }
-    this._itemService.subirFoto(tipo,e.files,id)
+    this._itemService.subirFoto(tipo, e.files, id)
       .subscribe((foto: any) => {
         let blob = new Blob([foto.blob()], { type: 'image/jpeg' });
-        this.foto = this.domSanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
+        switch (tipo) {
+          case 1:
+            this.foto = this.domSanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
+            break;
+          case 9:
+            this.fotodos = this.domSanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
+            break;
+          case 10:
+            this.fototres = this.domSanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
+            break;
+          case 11:
+            this.fotocuatro = this.domSanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
+            break;
+        }
 
       }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo cargar la lista imagen.' }));
   }

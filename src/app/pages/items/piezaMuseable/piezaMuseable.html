@@ -350,7 +350,7 @@
 
               <div class="ui-grid-row">
                 <div class="ui-grid-col-12">
-                    <img *ngIf="foto!=null" style="width: 100%" [src]="foto">
+                    <img *ngIf="foto!=null" style="max-width: 100%" [src]="foto">
                   <input  name="file" type="file" id="adjuntar" accept="image/*" class="ui-g-12 ui-md-12 ui-lg-12 inputUpload" (change)="fileChangeEvent($event)"
                         placeholder="Subir Archivo..." required />
                 </div>

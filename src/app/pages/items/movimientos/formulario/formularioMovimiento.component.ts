@@ -32,8 +32,9 @@ export class FormularioMovimientoComponent implements OnInit {
   tipo = "1"
   tipoSeleccionado = null;
   museoSeleccionado = null;
-  categoriaItem = []
+  categoriaItem = [{ label: this.properties.labelSeleccione, value: null }];
   museoItem = [{ label: this.properties.labelSeleccione, value: null }];
+  grupoItem = [{ label: this.properties.labelSeleccione, value: null }];
   @Input() movimiento: Movimiento = null;
   @Input() tipoFormulario = null;
   @Output() notificarGuardar = new EventEmitter();
@@ -52,6 +53,10 @@ export class FormularioMovimientoComponent implements OnInit {
   desabilitados = true;
   verPopUpDetallePendiente = false;
   esDevolucion = false
+  totalRecords = null;
+  grupo;
+  esfiltroTexto;
+  textoFiltra;
   constructor(
     private confirmationService: ConfirmationService,
     private domSanitizer: DomSanitizer,
@@ -70,10 +75,6 @@ export class FormularioMovimientoComponent implements OnInit {
       this.desabilitados = false;
     }
     this.cargarCatalogos();
-    this.obtenerCategorias();
-
-
-
     if (localStorage.getItem("sesion") != null) {
       var decrypted = CryptoJS.AES.decrypt(localStorage.getItem("sesion"), this.key);
       let persona = JSON.parse(decrypted.toString(CryptoJS.enc.Utf8))
@@ -84,13 +85,9 @@ export class FormularioMovimientoComponent implements OnInit {
   }
 
   ngOnChanges(cambios: SimpleChanges) {
-
     if (cambios.movimiento) {
       if (this.movimiento.movimientoid != null) this.ver(this.movimiento)
     }
-
-
-
   }
 
 
@@ -175,9 +172,25 @@ export class FormularioMovimientoComponent implements OnInit {
     this.movimiento.receptorcargo = "Custodio"
     this.movimiento.receptorreserva = this.museoSeleccionado.nombres
   }
-  obtenerCategorias() {
+  obtenerCategorias(event) {
+    this.esfiltroTexto = false;
+    this.textoFiltra = null;
+    if (event != null) {
+      this.grupo = event
+    }
+    let filtro
+    switch (event.catalogoid) {
+      case this.constantes.grupoCultural:
+        filtro = this.constantes.grupoCulturalPadre;
+        break;
 
-    let filtro = this.constantes.grupoCulturalPadre;
+      case this.constantes.grupoAdminsitrativo:
+        filtro = this.constantes.grupoAdminsitrativoPadre;
+        break;
+      case this.constantes.grupoTecnologico:
+        filtro = this.constantes.grupoTecnologicoPadre;
+        break;
+    }
 
 
     this.categoriaItem = [{ label: this.properties.labelSeleccione, value: null }]
@@ -193,13 +206,47 @@ export class FormularioMovimientoComponent implements OnInit {
   }
 
 
-  buscar() {
-    this._itemService.filtrarItemsMovimientos(this.museo.museoid, this.constantes.tipoIngresoPrestamo, this.categoria.catalogoid)
-      .subscribe((items: any[]) => {
-        this.items = items;
-      }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }),
-        () => {
-        });
+  buscar(first = 0, rows = this.properties.cantidadRegistros) {
+
+    this._itemService.cantidadfiltrarItemsMovimientos(this.museo.museoid, this.constantes.tipoIngresoPrestamo, this.categoria.catalogoid)
+      .subscribe((cantidad: number) => {
+        this.totalRecords = cantidad;
+        this._itemService.filtrarItemsMovimientos(this.museo.museoid, this.constantes.tipoIngresoPrestamo, this.categoria.catalogoid, first, rows)
+          .subscribe((items: any[]) => {
+            this.items = items;
+          }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }));
+      }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }));
+
+  }
+
+
+
+  filtrarItem(first = 0, rows = this.properties.cantidadRegistros) {
+    this.grupo = null
+    this.categoria = null
+    this.categoriaItem = [{ label: this.properties.labelSeleccione, value: null }]
+    this.esfiltroTexto = true;
+    if (this.textoFiltra != null)
+      this._itemService.cantidadFiltroTexto(this.museo.museoid, this.textoFiltra)
+        .subscribe((cantidad: number) => {
+          this.totalRecords = cantidad
+          if (cantidad > 0) {
+            this._itemService.filtroTexto(this.museo.museoid, this.textoFiltra, first, rows)
+              .subscribe((items: any[]) => {
+                this.items = items;
+              }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }));
+          } else {
+            this.items = [];
+          }
+
+        }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }));
+  }
+
+  loadItemLazy(event) {
+    if (this.esfiltroTexto)
+      this.filtrarItem(event.first, event.rows)
+    else
+      this.buscar(event.first, event.rows)
   }
 
   cargarMuseos() {
@@ -218,15 +265,22 @@ export class FormularioMovimientoComponent implements OnInit {
   }
   cargarCatalogos() {
 
-    this._catalogoService.obtenerCatalogosHijosPorPadres([this.constantes.tipoMovimientosEgreso, this.constantes.tipoMovimientosIngreso, this.constantes.estadosPiezasMovimientos])
+    this._catalogoService.obtenerCatalogosHijosPorPadres([this.constantes.tipoMovimientosEgreso,
+    this.constantes.tipoMovimientosIngreso, this.constantes.estadosPiezasMovimientos, this.constantes.grupo])
       .subscribe((catalogos: any[]) => {
         this.tiposMovimientosGeneral = catalogos;
         this.tiposEgresos = catalogos.filter(x => x.catalogopadreid.catalogoid == this.constantes.tipoMovimientosEgreso);
         this.tiposIngresos = catalogos.filter(x => x.catalogopadreid.catalogoid == this.constantes.tipoMovimientosIngreso);
+        catalogos.filter(x => x.catalogopadreid.catalogoid == this.constantes.grupo).forEach(x => {
+          this.grupoItem.push({ label: x.nombre, value: x })
+        });
       }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }),
         () => {
         });
   }
+
+
+
 
   cambiarTipo() {
     console.log(this.tipoSeleccionado)
@@ -320,7 +374,8 @@ export class FormularioMovimientoComponent implements OnInit {
   }
 
   agregarItems() {
-    console.log(this.itemsSeleccionados)
+    this.grupo=null;
+    this.categoria=null;
     let piezas = [...this.piezasAgregadas];
     this.itemsSeleccionados.forEach(x => {
       let encontrado = this.piezasAgregadas.find(x2 => x2.itemid == x.itemid)
@@ -358,7 +413,7 @@ export class FormularioMovimientoComponent implements OnInit {
         message: "El siguiente movimiento modificará el estado de las piezas y no se podra modificar una vez creado.",
         header: "Advertencia",
         icon: this.properties.iconAdvertencia,
-      }); 
+      });
     } else {
       this.confirmationService.confirm({
         key: "validacionItems",

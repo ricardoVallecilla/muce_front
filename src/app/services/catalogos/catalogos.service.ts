@@ -15,12 +15,19 @@ export class CatalogoService {
     }
 
  
-    obtenerCatalogosPadre(): Observable<any> {
-        return this._generalServices.getResources("get", this.url.obtenerCatalogosPadre)
+    obtenerCatalogosPadre(first,rows): Observable<any> {
+        return this._generalServices.getResources("get", this.url.obtenerCatalogosPadre+"/"+first+"/"+rows)
+    }
+    cantidadCatalogosPadre(): Observable<any> {
+        return this._generalServices.getResources("get", this.url.cantidadCatalogosPadre)
     }
 
-    obtenerCatalogosHijos(padreId): Observable<any> {
-        return this._generalServices.getResources("get", this.url.obtenerCatalogosHijos+padreId)
+    cantidadCatalogosHijos(padreid): Observable<any> {
+        return this._generalServices.getResources("get", this.url.cantidadCatalogosHijos+padreid)
+    }
+
+    obtenerCatalogosHijos(padreId,first,rows): Observable<any> {
+        return this._generalServices.getResources("get", this.url.obtenerCatalogosHijos+padreId+"/"+first+"/"+rows)
     }
 
     obtenerCatalogosHijosPorPadres(padreIds): Observable<any> {

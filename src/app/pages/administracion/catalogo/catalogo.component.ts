@@ -19,6 +19,7 @@ export class CatalogoComponent implements OnInit {
   bandera = 0;
   catalogo = null;
   catalogoPadre = null;
+  totalRecords = null;
   constructor(private _catalogoService: CatalogoService) { }
 
   ngOnInit() {
@@ -26,14 +27,18 @@ export class CatalogoComponent implements OnInit {
     this.cargarCatalogos()
   }
 
-  cargarCatalogos() {
-    this._catalogoService.obtenerCatalogosPadre()
-      .subscribe((catalogos: any[]) => {
-        this.catalogos = [];
-        this.catalogos = catalogos;
-      }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Catalogos.' }),
-      () => {
-      });
+  cargarCatalogos(first = 0, rows = this.properties.cantidadRegistros) {
+    this._catalogoService.cantidadCatalogosPadre()
+      .subscribe((cantidad: number) => {
+        this.totalRecords = cantidad;
+        console.log(this.totalRecords)
+        this._catalogoService.obtenerCatalogosPadre(first, rows)
+          .subscribe((catalogos: any[]) => {
+            this.catalogos = [];
+            this.catalogos = catalogos;
+          }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Catalogos.' }));
+      }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Catalogos.' }));
+
   }
 
   nuevo() {
@@ -43,22 +48,36 @@ export class CatalogoComponent implements OnInit {
     this.catalogo = new Catalogo();
   }
 
-  subCatalogos(catalogo,gb=null) {
-    
-    if(gb!=null)gb.value="";
+  subCatalogos(catalogo, gb = null, first = 0, rows = this.properties.cantidadRegistros) {
+
+    if (gb != null) gb.value = "";
     this.msgs = [];
     this.padre = false;
     this.catalogoPadre = catalogo;
-    this._catalogoService.obtenerCatalogosHijos(catalogo.catalogoid)
-      .subscribe((catalogos: any[]) => {
-        this.catalogos = [];
-        this.catalogos = catalogos;
-      }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Catalogos.' }),
-      () => {
-        this.bandera=0;
-      });
+
+    this._catalogoService.cantidadCatalogosHijos(this.catalogoPadre.catalogoid)
+      .subscribe((cantidad: number) => {
+        this.totalRecords = cantidad;
+        this._catalogoService.obtenerCatalogosHijos(catalogo.catalogoid, first, rows)
+          .subscribe((catalogos: any[]) => {
+            this.catalogos = [];
+            this.catalogos = catalogos;
+          }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Catalogos.' }),
+            () => {
+              this.bandera = 0;
+            });
+      }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Catalogos.' }));
+
   }
 
+  loadLazy(event) {
+    console.log(event)
+    if (this.padre)
+      this.cargarCatalogos(event.first, event.rows);
+    else
+      this.subCatalogos(this.catalogoPadre, null, event.first, event.rows);
+
+  }
   editarCatalogo(catalogo) {
     this.msgs = [];
     this.acciones = this.properties.labelActualizar + " Catalogo"
@@ -76,7 +95,7 @@ export class CatalogoComponent implements OnInit {
   guardar() {
     this.msgs = [];
     if (!this.padre) {
-      this.catalogo.catalogopadreid=this.catalogoPadre;
+      this.catalogo.catalogopadreid = this.catalogoPadre;
     }
     this._catalogoService.guardarCatalogo(this.catalogo)
       .subscribe((catalogo: any) => {
@@ -84,13 +103,13 @@ export class CatalogoComponent implements OnInit {
         this.msgs.push({ severity: 'success', summary: 'Éxito', detail: 'Catalago Actualizado.' });
         if (!this.padre) {
           this.subCatalogos(this.catalogoPadre)
-        }else{
+        } else {
           this.volver();
         }
 
-        
+
       }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo actualizar el Catalogo.' }),
-      () => {
-      });
+        () => {
+        });
   }
 }

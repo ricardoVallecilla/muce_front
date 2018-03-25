@@ -10,14 +10,17 @@ export class MovimientosService {
         //  _generalServices.autenticar();
     }
 
-    obtenerMovimientos(museoid): Observable<any> {
-        return this._generalServices.getResources("get", this.url.movimientosMuseo + museoid)
+    obtenerMovimientos(museoid,first,rows): Observable<any> {
+        return this._generalServices.getResources("get", this.url.movimientosMuseo + museoid+"/"+first+"/"+rows)
     }
 
     obtenerMovimientosPendientes(museoid): Observable<any> {
         return this._generalServices.getResources("get", this.url.movimientosMuseoPendientes + museoid)
     }
 
+    cantidadMovimientos(museoid): Observable<any> {
+        return this._generalServices.getResources("get", this.url.cantidadMovimientos + museoid)
+    }
     obtenerItemsMovimiento(movimientoid): Observable<any> {
         return this._generalServices.getResources("get", this.url.movimientoPiezas + "/" + movimientoid)
     }

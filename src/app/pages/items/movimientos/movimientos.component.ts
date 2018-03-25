@@ -48,7 +48,8 @@ export class MovimientosComponent implements OnInit {
   tipoFormulario = null;
   desabilitados = true;
   movimientosPendientesDevolucion = []
-
+  esAdmin = false;
+  totalRecords = null;
   constructor(
     private domSanitizer: DomSanitizer,
     private _museoServices: MuseoServices,
@@ -72,15 +73,29 @@ export class MovimientosComponent implements OnInit {
       var decrypted = CryptoJS.AES.decrypt(localStorage.getItem("sesion"), this.key);
       let persona = JSON.parse(decrypted.toString(CryptoJS.enc.Utf8))
       this.museo = persona.usuario.museoId;
+
+      if (persona.usuario.rolId.rolid == this.constantes.rolAdministrador || persona.usuario.rolId.rolid == this.constantes.rolDirector) {
+        this.esAdmin = true;
+
+      } else {
+        this.esAdmin = false;
+      }
     }
     this.cargarMuseos();
-    this.cargarMovimientos();
-    this.cargarMovimientosPendientes();
+    if (this.museo) {
+      this.cargarMovimientos();
+      this.cargarMovimientosPendientes();
+
+    }
 
 
 
   }
 
+  buscarMuseo() {
+    this.cargarMovimientos();
+    this.cargarMovimientosPendientes();
+  }
   agregarItem() {
     this.categoria = null;
     this.items = [];
@@ -89,36 +104,46 @@ export class MovimientosComponent implements OnInit {
 
   }
   cargarMovimientosPendientes() {
+    this.msgs = [];
     this._movimientosService.obtenerMovimientosPendientes(this.museo.museoid)
       .subscribe((movimientos: any[]) => {
         this.movimientosPendientesLista = movimientos;
         this.movimientosPendientes = this.movimientosPendientesLista.length;
-      }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo cargar los movimientos.' }),
-        () => {
-        });
+      }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo cargar los movimientos.' }));
 
   }
-  cargarMovimientos() {
-    this._movimientosService.obtenerMovimientos(this.museo.museoid)
-      .subscribe((movimientos: any[]) => {
-        console.log(movimientos)
-        let movimientosLocal=[]
-        movimientos.forEach(x => {
-          
-           if(x.museoreceptorid==this.museo.museoid && x.confirmacion==null){
-            console.log("si",x)
-          }else{
-            console.log("no",x)
-            movimientosLocal.push(x);
-          }
-          
-        });
-        //this.movimientos = movimientos;
+  loadLazy(event) {
+    this.cargarMovimientos(event.first, event.rows)
+  }
+  cargarMovimientos(first = 0, rows = this.properties.cantidadRegistros) {
+    if (this.museo)
+      this._movimientosService.cantidadMovimientos(this.museo.museoid)
+        .subscribe((cantidad: number) => {
+          this.totalRecords = cantidad
+          this.movimientos = []
+          this._movimientosService.obtenerMovimientos(this.museo.museoid, first, rows)
+            .subscribe((movimientos: any[]) => {
+              console.log(movimientos)
+              let movimientosLocal = []
+              movimientos.forEach(x => {
 
-        this.movimientos = movimientosLocal
-      }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo cargar los movimientos.' }),
-        () => {
-        });
+                if (x.museoreceptorid == this.museo.museoid && x.confirmacion == null) {
+
+                } else {
+
+                  movimientosLocal.push(x);
+                }
+
+              });
+              //this.movimientos = movimientos;
+
+              this.movimientos = movimientosLocal
+            }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo cargar los movimientos.' }));
+        }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo cargar los movimientos.' }));
+
+
+
+
 
   }
   cambiarMuseo() {
@@ -144,22 +169,20 @@ export class MovimientosComponent implements OnInit {
   }
 
 
-  buscar() {
-    this._itemService.filtrarItemsMovimientos(this.museo.museoid, this.constantes.tipoIngresoPrestamo, this.categoria.catalogoid)
-      .subscribe((items: any[]) => {
-        this.items = items;
-      }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }),
-        () => {
-        });
-  }
 
   cargarMuseos() {
     this._museoServices.obtenerTodoMuseos()
       .subscribe((museos: any[]) => {
         console.log(museos)
-        this.museo = museos.find(x => x.museoid == this.museo.museoid);
+        if (this.museo) this.museo = museos.find(x => x.museoid == this.museo.museoid);
         this.museoItem = [{ label: this.properties.labelSeleccione, value: null }];
-        museos.filter(x => x.museoid != this.museo.museoid).forEach(x => {
+        let museosLocales = []
+        if (this.museo) {
+          museosLocales = museos.filter(x => x.museoid != this.museo.museoid)
+        } else {
+          museosLocales = museos;
+        }
+        museosLocales.forEach(x => {
           this.museoItem.push({ label: x.nombres, value: x });
 
         });

@@ -17,7 +17,7 @@
                 </p-tabPanel>
                 <p-tabPanel header="REGISTRO FOTOGRÁFICO" *ngIf="piezaMuseable!=null">
                     <div class="separadorInventario">
-                        <h5>REGISTRO FOTOGRÁFICO</h5>
+                        <h5>REGISTROS FOTOGRÁFICO</h5>
                         <div style="width: 100%;text-align: right">
                             <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
                             <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
@@ -27,8 +27,29 @@
 
                         <div class="ui-grid-row">
                             <div class="ui-grid-col-12">
-                                <img *ngIf="foto!=null" style="width: 100%" [src]="foto">
+                                <img *ngIf="foto!=null" style="max-width: 100%" [src]="foto">
                                 <input name="file" type="file" id="adjuntar" accept="image/*" class="ui-g-12 ui-md-12 ui-lg-12 inputUpload" (change)="fileChangeEvent($event,1)"
+                                    placeholder="Subir Archivo..." required />
+                            </div>
+                        </div>
+                        <div class="ui-grid-row">
+                            <div class="ui-grid-col-12">
+                                <img *ngIf="fotodos!=null" style="max-width: 100%" [src]="fotodos">
+                                <input name="file" type="file" id="adjuntar" accept="image/*" class="ui-g-12 ui-md-12 ui-lg-12 inputUpload" (change)="fileChangeEvent($event,9)"
+                                    placeholder="Subir Archivo..." required />
+                            </div>
+                        </div>
+                        <div class="ui-grid-row">
+                            <div class="ui-grid-col-12">
+                                <img *ngIf="fototres!=null" style="max-width: 100%" [src]="fototres">
+                                <input name="file" type="file" id="adjuntar" accept="image/*" class="ui-g-12 ui-md-12 ui-lg-12 inputUpload" (change)="fileChangeEvent($event,10)"
+                                    placeholder="Subir Archivo..." required />
+                            </div>
+                        </div>
+                        <div class="ui-grid-row">
+                            <div class="ui-grid-col-12">
+                                <img *ngIf="fotocuatro!=null" style="max-width: 100%" [src]="fotocuatro">
+                                <input name="file" type="file" id="adjuntar" accept="image/*" class="ui-g-12 ui-md-12 ui-lg-12 inputUpload" (change)="fileChangeEvent($event,11)"
                                     placeholder="Subir Archivo..." required />
                             </div>
                         </div>

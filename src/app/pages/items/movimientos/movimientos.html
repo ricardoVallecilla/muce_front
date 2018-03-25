@@ -1,18 +1,28 @@
 <div class="row">
   <div class="col-sm-12">
     <app-card [title]="'Lista de Movimientos'">
+      <div class="ui-g" *ngIf="esAdmin">
+        <div  class="ui-g-12 ui-md-12 ui-lg-1">Museo</div>
+        <div  class="ui-g-12 ui-md-12 ui-lg-2">
+
+          <p-dropdown [disabled]="bandera==1" [options]="museoItem" name="museo" (ngModelChange)="movimientos=[]" filter="true" [style]="{'width': '100%'}" [(ngModel)]="museo"></p-dropdown>
+        </div>
+        <div class="ui-g-12 ui-md-12 ui-lg-9" style="text-align: right">
+          
+          <button [disabled]="museo==null" pButton type="button" icon="{{properties.buscar.icon}}" label="{{properties.buscar.label}}"
+            (click)="buscarMuseo()"></button>
+        </div>
+      </div>
       <p-messages [(value)]="msgs"></p-messages>
       <p-tabView>
         <p-tabPanel header="Movimientos">
 
 
           <div class="ui-g" *ngIf="bandera==0">
-            <div class="ui-g-12 ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
-              <i class="fa fa-search"></i>
-              <input #gb onkeypress="return event.keyCode != 13;" type="text" pInputText placeholder="Filtro Global">
-            </div>
+            
             <div class="ui-g-12 ui-md-12 ui-lg-12" style="padding: 0">
-              <p-dataTable [value]="movimientos" [globalFilter]="gb" emptyMessage="{{properties.sinDatos}}" [paginator]="true" [rows]="10">
+              <p-dataTable [value]="movimientos"  emptyMessage="{{properties.sinDatos}}" [lazy]="true" [paginator]="true" [rows]="properties.cantidadRegistros"
+              (onLazyLoad)="loadLazy($event)" [totalRecords]="totalRecords">
 
                 <p-column field="fechamovimiento" header="Fecha Movimiento" [sortable]="true" [style]="{'width':'155px','text-align': 'center'}">
                   <ng-template let-movimiento="rowData" pTemplate="body">
@@ -78,7 +88,7 @@
               </p-dataTable>
             </div>
             <div class="ui-g-12 ui-md-12 ui-lg-12 alineacionBotones">
-              <button pButton (click)="nuevo()" icon="{{properties.nuevo.icon}}" label="{{properties.nuevo.label}}"></button>
+              <button pButton *ngIf="!esAdmin" (click)="nuevo()" icon="{{properties.nuevo.icon}}" label="{{properties.nuevo.label}}"></button>
 
 
             </div>
@@ -144,5 +154,3 @@
 
   </div>
 </div>
-
-

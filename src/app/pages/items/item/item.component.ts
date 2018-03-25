@@ -36,7 +36,12 @@ export class ItemComponent implements OnInit {
   es = this.properties.es;
   verPopUp = false;
   movimientos = [];
-  totalRecords=null;
+  totalRecords = null;
+  filtrarMuseos = false;
+  esfiltroTexto = false;
+  textoFiltra = null
+  museosItem = [{ label: this.properties.labelSeleccione, value: null }]
+  esAdmin=false;
   constructor(
     private _generalService: GeneralService,
     private _router: Router,
@@ -53,10 +58,16 @@ export class ItemComponent implements OnInit {
     if (localStorage.getItem("sesion") != null) {
       var decrypted = CryptoJS.AES.decrypt(localStorage.getItem("sesion"), this.properties.key);
       let persona = JSON.parse(decrypted.toString(CryptoJS.enc.Utf8))
-      //console.log(persona)
+
       this.museo = persona.usuario.museoId;
-      this.buscarMuseo();
-      console.log(this.museo);
+      if (persona.usuario.rolId.rolid == this.constantes.rolAdministrador || persona.usuario.rolId.rolid == this.constantes.rolDirector) {
+        this.filtrarMuseos = true;
+        this.buscarTodosMuseo();
+      } else {
+        this.buscarMuseo();
+      }
+
+
     }
     this.cargarCatalogos()
   }
@@ -65,24 +76,36 @@ export class ItemComponent implements OnInit {
     this._museoServices.obtenerMuseosbyId(this.museo.museoid)
       .subscribe((museo: any) => {
         this.museo = museo;
-        console.log(this.museo);
-      }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }),
-        () => {
-        });
+
+      }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }));
+  }
+
+  buscarTodosMuseo() {
+    this._museoServices.obtenerTodoMuseos()
+      .subscribe((museos: any[]) => {
+        museos.forEach(x => {
+          this.museosItem.push({ label: x.nombres.toUpperCase(), value: x })
+        })
+
+      }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }));
   }
 
   buscar() {
+    this.esfiltroTexto = false;
+    this.textoFiltra = null;
     this.items = []
 
     if (this.categoria != null) {
       this._itemService.cantidad(this.museo.museoid, this.grupo.catalogoid, this.categoria.catalogoid)
         .subscribe((cantidad: number) => {
-          this.totalRecords=cantidad
+          this.totalRecords = cantidad
           if (cantidad > 0) {
-            this._itemService.filtrarItem(this.museo.museoid, this.grupo.catalogoid, this.categoria.catalogoid,0,this.properties.cantidadRegistros)
+            this._itemService.filtrarItem(this.museo.museoid, this.grupo.catalogoid, this.categoria.catalogoid, 0, this.properties.cantidadRegistros)
               .subscribe((items: any[]) => {
                 this.items = items;
               }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }));
+          }else{
+            this.items=[];
           }
 
         }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }));
@@ -93,35 +116,63 @@ export class ItemComponent implements OnInit {
   }
 
   loadLazy(event) {
-    console.log(event)
-    if(this.categoria!=null)
-    this._itemService.filtrarItem(this.museo.museoid, this.grupo.catalogoid, this.categoria.catalogoid,event.first,event.rows)
-    .subscribe((items: any[]) => {
-      this.items = items;
-    }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }));
-    else{
-      this._itemService.filtrarItem(this.museo.museoid, this.grupo.catalogoid,null,event.first,event.rows)
-      .subscribe((items: any[]) => {
-        this.items = items;
-      }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }),
-        () => {
-        });
+    if (this.esfiltroTexto) {
+      this.filtrarItem(event.first, event.rows)
+    } else {
+      if (this.categoria != null)
+        this._itemService.filtrarItem(this.museo.museoid, this.grupo.catalogoid, this.categoria.catalogoid, event.first, event.rows)
+          .subscribe((items: any[]) => {
+            this.items = items;
+          }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }));
+      else {
+        if (this.museo != null && this.grupo != null)
+          this._itemService.filtrarItem(this.museo.museoid, this.grupo.catalogoid, null, event.first, event.rows)
+            .subscribe((items: any[]) => {
+              this.items = items;
+            }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }),
+              () => {
+              });
+      }
     }
+
+  }
+
+  filtrarItem(first=0,rows=this.properties.cantidadRegistros) {
+    this.grupo = null
+    this.categoria=null
+    this.categoriaItem=[{ label: this.properties.labelSeleccione, value: null }]
+    this.esfiltroTexto = true;
+    if (this.textoFiltra != null)
+      this._itemService.cantidadFiltroTexto(this.museo.museoid, this.textoFiltra)
+        .subscribe((cantidad: number) => {
+          this.totalRecords = cantidad
+          if (cantidad > 0) {
+            this._itemService.filtroTexto(this.museo.museoid, this.textoFiltra, first, rows)
+              .subscribe((items: any[]) => {
+                this.items = items;
+              }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }));
+          }else{
+            this.items=[];
+          }
+
+        }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }));
   }
 
   buscarTodos() {
     this.items = []
     this._itemService.cantidad(this.museo.museoid, this.grupo.catalogoid)
-        .subscribe((cantidad: number) => {
-          this.totalRecords=cantidad
-          if (cantidad > 0) {
-            this._itemService.filtrarItem(this.museo.museoid, this.grupo.catalogoid, null,0,this.properties.cantidadRegistros)
-              .subscribe((items: any[]) => {
-                this.items = items;
-              }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }));
-          }
+      .subscribe((cantidad: number) => {
+        this.totalRecords = cantidad
+        if (cantidad > 0) {
+          this._itemService.filtrarItem(this.museo.museoid, this.grupo.catalogoid, null, 0, this.properties.cantidadRegistros)
+            .subscribe((items: any[]) => {
+              this.items = items;
+            }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }));
+        }else{
+          this.items=[];
+        }
 
-        }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }));
+      }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }));
 
 
   }
@@ -148,7 +199,7 @@ export class ItemComponent implements OnInit {
     }
 
   }
- 
+
   nuevo() {
     this.msgs = [];
     this.acciones = this.properties.labelNuevo + " Item"
@@ -175,6 +226,8 @@ export class ItemComponent implements OnInit {
     }
   }
   obtenerCategorias(event) {
+    this.esfiltroTexto = false;
+    this.textoFiltra = null;
     if (event != null) {
       this.grupo = event
     }
@@ -217,7 +270,10 @@ export class ItemComponent implements OnInit {
   }
 
   volver() {
-    this.buscar()
+    if (this.esfiltroTexto)
+      this.filtrarItem()
+    else
+      this.buscar()
     this.bandera = 0;
     this.acciones = this.properties.labelLista + this.title;
   }

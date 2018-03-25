@@ -14,6 +14,8 @@ export class UrlServices {
     item=this.proxy+"/item/"
     filtrarItem=this.item+"filtro"
     cantidadItem=this.item+"count"
+    cantidadFiltroTexto=this.filtrarItem+"/texto/count"
+    filtroTexto=this.filtrarItem+"/texto"
     piezaMuseable=this.proxy+"/piezaMuseable/"
     piezaMuseableByItem=this.piezaMuseable+"item/"
     guardarPiezaMuseableDetalle=this.piezaMuseable+"detalle"
@@ -29,7 +31,9 @@ export class UrlServices {
     catalogosDetalle=this.proxy+"/piezamuseablecatalogo/piezaMuseable/"
 
     obtenerCatalogosPadre= this.catalogos+"padres"
+    cantidadCatalogosPadre=this.obtenerCatalogosPadre+"/count"    
     obtenerCatalogosHijos= this.catalogos+"hijos/"
+    cantidadCatalogosHijos=this.obtenerCatalogosHijos+"count/"
     obtenerCatalogosHijosPorPadres= this.catalogos+"hijos/lista"
     usuarios=this.proxy+"/usuario/"
     optenerUsuarios=this.usuarios
@@ -43,6 +47,7 @@ export class UrlServices {
     movimientoPiezas=this.movimientos+"piezas"
     movimientoPiezasDevolucion=this.movimientos+"devolucion/piezas"
     movimientosMuseo=this.movimientos+"museo/"
+    cantidadMovimientos=this.movimientosMuseo+"count/"
     movimientosMuseoPendientes=this.movimientos+"museo/pendientes/"
     confirmarMovimiento=this.movimientos+"confirmar"
     confirmarMovimientoPiezas=this.movimientos+"confirmar/piezas"

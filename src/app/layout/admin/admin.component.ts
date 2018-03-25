@@ -137,7 +137,7 @@ export class AdminComponent implements OnInit {
       var decrypted = CryptoJS.AES.decrypt(localStorage.getItem("sesion"), properties.key);
       let persona = JSON.parse(decrypted.toString(CryptoJS.enc.Utf8))
       //console.log(persona)
-      this.museo = persona.usuario.museoId.nombres;
+      if(persona.usuario.museoId)this.museo = persona.usuario.museoId.nombres;
       this.rol=persona.usuario.rolId.nombre.charAt(0).toUpperCase()+  persona.usuario.rolId.nombre.slice(1);
       this.usuario=persona.usuario.nombres;
       console.log(persona);

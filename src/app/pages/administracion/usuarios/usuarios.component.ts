@@ -30,20 +30,12 @@ export class UsuarioComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    
-    this.cargarCatalogos()
+   
     this.cargarRoles();
     this.cargarPermisos();
   }
 
-  cargarCatalogos() {
-    this._catalogoService.obtenerCatalogosPadre()
-      .subscribe((periodos: any[]) => {
-
-      }, (err: any) => console.log(err),
-      () => {
-      });
-  }
+  
 
   cargarRoles() {
     this._usuarioService.optenerRoles()

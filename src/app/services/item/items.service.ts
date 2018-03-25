@@ -46,7 +46,25 @@ export class ItemService {
             filtro = { "museoId": museoId ,"grupoId": grupoId}
         return this._generalServices.getResources("post", this.url.cantidadItem, filtro)
     }
-    filtrarItemsMovimientos(museoId, grupoId, categoriaId): Observable<any> {
+
+    cantidadFiltroTexto(museoId, texto): Observable<any> {
+        let filtro = { "museoId": museoId ,"texto": texto}            
+        return this._generalServices.getResources("post", this.url.cantidadFiltroTexto, filtro)
+    }
+    filtroTexto(museoId, texto,pagina,registros): Observable<any> {
+        let filtro = { "museoId": museoId ,"texto": texto,"pagina":pagina, "registros":registros}            
+        return this._generalServices.getResources("post", this.url.filtroTexto, filtro)
+    }
+    filtrarItemsMovimientos(museoId, grupoId, categoriaId,pagina,registros): Observable<any> {
+        let filtro = {
+            "museoId": museoId,
+            "grupoId": grupoId,
+            "categoriaId": categoriaId,"pagina":pagina, "registros":registros
+        }
+        return this._generalServices.getResources("post", this.url.filtrarItem + "/movimiento", filtro)
+    }
+
+    cantidadfiltrarItemsMovimientos(museoId, grupoId, categoriaId): Observable<any> {
         let filtro = {
             "museoId": museoId,
             "grupoId": grupoId,
@@ -54,7 +72,6 @@ export class ItemService {
         }
         return this._generalServices.getResources("post", this.url.filtrarItem + "/movimiento", filtro)
     }
-
     catalogosDetalle(piezamuseableid, nombrescolumnas): Observable<any> {
         let filtro = {
             "piezamuseableid": piezamuseableid,

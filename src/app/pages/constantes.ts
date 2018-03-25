@@ -72,4 +72,6 @@ export class Constantes{
 
     //museo
     rolCustodio = 3
+    rolAdministrador = 1
+    rolDirector=2
 }
