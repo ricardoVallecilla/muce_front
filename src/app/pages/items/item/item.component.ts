@@ -193,7 +193,7 @@ export class ItemComponent implements OnInit {
           () => {
           });
     } catch (error) {
-      console.log(error)
+      
       this._generalService.stopBlock();
       this._router.navigate(['/authentication/login']);
     }

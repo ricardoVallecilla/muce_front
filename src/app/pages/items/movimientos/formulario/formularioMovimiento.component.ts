@@ -122,7 +122,7 @@ export class FormularioMovimientoComponent implements OnInit {
     this.esDevolucion = true
 
     switch (movimiento.tipomovimientoid.catalogoid) {
-      case this.constantes.devolucionPrestamoInterno:
+      case this.constantes.prestamoInterno:
         this.movimiento.pais = "Ecuador"
         this.movimiento.provincia = "Pichinca"
         this.movimiento.ciudad = "Quito"

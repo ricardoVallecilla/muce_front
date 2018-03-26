@@ -140,7 +140,9 @@ export class MovimientosComponent implements OnInit {
                    */
                   if(x.tipomovimientoid.catalogoid==this.constantes.devolucionOtro 
                     ||x.tipomovimientoid.catalogoid==this.constantes.devolucionDesinfeccion
-                    ||x.tipomovimientoid.catalogoid==this.constantes.devolucionRestauracion                  
+                    ||x.tipomovimientoid.catalogoid==this.constantes.devolucionPrestamoExterno
+                    ||x.tipomovimientoid.catalogoid==this.constantes.devolucionRestauracion 
+                    ||x.museoreceptorid==this.museo.museoid                  
                   ){
                     x.receptor=true;
                   }else if (x.museoid==this.museo.museoid){

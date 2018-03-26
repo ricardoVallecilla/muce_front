@@ -7,6 +7,13 @@ import '../../../../assets/charts/amchart/serial.js';
 import '../../../../assets/charts/amchart/light.js';
 import '../../../../assets/charts/amchart/ammap.js';
 import '../../../../assets/charts/amchart/worldLow.js';
+import { MovimientosService } from '../../../services/movimientos/movimientos.service';
+import { Properties } from '../../properties';
+import { Constantes } from '../../constantes';
+import * as CryptoJS from 'crypto-js';
+import { MuseoServices } from '../../../services/museo/museo.services';
+import { GeneralService } from '../../../services/general/general.service';
+import { Router } from '@angular/router';
 
 declare const AmCharts: any;
 declare const $: any;
@@ -19,111 +26,124 @@ declare const $: any;
   ]
 })
 export class DashboardDefaultComponent implements OnInit {
-
-  constructor() { }
+  properties = new Properties();
+  constantes = new Constantes();
+  museo;
+  key = "HackersSeeIT2";
+  museoItem = [{ label: this.properties.labelSeleccione, value: null }];
+  movimientos = []
+  movimientosPendientesLista=[];
+  movimientosPendientes=0;
+  esAdmin=false
+  constructor(
+    private _generalService: GeneralService,
+    private _router: Router,
+    private _movimientosService: MovimientosService,
+    private _museoServices: MuseoServices
+  ) { }
 
   ngOnInit() {
-    AmCharts.makeChart('statistics-chart', {
-      type: 'serial',
-      marginTop: 0,
-      hideCredits: true,
-      marginRight: 80,
-      dataProvider: [{
-        year: 'Jan',
-        value: 0.98
-      }, {
-        year: 'Feb',
-        value: 1.87
-      }, {
-        year: 'Mar',
-        value: 0.97
-      }, {
-        year: 'Apr',
-        value: 1.64
-      }, {
-        year: 'May',
-        value: 0.4
-      }, {
-        year: 'Jun',
-        value: 2.9
-      }, {
-        year: 'Jul',
-        value: 5.2
-      }, {
-        year: 'Aug',
-        value: 0.77
-      }, {
-        year: 'Sap',
-        value: 3.1
-      }],
-      valueAxes: [{
-        axisAlpha: 0,
-        dashLength: 6,
-        gridAlpha: 0.1,
-        position: 'left'
-      }],
-      graphs: [{
-        id: 'g1',
-        bullet: 'round',
-        bulletSize: 9,
-        lineColor: '#4680ff',
-        lineThickness: 2,
-        negativeLineColor: '#4680ff',
-        type: 'smoothedLine',
-        valueField: 'value'
-      }],
-      chartCursor: {
-        cursorAlpha: 0,
-        valueLineEnabled: false,
-        valueLineBalloonEnabled: true,
-        valueLineAlpha: false,
-        color: '#fff',
-        cursorColor: '#FC6180',
-        fullWidth: true
-      },
-      categoryField: 'year',
-      categoryAxis: {
-        gridAlpha: 0,
-        axisAlpha: 0,
-        fillAlpha: 1,
-        fillColor: '#FAFAFA',
-        minorGridAlpha: 0,
-        minorGridEnabled: true
-      },
-      'export': {
-        enabled: true
+    try {
+      if (localStorage.getItem("sesion") != null) {
+        var decrypted = CryptoJS.AES.decrypt(localStorage.getItem("sesion"), this.key);
+        let persona = JSON.parse(decrypted.toString(CryptoJS.enc.Utf8))
+        this.museo = persona.usuario.museoId;
+
+        if (persona.usuario.rolId.rolid == this.constantes.rolAdministrador || persona.usuario.rolId.rolid == this.constantes.rolDirector) {
+          this.esAdmin = true;
+
+        } else {
+          this.esAdmin = false;
+        }
       }
-    });
-  }
+      this.cargarMuseos();
+      if (this.museo) {
 
-  onTaskStatusChange(event) {
-    const parentNode = (event.target.parentNode.parentNode);
-    parentNode.classList.toggle('done-task');
-  }
+        this.cargarMovimientosPendientes();
+        this.cargarMovimientosPendientesConfirmacion()
 
-}
+      }
+    } catch (error) {
 
-function getRandomData() {
-  let data = [];
-  const totalPoints = 300;
-  if (data.length > 0) {
-    data = data.slice(1);
-  }
-
-  while (data.length < totalPoints) {
-    const prev = data.length > 0 ? data[data.length - 1] : 50;
-    let y = prev + Math.random() * 10 - 5;
-    if (y < 0) {
-      y = 0;
-    } else if (y > 100) {
-      y = 100;
+      this._generalService.stopBlock();
+      this._router.navigate(['/authentication/login']);
     }
-    data.push(y);
+  }
+  cargarMovimientosPendientes() {
+
+    this._movimientosService.pendientesgeneral(this.museo.museoid, [this.constantes.prestamoExterno, this.constantes.prestamoInterno
+      , this.constantes.diccionarioMovimientoEstado.desinfecion.tipoMovimiento
+      , this.constantes.diccionarioMovimientoEstado.otro.tipoMovimiento
+      , this.constantes.diccionarioMovimientoEstado.restauracion.tipoMovimiento
+    ])
+      .subscribe((movimientos: any[]) => {
+        movimientos.forEach(x => {
+          if (x.fechafinprestamo) {
+            let fechafinprestamo = new Date(x.fechafinprestamo).getTime();
+            let hoyDate = new Date();
+            hoyDate.setHours(0, 0, 0, 0);
+            let hoy = hoyDate.getTime();
+            let diff = hoy - fechafinprestamo;
+
+            let dias = (diff / (1000 * 60 * 60 * 24));
+            console.log(dias);
+            x.dias = dias
+          }
+          if(x.tipomovimientoid.catalogoid==this.constantes.devolucionOtro 
+            ||x.tipomovimientoid.catalogoid==this.constantes.devolucionDesinfeccion
+            ||x.tipomovimientoid.catalogoid==this.constantes.devolucionRestauracion 
+            ||x.museoreceptorid==this.museo.museoid                  
+          ){
+            x.receptor=true;
+          }else if (x.museoid==this.museo.museoid){
+            x.receptor=false;                  
+          }
+        });
+
+        this.movimientos = movimientos;
+
+
+      }, (err: any) => null);
+
+  }
+  buscar(){
+    if(this.museo!=null){
+      this.cargarMovimientosPendientes();
+        this.cargarMovimientosPendientesConfirmacion()
+    }
+  }
+  cargarMovimientosPendientesConfirmacion() {
+    
+    this._movimientosService.obtenerMovimientosPendientes(this.museo.museoid)
+      .subscribe((movimientos: any[]) => {
+        this.movimientosPendientesLista = movimientos;
+        this.movimientosPendientes = this.movimientosPendientesLista.length;
+      }, (err: any) =>null);
+
+  }
+  cargarMuseos() {
+    this._museoServices.obtenerTodoMuseos()
+      .subscribe((museos: any[]) => {
+
+        if (this.museo) this.museo = museos.find(x => x.museoid == this.museo.museoid);
+        this.museoItem = [{ label: this.properties.labelSeleccione, value: null }];
+        let museosLocales = []
+        if (this.museo) {
+          museosLocales = museos.filter(x => x.museoid != this.museo.museoid)
+        } else {
+          museosLocales = museos;
+        }
+        museosLocales.forEach(x => {
+          this.museoItem.push({ label: x.nombres, value: x });
+
+        });
+      }, (err: any) => null,
+        () => {
+        });
   }
 
-  const res = [];
-  for (let i = 0; i < data.length; ++i) {
-    res.push([i, data[i]]);
-  }
-  return res;
+
+
 }
+
+

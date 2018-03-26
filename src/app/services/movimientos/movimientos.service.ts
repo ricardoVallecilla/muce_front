@@ -49,6 +49,9 @@ export class MovimientosService {
         return this._generalServices.getResources("get", this.url.movimientoPrestamosInternos+museoid+"/"+tipoid)
     }
 
-
+    pendientesgeneral(museoid,listaEstados): Observable<any> {
+        let objGuardar={museoid:museoid,estados:listaEstados}
+        return this._generalServices.getResources("post", this.url.pendientesgeneral, objGuardar)
+    }
 
 }

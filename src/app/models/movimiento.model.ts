@@ -46,6 +46,7 @@ export class Movimiento {
     constructor(museoid){
         this.museoid=museoid
         this.fechamovimiento=new Date();
+        this.formaenvio=false;
 
     }
 }

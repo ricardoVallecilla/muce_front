@@ -55,6 +55,7 @@ export class UrlServices {
     movimientoPendientesIngreso=this.movimientos+"pendientesIngreso/"
     movimientosItem=this.movimientos+"pieza/movimientos/"
     guardarMuseoFile = this.museo + 'file'
+    pendientesgeneral=this.movimientos+"pendientes/general"
     constructor() {
 
     }
