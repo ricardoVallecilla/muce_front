@@ -14,7 +14,9 @@
       Nombre científico *:
     </div>
     <div class="ui-grid-col-10">
-      <input pInputText type="text" maxlength="150" name="otradenominacion" [(ngModel)]="detalle.nombrecientifico" />
+      <input pInputText type="text" maxlength="150" name="nombrecientifico" [(ngModel)]="detalle.nombrecientifico"  #nombrecientifico="ngModel"
+      required />      
+      <div class="ui-messages-error" *ngIf="submitted>0  && nombrecientifico.invalid">El campo Nombre científico es requerido</div>
       <div class="impresion">
           {{detalle.nombrecientifico}}
         </div>
@@ -23,7 +25,7 @@
   </div>
   <div class="ui-grid-row">
     <div class="ui-grid-col-2">
-      Autor *:
+      Autor:
     </div>
     <div class="ui-grid-col-10">
       <input pInputText type="text" maxlength="150" name="otradenominacion" [(ngModel)]="detalle.autor" />
@@ -38,7 +40,8 @@
       Nombre común *:
     </div>
     <div class="ui-grid-col-10">
-      <input pInputText type="text" maxlength="150" name="otradenominacion" [(ngModel)]="detalle.nombrecomun" />
+      <input pInputText type="text" maxlength="150" name="nombrecomun" [(ngModel)]="detalle.nombrecomun"  #nombrecomun="ngModel"   required />      
+      <div class="ui-messages-error" *ngIf="submitted>0  && nombrecomun.invalid">El campo Nombre común es requerido</div>
       <div class="impresion">
           {{detalle.nombrecomun}}
         </div>
@@ -47,7 +50,7 @@
   </div>
   <div class="ui-grid-row">
     <div class="ui-grid-col-2">
-      Publicado en *:
+      Publicado en:
     </div>
     <div class="ui-grid-col-10">
       <input pInputText type="text" maxlength="150" name="otradenominacion" [(ngModel)]="detalle.publicado" />
@@ -59,7 +62,7 @@
   </div>
   <div class="ui-grid-row">
     <div class="ui-grid-col-2">
-      Clase *:
+      Clase:
     </div>
     <div class="ui-grid-col-10">
       <input pInputText type="text" maxlength="150" name="otradenominacion" [(ngModel)]="detalle.clase" />
@@ -71,7 +74,7 @@
   </div>
   <div class="ui-grid-row">
     <div class="ui-grid-col-2">
-      Orden *:
+      Orden:
     </div>
     <div class="ui-grid-col-10">
       <input pInputText type="text" maxlength="150" name="otradenominacion" [(ngModel)]="detalle.orden" />
@@ -83,7 +86,7 @@
   </div>
   <div class="ui-grid-row">
     <div class="ui-grid-col-2">
-      Familia *:
+      Familia:
     </div>
     <div class="ui-grid-col-10">
       <input pInputText type="text" maxlength="150" name="otradenominacion" [(ngModel)]="detalle.familia" />
@@ -95,7 +98,7 @@
   </div>
   <div class="ui-grid-row">
     <div class="ui-grid-col-2">
-      Sexo *:
+      Sexo:
     </div>
     <div class="ui-grid-col-4">
       <input pInputText type="text" maxlength="150" name="tecnica" [(ngModel)]="detalle.sexo" />
@@ -125,6 +128,7 @@
                 <p-checkbox name="materiales" value="{{estado.catalogoid}}" label="{{estado.nombre}}" (click)="impr()" [(ngModel)]="tecnicaConservacionSelecionados"></p-checkbox>
               </div>
         </div>
+        <div class="ui-messages-error" *ngIf="submitted>0  && tecnicaConservacionSelecionados.length==0">El campo Técnica de conservación/exhibición es requerido</div>
         <div class="ui-g impresion" style="width: 100%">
             <div class="ui-g-3" *ngFor="let estado of tecnicaConservacionSelecionados">
                 
@@ -143,7 +147,10 @@
       Descripción *:
     </div>
     <div class="ui-grid-col-10">
-      <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="550" name="descripcion" [(ngModel)]="detalle.descripcion"></textarea>
+      <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="550" name="descripcion" [(ngModel)]="detalle.descripcion" #descripcion="ngModel"
+      required></textarea>
+          
+      <div class="ui-messages-error" *ngIf="submitted>0  && descripcion.invalid">El campo Descripción es requerido</div>
       <div class="impresion">
           {{detalle.descripcion}}
         </div>

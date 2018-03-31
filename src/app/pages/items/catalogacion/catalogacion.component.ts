@@ -7,6 +7,7 @@ import { Message, ConfirmationService } from 'primeng/primeng';
 import { ItemService } from '../../../services/item/items.service';
 import { PiezaMuseable } from '../../../models/piezaMuseable.model';
 import { PiezaDetalle } from '../../../models/piezaDetalle.model';
+import { MessageService } from 'primeng/components/common/messageservice';
 @Component({
   selector: 'catalogacion',
   templateUrl: './catalogacion.html'
@@ -29,9 +30,18 @@ export class CatalogacionComponent implements OnInit {
   fotocuatro = null;
   @Output() enviadorCondicion = new EventEmitter();
   catalogoDetalle = [];
+  submitted = 0;
+  validacionesTabs = {
+    piezaMuseable: false,
+    arqueologiaForma: false,
+    usoAcademico: false,
+    entomologiaProcesos: false,
+    instrumentalRegistros:false
+  }
+  validado = false;
   paisItem = [{ label: this.properties.labelSeleccione, value: null }]
   constructor(
-
+    private messageService: MessageService,
     private confirmationService: ConfirmationService,
     private domSanitizer: DomSanitizer,
     private _catalogoService: CatalogoService,
@@ -79,7 +89,7 @@ export class CatalogacionComponent implements OnInit {
 
     this._itemService.downloadFotografiaTipo(this.piezaMuseable.piezamuseableid, tipo).
       subscribe((foto: any) => {
-        
+
         let blob = new Blob([foto.blob()], { type: 'image/jpeg' });
         switch (tipo) {
           case 1:
@@ -146,8 +156,40 @@ export class CatalogacionComponent implements OnInit {
 
 
   guardar() {
-    
 
+    this.submitted += 1;
+    if (!this.validacionesTabs.piezaMuseable || !this.validacionesTabs.usoAcademico) {
+      this.msgs.push({ severity: 'error', summary: 'Error de Validación', detail: 'Verifique los campos obligatorios. (USE BOTON VALIDAR)' });
+      return false;
+    }
+
+    switch (this.item.categoriaid.catalogoid) {
+      case this.constantes.arqueologia:
+        if (!this.validacionesTabs.arqueologiaForma) {
+          this.msgs.push({ severity: 'error', summary: 'Error de Validación', detail: 'Verifique los campos obligatorios. (USE BOTON VALIDAR)' });
+          return false;
+        }
+
+        break;
+      case this.constantes.entomologia:
+        if (!this.validacionesTabs.entomologiaProcesos) {
+          this.msgs.push({ severity: 'error', summary: 'Error de Validación', detail: 'Verifique los campos obligatorios. (USE BOTON VALIDAR)' });
+          return false;
+        }
+
+        break;
+        case this.constantes.instrumental:
+        if (!this.validacionesTabs.instrumentalRegistros) {
+          this.msgs.push({ severity: 'error', summary: 'Error de Validación', detail: 'Verifique los campos obligatorios. (USE BOTON VALIDAR)' });
+          return false;
+        }
+
+        break;
+
+      default:
+        break;
+    }
+    this.msgs = []
     let piezaDetalle = new PiezaDetalle();
     let catalogosDetalle = null;
     let tipo;
@@ -188,7 +230,7 @@ export class CatalogacionComponent implements OnInit {
   }
 
   fileChangeEvent(event, tipo = null) {
-    
+
     let e = event.srcElement ? event.srcElement : event.target;
     let tipoLocal;
     let id;
@@ -216,5 +258,46 @@ export class CatalogacionComponent implements OnInit {
         }
 
       }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo cargar la lista imagen.' }));
+  }
+
+  validarGuardar(formularioPiezaMuseable) {
+
+    if (!formularioPiezaMuseable) {
+      this.msgs.push({ severity: 'error', summary: 'Error de Validación', detail: 'Verifique los campos obligatorios de la pestaña: FICHA DE INVENTARIO' });
+    }
+    this.validacionesTabs.piezaMuseable = formularioPiezaMuseable;
+    console.log(formularioPiezaMuseable);
+
+  }
+
+  validarTabs(event) {
+    console.log(event);
+    switch (event.indentificador) {
+      //seccion 2 de arqueologia
+      case 1:
+        this.validacionesTabs.arqueologiaForma = event.valido;
+        break;
+      //seccion uso academico
+      case 2:
+        this.validacionesTabs.usoAcademico = event.valido;
+        break;
+      //seccion 2 de entomologia
+      case 3:
+        this.validacionesTabs.entomologiaProcesos = event.valido;
+        break;
+      //seccion instrumental
+      case 4:
+        this.validacionesTabs.instrumentalRegistros = event.valido;
+        break;
+      default:
+        break;
+    }
+    if (!event.valido) {
+      this.msgs.push({ severity: 'error', summary: 'Error de Validación', detail: 'Verifique los campos obligatorios de la pestaña: ' + event.tab });
+    }
+
+  }
+  validar() {
+    this.submitted += 1;
   }
 }

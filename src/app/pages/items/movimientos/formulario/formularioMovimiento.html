@@ -1,4 +1,4 @@
-<form #form="ngForm" (ngSubmit)=" confirmar()" style="width: 100%" novalidate>
+<form #form="ngForm" (ngSubmit)="form.valid && confirmar()" style="width: 100%" novalidate>
 
   <p-fieldset legend="ACTA DE MOVIMIENTO">
     <div id="print-section">
@@ -14,11 +14,11 @@
 
         <div class="ui-grid-row">
           <div class="ui-grid-col-2">
-            Institución:
+            Institución *:
           </div>
           <div class="ui-grid-col-10">
-            <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="institucion" [(ngModel)]="movimiento.institucion"
-            />
+            <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="institucion" [(ngModel)]="movimiento.institucion" required />
+            <div class="ui-messages-error" *ngIf="form.submitted  && !form.form.controls.institucion?.valid">El campo Institución es requerido</div>
             <div class="impresion">
               {{movimiento.institucion}}
             </div>
@@ -26,11 +26,11 @@
         </div>
         <div class="ui-grid-row">
           <div class="ui-grid-col-2">
-            Dirección:
+            Dirección *:
           </div>
           <div class="ui-grid-col-10">
-            <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="direccion" [(ngModel)]="movimiento.direccion"
-            />
+            <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="direccion" [(ngModel)]="movimiento.direccion"required />
+            <div class="ui-messages-error" *ngIf="form.submitted  && !form.form.controls.direccion?.valid">El campo Dirección es requerido</div>
             <div class="impresion">
               {{movimiento.direccion}}
             </div>
@@ -38,10 +38,11 @@
         </div>
         <div class="ui-grid-row">
           <div class="ui-grid-col-2">
-            País:
+            País *:
           </div>
           <div class="ui-grid-col-10">
-            <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="pais" [(ngModel)]="movimiento.pais" />
+            <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="pais" [(ngModel)]="movimiento.pais" required />
+            <div class="ui-messages-error" *ngIf="form.submitted  && !form.form.controls.pais?.valid">El campo País es requerido</div>
             <div class="impresion">
               {{movimiento.pais}}
             </div>
@@ -61,10 +62,11 @@
         </div>
         <div class="ui-grid-row">
           <div class="ui-grid-col-2">
-            Ciudad:
+            Ciudad *:
           </div>
           <div class="ui-grid-col-10">
-            <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="ciudad" [(ngModel)]="movimiento.ciudad" />
+            <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="ciudad" [(ngModel)]="movimiento.ciudad" required />
+            <div class="ui-messages-error" *ngIf="form.submitted  && !form.form.controls.ciudad?.valid">El campo Ciudad es requerido</div>
             <div class="impresion">
               {{movimiento.ciudad}}
             </div>
@@ -72,11 +74,11 @@
         </div>
         <div class="ui-grid-row">
           <div class="ui-grid-col-2">
-            Teléfono:
+            Teléfono *:
           </div>
           <div class="ui-grid-col-10">
-            <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="telefono" [(ngModel)]="movimiento.telefono"
-            />
+            <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="telefono" [(ngModel)]="movimiento.telefono"required />
+            <div class="ui-messages-error" *ngIf="form.submitted  && !form.form.controls.telefono?.valid">El campo Teléfono es requerido</div>
             <div class="impresion">
               {{movimiento.telefono}}
             </div>
@@ -84,10 +86,11 @@
         </div>
         <div class="ui-grid-row">
           <div class="ui-grid-col-2">
-            Correo electrónico:
+            Correo electrónico *:
           </div>
           <div class="ui-grid-col-10">
-            <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="email" [(ngModel)]="movimiento.email" />
+            <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="email" [(ngModel)]="movimiento.email" required />
+            <div class="ui-messages-error" *ngIf="form.submitted  && !form.form.controls.email?.valid">El campo Correo electrónico es requerido</div>
             <div class="impresion">
               {{movimiento.email}}
             </div>
@@ -131,11 +134,13 @@
                 </div>
               </div>
               <div class="ui-g-2" *ngIf="tipoSeleccionado == constantes.prestamoInterno || tipoSeleccionado == constantes.traspasointerno">
-                Museo Destino:
+                Museo Destino *:
               </div>
               <div class="ui-g-10" *ngIf="tipoSeleccionado == constantes.prestamoInterno || tipoSeleccionado == constantes.traspasointerno">
                 <p-dropdown [options]="museoItem" filter="true" [style]="{'width': '100%'}" name="museo" [(ngModel)]="museoSeleccionado"
-                  (ngModelChange)="cambiarMuseo()"></p-dropdown>
+                  (ngModelChange)="cambiarMuseo()" required></p-dropdown>
+                  
+                <div class="ui-messages-error" *ngIf="form.submitted  && !form.form.controls.procedencia?.valid">El campo Procedencia es requerido</div>
               </div>
 
               <div class="ui-g-12">
@@ -173,17 +178,19 @@
                 </div>
               </div>
               <div class="ui-g-12">
-                <div class="ui-g-12">Fecha de inicio:</div>
+                <div class="ui-g-12">Fecha de inicio *:</div>
 
-                <p-calendar name="fechainicioprestamo" [disabled]="desabilitados" [locale]="es" [showIcon]="true" [(ngModel)]="movimiento.fechainicioprestamo"></p-calendar>
+                <p-calendar name="fechainicioprestamo" [disabled]="desabilitados" [locale]="es" [showIcon]="true" [(ngModel)]="movimiento.fechainicioprestamo" required></p-calendar> 
+                <div class="ui-messages-error" *ngIf="form.submitted  && !form.form.controls.fechainicioprestamo?.valid">El campo Fecha de inicio es requerido</div>
                 <div class="impresion">
                   {{movimiento.fechainicioprestamo | date: properties.formatoFecha}}
                 </div>
               </div>
               <div class="ui-g-12">
-                <div class="ui-g-12">Fecha de entrega:</div>
+                <div class="ui-g-12">Fecha de entrega *:</div>
 
-                <p-calendar name="fechafinprestamo" [disabled]="desabilitados" [locale]="es" [showIcon]="true" [(ngModel)]="movimiento.fechafinprestamo"></p-calendar>
+                <p-calendar name="fechafinprestamo" [disabled]="desabilitados" [locale]="es" [showIcon]="true" [(ngModel)]="movimiento.fechafinprestamo" required></p-calendar> 
+                <div class="ui-messages-error" *ngIf="form.submitted  && !form.form.controls.fechafinprestamo?.valid">El campo Fecha de entrega es requerido</div>
                 <div class="impresion">
                   {{movimiento.fechafinprestamo | date: properties.formatoFecha}}
                 </div>
@@ -245,11 +252,11 @@
 
         <div class="ui-grid-row">
           <div class="ui-grid-col-2">
-            Nombre:
+            Nombre *:
           </div>
           <div class="ui-grid-col-10">
-            <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="entreganombre" [(ngModel)]="movimiento.entreganombre"
-            />
+            <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="entreganombre" [(ngModel)]="movimiento.entreganombre"required />
+            <div class="ui-messages-error" *ngIf="form.submitted  && !form.form.controls.entreganombre?.valid">El campo Nombre es requerido</div>
             <div class="impresion">
               {{movimiento.entreganombre}}
             </div>
@@ -257,11 +264,11 @@
         </div>
         <div class="ui-grid-row">
           <div class="ui-grid-col-2">
-            Cargo:
+            Cargo *:
           </div>
           <div class="ui-grid-col-10">
-            <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="entregacargo" [(ngModel)]="movimiento.entregacargo"
-            />
+            <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="entregacargo" [(ngModel)]="movimiento.entregacargo" required />
+            <div class="ui-messages-error" *ngIf="form.submitted  && !form.form.controls.entregacargo?.valid">El campo Cargo es requerido</div>
             <div class="impresion">
               {{movimiento.entregacargo}}
             </div>
@@ -269,11 +276,11 @@
         </div>
         <div class="ui-grid-row">
           <div class="ui-grid-col-2">
-            Reserva:
+            Reserva *:
           </div>
           <div class="ui-grid-col-10">
-            <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="entregareserva" [(ngModel)]="movimiento.entregareserva"
-            />
+            <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="entregareserva" [(ngModel)]="movimiento.entregareserva" required />
+            <div class="ui-messages-error" *ngIf="form.submitted  && !form.form.controls.entregareserva?.valid">El campo Reserva es requerido</div>
             <div class="impresion">
               {{movimiento.entregareserva}}
             </div>
@@ -281,11 +288,11 @@
         </div>
         <div class="ui-grid-row">
           <div class="ui-grid-col-2">
-            C.I:
+            C.I *:
           </div>
           <div class="ui-grid-col-10">
-            <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="entregaci" [(ngModel)]="movimiento.entregaci"
-            />
+            <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="entregaci" [(ngModel)]="movimiento.entregaci" required />
+            <div class="ui-messages-error" *ngIf="form.submitted  && !form.form.controls.entregaci?.valid">El campo C.I es requerido</div>
             <div class="impresion">
               {{movimiento.entregaci}}
             </div>
@@ -318,11 +325,11 @@
 
         <div class="ui-grid-row">
           <div class="ui-grid-col-2">
-            Nombre:
+            Nombre *:
           </div>
           <div class="ui-grid-col-10">
-            <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="receptornombre" [(ngModel)]="movimiento.receptornombre"
-            />
+            <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="receptornombre" [(ngModel)]="movimiento.receptornombre" required />
+            <div class="ui-messages-error" *ngIf="form.submitted  && !form.form.controls.receptornombre?.valid">El campo Nombre es requerido</div>
             <div class="impresion">
               {{movimiento.receptornombre}}
             </div>
@@ -330,11 +337,11 @@
         </div>
         <div class="ui-grid-row">
           <div class="ui-grid-col-2">
-            Cargo:
+            Cargo *:
           </div>
           <div class="ui-grid-col-10">
-            <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="receptorcargo" [(ngModel)]="movimiento.receptorcargo"
-            />
+            <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="receptorcargo" [(ngModel)]="movimiento.receptorcargo" required />
+            <div class="ui-messages-error" *ngIf="form.submitted  && !form.form.controls.receptorcargo?.valid">El campo Cargo es requerido</div>
             <div class="impresion">
               {{movimiento.receptorcargo}}
             </div>
@@ -342,11 +349,11 @@
         </div>
         <div class="ui-grid-row">
           <div class="ui-grid-col-2">
-            Reserva:
+            Reserva *:
           </div>
           <div class="ui-grid-col-10">
-            <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="receptorreserva" [(ngModel)]="movimiento.receptorreserva"
-            />
+            <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="receptorreserva" [(ngModel)]="movimiento.receptorreserva" required />
+            <div class="ui-messages-error" *ngIf="form.submitted  && !form.form.controls.receptorreserva?.valid">El campo Reserva es requerido</div>
             <div class="impresion">
               {{movimiento.receptorreserva}}
             </div>
@@ -354,11 +361,11 @@
         </div>
         <div class="ui-grid-row">
           <div class="ui-grid-col-2">
-            C.I:
+            C.I *:
           </div>
           <div class="ui-grid-col-10">
-            <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="receptorci" [(ngModel)]="movimiento.receptorci"
-            />
+            <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="receptorci" [(ngModel)]="movimiento.receptorci" required />
+            <div class="ui-messages-error" *ngIf="form.submitted  && !form.form.controls.receptorci?.valid">El campo C.I es requerido</div>
             <div class="impresion">
               {{movimiento.receptorci}}
             </div>
@@ -419,7 +426,7 @@
       <div class="ui-grid-col-2"></div>
       <div class="ui-grid-col-3">
         <button *ngIf="tipoFormulario==1" pButton type="submit" label="{{properties.guardar.label}}" icon="{{properties.guardar.icon}}"
-          [disabled]="!form.valid"></button>
+          [disabled]="!form.valid || tipoSeleccionado==null"></button>
         <button *ngIf="tipoFormulario==2" pButton type="button" (click)="confirmar()" label="Confirmar Recepción" icon="{{properties.guardar.icon}}"></button>
       </div>
       <div class="ui-grid-col-3">

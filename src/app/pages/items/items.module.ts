@@ -17,7 +17,7 @@ import {
   CheckboxModule,
   RadioButtonModule,
   ConfirmationService,
-  
+  GrowlModule,
   InputTextModule,
   CalendarModule,
   DialogModule,
@@ -55,6 +55,7 @@ import { UsoAcademicoComponent } from './catalogacion/usoAcademico.component';
 import { Seccion2EntomologiaComponent } from './catalogacion/entomologia/seccion2.component';
 import { Seccion3EntomologiaComponent } from './catalogacion/entomologia/seccion3.component';
 import { Seccion2InstrumentalComponent } from './catalogacion/instrumental/seccion2.component';
+import { MessageService } from 'primeng/components/common/messageservice';
 
 
 
@@ -128,6 +129,7 @@ export const ItemRoutes: Routes = [
     MessagesModule,
     ButtonModule,
     FieldsetModule,
+    GrowlModule,
     InputTextModule,
     InputSwitchModule,
     DialogModule,
@@ -139,6 +141,6 @@ export const ItemRoutes: Routes = [
      EntomologiaComponent, FotografiaComponent, GeologiaComponent, PaleontologiaComponent, ZoologiaComponent,MovimientosComponent,FormularioMovimientoComponent,
       IstrumentalCientificoComponent, ArtesComponent,Seccion2ArqueologiaComponent,CatalogacionComponent,YacimientoComponent,Seccion3ArqueologiaComponent,
       UsoAcademicoComponent,Seccion2EntomologiaComponent,Seccion3EntomologiaComponent,Seccion2InstrumentalComponent]
-  , providers: [GeneralService, ConfirmationService, CatalogoService, UsuarioService, MuseoServices,ItemService,MovimientosService]
+  , providers: [GeneralService, ConfirmationService, CatalogoService, UsuarioService, MuseoServices,ItemService,MovimientosService,MessageService]
 })
 export class ItemModule { }

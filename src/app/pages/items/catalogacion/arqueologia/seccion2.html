@@ -8,57 +8,61 @@
 <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin"  *ngIf="detalle!=null">
 
   <div class="ui-grid-row">
-      Tecnologia de elaboración:
+      Tecnología de elaboración *:
   </div>
   <div class="ui-grid-row">
-        <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="550" name="detalles" [(ngModel)]="detalle.elaboracion"></textarea>   
+        <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="elaboracion" [(ngModel)]="detalle.elaboracion" #elaboracion="ngModel" required></textarea>
+        <div class="ui-messages-error" *ngIf="submitted>0  && elaboracion.invalid">El campo Tecnología de elaboración es requerido</div>   
   </div>
   <div class="ui-grid-row">
       Herramientas utilizadas en su elaboración:
   </div>
   <div class="ui-grid-row">
-        <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="550" name="detalles" [(ngModel)]="detalle.herramientas"></textarea>   
+        <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="detalles" [(ngModel)]="detalle.herramientas"></textarea>   
   </div>
   <div class="ui-grid-row">
-      Técnica de decoración:
+      Técnica de decoración *:
   </div>
   <div class="ui-grid-row">
-        <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="550" name="detalles" [(ngModel)]="detalle.decoracion"></textarea>   
+        <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="detalles" [(ngModel)]="detalle.decoracion" #decoracion="ngModel" required></textarea>
+        <div class="ui-messages-error" *ngIf="submitted>0  && decoracion.invalid">El campo Técnica de decoración es requerido</div>    
   </div>
   <div class="ui-grid-row">
       Técnicas de alteración en la superficie:
   </div>
   <div class="ui-grid-row">
-        <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="550" name="detalles" [(ngModel)]="detalle.alteracion"></textarea>   
+        <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="detalles" [(ngModel)]="detalle.alteracion"></textarea>   
   </div>
   <div class="ui-grid-row">
       Símbolos y diseños utilizados:
   </div>
   <div class="ui-grid-row">
-        <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="550" name="detalles" [(ngModel)]="detalle.simbolos"></textarea>   
+        <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="detalles" [(ngModel)]="detalle.simbolos"></textarea>   
   </div>
   <div class="ui-grid-row">
       Análisis semiótico de los símbolos y diseños:
   </div>
   <div class="ui-grid-row">
-        <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="550" name="detalles" [(ngModel)]="detalle.semiotico"></textarea>   
+        <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="detalles" [(ngModel)]="detalle.semiotico"></textarea>   
   </div>
   <div class="ui-grid-row">
-      Colores utilizados:
+      Colores utilizados *:
   </div>
   <div class="ui-grid-row">
-        <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="550" name="detalles" [(ngModel)]="detalle.coloresusados"></textarea>   
+        <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="detalles" [(ngModel)]="detalle.coloresusados" #coloresusados="ngModel" required></textarea>
+        <div class="ui-messages-error" *ngIf="submitted>0  && coloresusados.invalid">El campo Colores utilizados es requerido</div>      
   </div>
   <div class="ui-grid-row">
       Procedencia de colores:
   </div>
   <div class="ui-grid-row">
-        <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="550" name="detalles" [(ngModel)]="detalle.coloresprocedencia"></textarea>   
+        <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="detalles" [(ngModel)]="detalle.coloresprocedencia"></textarea>   
   </div>
   <div class="ui-grid-row">
-      Análisis semiótico de colores:
+      Análisis semiótico de colores *:
   </div>
   <div class="ui-grid-row">
-        <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="550" name="detalles" [(ngModel)]="detalle.semioticocolores"></textarea>   
+        <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="detalles" [(ngModel)]="detalle.semioticocolores" #semioticocolores="ngModel" required></textarea>
+        <div class="ui-messages-error" *ngIf="submitted>0  && semioticocolores.invalid">El campo Análisis semiótico de colores es requerido</div>      
   </div>
 </div>

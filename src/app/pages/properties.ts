@@ -15,6 +15,7 @@ export class Properties{
     sinDatos="Registros no encontrados."
     nuevo={icon:"fa-plus-circle",label:"Nuevo"}
     guardar={icon:"fa-floppy-o",label:"Guardar"}
+    validar={icon:"fa-check",label:"Validar"}
     cancelar={icon:"fa-times",label:"Cancelar"}
     atras={icon:"fa-times",label:"Atrás"}
     buscar ={icon:"fa-search-plus", label:"Buscar"};
