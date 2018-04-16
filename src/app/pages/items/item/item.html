@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-sm-12" *ngIf="!detallePiezaMuseable && !catalogacion">
+  <div class="col-sm-12" *ngIf="!detallePiezaMuseable && !catalogacion && !baja">
     <app-card [title]="'Filtros'">
       <div class="ui-g">
         <div *ngIf="filtrarMuseos" class="ui-g-12 ui-md-12 ui-lg-1">Museo</div>
@@ -54,7 +54,7 @@
             <p-column field="numeroserie" header="Número de Serie" [sortable]="true"></p-column>
             <!-- <p-column field="tipoingreso.nombre" header="Tipo de Ingreso"  [sortable]="true" ></p-column> -->
             <p-column field="estadoid.nombre" header="Estado" [sortable]="true"></p-column>
-            <p-column header="Opciones" [style]="{'width':'135px','text-align':'center'}">
+            <p-column header="Opciones" [style]="{'width':'205px','text-align':'center'}">
               <ng-template let-item="rowData" pTemplate="body">
                 <button type="button" class="buttonAction" pButton (click)="editarItem(item)" icon="{{properties.iconEditar}}" title="Editar"></button>
                 <button type="button" class="buttonAction" *ngIf="item.grupoid.catalogoid==constantes.grupoCultural" pButton (click)="piezaMuseable(item)"
@@ -63,7 +63,9 @@
                   icon="fa-archive" title="Catalogacion"></button>
                 <button type="button" class="buttonAction" *ngIf="item.grupoid.catalogoid==constantes.grupoCultural" pButton (click)="verMovimientos(item)"
                   icon="fas fa-align-justify" title="Movimientos Pieza"></button>
-
+                <button type="button" class="buttonAction" *ngIf="item.grupoid.catalogoid==constantes.grupoCultural" pButton (click)="verFormBaja(item)"
+                  icon="fas fa fa-window-close" title="Baja"></button>
+                  
               </ng-template>
             </p-column>
           </p-dataTable>
@@ -258,6 +260,9 @@
   </div>
   <div class="col-sm-12" *ngIf="catalogacion">
     <catalogacion (enviadorCondicion)="obtenerDatoHijo($event)" [item]="item"></catalogacion>
+  </div>
+  <div class="col-sm-12" *ngIf="baja">
+    <bajas (enviadorCondicion)="obtenerDatoHijo($event)" [item]="item"></bajas>
   </div>
 </div>
 

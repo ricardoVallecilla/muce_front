@@ -1,0 +1,270 @@
+<div class="row">
+  <div class="col-sm-12">
+    <app-card [title]="acciones">
+      <div style="width: 100%" >
+        <button pButton type="button" style="width: 100%" (click)="volver()" label="Atrás"></button>
+
+      </div>
+      <br>
+      <p-messages [(value)]="msgs"></p-messages>
+
+      <div class="ui-g" *ngIf="bajaItem!=null">
+        <form #form="ngForm" (ngSubmit)="form.valid && confirmar()" style="width: 100%" novalidate>
+
+          <p-fieldset legend="FICHA DE BAJA DE BIENES MUEBLES">
+            <div id="print-section">
+              
+
+              <div class="separadorInventario">
+                <h5>INFORMACION GENERAL</h5>
+                <div style="width: 100%;text-align: right">
+                  <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+                  <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+                </div>
+              </div>
+              <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin">
+
+               
+                <div class="ui-grid-row">
+                  <div class="ui-grid-col-2">
+                    Denominación del Bien *:
+                  </div>
+                  <div class="ui-grid-col-10">
+                    <input [readonly]="bajaItem.itembajaid!=null"  pInputText type="text" maxlength="150" name="direccion" [(ngModel)]="bajaItem.denominacion" required />
+                    <div class="ui-messages-error" *ngIf="form.submitted  && !form.form.controls.direccion?.valid">El campo Denominación del Bien es requerido</div>
+                    <div class="impresion">
+                      {{bajaItem.denominacion}}
+                    </div>
+                  </div>
+                  
+
+                </div>
+                <div class="ui-grid-row">
+                  <div class="ui-grid-col-2">
+                    Subtipo de activo:
+                  </div>
+                  <div class="ui-grid-col-10">
+                    <input [readonly]="bajaItem.itembajaid!=null" pInputText type="text" maxlength="150" name="direccion" [(ngModel)]="bajaItem.subtipo"  />                    
+                    <div class="impresion">
+                      {{bajaItem.subtipo}}
+                    </div>
+                  </div>
+                </div>
+                <div class="ui-grid-row">
+                  <div class="ui-grid-col-2">
+                    Procedencia:
+                  </div>
+                  <div class="ui-grid-col-10">
+                    <input [readonly]="bajaItem.itembajaid!=null" pInputText type="text" maxlength="150" name="direccion" [(ngModel)]="bajaItem.procedencia"  />                    
+                    <div class="impresion">
+                      {{bajaItem.subtipo}}
+                    </div>
+                  </div>
+                </div>
+                
+              </div>
+              <div  class="separadorInventario">
+                <h5>FOTOGRÁFIA</h5>
+                <div style="width: 100%;text-align: right">
+                  <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+                  <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+                </div>
+              </div>
+              <div  class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin">
+
+                <div class="ui-grid-row">
+                    <img  style="max-width: 100%" [src]="foto">
+                </div>
+              </div>
+              
+              <div  class="separadorInventario">
+                <h5>OBSERVACIONES</h5>
+                <div style="width: 100%;text-align: right">
+                  <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+                  <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+                </div>
+              </div>
+
+              <div  class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin">
+
+                <textarea [readonly]="bajaItem.itembajaid!=null" pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="550" name="observaciones" [(ngModel)]="bajaItem.observaciones" required></textarea>
+                <div class="ui-messages-error" *ngIf="form.submitted  && !form.form.controls.observaciones?.valid">El campo observaciones es requerido</div> 
+                <div class="impresion">
+                  {{bajaItem.justificacion}}
+                </div> 
+              </div>
+              
+
+              <div class="separadorInventario">
+                <h5>MOTIVO DE BAJA</h5>
+                <div style="width: 100%;text-align: right">
+                  <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+                  <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+                </div>
+              </div>
+              <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin">
+                
+                <div  class="ui-grid-row">
+                  <div class="ui-g ocultar">
+                    <div class="ui-g-3" *ngFor="let motivo of motivos">
+                      <p-checkbox name="estadobien" value="{{motivo.catalogoid}}" label="{{motivo.nombre}}" [(ngModel)]="motivosSeleccionados" [disabled]="bajaItem.itembajaid!=null"></p-checkbox>
+
+                    </div>
+                  </div>
+                  <div class="ui-g impresion" style="width: 100%">
+                    <div class="ui-g-3" *ngFor="let estado of motivosSeleccionados">
+
+                      <input  type="checkbox" style="display: initial !important" checked>{{diccionarioImpresion[estado]}}
+
+                    </div>
+
+                  </div>
+
+
+                </div>
+                <div class="ui-grid-row ui-messages-error" *ngIf="form.submitted  && motivosSeleccionados.length==0">El campo Motivo de Baja es requerido</div>  
+              
+               
+
+              </div>
+              
+              <div  class="separadorInventario">
+                <h5>JUSTIFICACIÓN</h5>
+                <div style="width: 100%;text-align: right">
+                  <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+                  <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+                </div>
+              </div>
+
+
+              <div  class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin">
+
+                <textarea [readonly]="bajaItem.itembajaid!=null" pInputTextarea style="resize: none; width: 100%" rows="14" maxlength="2999" name="justificacion" [(ngModel)]="bajaItem.justificacion" required></textarea>
+                <div class="ui-messages-error" *ngIf="form.submitted  && !form.form.controls.justificacion?.valid">El campo Justificación es requerido</div>  
+                <div class="impresion">
+                  {{bajaItem.justificacion}}
+                </div>
+
+              </div>
+
+              <div class="separadorInventario">
+                <h5>DATOS DE CONTROL INVENTARIO</h5>
+                <div style="width: 100%;text-align: right">
+                  <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+                  <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+                </div>
+              </div>
+
+              <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin">
+
+                <div class="ui-grid-row">
+                  <div class="ui-grid-col-2">
+                    Entidad investigadora *:
+                  </div>
+                  <div class="ui-grid-col-10">
+                    <input [readonly]="bajaItem.itembajaid!=null" pInputText type="text" maxlength="150" [(ngModel)]="bajaItem.entidadinvestigadora" name="entidadinvestigadora"
+                      required />
+                      <div class="ui-messages-error" *ngIf="form.submitted  && !form.form.controls.entidadinvestigadora?.valid">El campo Entidad investigadora es requerido</div>  
+                    <div class="impresion">
+                      {{bajaItem.entidadinvestigadora}}
+                    </div>
+                  </div>
+                  
+                </div>
+                <div class="ui-grid-row">
+                  <div class="ui-grid-col-2">
+                    Ejecutado Por *:
+                  </div>
+                  <div class="ui-grid-col-4">
+                    
+                    <input [readonly]="bajaItem.itembajaid!=null" pInputText type="text" maxlength="150" [(ngModel)]="bajaItem.ejecutadopor" name="ejecutadopor" required />
+                    <div class="ui-messages-error" *ngIf="form.submitted  && !form.form.controls.ejecutadopor?.valid">El campo Ejecutado Por es requerido</div>  
+                    <div class="impresion">
+                      {{bajaItem.ejecutadopor}}
+                    </div>
+                  </div>
+                  <div class="ui-grid-col-2">
+                    Fecha *:
+                  </div>
+                  <div class="ui-grid-col-4">
+                    <p-calendar name="fecha" [locale]="es" [(ngModel)]="bajaItem.fecha" [showIcon]="true" required></p-calendar>
+                    <div class="ui-messages-error" *ngIf="form.submitted  && !form.form.controls.fecha?.valid">El campo Fecha  es requerido</div>  
+                    <div class="impresion">
+                      {{bajaItem.fecha | date: properties.formatoFecha}}
+                    </div>
+                  </div>
+                </div>
+                <div class="ui-grid-row">
+                  <div class="ui-grid-col-2">
+                    Custodio *:
+                  </div>
+                  <div class="ui-grid-col-10">
+                    <input [readonly]="bajaItem.itembajaid!=null" pInputText type="text" maxlength="150" [(ngModel)]="bajaItem.custodio" name="custodio"
+                      required />
+                      <div class="ui-messages-error" *ngIf="form.submitted  && !form.form.controls.custodio?.valid">El campo Custodio es requerido</div>  
+                    <div class="impresion">
+                      {{bajaItem.custodio}}
+                    </div>
+                  </div>
+                  
+                </div>
+                <div class="ui-grid-row">
+                  <div class="ui-grid-col-2">
+                    Aprobado Por *:
+                  </div>
+                  <div class="ui-grid-col-4">
+                    
+                    <input [readonly]="bajaItem.itembajaid!=null" pInputText type="text" maxlength="150" [(ngModel)]="bajaItem.aprobadopor" name="aprobadopor" required />
+                    <div class="ui-messages-error" *ngIf="form.submitted  && !form.form.controls.aprobadopor?.valid">El campo Ejecutado Por por es requerido</div>  
+                    <div class="impresion">
+                      {{bajaItem.aprobadopor}}
+                    </div>
+                  </div>
+                  <div class="ui-grid-col-2">
+                    Fecha Aprobación *:
+                  </div>
+                  <div class="ui-grid-col-4">
+                    <p-calendar name="fechaaprobacion" [locale]="es" [(ngModel)]="bajaItem.fechaaprobacion" [showIcon]="true" required></p-calendar>
+                    <div class="ui-messages-error" *ngIf="form.submitted  && !form.form.controls.fechaaprobacion?.valid">El campo Fecha Aprobación es requerido</div>  
+                    <div class="impresion">
+                      {{bajaItem.fechaaprobacion | date: properties.formatoFecha}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+              <div  class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin ocultar">
+                <div class="ui-grid-row">
+                  <div class="ui-grid-col-2"></div>
+                  <div class="ui-grid-col-3">
+                    <button *ngIf="bajaItem.itembajaid==null" pButton type="submit"  label="{{properties.guardar.label}}" icon="{{properties.guardar.icon}}"></button>
+                  </div>
+                  <div class="ui-grid-col-3">
+                    <button pButton type="button" (click)="volver()" label="{{properties.cancelar.label}}" icon="{{properties.cancelar.icon}}"
+                      class="ui-button-secondary"></button>
+
+                  </div>
+                  <div class="ui-grid-col-3">
+                    <button pButton type="button" (click)="print()" label="{{properties.imprimir.label}}" icon="{{properties.imprimir.icon}}"
+                      class="ui-button-secondary"></button>
+                  </div>
+                  <div class="ui-grid-col-1"></div>
+                </div>
+              </div>
+            </div>
+          </p-fieldset>
+        </form>
+      </div>
+    </app-card>
+  </div>
+</div>
+
+<p-confirmDialog key="confirmarNotificacion" width="425" #cdNotificar>
+  <p-footer>
+    <!-- <td align="center" class="buttonAction"> -->
+    <button type="button" id="aceptarEliminarBtn" pButton icon="{{properties.guardar.icon}}" label="Aceptar" (click)="guardar();cdNotificar.reject()"></button>
+    <button type="button" id="cancelarEliminarBtn" pButton icon="{{properties.cancelar.icon}}" label="Cancelar" (click)="cdNotificar.reject()"></button>
+    <!-- </td> -->
+  </p-footer>
+</p-confirmDialog>

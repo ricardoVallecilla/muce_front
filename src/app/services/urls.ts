@@ -18,6 +18,8 @@ export class UrlServices {
     filtroTexto=this.filtrarItem+"/texto"
     piezaMuseable=this.proxy+"/piezaMuseable/"
     piezaMuseableByItem=this.piezaMuseable+"item/"
+    guardaritemBaja=this.item+"bajas"
+    itemBajaByItem=this.item+"bajas/"
     guardarPiezaMuseableDetalle=this.piezaMuseable+"detalle"
     subirFoto=this.piezaMuseable+"foto/tipo"
     guardarCatalogacion=this.piezaMuseable+"catalogacion"
