@@ -210,10 +210,10 @@ export class FormularioMovimientoComponent implements OnInit {
 
   buscar(first = 0, rows = this.properties.cantidadRegistros) {
     if( this.categoria!=null)
-    this._itemService.cantidadfiltrarItemsMovimientos(this.museo.museoid, this.constantes.tipoIngresoPrestamo, this.categoria.catalogoid)
+    this._itemService.cantidadfiltrarItemsMovimientos(this.museo.museoid, 0, this.categoria.catalogoid)
       .subscribe((cantidad: number) => {
         this.totalRecords = cantidad;
-        this._itemService.filtrarItemsMovimientos(this.museo.museoid, this.constantes.tipoIngresoPrestamo, this.categoria.catalogoid, first, rows)
+        this._itemService.filtrarItemsMovimientos(this.museo.museoid, 0, this.categoria.catalogoid, first, rows)
           .subscribe((items: any[]) => {
             this.items = items;
           }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }));

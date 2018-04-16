@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input , Output, EventEmitter, OnChanges, SimpleChange } from '@angular/core';
 import { Properties } from '../../properties'
 import { Constantes } from '../../constantes'
 import { CatalogoService } from '../../../services/catalogos/catalogos.service'
@@ -8,7 +8,7 @@ import { Message, ConfirmationService } from 'primeng/primeng';
   selector: 'usoAcademico',
   templateUrl: './usoAcademico.html'
 })
-export class UsoAcademicoComponent implements OnInit {
+export class UsoAcademicoComponent implements OnInit, OnChanges {
 
   properties = new Properties();
   constantes = new Constantes();
@@ -18,7 +18,9 @@ export class UsoAcademicoComponent implements OnInit {
   
   @Input() piezaMuseable = null;
   @Input() item = null;
-
+  @Input() submitted=0;
+  @Output() validacionFormulario = new EventEmitter();
+  camposObligatorios=["usocuando","usodonde","usocomo","usofinalidad"]
   es = this.properties.es;
   paisItem = [{ label: this.properties.labelSeleccione, value: null }]
   constructor(
@@ -39,5 +41,27 @@ export class UsoAcademicoComponent implements OnInit {
       }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }),
       () => {
       });
+  }
+  ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
+
+    if(changes.submitted!=undefined){
+      console.log(this.submitted);
+      if(this.submitted>0){
+        let valido=1
+        this.camposObligatorios.forEach(x => {
+          if (this.piezaMuseable[x]==null||this.piezaMuseable[x]==""){
+            valido=valido*0
+          }
+        });
+        
+        if (valido==1){
+          this.validacionFormulario.emit({indentificador:2,tab:"USO ACADÉMICO Y/O CIENTÍFICO DEL BIEN",valido:true})
+        }else{
+          this.validacionFormulario.emit({indentificador:2,tab:"USO ACADÉMICO Y/O CIENTÍFICO DEL BIEN",valido:false})
+        }
+      }
+      
+    }
+
   }
 }

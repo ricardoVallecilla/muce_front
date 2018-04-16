@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input , Output, EventEmitter, OnChanges, SimpleChange} from '@angular/core';
 import { Properties } from '../../../properties'
 import { Constantes } from '../../../constantes'
 import { CatalogoService } from '../../../../services/catalogos/catalogos.service'
@@ -26,6 +26,9 @@ export class Seccion2InstrumentalComponent implements OnInit {
   fotoplano;
   fotoinstructivo;
   paisItem = [{ label: this.properties.labelSeleccione, value: null }]
+  @Input() submitted=0;
+  @Output() validacionFormulario = new EventEmitter();
+  camposObligatorios=["historiafabricante","social","inventor"]
   constructor(
     private domSanitizer: DomSanitizer,
     private _itemService: ItemService,
@@ -40,7 +43,28 @@ export class Seccion2InstrumentalComponent implements OnInit {
       this.descargarFoto(8);
     }
   }
+  ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
 
+    if(changes.submitted!=undefined){
+      console.log(this.submitted);
+      if(this.submitted>0){
+        let valido=1
+        this.camposObligatorios.forEach(x => {
+          if (this.detalle[x]==null || this.detalle[x]==""){
+            valido=valido*0
+          }
+        });
+         
+        if (valido==1){
+          this.validacionFormulario.emit({indentificador:4,tab:"REGISTRO GRÁFICOS PUBLICADOS",valido:true})
+        }else{
+          this.validacionFormulario.emit({indentificador:4,tab:"REGISTRO GRÁFICOS PUBLICADOS",valido:false})
+        }
+      }
+      
+    }
+
+  }
   cargarCatalogos() {
     this._catalogoService.obtenerCatalogosHijosPorPadres([this.constantes.paises])
       .subscribe((catalogos: any[]) => {

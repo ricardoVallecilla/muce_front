@@ -32,6 +32,7 @@ export class ItemComponent implements OnInit {
   item: Item = null;
   detallePiezaMuseable = false;
   catalogacion = false;
+  baja=false
   museo = null;
   es = this.properties.es;
   verPopUp = false;
@@ -76,6 +77,7 @@ export class ItemComponent implements OnInit {
     this._museoServices.obtenerMuseosbyId(1)
       .subscribe((museo: any) => {
         this.museo = museo;
+console.log(this.museo);
 
       }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }));
   }
@@ -211,15 +213,25 @@ export class ItemComponent implements OnInit {
     this.item = item;
     this.detallePiezaMuseable = true
     this.catalogacion = false;
+    this.baja=false;
   }
   verCatalogacion(item) {
     this.item = item;
     this.detallePiezaMuseable = false
     this.catalogacion = true;
+    this.baja=false;
+  }
+  verFormBaja(item) {
+    this.item = item;
+    this.detallePiezaMuseable = false
+    this.catalogacion = false;
+    this.baja=true;
+
   }
   obtenerDatoHijo(event) {
     this.detallePiezaMuseable = false
     this.catalogacion = false;
+    this.baja=false;
     if (event) {
       this.msgs = [];
       this.msgs.push({ severity: 'success', summary: 'Éxito', detail: 'Item Actualizado.' });

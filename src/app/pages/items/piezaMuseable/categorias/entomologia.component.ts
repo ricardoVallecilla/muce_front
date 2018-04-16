@@ -1,4 +1,4 @@
-import { Component, OnInit, Input ,Output,EventEmitter} from '@angular/core';
+import { Component, OnInit, Input ,Output,EventEmitter, OnChanges, SimpleChange} from '@angular/core';
 import { Properties } from '../../../properties'
 import { Constantes } from '../../../constantes'
 import { CatalogoService } from '../../../../services/catalogos/catalogos.service'
@@ -8,7 +8,7 @@ import { Message, ConfirmationService } from 'primeng/primeng';
   selector: 'entomologia',
   templateUrl: './entomologia.html'
 })
-export class EntomologiaComponent implements OnInit {
+export class EntomologiaComponent implements OnInit, OnChanges {
 
   properties = new Properties();
   constantes = new Constantes();
@@ -20,6 +20,9 @@ export class EntomologiaComponent implements OnInit {
   @Input() item = null;
   @Input() tecnicaConservacionSelecionados=[]
   @Output() enviadorCondicion = new EventEmitter();
+  @Input() submitted = 0;
+  @Output() validacionFormulario = new EventEmitter();
+  camposObligatorios=["descripcion","nombrecientifico","nombrecomun"]
   tecnicasItem=[]
   es = this.properties.es;
   diccionarioImpresion={}
@@ -27,11 +30,35 @@ export class EntomologiaComponent implements OnInit {
     private _catalogoService: CatalogoService,
     ) {}
 
+    
     ngOnInit() {
    
       this.cargarCatalogos()
     }
+    ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
+
+      if(changes.submitted!=undefined){
+        console.log(this.submitted);
+        if(this.submitted>0){
+          let valido=1
+          this.camposObligatorios.forEach(x => {
+            if (this.detalle[x]==null || this.detalle[x]==""){
+              valido=valido*0
+            }
+          });
+          if (this.tecnicaConservacionSelecionados.length==0){
+            valido=valido*0
+          }
+          if (valido==1){
+            this.validacionFormulario.emit(true)
+          }else{
+            this.validacionFormulario.emit(false)
+          }
+        }
+        
+      }
   
+    }
     impr() {
       this.enviadorCondicion.emit(this.tecnicaConservacionSelecionados);
  

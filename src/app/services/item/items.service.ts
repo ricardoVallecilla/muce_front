@@ -83,6 +83,13 @@ export class ItemService {
     piezaMuseableByItem(itemid): Observable<any> {
         return this._generalServices.getResources("get", this.url.piezaMuseableByItem + itemid)
     }
+    itemBajaByItem(itemid): Observable<any> {
+        return this._generalServices.getResources("get", this.url.itemBajaByItem + itemid)
+    }
+
+    guardaritemBaja(itembaja): Observable<any> {
+        return this._generalServices.getResources("post", this.url.guardaritemBaja, itembaja)
+    }
     estadosBien(piezaMuseableId): Observable<any> {
         return this._generalServices.getResources("get", this.url.estadosBien + piezaMuseableId)
     }

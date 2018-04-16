@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-sm-12" *ngIf="!detallePiezaMuseable && !catalogacion">
+  <div class="col-sm-12" *ngIf="!detallePiezaMuseable && !catalogacion && !baja">
     <app-card [title]="'Filtros'">
       <div class="ui-g">
         <div *ngIf="filtrarMuseos" class="ui-g-12 ui-md-12 ui-lg-1">Museo</div>
@@ -54,7 +54,7 @@
             <p-column field="numeroserie" header="Número de Serie" [sortable]="true"></p-column>
             <!-- <p-column field="tipoingreso.nombre" header="Tipo de Ingreso"  [sortable]="true" ></p-column> -->
             <p-column field="estadoid.nombre" header="Estado" [sortable]="true"></p-column>
-            <p-column header="Opciones" [style]="{'width':'135px','text-align':'center'}">
+            <p-column header="Opciones" [style]="{'width':'205px','text-align':'center'}">
               <ng-template let-item="rowData" pTemplate="body">
                 <button type="button" class="buttonAction" pButton (click)="editarItem(item)" icon="{{properties.iconEditar}}" title="Editar"></button>
                 <button type="button" class="buttonAction" *ngIf="item.grupoid.catalogoid==constantes.grupoCultural" pButton (click)="piezaMuseable(item)"
@@ -63,7 +63,9 @@
                   icon="fa-archive" title="Catalogacion"></button>
                 <button type="button" class="buttonAction" *ngIf="item.grupoid.catalogoid==constantes.grupoCultural" pButton (click)="verMovimientos(item)"
                   icon="fas fa-align-justify" title="Movimientos Pieza"></button>
-
+                <button type="button" class="buttonAction" *ngIf="item.grupoid.catalogoid==constantes.grupoCultural" pButton (click)="verFormBaja(item)"
+                  icon="fas fa fa-window-close" title="Baja"></button>
+                  
               </ng-template>
             </p-column>
           </p-dataTable>
@@ -85,12 +87,14 @@
               </div>
               <div class="ui-grid-col-4">
                 <input pInputText type="text" maxlength="150" name="codigocontrol" [(ngModel)]="item.codigocontrol" required />
+                <div class="ui-messages-error" *ngIf="form.submitted  && !form.form.controls.codigocontrol?.valid">El campo Código de Control es requerido</div>
               </div>
               <div class="ui-grid-col-2">
                 Nombre *:
               </div>
               <div class="ui-grid-col-4">
                 <input pInputText type="text" maxlength="150" name="nombre" [(ngModel)]="item.nombre" required />
+                <div class="ui-messages-error" *ngIf="form.submitted  && !form.form.controls.nombre?.valid">El campo Nombre es requerido</div>
               </div>
 
             </div>
@@ -102,6 +106,7 @@
               <div class="ui-grid-col-10">
                 <textarea pInputTextarea style="resize: none; width: 100%" rows="3" maxlength="550" name="descripcion" [(ngModel)]="item.descripcion"
                   required></textarea>
+                  <div class="ui-messages-error" *ngIf="form.submitted  && !form.form.controls.descripcion?.valid">El campo Descripción es requerido</div>
               </div>
 
             </div>
@@ -110,28 +115,30 @@
                 Marca:
               </div>
               <div class="ui-grid-col-4">
-                <input pInputText type="text" maxlength="150" name="marca" [(ngModel)]="item.marca" required />
+                <input pInputText type="text" maxlength="150" name="marca" [(ngModel)]="item.marca"  />
               </div>
               <div class="ui-grid-col-2">
                 Modelo:
               </div>
               <div class="ui-grid-col-4">
-                <input pInputText type="text" maxlength="150" name="modelo" [(ngModel)]="item.modelo" required />
+                <input pInputText type="text" maxlength="150" name="modelo" [(ngModel)]="item.modelo"  />
               </div>
 
             </div>
             <div class="ui-grid-row">
               <div class="ui-grid-col-2">
-                Número de Serie:
+                Número de Serie *:
               </div>
               <div class="ui-grid-col-4">
-                <input pInputText type="text" maxlength="150" name="numeroserie" [(ngModel)]="item.numeroserie" required />
+                <input pInputText type="text" maxlength="20" name="numeroserie" [(ngModel)]="item.numeroserie" required />
+                <div class="ui-messages-error" *ngIf="form.submitted  && !form.form.controls.numeroserie?.valid">El campo Número de Serie es requerido</div>
               </div>
               <div class="ui-grid-col-2">
                 Valor Costo Histórico:
               </div>
               <div class="ui-grid-col-4">
-                <input pInputText type="number" maxlength="150" name="valor" [(ngModel)]="item.valor" required />
+                <input pInputText type="number"  name="valor" [(ngModel)]="item.valor" required />
+                <div class="ui-messages-error" *ngIf="form.submitted  && !form.form.controls.valor?.valid">El campo Valor Costo Histórico es requerido</div>
               </div>
 
             </div>
@@ -140,13 +147,13 @@
                 Custodio Uno:
               </div>
               <div class="ui-grid-col-4">
-                <input pInputText type="text" maxlength="150" name="nombre" [(ngModel)]="item.nombre" required />
+                <div *ngIf="museo && museo.cutodioId">{{museo.cutodioId.nombres}}</div>
               </div>
               <div class="ui-grid-col-2">
                 Custodio Dos:
               </div>
               <div class="ui-grid-col-4">
-                <input pInputText type="text" maxlength="150" name="custodiodos" [(ngModel)]="item.custodiodos" required />
+                <input pInputText type="text" maxlength="150" name="custodiodos" [(ngModel)]="item.custodiodos"  />
               </div>
 
             </div>
@@ -157,6 +164,7 @@
               <div class="ui-grid-col-4">
 
                 <p-calendar name="fechaadquisicion" [locale]="es" [(ngModel)]="item.fechaadquisicion" [showIcon]="true" required></p-calendar>
+                <div class="ui-messages-error" *ngIf="form.submitted  && !form.form.controls.fechaadquisicion?.valid">El campo Fecha de Adquisición es requerido</div>
 
               </div>
               <div class="ui-grid-col-2">
@@ -164,6 +172,7 @@
               </div>
               <div class="ui-grid-col-4">
                 <input pInputText type="text" maxlength="150" name="procedencia" [(ngModel)]="item.procedencia" required />
+                <div class="ui-messages-error" *ngIf="form.submitted  && !form.form.controls.procedencia?.valid">El campo Procedencia es requerido</div>
               </div>
 
             </div>
@@ -171,15 +180,11 @@
               <div class="ui-grid-col-2">
                 Tipo de Ingreso *:
               </div>
-              <div class="ui-grid-col-4">
+              <div class="ui-grid-col-10">
                 <p-dropdown [options]="tipoItem" name="tipoItem" [(ngModel)]="item.tipoingreso" required></p-dropdown>
+                <div class="ui-messages-error" *ngIf="form.submitted  && item.tipoingreso==null">El campo Tipo de Ingreso es requerido</div>
               </div>
-              <div class="ui-grid-col-2">
-                Número de Traspaso:
-              </div>
-              <div class="ui-grid-col-4">
-                <input pInputText type="number" maxlength="150" name="nombre" />
-              </div>
+              
 
             </div>
             <div class="ui-grid-row">
@@ -188,12 +193,14 @@
               </div>
               <div class="ui-grid-col-4">
                 <p-calendar name="fechaingreso" [locale]="es" [(ngModel)]="item.fechaingreso" [showIcon]="true" required></p-calendar>
+                <div class="ui-messages-error" *ngIf="form.submitted  && !form.form.controls.fechaingreso?.valid">El campo Nombre es requerido</div>
               </div>
               <div class="ui-grid-col-2">
                 Tipo de Documento:
               </div>
               <div class="ui-grid-col-4">
-                <input pInputText type="text" maxlength="150" name="tipodocumento" [(ngModel)]="item.tipodocumento" required />
+                <input pInputText type="text" maxlength="150" name="tipodocumento" [(ngModel)]="item.tipodocumento" />
+                
               </div>
 
             </div>
@@ -202,7 +209,8 @@
                 Restaurado *:
               </div>
               <div class="ui-grid-col-4">
-                <p-inputSwitch [(ngModel)]="item.restaurado" onLabel="Si" offLabel="No" name="restaurado" required></p-inputSwitch>
+                <p-inputSwitch [(ngModel)]="item.restaurado" onLabel="Si" offLabel="No" name="restaurado" ></p-inputSwitch>
+                
               </div>
               <div class="ui-grid-col-2">
                 Fecha de Restaurado:
@@ -210,6 +218,7 @@
               <div class="ui-grid-col-4">
                 <p-calendar [disabled]="item.restaurado==false" name="fecharestaurado" [locale]="es" [(ngModel)]="item.fecharestaurado" [showIcon]="true"
                   required></p-calendar>
+                  <div class="ui-messages-error" *ngIf="form.submitted  && !form.form.controls.fecharestaurado?.valid && item.restaurado==true">El campo Fecha de Restaurado es requerido</div>
               </div>
 
             </div>
@@ -221,6 +230,7 @@
               <div class="ui-grid-col-10">
                 <textarea pInputTextarea style="resize: none; width: 100%" rows="3" maxlength="550" name="detalles" [(ngModel)]="item.detalles"
                   required></textarea>
+                  <div class="ui-messages-error" *ngIf="form.submitted  && !form.form.controls.detalles?.valid">El campo Detalles es requerido</div>
               </div>
 
             </div>
@@ -228,7 +238,7 @@
             <div class="ui-grid-row">
               <div class="ui-grid-col-2"></div>
               <div class="ui-grid-col-3">
-                <button pButton type="submit" label="{{properties.guardar.label}}" icon="{{properties.guardar.icon}}" [disabled]="!form.valid"></button>
+                <button pButton type="submit" label="{{properties.guardar.label}}" icon="{{properties.guardar.icon}}" ></button>
               </div>
               <div class="ui-grid-col-3">
                 <button pButton type="button" (click)="volver()" label="{{properties.cancelar.label}}" icon="{{properties.cancelar.icon}}"
@@ -250,6 +260,9 @@
   </div>
   <div class="col-sm-12" *ngIf="catalogacion">
     <catalogacion (enviadorCondicion)="obtenerDatoHijo($event)" [item]="item"></catalogacion>
+  </div>
+  <div class="col-sm-12" *ngIf="baja">
+    <bajas (enviadorCondicion)="obtenerDatoHijo($event)" [item]="item"></bajas>
   </div>
 </div>
 

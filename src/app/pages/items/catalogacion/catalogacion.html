@@ -6,14 +6,18 @@
 
             </div>
             <br>
-            <p-messages [(value)]="msgs"></p-messages>
-
+            
+            
             <p-tabView [ngSwitch]="item.categoriaid.catalogoid">
+                    <p-growl [(value)]="msgs" life="1500" baseZIndex="2"></p-growl>
                 <p-tabPanel header="Ficha Inventario">
-                    <piezaMuseable *ngIf="piezaMuseable!=null" [esCatalogacion]="true" [item]="item" [detalle]="detalle" [piezaMuseable]="piezaMuseable" (enviadorCatalogos)="obtenerCatalogos($event)"></piezaMuseable>
+                    <piezaMuseable *ngIf="piezaMuseable!=null" [esCatalogacion]="true" [item]="item" [detalle]="detalle" 
+                    [piezaMuseable]="piezaMuseable" (enviadorCatalogos)="obtenerCatalogos($event)" [submitted]="submitted"
+                    (validacionFormulario)="validarGuardar($event)"
+                    ></piezaMuseable>
                 </p-tabPanel>
                 <p-tabPanel header="FORMA Y DISEÑO DEL BIEN ARQUEOLÓGICO" *ngSwitchCase="constantes.arqueologia">
-                    <arqueologia-seccion2 [detalle]="detalle"></arqueologia-seccion2>
+                    <arqueologia-seccion2 [detalle]="detalle" (validacionFormulario)="validarTabs($event)" [submitted]="submitted"></arqueologia-seccion2>
                 </p-tabPanel>
                 <p-tabPanel header="REGISTRO FOTOGRÁFICO" *ngIf="piezaMuseable!=null">
                     <div class="separadorInventario">
@@ -80,25 +84,27 @@
                     <arqueologia-seccion3 [detalle]="detalle"></arqueologia-seccion3>
                 </p-tabPanel>
                 <p-tabPanel header="PROCESOS DE LOCALIZACIÓN DEL ESPÉCIMEN" *ngSwitchCase="constantes.entomologia">
-                    <entomologia-seccion2 *ngIf="detalle!=null" [detalle]="detalle"></entomologia-seccion2>
+                    <entomologia-seccion2 *ngIf="detalle!=null" [detalle]="detalle" (validacionFormulario)="validarTabs($event)" [submitted]="submitted"></entomologia-seccion2>
                 </p-tabPanel>
                 <p-tabPanel header="REGISTRO FOTOGRÁFICO DEL ECOSISTEMA" *ngSwitchCase="constantes.entomologia">
                     <entomologia-seccion3 *ngIf="detalle!=null" [detalle]="detalle"></entomologia-seccion3>
                 </p-tabPanel>
                 <p-tabPanel header="REGISTRO GRÁFICOS PUBLICADOS" *ngSwitchCase="constantes.instrumental">
-                    <instrumental-seccion2 *ngIf="detalle!=null" [detalle]="detalle"></instrumental-seccion2>
+                    <instrumental-seccion2 *ngIf="detalle!=null" [detalle]="detalle" (validacionFormulario)="validarTabs($event)" [submitted]="submitted"></instrumental-seccion2>
                 </p-tabPanel>
                 
                 <p-tabPanel header="USO ACADÉMICO Y/O CIENTÍFICO DEL BIEN">
-                    <usoAcademico *ngIf="piezaMuseable!=null" [piezaMuseable]="piezaMuseable"></usoAcademico>
+                    <usoAcademico *ngIf="piezaMuseable!=null" [piezaMuseable]="piezaMuseable" (validacionFormulario)="validarTabs($event)" [submitted]="submitted"></usoAcademico>
                 </p-tabPanel>
 
             </p-tabView>
             <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin" >
                 <div class="ui-grid-row">
-                    <div class="ui-grid-col-2"></div>
+                    <div class="ui-grid-col-2">
+                        <button pButton type="button" *ngIf="piezaMuseable!=null && detalle!=null" (click)="validar()" label="{{properties.validar.label}}" icon="{{properties.validar.icon}}"></button>
+                    </div>
                     <div class="ui-grid-col-3">
-                        <button pButton type="button" *ngIf="piezaMuseable!=null && detalle!=null" (click)="guardar()" label="{{properties.guardar.label}}" icon="{{properties.guardar.icon}}"></button>
+                        <button pButton type="button" *ngIf="piezaMuseable!=null && detalle!=null"  (click)="guardar()" label="{{properties.guardar.label}}" icon="{{properties.guardar.icon}}"></button>
                     </div>
                     <div class="ui-grid-col-3">
                         <button pButton type="button" (click)="volver()" label="{{properties.cancelar.label}}" icon="{{properties.cancelar.icon}}"

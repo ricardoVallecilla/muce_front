@@ -19,7 +19,7 @@
 
     </div>
     <div class="ui-grid-row">
-        <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="550" name="detalles" [(ngModel)]="detalle.datosregistros"></textarea>
+        <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="2900" name="detalles" [(ngModel)]="detalle.datosregistros"></textarea>
     </div>
 
 </div>
@@ -111,13 +111,15 @@
         Contexto social:
     </div>
     <div class="ui-grid-row">
-        <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="550" name="detalles" [(ngModel)]="detalle.social"></textarea>
+        <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="2900" name="detalles" [(ngModel)]="detalle.social" #social="ngModel" required></textarea>
+        <div class="ui-messages-error" *ngIf="submitted>0  && social.invalid">El campo Contexto social es requerido</div>   
     </div>
     <div class="ui-grid-row">
         Biografía del inventor:
     </div>
     <div class="ui-grid-row">
-        <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="550" name="detalles" [(ngModel)]="detalle.inventor"></textarea>
+        <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="2900" name="detalles" [(ngModel)]="detalle.inventor" #inventor="ngModel" required></textarea>
+        <div class="ui-messages-error" *ngIf="submitted>0  && inventor.invalid">El campo Biografía del inventor es requerido</div>   
     </div>
     
 </div>
@@ -134,7 +136,8 @@
         Historia del fabricante:
     </div>
     <div class="ui-grid-row">
-        <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="550" name="detalles" [(ngModel)]="detalle.historiafabricante"></textarea>
+        <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="2900" name="detalles" [(ngModel)]="detalle.historiafabricante" #historiafabricante="ngModel" required></textarea>
+        <div class="ui-messages-error" *ngIf="submitted>0  && historiafabricante.invalid">El campo Historia del fabricante es requerido</div>   
     </div>
    
     

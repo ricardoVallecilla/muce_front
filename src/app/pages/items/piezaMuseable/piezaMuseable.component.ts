@@ -51,6 +51,7 @@ export class PiezaMuseableComponent implements OnInit {
   cantonItem = [{ label: this.properties.labelSeleccione, value: null }]
   estadoConservacion = null;
   integridadPieza = null;
+  @Input() submitted = 0;
   materialesSelecionados = []
   tecnicaConservacionSelecionados = []
   tecnicaConservacionBotanicaSelecionados = [];
@@ -60,7 +61,11 @@ export class PiezaMuseableComponent implements OnInit {
   @Output() enviadorCondicion = new EventEmitter();
   @Output() enviadorCatalogos = new EventEmitter();
   @Input() esCatalogacion = false;
+  formularioValido = false;
   diccionarioImpresion = {}
+  @Output() validacionFormulario = new EventEmitter();
+  camposObligatorios=["provinciaid","cantonid","ciudadid","contenedor","direccion","numero","telefono","entidadinvestigadora","inventariadopor","fechainventario", "revisadopor"
+  ,"fecharevision","aprobadopor","fechaaprobacion","registrofotograficopor",  "disposicioncontenedor","estadointegridad","estadoconservacionid"]
   constructor(
     private domSanitizer: DomSanitizer,
     private _catalogoService: CatalogoService,
@@ -287,11 +292,11 @@ export class PiezaMuseableComponent implements OnInit {
   setearEstadoConservacion() {
 
     this.piezaMuseable.estadoconservacionid = this.estadoConservacionItem.find(x => x.catalogoid == this.estadoConservacion)
-    
+
   }
   setearIntegridadPieza() {
     this.piezaMuseable.estadointegridad = this.integridadPiezaItem.find(x => x.catalogoid == this.integridadPieza)
-   
+
   }
   cargarEstadoBien() {
     let padreId;
@@ -404,10 +409,14 @@ export class PiezaMuseableComponent implements OnInit {
         });
   }
   nuevo() {
+    this.submitted = 0;
     this.msgs = [];
     this.acciones = this.properties.labelNuevo + " Item"
     this.bandera = 1;
     this.item = new Item();
+  }
+  subtmit() {
+    this.submitted += 1;
   }
 
   obtenerCategorias(event) {
@@ -496,7 +505,7 @@ export class PiezaMuseableComponent implements OnInit {
 
 
   fileChangeEvent(event) {
-   
+
     let e = event.srcElement ? event.srcElement : event.target;
     this.documento = (e.files);
 
@@ -506,7 +515,7 @@ export class PiezaMuseableComponent implements OnInit {
   }
   guardar() {
     this.msgs = [];
- 
+
     let piezaDetalle = new PiezaDetalle();
     let catalogosDetalle = null;
     let tipo;
@@ -597,7 +606,7 @@ export class PiezaMuseableComponent implements OnInit {
     this._itemService.guardarPiezaMuseableDetalle(tipo, piezaDetalle, this.documento, estadosBien, catalogosDetalle)
       .subscribe((piezas: any) => {
         this.enviadorCondicion.emit(true);
-      
+
 
       }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }),
         () => {
@@ -605,7 +614,7 @@ export class PiezaMuseableComponent implements OnInit {
 
   }
   estadoSeleccionado(vale) {
-    
+
     return true
   }
 
@@ -616,12 +625,34 @@ export class PiezaMuseableComponent implements OnInit {
     let innerContents2 = innerContents.replace('*:"', ':');
     popupWinindow = window.open('', '_blank', 'scrollbars=no,menubar=no,toolbar=no,location=no,status=no,titlebar=no');
     popupWinindow.document.open();
-    let tituloReporte="FICHA INVENTARIO "+this.item.categoriaid.nombre.toUpperCase();
+    let tituloReporte = "FICHA INVENTARIO " + this.item.categoriaid.nombre.toUpperCase();
     let estilosReporte = new EstilosReportes()
     popupWinindow.document.write('<html><head><style>' + estilosReporte.estilo + '</style></head><body onload="window.print();window.close()"> <div >'
-      + this.properties.cabezeraReporte(tituloReporte,this.item.numeroserie, this.item.codigocontrol)
+      + this.properties.cabezeraReporte(tituloReporte, this.item.numeroserie, this.item.codigocontrol)
       + innerContents2
       + '</div></html>');
     popupWinindow.document.close();
+  }
+
+  validarGuardar(formularioDetalleValido) {
+    
+    if(!this.esCatalogacion){
+      if (formularioDetalleValido == true && this.formularioValido == true && ((this.piezaMuseable.piezamuseableid == null && this.documento != null) || this.piezaMuseable.piezamuseableid != null))
+      this.guardar()
+    }else{
+      let formularioValido= 1;
+      this.camposObligatorios.forEach(x => {
+        if (this.piezaMuseable[x]==null || this.piezaMuseable[x]==""){
+          formularioValido=formularioValido*0
+        }
+      });
+      if(formularioDetalleValido == true && formularioValido == 1)
+        this.validacionFormulario.emit(true)
+      else
+      this.validacionFormulario.emit(false)
+    }
+    
+
+
   }
 }
