@@ -73,7 +73,7 @@ export class ItemComponent implements OnInit {
   }
 
   buscarMuseo() {
-    this._museoServices.obtenerMuseosbyId(this.museo.museoid)
+    this._museoServices.obtenerMuseosbyId(1)
       .subscribe((museo: any) => {
         this.museo = museo;
 

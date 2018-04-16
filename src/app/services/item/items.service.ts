@@ -137,6 +137,14 @@ export class ItemService {
                 return this._generalServices.getResources("get", this.url.optenerDetalleInstrumental + piezaMuseableId);
             case 3:
                 return this._generalServices.getResources("get", this.url.optenerDetalleEntomologia + piezaMuseableId);
+            case 5:
+                return this._generalServices.getResources("get", this.url.obtenerDetalleFotografica + piezaMuseableId);    
+            case 7:
+                return this._generalServices.getResources("get", this.url.obtenerDetalleGeologica + piezaMuseableId);
+            case 8:
+                return this._generalServices.getResources("get", this.url.obtenerDetallePaleontologica + piezaMuseableId);
+            case 9:
+                return this._generalServices.getResources("get", this.url.obtenerDetalleZoologica + piezaMuseableId);
         }
 
         // return this._generalServices.getResources("post", this.url.item, item)

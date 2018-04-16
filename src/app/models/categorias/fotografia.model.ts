@@ -6,7 +6,7 @@ export class FotografiaModel {
     tipologia
     procedimiento
     autor
-    sigloanos
+    sigloano
     fondo
     alto
     largo
