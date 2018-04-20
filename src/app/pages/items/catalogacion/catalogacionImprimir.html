@@ -1,0 +1,131 @@
+<div *ngIf="item!null" [ngSwitch]="item.categoriaid.catalogoid" id="impresionCatalogacion" style="background: white">
+        <button pButton type="button" style="width: 100%" (click)="print()" label="Imprimir"></button>
+    <div class="separadorInventario">
+        <h4>FICHA DE INVENTARIO </h4>
+        <div style="width: 100%;text-align: right">
+            <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+            <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+        </div>
+
+    </div>
+    <div header="Ficha Inventario">
+
+        <piezaMuseable *ngIf="piezaMuseable!=null" [esCatalogacion]="true" [item]="item" [detalle]="detalle" [piezaMuseable]="piezaMuseable"
+            (enviadorCatalogos)="obtenerCatalogos($event)" [submitted]="submitted" (validacionFormulario)="validarGuardar($event)"></piezaMuseable>
+    </div>
+
+    <ng-container *ngSwitchCase="constantes.arqueologia">
+        <div class="separadorInventario">
+            <h4>FORMA Y DISEÑO DEL BIEN ARQUEOLÓGICO </h4>
+            <div style="width: 100%;text-align: right">
+                <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+                <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+            </div>
+
+        </div>
+        <arqueologia-seccion2 [detalle]="detalle" (validacionFormulario)="validarTabs($event)" [submitted]="submitted"></arqueologia-seccion2>
+
+
+    </ng-container>
+
+    <div header="REGISTRO FOTOGRÁFICO" *ngIf="piezaMuseable!=null">
+        <div class="separadorInventario">
+            <h5>REGISTROS FOTOGRÁFICO</h5>
+            <div style="width: 100%;text-align: right">
+                <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+                <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+            </div>
+        </div>
+        <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin">
+
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-12">
+                    <img *ngIf="foto!=null" style="max-width: 100%" [src]="foto">
+                    <input name="file" type="file" id="adjuntar" accept="image/*" class="ui-g-12 ui-md-12 ui-lg-12 inputUpload" (change)="fileChangeEvent($event,1)"
+                        placeholder="Subir Archivo..." required />
+                </div>
+            </div>
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-12">
+                    <img *ngIf="fotodos!=null" style="max-width: 100%" [src]="fotodos">
+                    <input name="file" type="file" id="adjuntar" accept="image/*" class="ui-g-12 ui-md-12 ui-lg-12 inputUpload" (change)="fileChangeEvent($event,9)"
+                        placeholder="Subir Archivo..." required />
+                </div>
+            </div>
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-12">
+                    <img *ngIf="fototres!=null" style="max-width: 100%" [src]="fototres">
+                    <input name="file" type="file" id="adjuntar" accept="image/*" class="ui-g-12 ui-md-12 ui-lg-12 inputUpload" (change)="fileChangeEvent($event,10)"
+                        placeholder="Subir Archivo..." required />
+                </div>
+            </div>
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-12">
+                    <img *ngIf="fotocuatro!=null" style="max-width: 100%" [src]="fotocuatro">
+                    <input name="file" type="file" id="adjuntar" accept="image/*" class="ui-g-12 ui-md-12 ui-lg-12 inputUpload" (change)="fileChangeEvent($event,11)"
+                        placeholder="Subir Archivo..." required />
+                </div>
+            </div>
+            <div class="ui-grid-row">
+                Fotógrafo:
+
+            </div>
+            <div class="ui-grid-row">
+                <input pInputText type="text" maxlength="150" name="fotografo" [(ngModel)]="piezaMuseable.fotografo" />
+                <div class="impresion">
+                        {{piezaMuseable.fotografo}}
+                      </div>
+            </div>
+            <div class="ui-grid-row">
+                Lugar y fecha de registro:
+            </div>
+            <div class="ui-grid-row">
+                <input pInputText type="text" maxlength="150" name="fotografo" [(ngModel)]="piezaMuseable.fotografialugar" />
+                <div class="impresion">
+                        {{piezaMuseable.fotografialugar}}
+                      </div>
+            </div>
+
+
+
+
+        </div>
+    </div>
+
+    <ng-container *ngSwitchCase="constantes.arqueologia">
+        <div class="separadorInventario">
+            <h4>INFORMACIÓN YACIMIENTO</h4>
+            <div style="width: 100%;text-align: right">
+                <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+                <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+            </div>
+
+        </div>
+        <yacimiento *ngIf="detalle!=null" [detalle]="detalle"></yacimiento>
+    </ng-container>
+    <ng-container *ngSwitchCase="constantes.arqueologia">
+        <div class="separadorInventario">
+            <h4>DATOS DE LA EXTRACCIÓN DEL BIEN ARQUEOLÓGICO</h4>
+            <div style="width: 100%;text-align: right">
+                <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+                <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+            </div>
+
+        </div>
+        <arqueologia-seccion3 [detalle]="detalle"></arqueologia-seccion3>
+    </ng-container>
+    <div header="PROCESOS DE LOCALIZACIÓN DEL ESPÉCIMEN" *ngSwitchCase="constantes.entomologia">
+        <entomologia-seccion2 *ngIf="detalle!=null" [detalle]="detalle" (validacionFormulario)="validarTabs($event)" [submitted]="submitted"></entomologia-seccion2>
+    </div>
+    <div header="REGISTRO FOTOGRÁFICO DEL ECOSISTEMA" *ngSwitchCase="constantes.entomologia">
+        <entomologia-seccion3 *ngIf="detalle!=null" [detalle]="detalle"></entomologia-seccion3>
+    </div>
+    <div header="REGISTRO GRÁFICOS PUBLICADOS" *ngSwitchCase="constantes.instrumental">
+        <instrumental-seccion2 *ngIf="detalle!=null" [detalle]="detalle" (validacionFormulario)="validarTabs($event)" [submitted]="submitted"></instrumental-seccion2>
+    </div>
+
+    <div header="USO ACADÉMICO Y/O CIENTÍFICO DEL BIEN">
+        <usoAcademico *ngIf="piezaMuseable!=null" [piezaMuseable]="piezaMuseable" (validacionFormulario)="validarTabs($event)" [submitted]="submitted"></usoAcademico>
+    </div>
+
+</div>

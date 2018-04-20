@@ -5,25 +5,34 @@
             <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
       </div>
 </div>
-<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin"  *ngIf="detalle!=null">
+<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin" *ngIf="detalle!=null">
 
       <div class="ui-grid-row">
             Metodología de recolección:
       </div>
       <div class="ui-grid-row">
             <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="2700" name="detalles" [(ngModel)]="detalle.metodologiarecoleccion"></textarea>
+            <div class="impresion">
+                  {{detalle.metodologiarecoleccion}}
+            </div>
       </div>
       <div class="ui-grid-row">
             Materiales utilizados:
       </div>
       <div class="ui-grid-row">
             <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="2700" name="detalles" [(ngModel)]="detalle.materialesutilizados"></textarea>
+            <div class="impresion">
+                  {{detalle.materialesutilizados}}
+            </div>
       </div>
       <div class="ui-grid-row">
             Permisos mediambientales:
       </div>
       <div class="ui-grid-row">
             <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="2700" name="detalles" [(ngModel)]="detalle.permisos"></textarea>
+            <div class="impresion">
+                  {{detalle.permisos}}
+            </div>
       </div>
 </div>
 <div class="separadorInventario">
@@ -33,33 +42,47 @@
             <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
       </div>
 </div>
-<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin"  *ngIf="detalle!=null">
+<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin" *ngIf="detalle!=null">
 
 
       <div class="ui-grid-row">
-                  Análisis geográfico *:
+            Análisis geográfico *:
       </div>
       <div class="ui-grid-row">
-            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="2700" name="detalles" [(ngModel)]="detalle.analisisgeografico"  #analisisgeografico="ngModel" required></textarea>
-            <div class="ui-messages-error" *ngIf="submitted>0  && analisisgeografico.invalid">El campo Análisis geográfico es requerido</div>   
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="2700" name="detalles" [(ngModel)]="detalle.analisisgeografico"
+                  #analisisgeografico="ngModel" required></textarea>
+            <div class="ui-messages-error" *ngIf="submitted>0  && analisisgeografico.invalid">El campo Análisis geográfico es requerido</div>
+            <div class="impresion">
+                  {{detalle.analisisgeografico}}
+            </div>
       </div>
       <div class="ui-grid-row">
-                  Tipo de ecosistema *:
+            Tipo de ecosistema *:
       </div>
       <div class="ui-grid-row">
-            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="2700" name="detalles" [(ngModel)]="detalle.tipoecosistema" #tipoecosistema="ngModel" required></textarea>
-            <div class="ui-messages-error" *ngIf="submitted>0  && tipoecosistema.invalid">El campo Tipo de ecosistema es requerido</div> 
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="2700" name="detalles" [(ngModel)]="detalle.tipoecosistema"
+                  #tipoecosistema="ngModel" required></textarea>
+            <div class="ui-messages-error" *ngIf="submitted>0  && tipoecosistema.invalid">El campo Tipo de ecosistema es requerido</div>
+            <div class="impresion">
+                  {{detalle.tipoecosistema}}
+            </div>
       </div>
       <div class="ui-grid-row">
-                  Comportamiento del espécimen en relación a su área geográfica:
+            Comportamiento del espécimen en relación a su área geográfica:
       </div>
       <div class="ui-grid-row">
             <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="2700" name="detalles" [(ngModel)]="detalle.comportamiento"></textarea>
+            <div class="impresion">
+                  {{detalle.comportamiento}}
+            </div>
       </div>
       <div class="ui-grid-row">
-                  Relación del espécimen con el clima:
+            Relación del espécimen con el clima:
       </div>
       <div class="ui-grid-row">
             <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="2700" name="detalles" [(ngModel)]="detalle.relacionclima"></textarea>
+            <div class="impresion">
+                  {{detalle.relacionclima}}
+            </div>
       </div>
 </div>

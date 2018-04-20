@@ -5,11 +5,11 @@
         <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
     </div>
 </div>
-<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin" >
+<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin">
 
     <div class="ui-grid-row">
         <div class="ui-grid-col-12">
-            <img *ngIf="fotoecosistema!=null"  style="width: 100%" [src]="fotoecosistema">
+            <img *ngIf="fotoecosistema!=null" style="width: 100%" [src]="fotoecosistema">
             <input name="file" type="file" accept="image/*" id="adjuntar" class="ui-g-12 ui-md-12 ui-lg-12 inputUpload" (change)="fileChangeEvent($event,4)"
                 placeholder="Subir Archivo..." required />
         </div>
@@ -20,62 +20,80 @@
     </div>
     <div class="ui-grid-row">
         <input pInputText type="text" maxlength="150" name="fotografo" [(ngModel)]="detalle.fotografoecosistema" required />
+        <div class="impresion">
+            {{detalle.fotografoecosistema}}
+        </div>
     </div>
     <div class="ui-grid-row">
         Lugar y fecha de registro:
     </div>
     <div class="ui-grid-row">
         <input pInputText type="text" maxlength="150" name="fotografo" [(ngModel)]="detalle.lugarecosistema" required />
+        <div class="impresion">
+            {{detalle.lugarecosistema}}
+        </div>
     </div>
 </div>
 <div class="separadorInventario">
-        <h5>CARTOGRAFÍAS DEL ECOSISTEMA</h5>
-        <div style="width: 100%;text-align: right">
-            <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
-            <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+    <h5>CARTOGRAFÍAS DEL ECOSISTEMA</h5>
+    <div style="width: 100%;text-align: right">
+        <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+        <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+    </div>
+</div>
+<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin">
+
+    <div class="ui-grid-row">
+        <div class="ui-grid-col-12">
+            <img *ngIf="fotocartografia!=null" style="width: 100%" [src]="fotocartografia">
+            <input name="file" type="file" accept="image/*" id="adjuntar" class="ui-g-12 ui-md-12 ui-lg-12 inputUpload" (change)="fileChangeEvent($event,5)"
+                placeholder="Subir Archivo..." required />
         </div>
     </div>
-    <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin" >
-    
-        <div class="ui-grid-row">
-            <div class="ui-grid-col-12">
-                <img *ngIf="fotocartografia!=null"  style="width: 100%" [src]="fotocartografia">
-                <input name="file" type="file"  accept="image/*" id="adjuntar" class="ui-g-12 ui-md-12 ui-lg-12 inputUpload" (change)="fileChangeEvent($event,5)"
-                    placeholder="Subir Archivo..." required />
-            </div>
-        </div>
-        <div class="ui-grid-row">
-                Responsable:
-    
-        </div>
-        <div class="ui-grid-row">
-            <input pInputText type="text" maxlength="150" name="fotografo" [(ngModel)]="detalle.fotografocartografia" required />
-        </div>
-        <div class="ui-grid-row">
-                Fuente:
-    
-        </div>
-        <div class="ui-grid-row">
-            <input pInputText type="text" maxlength="150" name="fotografo" [(ngModel)]="detalle.fuentecartografia" required />
-        </div>
-        <div class="ui-grid-row">
-                Escala:
-    
-        </div>
-        <div class="ui-grid-row">
-            <input pInputText type="text" maxlength="150" name="fotografo" [(ngModel)]="detalle.escalacartografia" required />
-        </div>
-        <div class="ui-grid-row">
-            Lugar y fecha de registro:
-        </div>
-        <div class="ui-grid-row">
-            <input pInputText type="text" maxlength="150" name="fotografo" [(ngModel)]="detalle.lugarcartografia" required />
-        </div>
-    
-    
-    
-    
+    <div class="ui-grid-row">
+        Responsable:
+
     </div>
+    <div class="ui-grid-row">
+        <input pInputText type="text" maxlength="150" name="fotografo" [(ngModel)]="detalle.fotografocartografia" required />
+        <div class="impresion">
+            {{detalle.fotografocartografia}}
+        </div>
+    </div>
+    <div class="ui-grid-row">
+        Fuente:
+
+    </div>
+    <div class="ui-grid-row">
+        <input pInputText type="text" maxlength="150" name="fotografo" [(ngModel)]="detalle.fuentecartografia" required />
+        <div class="impresion">
+            {{detalle.fuentecartografia}}
+        </div>
+    </div>
+    <div class="ui-grid-row">
+        Escala:
+
+    </div>
+    <div class="ui-grid-row">
+        <input pInputText type="text" maxlength="150" name="fotografo" [(ngModel)]="detalle.escalacartografia" required />
+        <div class="impresion">
+            {{detalle.escalacartografia}}
+        </div>
+    </div>
+    <div class="ui-grid-row">
+        Lugar y fecha de registro:
+    </div>
+    <div class="ui-grid-row">
+        <input pInputText type="text" maxlength="150" name="fotografo" [(ngModel)]="detalle.lugarcartografia" required />
+        <div class="impresion">
+            {{detalle.lugarcartografia}}
+        </div>
+    </div>
+
+
+
+
+</div>
 
 <div class="separadorInventario">
     <h5>CONTEXTO SOCIAL DEL ESPÉCIMEN</h5>
@@ -84,31 +102,43 @@
         <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
     </div>
 </div>
-<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin"  *ngIf="detalle!=null">
+<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin" *ngIf="detalle!=null">
 
     <div class="ui-grid-row">
         Creencias relacionadas con el espécimen:
     </div>
     <div class="ui-grid-row">
         <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="2700" name="detalles" [(ngModel)]="detalle.creencias"></textarea>
+        <div class="impresion">
+            {{detalle.creencias}}
+        </div>
     </div>
     <div class="ui-grid-row">
         Rituales asociados al espécimen:
     </div>
     <div class="ui-grid-row">
         <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="2700" name="detalles" [(ngModel)]="detalle.rituales"></textarea>
+        <div class="impresion">
+            {{detalle.rituales}}
+        </div>
     </div>
     <div class="ui-grid-row">
         Semiótica asociada al espécimen:
     </div>
     <div class="ui-grid-row">
         <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="2700" name="detalles" [(ngModel)]="detalle.semiotica"></textarea>
+        <div class="impresion">
+            {{detalle.semiotica}}
+        </div>
     </div>
     <div class="ui-grid-row">
         Gastronomía asociada al espécimen:
     </div>
     <div class="ui-grid-row">
         <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="2700" name="detalles" [(ngModel)]="detalle.gastronomia"></textarea>
+        <div class="impresion">
+            {{detalle.gastronomia}}
+        </div>
     </div>
 
 </div>

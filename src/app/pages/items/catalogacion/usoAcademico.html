@@ -1,26 +1,34 @@
 <div class="separadorInventario">
     <h5>USO ACADÉMICO Y/O CIENTÍFICO DEL BIEN</h5>
-    <div style="width: 100%;text-align: right"> 
-            <button pButton type="button"  icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);" ></button>
-            <button pButton type="button"  icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0" ></button>
-          </div>
+    <div style="width: 100%;text-align: right">
+        <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+        <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+    </div>
 </div>
 
-<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin"  *ngIf="piezaMuseable!=null">
+<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin" *ngIf="piezaMuseable!=null">
 
     <div class="ui-grid-row">
         ¿Cuándo de utiliza? *:
     </div>
     <div class="ui-grid-row">
-        <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="usocuando" [(ngModel)]="piezaMuseable.usocuando" #usocuando="ngModel" required></textarea>
-        <div class="ui-messages-error" *ngIf="submitted>0  && usocuando.invalid">El campo ¿Cuándo de utiliza? es requerido</div>   
+        <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="usocuando" [(ngModel)]="piezaMuseable.usocuando"
+            #usocuando="ngModel" required></textarea>
+        <div class="ui-messages-error" *ngIf="submitted>0  && usocuando.invalid">El campo ¿Cuándo de utiliza? es requerido</div>
+        <div class="impresion">
+            {{piezaMuseable.usocuando}}
+        </div>
     </div>
     <div class="ui-grid-row">
         ¿Dónde se utiliza? *:
     </div>
     <div class="ui-grid-row">
-        <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="usodonde" [(ngModel)]="piezaMuseable.usodonde" #usodonde="ngModel" required></textarea>
-        <div class="ui-messages-error" *ngIf="submitted>0  && usodonde.invalid">El campo ¿Dónde se utiliza? es requerido</div>   
+        <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="usodonde" [(ngModel)]="piezaMuseable.usodonde"
+            #usodonde="ngModel" required></textarea>
+        <div class="ui-messages-error" *ngIf="submitted>0  && usodonde.invalid">El campo ¿Dónde se utiliza? es requerido</div>
+        <div class="impresion">
+            {{piezaMuseable.usodonde}}
+        </div>
     </div>
 
     <div class="ui-grid-row">
@@ -28,15 +36,23 @@
 
     </div>
     <div class="ui-grid-row">
-            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="usocomo" [(ngModel)]="piezaMuseable.usocomo" #usocomo="ngModel" required></textarea>
-            <div class="ui-messages-error" *ngIf="submitted>0  && usocomo.invalid">El campo ¿Cómo se utiliza? es requerido</div>   
+        <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="usocomo" [(ngModel)]="piezaMuseable.usocomo"
+            #usocomo="ngModel" required></textarea>
+        <div class="ui-messages-error" *ngIf="submitted>0  && usocomo.invalid">El campo ¿Cómo se utiliza? es requerido</div>
+        <div class="impresion">
+            {{piezaMuseable.usocomo}}
+        </div>
     </div>
     <div class="ui-grid-row">
         Finalidad de uso *:
     </div>
     <div class="ui-grid-row">
-            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="usofinalidad" [(ngModel)]="piezaMuseable.usofinalidad" #usofinalidad="ngModel" required></textarea>
-            <div class="ui-messages-error" *ngIf="submitted>0  && usofinalidad.invalid">El campo Finalidad de uso es requerido</div>   
+        <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="usofinalidad" [(ngModel)]="piezaMuseable.usofinalidad"
+            #usofinalidad="ngModel" required></textarea>
+        <div class="ui-messages-error" *ngIf="submitted>0  && usofinalidad.invalid">El campo Finalidad de uso es requerido</div>
+        <div class="impresion">
+            {{piezaMuseable.usofinalidad}}
+        </div>
     </div>
 
     <div class="ui-grid-row">
@@ -44,50 +60,68 @@
 
     </div>
     <div class="ui-grid-row">
-            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="usoquien" [(ngModel)]="piezaMuseable.usoquien"></textarea>
+        <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="usoquien" [(ngModel)]="piezaMuseable.usoquien"></textarea>
+        <div class="impresion">
+            {{piezaMuseable.usoquien}}
+        </div>
     </div>
     <div class="ui-grid-row">
         ¿Cómo se maneja el bien?
     </div>
     <div class="ui-grid-row">
-            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="usomanjeo" [(ngModel)]="piezaMuseable.usomanejo"></textarea>
+        <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="usomanjeo" [(ngModel)]="piezaMuseable.usomanejo"></textarea>
+        <div class="impresion">
+            {{piezaMuseable.usomanejo}}
+        </div>
     </div>
 </div>
 
 <div class="separadorInventario">
     <h5>CONTEXTO ACADÉMICO DEL BIEN</h5>
-    <div style="width: 100%;text-align: right"> 
-            <button pButton type="button"  icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);" ></button>
-            <button pButton type="button"  icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0" ></button>
-          </div>
+    <div style="width: 100%;text-align: right">
+        <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+        <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+    </div>
 </div>
 
-<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin"  *ngIf="piezaMuseable!=null">
+<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin" *ngIf="piezaMuseable!=null">
 
     <div class="ui-grid-row">
         Materias donde fue utilizado:
     </div>
     <div class="ui-grid-row">
         <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="materias" [(ngModel)]="piezaMuseable.materias"></textarea>
+        <div class="impresion">
+            {{piezaMuseable.materias}}
+        </div>
     </div>
     <div class="ui-grid-row">
         Laboratorios donde fue utilizado:
     </div>
     <div class="ui-grid-row">
         <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="laboratorios" [(ngModel)]="piezaMuseable.laboratorios"></textarea>
+        <div class="impresion">
+            {{piezaMuseable.laboratorios}}
+        </div>
     </div>
 
     <div class="ui-grid-row">
         Docentes que lo utilizaron:
     </div>
     <div class="ui-grid-row">
-            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="docentes" [(ngModel)]="piezaMuseable.docentes"></textarea>
+        <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="docentes" [(ngModel)]="piezaMuseable.docentes"></textarea>
+        <div class="impresion">
+            {{piezaMuseable.docentes}}
+        </div>
     </div>
     <div class="ui-grid-row">
         Aporte del objeto a la construcción del conocimiento:
     </div>
     <div class="ui-grid-row">
-            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="aporte" [(ngModel)]="piezaMuseable.aporte"></textarea>
+        <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="aporte" [(ngModel)]="piezaMuseable.aporte"></textarea>
+        <div class="impresion">
+            {{piezaMuseable.aporte}}
+        </div>
     </div>
 
     <div class="ui-grid-row">
@@ -95,39 +129,48 @@
 
     </div>
     <div class="ui-grid-row">
-            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="observaciones" [(ngModel)]="piezaMuseable.observacionesacademico"></textarea>
+        <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="observaciones" [(ngModel)]="piezaMuseable.observacionesacademico"></textarea>
+        <div class="impresion">
+            {{piezaMuseable.observacionesacademico}}
+        </div>
     </div>
 
 </div>
 
 <div class="separadorInventario">
     <h5>BIBLIOGRAFÍA EN LA QUE APARECE</h5>
-    <div style="width: 100%;text-align: right"> 
-            <button pButton type="button"  icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);" ></button>
-            <button pButton type="button"  icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0" ></button>
-          </div>
+    <div style="width: 100%;text-align: right">
+        <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+        <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+    </div>
 </div>
 
-<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin"  *ngIf="piezaMuseable!=null">
+<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin" *ngIf="piezaMuseable!=null">
 
     <div class="ui-grid-row">
         <textarea pInputTextarea style="resize: none; width: 100%" rows="12" maxlength="3000" name="piezaMuseables" [(ngModel)]="piezaMuseable.bibliografias"></textarea>
+        <div class="impresion">
+            {{piezaMuseable.bibliografias}}
+        </div>
     </div>
 
 </div>
 
 <div class="separadorInventario">
     <h5>LINKS</h5>
-    <div style="width: 100%;text-align: right"> 
-            <button pButton type="button"  icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);" ></button>
-            <button pButton type="button"  icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0" ></button>
-          </div>
+    <div style="width: 100%;text-align: right">
+        <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+        <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+    </div>
 </div>
 
-<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin"  *ngIf="piezaMuseable!=null">
+<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin" *ngIf="piezaMuseable!=null">
 
     <div class="ui-grid-row">
         <textarea pInputTextarea style="resize: none; width: 100%" rows="12" maxlength="3000" name="piezaMuseables" [(ngModel)]="piezaMuseable.links"></textarea>
+        <div class="impresion">
+            {{piezaMuseable.links}}
+        </div>
     </div>
 
 </div>

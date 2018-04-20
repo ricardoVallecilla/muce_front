@@ -5,7 +5,7 @@
         <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
     </div>
 </div>
-<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin" >
+<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin">
 
     <div class="ui-grid-row">
         <div class="ui-grid-col-12">
@@ -20,6 +20,9 @@
     </div>
     <div class="ui-grid-row">
         <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="2900" name="detalles" [(ngModel)]="detalle.datosregistros"></textarea>
+        <div class="impresion">
+            {{detalle.datosregistros}}
+        </div>
     </div>
 
 </div>
@@ -30,7 +33,7 @@
         <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
     </div>
 </div>
-<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin" >
+<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin">
 
     <div class="ui-grid-row">
         <div class="ui-grid-col-12">
@@ -46,18 +49,27 @@
     </div>
     <div class="ui-grid-row">
         <input pInputText type="text" maxlength="150" name="fotografoplanos" [(ngModel)]="detalle.fotografoplanos" required />
+        <div class="impresion">
+            {{detalle.fotografoplanos}}
+        </div>
     </div>
     <div class="ui-grid-row">
         Lugar y fecha de registro:
     </div>
     <div class="ui-grid-row">
         <input pInputText type="text" maxlength="150" name="lugarplano" [(ngModel)]="detalle.lugarplano" required />
+        <div class="impresion">
+            {{detalle.lugarplano}}
+        </div>
     </div>
     <div class="ui-grid-row">
         Nombre Archivo pdf:
     </div>
     <div class="ui-grid-row">
         <input pInputText type="text" maxlength="150" name="pdf" [(ngModel)]="detalle.pdfplano" required />
+        <div class="impresion">
+            {{detalle.pdfplano}}
+        </div>
     </div>
 </div>
 <div class="separadorInventario">
@@ -67,7 +79,7 @@
         <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
     </div>
 </div>
-<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin" >
+<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin">
 
     <div class="ui-grid-row">
         <div class="ui-grid-col-12">
@@ -82,19 +94,29 @@
 
     </div>
     <div class="ui-grid-row">
-        <input pInputText type="text" maxlength="150" name="fotografoinstructivo" [(ngModel)]="detalle.fotografoinstructivo" required />
+        <input pInputText type="text" maxlength="150" name="fotografoinstructivo" [(ngModel)]="detalle.fotografoinstructivo" required
+        />
+        <div class="impresion">
+            {{detalle.fotografoinstructivo}}
+        </div>
     </div>
     <div class="ui-grid-row">
         Lugar y fecha de registro:
     </div>
     <div class="ui-grid-row">
         <input pInputText type="text" maxlength="150" name="lugarinstructivo" [(ngModel)]="detalle.lugarinstructivo" required />
+        <div class="impresion">
+            {{detalle.lugarinstructivo}}
+        </div>
     </div>
     <div class="ui-grid-row">
         Nombre Archivo pdf:
     </div>
     <div class="ui-grid-row">
         <input pInputText type="text" maxlength="150" name="pdf" [(ngModel)]="detalle.pdfinstructivo" required />
+        <div class="impresion">
+            {{detalle.pdfinstructivo}}
+        </div>
     </div>
 </div>
 
@@ -105,23 +127,31 @@
         <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
     </div>
 </div>
-<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin"  *ngIf="detalle!=null">
+<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin" *ngIf="detalle!=null">
 
     <div class="ui-grid-row">
         Contexto social:
     </div>
     <div class="ui-grid-row">
-        <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="2900" name="detalles" [(ngModel)]="detalle.social" #social="ngModel" required></textarea>
-        <div class="ui-messages-error" *ngIf="submitted>0  && social.invalid">El campo Contexto social es requerido</div>   
+        <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="2900" name="detalles" [(ngModel)]="detalle.social"
+            #social="ngModel" required></textarea>
+        <div class="ui-messages-error" *ngIf="submitted>0  && social.invalid">El campo Contexto social es requerido</div>
+        <div class="impresion">
+            {{detalle.social}}
+        </div>
     </div>
     <div class="ui-grid-row">
         Biografía del inventor:
     </div>
     <div class="ui-grid-row">
-        <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="2900" name="detalles" [(ngModel)]="detalle.inventor" #inventor="ngModel" required></textarea>
-        <div class="ui-messages-error" *ngIf="submitted>0  && inventor.invalid">El campo Biografía del inventor es requerido</div>   
+        <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="2900" name="detalles" [(ngModel)]="detalle.inventor"
+            #inventor="ngModel" required></textarea>
+        <div class="ui-messages-error" *ngIf="submitted>0  && inventor.invalid">El campo Biografía del inventor es requerido</div>
+        <div class="impresion">
+            {{detalle.inventor}}
+        </div>
     </div>
-    
+
 </div>
 <div class="separadorInventario">
     <h5>CONTEXTO DE PRODUCCIÓN</h5>
@@ -130,15 +160,19 @@
         <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
     </div>
 </div>
-<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin"  *ngIf="detalle!=null">
+<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin" *ngIf="detalle!=null">
 
     <div class="ui-grid-row">
         Historia del fabricante:
     </div>
     <div class="ui-grid-row">
-        <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="2900" name="detalles" [(ngModel)]="detalle.historiafabricante" #historiafabricante="ngModel" required></textarea>
-        <div class="ui-messages-error" *ngIf="submitted>0  && historiafabricante.invalid">El campo Historia del fabricante es requerido</div>   
+        <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="2900" name="detalles" [(ngModel)]="detalle.historiafabricante"
+            #historiafabricante="ngModel" required></textarea>
+        <div class="ui-messages-error" *ngIf="submitted>0  && historiafabricante.invalid">El campo Historia del fabricante es requerido</div>
+        <div class="impresion">
+            {{detalle.historiafabricante}}
+        </div>
     </div>
-   
-    
+
+
 </div>

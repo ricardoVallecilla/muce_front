@@ -13,12 +13,18 @@
         </div>
         <div class="ui-grid-col-4">
             <p-dropdown [options]="provinciaItem" [style]="{'width':'100%'}"  [(ngModel)]="detalle.yacimientoprovinciaid" name="provinciaid" (ngModelChange)="obtenerCanton($event)"></p-dropdown>
+            <div class="impresion">
+                    {{detalle.yacimientoprovinciaid?.valor}}
+              </div>
         </div>
         <div class="ui-grid-col-2">
             Canton:
         </div>
         <div class="ui-grid-col-4">
             <p-dropdown [options]="cantonItem" [style]="{'width':'100%'}" name="cantonid" [(ngModel)]="detalle.yacimientocantonid"></p-dropdown>
+            <div class="impresion">
+                    {{detalle.yacimientocantonid?.valor}}
+              </div>
         </div>
 
 
@@ -29,12 +35,18 @@
         </div>
         <div class="ui-grid-col-4">
             <p-dropdown [options]="cantonItem" [style]="{'width':'100%'}" name="cantonid" [(ngModel)]="detalle.yacimientociudadid"></p-dropdown>
+            <div class="impresion">
+                    {{detalle.yacimientociudadid?.valor}}
+              </div>
         </div>
         <div class="ui-grid-col-2">
             Direccion:
         </div>
         <div class="ui-grid-col-4">
             <input pInputText type="text" maxlength="150" name="modelo" [(ngModel)]="detalle.yacimientodireccion" required />
+            <div class="impresion">
+                    {{detalle.yacimientodireccion}}
+              </div>
         </div>
 
     </div>
@@ -51,6 +63,9 @@
                     </div>
                     <div class="ui-grid-col-10">
                         <input pInputText type="text" maxlength="150" name="modelo" [(ngModel)]="detalle.yacimientolatitud" required />
+                        <div class="impresion">
+                                {{detalle.yacimientolatitud}}
+                          </div>
                     </div>
                 </div>
                 <div class="ui-grid-row">
@@ -59,6 +74,9 @@
                     </div>
                     <div class="ui-grid-col-10">
                         <input pInputText type="text" maxlength="150" name="modelo" [(ngModel)]="detalle.yacimientolongitud" required />
+                        <div class="impresion">
+                                {{detalle.yacimientolongitud}}
+                          </div>
                     </div>
                 </div>
                 <div class="ui-grid-row">
@@ -67,6 +85,9 @@
                     </div>
                     <div class="ui-grid-col-10">
                         <input pInputText type="text" maxlength="150" name="modelo" [(ngModel)]="detalle.yacimientoaltura" required />
+                        <div class="impresion">
+                                {{detalle.yacimientoaltura}}
+                          </div>
                     </div>
                 </div>
             </div>
@@ -80,6 +101,9 @@
         <div class="ui-grid-col-10">
             <input pInputText type="text" maxlength="150" name="direccionelectronica" [(ngModel)]="detalle.yacimientocontenedor" required
             />
+            <div class="impresion">
+                    {{detalle.yacimientocontenedor}}
+              </div>
         </div>
 
 
@@ -100,12 +124,18 @@
     </div>
     <div class="ui-grid-row">
         <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="550" name="detalles" [(ngModel)]="detalle.yacimientomorfologia"></textarea>
+        <div class="impresion">
+                {{detalle.yacimientomorfologia}}
+          </div>
     </div>
     <div class="ui-grid-row">
         Ubicación dentro del yacimiento:
     </div>
     <div class="ui-grid-row">
         <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="550" name="detalles" [(ngModel)]="detalle.yacimientoubicacion"></textarea>
+        <div class="impresion">
+                {{detalle.yacimientoubicacion}}
+          </div>
     </div>
     <div class="ui-grid-row">
         Fotografías del yacimiento:
@@ -123,12 +153,18 @@
     </div>
     <div class="ui-grid-row">
         <input pInputText type="text" maxlength="150" name="fotografo" [(ngModel)]="detalle.yacimientofotografo" required />
+        <div class="impresion">
+                {{detalle.yacimientofotografo}}
+          </div>
     </div>
     <div class="ui-grid-row">
         Lugar y fecha de registro:
     </div>
     <div class="ui-grid-row">
         <input pInputText type="text" maxlength="150" name="fotografo" [(ngModel)]="detalle.yacimientolugar" required />
+        <div class="impresion">
+                {{detalle.yacimientolugar}}
+          </div>
     </div>
 </div>
 <div class="separadorInventario">
@@ -153,11 +189,17 @@
     </div>
     <div class="ui-grid-row">
         <input pInputText type="text" maxlength="150" name="fotografo" [(ngModel)]="detalle.yacimientoarquitecto" required />
+        <div class="impresion">
+                {{detalle.yacimientoarquitecto}}
+          </div>
     </div>
     <div class="ui-grid-row">
         Lugar y fecha de levantamiento:
     </div>
     <div class="ui-grid-row">
         <input pInputText type="text" maxlength="150" name="fotografo" [(ngModel)]="detalle.yacimientoplanoslugar" required />
+        <div class="impresion">
+                {{detalle.yacimientoplanoslugar}}
+          </div>
     </div>
 </div>

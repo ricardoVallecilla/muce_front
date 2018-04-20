@@ -14,6 +14,9 @@ export class ItemService {
         return this._generalServices.getPersonaId();
     }
 
+    itemById(id) {
+        return this._generalServices.getResources("get", this.url.item+id)
+    }
     todosItem() {
         return this._generalServices.getResources("get", this.url.item)
     }
