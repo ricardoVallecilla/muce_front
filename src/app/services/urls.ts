@@ -27,6 +27,11 @@ export class UrlServices {
     optenerDetalleBotanica=this.proxy+"/botanica/piezaMuseable/"
     optenerDetalleArqueologia=this.proxy+"/arquelogica/piezaMuseable/"
     optenerDetalleEntomologia=this.proxy+"/entomologica/piezaMuseable/"
+    obtenerDetalleFotografica=this.proxy+"/fotografica/piezaMuseable/"
+    obtenerDetalleGeologica=this.proxy+"/geologica/piezaMuseable/"
+    obtenerDetallePaleontologica=this.proxy+"/paleontologica/piezaMuseable/"
+    obtenerDetalleZoologica=this.proxy+"/zoologica/piezaMuseable/"
+
     downloadFotografia=this.piezaMuseable+"fotografia/"
     downloadFotografiaTipo=this.piezaMuseable+"detalle/fotografia/"
     estadosBien=this.proxy+"/estadogeneralbien/piezaMuseable/"

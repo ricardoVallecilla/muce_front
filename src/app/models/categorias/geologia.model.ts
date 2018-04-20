@@ -13,6 +13,7 @@ export class GeologiaModel {
     ancho
     diametro
     peso
+    color
     inscripciones
     grupo
     elementosrelacionados

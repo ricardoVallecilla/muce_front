@@ -5,7 +5,7 @@
         Material:
       </div>
       <div class="ui-grid-col-10">
-        <input pInputText type="text" maxlength="150" name="morfofuncional" required />
+        <input pInputText type="text" maxlength="150" name="morfofuncional" [(ngModel)]="detalle.material" required />
       </div>
     </div>
   
@@ -14,7 +14,7 @@
         Clasificación:
       </div>
       <div class="ui-grid-col-10">
-        <input pInputText type="text" maxlength="150" name="morfofuncional" required />
+        <input pInputText type="text" maxlength="150" name="morfofuncional" [(ngModel)]="detalle.clasificacion" required />
       </div>
     </div>
   
@@ -23,7 +23,7 @@
         Clasificación de campo:
       </div>
       <div class="ui-grid-col-10">
-        <input pInputText type="text" maxlength="150" name="morfofuncional" required />
+        <input pInputText type="text" maxlength="150" name="morfofuncional" [(ngModel)]="detalle.clasificacioncampo" required />
       </div>
     </div>
 
@@ -35,25 +35,25 @@
             Era:
           </div>
           <div class="ui-g-2">
-            <input pInputText type="text" maxlength="150" name="alto"/>
+            <input pInputText type="text" maxlength="150" name="alto" [(ngModel)]="detalle.era"/>
           </div>
           <div class="ui-g-2">
             Período:
           </div>
           <div class="ui-g-2">
-            <input pInputText type="text" maxlength="150" name="largo"/>
+            <input pInputText type="text" maxlength="150" name="largo" [(ngModel)]="detalle.periodo"/>
           </div>
           <div class="ui-g-2">
               Época:
             </div>
             <div class="ui-g-2">
-              <input pInputText type="text" maxlength="150" name="alto"/>
+              <input pInputText type="text" maxlength="150" name="alto" [(ngModel)]="detalle.epoca"/>
             </div>
             <div class="ui-g-2">
               Edad:
             </div>
             <div class="ui-g-2">
-              <input pInputText type="text" maxlength="150" name="largo"/>
+              <input pInputText type="text" maxlength="150" name="largo" [(ngModel)]="detalle.edad"/>
           </div>
         </div>
       </div>
@@ -67,25 +67,25 @@
             Alto:
           </div>
           <div class="ui-g-2">
-            <input pInputText type="text" maxlength="150" name="alto"/>
+            <input pInputText type="text" maxlength="150" name="alto" [(ngModel)]="detalle.alto"/>
           </div>
           <div class="ui-g-2">
             Largo:
           </div>
           <div class="ui-g-2">
-            <input pInputText type="text" maxlength="150" name="largo"/>
+            <input pInputText type="text" maxlength="150" name="largo" [(ngModel)]="detalle.largo"/>
           </div>
           <div class="ui-g-2">
               Ancho:
             </div>
             <div class="ui-g-2">
-              <input pInputText type="text" maxlength="150" name="alto"/>
+              <input pInputText type="text" maxlength="150" name="alto" [(ngModel)]="detalle.ancho"/>
             </div>
             <div class="ui-g-2">
               Diámetro:
             </div>
             <div class="ui-g-2">
-              <input pInputText type="text" maxlength="150" name="largo"/>
+              <input pInputText type="text" maxlength="150" name="largo" [(ngModel)]="detalle.diametro"/>
           </div>
         </div>
       </div>
@@ -96,7 +96,7 @@
         Peso:
       </div>
       <div class="ui-grid-col-10">
-        <input pInputText type="text" maxlength="150" name="morfofuncional" required />
+        <input pInputText type="text" maxlength="150" name="morfofuncional" required [(ngModel)]="detalle.peso"/>
       </div>
     </div>
   
@@ -105,7 +105,7 @@
         Color:
       </div>
       <div class="ui-grid-col-10">
-        <input pInputText type="text" maxlength="150" name="morfofuncional" required />
+        <input pInputText type="text" maxlength="150" name="morfofuncional" required [(ngModel)]="detalle.color"/>
       </div>
     </div>
 
@@ -114,7 +114,7 @@
         Inscripciones:
       </div>
       <div class="ui-grid-col-10">
-        <input pInputText type="text" maxlength="150" name="morfofuncional" required />
+        <input pInputText type="text" maxlength="150" name="morfofuncional" required [(ngModel)]="detalle.inscripciones"/>
       </div>
     </div>
     
@@ -123,7 +123,7 @@
           Elementos relacionados:
         </div>
         <div class="ui-grid-col-10">
-          <input pInputText type="text" maxlength="150" name="morfofuncional" required />
+          <input pInputText type="text" maxlength="150" name="morfofuncional" required required [(ngModel)]="detalle.elementosrelacionados" />
         </div>
       </div>  
   
@@ -132,7 +132,7 @@
         Descripción:
       </div>
       <div class="ui-grid-col-10">
-        <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="550" name="detalles" [(ngModel)]="detalle.detalles"
+        <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="550" name="detalles" [(ngModel)]="detalle.descripcion"
           required></textarea>
       </div>
     </div>

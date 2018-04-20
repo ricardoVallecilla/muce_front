@@ -565,6 +565,34 @@ export class PiezaMuseableComponent implements OnInit {
           });
         }
         break;
+      case this.constantes.fotografia:
+        tipo = 5
+        piezaDetalle.piezafotograficadetalle = this.detalle
+        if (this.tecnicaConservacionSelecionados.length > 0) {
+          catalogosDetalle = [];
+        }
+        break;
+      case this.constantes.geologia:
+        tipo = 7
+        piezaDetalle.piezageologicadetalle = this.detalle
+        if (this.tecnicaConservacionSelecionados.length > 0) {
+          catalogosDetalle = [];
+        }
+        break;
+      case this.constantes.peleontologia:
+        tipo = 8
+        piezaDetalle.piezapaleontologicadetalle = this.detalle
+        if (this.tecnicaConservacionSelecionados.length > 0) {
+          catalogosDetalle = [];
+        }
+        break;
+      case this.constantes.zoologia:
+        tipo = 9
+        piezaDetalle.piezazoologicadetalle = this.detalle
+        if (this.tecnicaConservacionSelecionados.length > 0) {
+          catalogosDetalle = [];
+        }
+        break;
       default:
         break;
     }

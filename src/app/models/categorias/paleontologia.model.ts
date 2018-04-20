@@ -33,6 +33,7 @@ export class PaleontologiaModel {
     usuarioregistroid
     fecharegistro
     cantonid
+    descripcion
     paisid
     provinciaid
     piezamuseableid
