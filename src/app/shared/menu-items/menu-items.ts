@@ -58,6 +58,23 @@ const MenuAdmin= {
 
       ]
     },
+    {
+      state: 'item',
+      short_label: 'B',
+      name: 'Items',
+      type: 'sub',
+      icon: 'ti-layout-grid2-alt',
+      children: [
+        {
+          state: 'item',
+          name: 'Item'
+        },
+        {
+          state: 'movimientos',
+          name: 'Movimientos'
+        }
+      ]
+    }
   ],
 }
 
@@ -86,6 +103,26 @@ const MenuCustodio={
 }
 
 
+const MenuRestaurador={
+  label: 'Item',
+  main: [
+    
+    {
+      state: 'item',
+      short_label: 'B',
+      name: 'Items',
+      type: 'sub',
+      icon: 'ti-layout-grid2-alt',
+      children: [
+        {
+          state: 'item',
+          name: 'Item'
+        }
+      ]
+    },
+  ],
+}
+
 @Injectable()
 export class MenuItems {
    properties = new Properties();
@@ -98,8 +135,12 @@ export class MenuItems {
       //console.log(persona)
       if(persona.usuario.rolId.rolid==this.constantes.rolAdministrador ||persona.usuario.rolId.rolid==this.constantes.rolDirector){
         MENUITEMS.push(MenuAdmin)
+      }else if (persona.usuario.rolId.rolid==this.constantes.rolCustodio){
+        MENUITEMS.push(MenuCustodio)
+      }else if (persona.usuario.rolId.rolid==this.constantes.rolRestaurador){
+        MENUITEMS.push(MenuRestaurador)
       }
-      MENUITEMS.push(MenuCustodio)
+      
     }
     return MENUITEMS;
   }

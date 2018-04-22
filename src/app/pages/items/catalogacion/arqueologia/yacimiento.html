@@ -142,7 +142,7 @@
     </div>
     <div class="ui-grid-row">
         <div class="ui-grid-col-12">
-            <img *ngIf="fotoyacimiento!=null" style="width: 100%" [src]="fotoyacimiento">
+            <img *ngIf="fotoyacimiento!=null" style="max-width: 100%" [src]="fotoyacimiento">
             <input name="file" type="file" accept="image/*" id="adjuntar" class="ui-g-12 ui-md-12 ui-lg-12 inputUpload" (change)="fileChangeEvent($event,2)"
                 placeholder="Subir Archivo..." required />
         </div>
@@ -178,7 +178,7 @@
 
     <div class="ui-grid-row">
         <div class="ui-grid-col-12">
-            <img *ngIf="fotoyacimientoplano!=null" style="width: 100%" [src]="fotoyacimientoplano">
+            <img *ngIf="fotoyacimientoplano!=null" style="max-width: 100%"[src]="fotoyacimientoplano">
             <input name="file" type="file" accept="image/*" id="adjuntar" class="ui-g-12 ui-md-12 ui-lg-12 inputUpload" (change)="fileChangeEvent($event,3)"
                 placeholder="Subir Archivo..." required />
         </div>

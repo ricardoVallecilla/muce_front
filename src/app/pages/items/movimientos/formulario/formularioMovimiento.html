@@ -426,7 +426,7 @@
       <div class="ui-grid-col-2"></div>
       <div class="ui-grid-col-3">
         <button *ngIf="tipoFormulario==1" pButton type="submit" label="{{properties.guardar.label}}" icon="{{properties.guardar.icon}}"
-          [disabled]="!form.valid || tipoSeleccionado==null"></button>
+          [disabled]="!form.valid || tipoSeleccionado==null || ((tipoSeleccionado == constantes.prestamoInterno || tipoSeleccionado == constantes.traspasointerno)&& museoSeleccionado==null)"></button>
         <button *ngIf="tipoFormulario==2" pButton type="button" (click)="confirmar()" label="Confirmar Recepción" icon="{{properties.guardar.icon}}"></button>
       </div>
       <div class="ui-grid-col-3">

@@ -104,7 +104,7 @@ export class UsuarioComponent implements OnInit {
 
     this.confirmationService.confirm({
       key: "confirmar",
-      message: "¿Está seguro de asignar el ROL <strong> "+event.nombre+" </strong> al usuario <strong> "+usuario.nombres+" </strong>",
+      message: "¿Está seguro de asignar el ROL <strong> "+event.nombre+" </strong> al usuario <strong> "+usuario.nombres+" </strong>?",
       header: this.properties.titutloPreguntaConfirmacion,
       icon: this.properties.iconAdvertencia,
   });

@@ -236,7 +236,7 @@
                 </div>
               </div>
               <div *ngIf="!esCatalogacion" class="ui-grid-row">
-                <div class="ui-g ocultar">
+                <div class="ui-g ocultar" style="width: 100%">
                   <div class="ui-g-3" *ngFor="let estado of estadoDelBien">
                     <p-checkbox name="estadobien" value="{{estado.catalogoid}}" label="{{estado.nombre}}" [(ngModel)]="estadosBienSelecionados"></p-checkbox>
 
@@ -474,7 +474,7 @@
                   <input name="file" type="file" id="adjuntar" accept="image/*" class="ui-g-12 ui-md-12 ui-lg-12 inputUpload" (change)="fileChangeEvent($event)"
                     placeholder="Subir Archivo..." />
 
-                  <div class="ui-messages-error" *ngIf="submitted>0  && piezaMuseable.piezamuseableid == null && documento != null">El campo Fotrográfia es requerido</div>
+                  <div class="ui-messages-error" *ngIf="submitted>0  && piezaMuseable.piezamuseableid == null && documento == null">El campo Fotrográfia es requerido</div>
                 </div>
               </div>
             </div>

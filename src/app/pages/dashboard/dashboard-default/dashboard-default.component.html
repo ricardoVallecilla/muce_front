@@ -3,7 +3,7 @@
 
   <!-- Statistics Start -->
   <div class="col-md-12 col-xl-12">
-    <app-card [title]="'Movimientos Pendientes a Finalizar'">
+    <app-card *ngIf="verDasboard" [title]="'Movimientos Pendientes a Finalizar'">
       <div class="ui-g" *ngIf="esAdmin">
         <div class="ui-g-12 ui-md-12 ui-lg-1">Museo</div>
         <div class="ui-g-12 ui-md-12 ui-lg-2">

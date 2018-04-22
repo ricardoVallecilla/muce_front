@@ -14,20 +14,28 @@
                 </div>
               </div>
               <hr/>
-              <div class="input-group">
-                <input type="text" class="form-control" name="usuario" placeholder="Usuario" [(ngModel)]="usuario">
-                <span class="md-line"></span>
-              </div>
-              <div class="input-group">
-                <input type="password" class="form-control" name="password" placeholder="Contraseña" [(ngModel)]="password">
-                <span class="md-line"></span>
-              </div>
-              
-              <div class="row m-t-30">
-                <div class="col-md-12">
-                  <button type="button" [disabled]="usuario==null || password==null" (click)="logear()" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20">Ingresar</button>
+              <form (ngSubmit)="usuario==null && password!=null && logear()">
+                <div class="input-group">
+                  <input type="text" class="form-control" name="usuario" placeholder="Usuario" [(ngModel)]="usuario">
+                  <span class="md-line"></span>
                 </div>
-              </div>
+                <div class="input-group">
+                  <input type="password" class="form-control" name="password" placeholder="Contraseña" [(ngModel)]="password">
+                  <span class="md-line"></span>
+                </div>
+                <div *ngIf="error" class="input-group" style="background: red">
+                  <div class="col-md-12">
+                    Error Usuario y/o password incorrectos
+                  </div>
+                </div>
+                <div class="row m-t-30">
+                  <div class="col-md-12">
+                    <button type="button" [disabled]="usuario==null || password==null" (click)="logear()" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20">Ingresar</button>
+                  </div>
+                </div>
+                
+              </form>
+
               <hr/>
               <!-- <div class="row">
                 <div class="col-md-10">

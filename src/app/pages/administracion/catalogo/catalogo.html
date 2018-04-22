@@ -18,7 +18,7 @@
             <p-column field="descripcion" header="Descripción" [sortable]="true"></p-column>
             <p-column field="activo" header="Activo" *ngIf="!padre" [sortable]="true" [style]="{'width':'75px'}">
               <ng-template let-catalogo="rowData" pTemplate="body">
-                <p-inputSwitch [(ngModel)]="catalogo.activo" onLabel="Si" offLabel="No" name="activo"  ></p-inputSwitch>
+                <p-inputSwitch disabled [(ngModel)]="catalogo.activo" onLabel="Si" offLabel="No" name="activo"  ></p-inputSwitch>
               </ng-template>
             </p-column>
             <p-column header="Opciones" [style]="{'width':'135px','text-align':'center'}">
@@ -30,7 +30,7 @@
           </p-dataTable>
         </div>
         <div class="ui-g-12 ui-md-12 ui-lg-12 alineacionBotones">
-          <button pButton (click)="nuevo()" icon="{{properties.nuevo.icon}}" label="{{properties.nuevo.label}}"></button>
+          <button pButton (click)="nuevo()" *ngIf="!padre" icon="{{properties.nuevo.icon}}" label="{{properties.nuevo.label}}"></button>
           <button pButton (click)="msgs = [];volver()" *ngIf="!padre" icon="{{properties.atras.icon}}" label="{{properties.atras.label}}"></button>
 
         </div>

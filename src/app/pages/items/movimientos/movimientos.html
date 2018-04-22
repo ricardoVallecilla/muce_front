@@ -69,7 +69,7 @@
                 <p-column header="Estado" [sortable]="true" [style]="{'width':'155px','text-align': 'center'}">
                   <ng-template let-movimiento="rowData" pTemplate="body">
                     <div *ngIf="movimiento.tipomovimientoid.catalogoid== constantes.prestamoInterno 
-                    ||  movimiento.tipomovimientoid.catalogoid== constantes.traspasoiterno 
+                    ||  movimiento.tipomovimientoid.catalogoid== constantes.traspasointerno 
                     ||  movimiento.tipomovimientoid.catalogoid== constantes.devolucionPrestamoInterno" style="font-size: 13px">
 
                       <span *ngIf="movimiento.confirmacion">CONFIRMADA

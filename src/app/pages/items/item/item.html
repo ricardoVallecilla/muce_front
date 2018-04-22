@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-sm-12" *ngIf="!detallePiezaMuseable && !catalogacion && !baja">
-    <app-card [title]="'Filtros'">
+    <app-card *ngIf="!noTieneMuseo" [title]="'Filtros'">
       <div class="ui-g">
         <div *ngIf="filtrarMuseos" class="ui-g-12 ui-md-12 ui-lg-1">Museo</div>
         <div *ngIf="filtrarMuseos" class="ui-g-12 ui-md-12 ui-lg-2">
@@ -39,7 +39,7 @@
         </div>
       </div>
     </app-card>
-    <app-card [title]="acciones">
+    <app-card *ngIf="!noTieneMuseo" [title]="acciones">
 
       <p-messages [(value)]="msgs"></p-messages>
       <div class="ui-g" *ngIf="bandera==0">
@@ -255,6 +255,10 @@
 
     </app-card>
   </div>
+  <div style="width: 100%">
+    <p-messages *ngIf="noTieneMuseo" [(value)]="msgs"></p-messages>
+  </div>
+  
   <div class="col-sm-12" *ngIf="detallePiezaMuseable">
     <piezaMuseable (enviadorCondicion)="obtenerDatoHijo($event)" [item]="item"></piezaMuseable>
   </div>

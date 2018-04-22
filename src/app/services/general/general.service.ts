@@ -58,7 +58,7 @@ export class GeneralService {
                                 //console.log("error",err.status)
                                 if (err.status == 401) {
                                     this.stopBlock()
-                                    this._router.navigate(['/authentication/login']);
+                                    this._router.navigate(['/authentication/login/error']);
                                 }
                             }
                         );
@@ -66,7 +66,7 @@ export class GeneralService {
                 err => { 
                     this.stopBlock()
                     if (err.status == 401) {
-                        this._router.navigate(['/authentication/login']);
+                        this._router.navigate(['/authentication/login/error']);
                     }
                  }
             );

@@ -43,6 +43,7 @@ export class ItemComponent implements OnInit {
   textoFiltra = null
   museosItem = [{ label: this.properties.labelSeleccione, value: null }]
   esAdmin=false;
+  noTieneMuseo=false;
   constructor(
     private _generalService: GeneralService,
     private _router: Router,
@@ -61,11 +62,15 @@ export class ItemComponent implements OnInit {
       let persona = JSON.parse(decrypted.toString(CryptoJS.enc.Utf8))
 
       this.museo = persona.usuario.museoId;
-      if (persona.usuario.rolId.rolid == this.constantes.rolAdministrador || persona.usuario.rolId.rolid == this.constantes.rolDirector) {
+      
+      if (persona.usuario.rolId.rolid == this.constantes.rolAdministrador || persona.usuario.rolId.rolid == this.constantes.rolDirector|| persona.usuario.rolId.rolid == this.constantes.rolRestaurador) {
         this.filtrarMuseos = true;
         this.buscarTodosMuseo();
-      } else {
+      } else  if (persona.usuario.rolId.rolid == this.constantes.rolCustodio && this.museo!=null){
         this.buscarMuseo();
+      }else{
+        this.noTieneMuseo=true
+        this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No tiene asignado ningun museo. Consulte con el administrador de sistema.' })
       }
 
 
@@ -74,12 +79,12 @@ export class ItemComponent implements OnInit {
   }
 
   buscarMuseo() {
-    this._museoServices.obtenerMuseosbyId(1)
+    this._museoServices.obtenerMuseosbyId(this.museo.museoid)
       .subscribe((museo: any) => {
         this.museo = museo;
-console.log(this.museo);
 
-      }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }));
+
+      }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar el museo.' }));
   }
 
   buscarTodosMuseo() {
@@ -89,7 +94,7 @@ console.log(this.museo);
           this.museosItem.push({ label: x.nombres.toUpperCase(), value: x })
         })
 
-      }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }));
+      }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Museos.' }));
   }
 
   buscar() {
@@ -191,7 +196,7 @@ console.log(this.museo);
           catalogos.filter(x => x.catalogopadreid.catalogoid == this.constantes.grupo).forEach(x => {
             this.grupoItem.push({ label: x.nombre, value: x })
           });
-        }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }),
+        }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Catalogos.' }),
           () => {
           });
     } catch (error) {

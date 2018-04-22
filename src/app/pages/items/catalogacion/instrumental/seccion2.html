@@ -9,7 +9,7 @@
 
     <div class="ui-grid-row">
         <div class="ui-grid-col-12">
-            <img *ngIf="fotoregistros!=null" style="width: 100%" [src]="fotoregistros">
+            <img *ngIf="fotoregistros!=null" style="max-width: 100%" [src]="fotoregistros">
             <input name="file" type="file" accept="image/*" id="adjuntar" class="ui-g-12 ui-md-12 ui-lg-12 inputUpload" (change)="fileChangeEvent($event,6)"
                 placeholder="Subir Archivo..." required />
         </div>
@@ -37,7 +37,7 @@
 
     <div class="ui-grid-row">
         <div class="ui-grid-col-12">
-            <img *ngIf="fotoplano!=null" style="width: 100%" [src]="fotoplano">
+            <img *ngIf="fotoplano!=null" style="max-width: 100%" [src]="fotoplano">
             <input name="file" type="file" accept="image/*" id="adjuntar" class="ui-g-12 ui-md-12 ui-lg-12 inputUpload" (change)="fileChangeEvent($event,7)"
                 placeholder="Subir Archivo..." required />
         </div>

@@ -19,7 +19,7 @@ import { EstilosReportes } from '../../estiloImpresion';
 export class MovimientosComponent implements OnInit {
 
   properties = new Properties();
-  constantes = new Constantes();
+  constantes = new Constantes(); 
   title = "Movimientos Piezas Patrimoniales"
   acciones = "Detalle de la pieza: ";
   msgs: Message[] = [];

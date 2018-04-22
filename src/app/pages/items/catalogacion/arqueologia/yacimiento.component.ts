@@ -29,12 +29,7 @@ export class YacimientoComponent implements OnInit {
     private _itemService:ItemService,
     private _catalogoService: CatalogoService,
     ) {
-      if(this.detalle!=null ){
-        if (this.detalle.proviciaid)this.obtenerCanton(this.detalle.proviciaid)
-        this.descargarFoto(2);
-        this.descargarFoto(3);
-    }
-
+     
     }
 
   ngOnInit() {
@@ -42,6 +37,7 @@ export class YacimientoComponent implements OnInit {
     if(this.detalle!=null ){
         if (this.detalle.proviciaid)this.obtenerCanton(this.detalle.proviciaid)
         this.descargarFoto(2);
+        this.descargarFoto(3);
     }
   }
 

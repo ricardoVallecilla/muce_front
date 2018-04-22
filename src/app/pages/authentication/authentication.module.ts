@@ -15,6 +15,13 @@ export const AuthenticationRoutes: Routes = [
         data: {
           breadcrumb: 'Login'
         }
+      },
+      {
+        path: 'login/:error',
+        component: WithBgImageComponent,
+        data: {
+          breadcrumb: 'Login'
+        }
       }
     ]
   }

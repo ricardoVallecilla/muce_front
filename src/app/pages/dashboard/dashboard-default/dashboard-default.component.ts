@@ -32,9 +32,10 @@ export class DashboardDefaultComponent implements OnInit {
   key = "HackersSeeIT2";
   museoItem = [{ label: this.properties.labelSeleccione, value: null }];
   movimientos = []
-  movimientosPendientesLista=[];
-  movimientosPendientes=0;
-  esAdmin=false
+  movimientosPendientesLista = [];
+  movimientosPendientes = 0;
+  esAdmin = false
+  verDasboard=false
   constructor(
     private _generalService: GeneralService,
     private _router: Router,
@@ -47,24 +48,30 @@ export class DashboardDefaultComponent implements OnInit {
       if (localStorage.getItem("sesion") != null) {
         var decrypted = CryptoJS.AES.decrypt(localStorage.getItem("sesion"), this.key);
         let persona = JSON.parse(decrypted.toString(CryptoJS.enc.Utf8))
+        console.log(persona);
+        
         this.museo = persona.usuario.museoId;
 
         if (persona.usuario.rolId.rolid == this.constantes.rolAdministrador || persona.usuario.rolId.rolid == this.constantes.rolDirector) {
           this.esAdmin = true;
+          this.verDasboard=true;
 
-        } else {
+        } else if (persona.usuario.rolId.rolid == this.constantes.rolCustodio) {
+          this.verDasboard=true;
           this.esAdmin = false;
         }
-      }
-      this.cargarMuseos();
-      if (this.museo) {
 
-        this.cargarMovimientosPendientes();
-        this.cargarMovimientosPendientesConfirmacion()
+        this.cargarMuseos();
+        if (this.museo) {
 
+          this.cargarMovimientosPendientes();
+          this.cargarMovimientosPendientesConfirmacion()
+
+        }
       }
+
     } catch (error) {
-
+      console.log(error)
       this._generalService.stopBlock();
       this._router.navigate(['/authentication/login']);
     }
@@ -89,14 +96,14 @@ export class DashboardDefaultComponent implements OnInit {
             console.log(dias);
             x.dias = dias
           }
-          if(x.tipomovimientoid.catalogoid==this.constantes.devolucionOtro 
-            ||x.tipomovimientoid.catalogoid==this.constantes.devolucionDesinfeccion
-            ||x.tipomovimientoid.catalogoid==this.constantes.devolucionRestauracion 
-            ||x.museoreceptorid==this.museo.museoid                  
-          ){
-            x.receptor=true;
-          }else if (x.museoid==this.museo.museoid){
-            x.receptor=false;                  
+          if (x.tipomovimientoid.catalogoid == this.constantes.devolucionOtro
+            || x.tipomovimientoid.catalogoid == this.constantes.devolucionDesinfeccion
+            || x.tipomovimientoid.catalogoid == this.constantes.devolucionRestauracion
+            || x.museoreceptorid == this.museo.museoid
+          ) {
+            x.receptor = true;
+          } else if (x.museoid == this.museo.museoid) {
+            x.receptor = false;
           }
         });
 
@@ -106,19 +113,19 @@ export class DashboardDefaultComponent implements OnInit {
       }, (err: any) => null);
 
   }
-  buscar(){
-    if(this.museo!=null){
+  buscar() {
+    if (this.museo != null) {
       this.cargarMovimientosPendientes();
-        this.cargarMovimientosPendientesConfirmacion()
+      this.cargarMovimientosPendientesConfirmacion()
     }
   }
   cargarMovimientosPendientesConfirmacion() {
-    
+
     this._movimientosService.obtenerMovimientosPendientes(this.museo.museoid)
       .subscribe((movimientos: any[]) => {
         this.movimientosPendientesLista = movimientos;
         this.movimientosPendientes = this.movimientosPendientesLista.length;
-      }, (err: any) =>null);
+      }, (err: any) => null);
 
   }
   cargarMuseos() {
