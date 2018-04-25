@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, SimpleChange, OnChanges } from '@angular/core';
 import { Properties } from '../../../properties'
 import { Constantes } from '../../../constantes'
 import { CatalogoService } from '../../../../services/catalogos/catalogos.service'
@@ -8,7 +8,7 @@ import { Message, ConfirmationService } from 'primeng/primeng';
   selector: 'geologia',
   templateUrl: './geologia.html'
 })
-export class GeologiaComponent implements OnInit {
+export class GeologiaComponent implements OnInit, OnChanges {
 
   properties = new Properties();
   constantes = new Constantes();
@@ -18,13 +18,44 @@ export class GeologiaComponent implements OnInit {
   
   @Input() detalle = null;
   @Input() item = null;
-
+  @Input() submitted = 0;
+  @Output() validacionFormulario = new EventEmitter();
+  @Output() enviadorCondicion = new EventEmitter();
+  @Input() materialesSelecionados = []
+  camposObligatorios=["descripcion"]
   es = this.properties.es;
   constructor(
     private _catalogoService: CatalogoService,
     ) {}
 
+    impr() {
+      this.enviadorCondicion.emit(this.materialesSelecionados);
+  
+    }
+
   ngOnInit() {
    
+  }
+
+  ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
+
+    if(changes.submitted!=undefined){
+      console.log(this.submitted);
+      if(this.submitted>0){
+        let valido=1
+        this.camposObligatorios.forEach(x => {
+          if (this.detalle[x]==null || this.detalle[x]==""){
+            valido=valido*0
+          }
+        });
+        if (valido==1){
+          this.validacionFormulario.emit(true)
+        }else{
+          this.validacionFormulario.emit(false)
+        }
+      }
+      
+    }
+
   }
 }

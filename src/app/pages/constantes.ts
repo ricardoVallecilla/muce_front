@@ -44,6 +44,9 @@ export class Constantes{
     devolucionRestauracion=732
     devolucionPrestamoInterno=733
     devolucionPrestamoExterno=734
+
+    tecnicasConservacionZoo = 750
+    sexo = 754
     /*
     740	1	EN DESINFECCIÓN
 739	1	EN RESTAURACIÓN

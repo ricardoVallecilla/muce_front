@@ -16,13 +16,11 @@ export class ZoologiaModel {
     longitud
     localizacionprecisa
     personarecolectadora
-    ciudadid
+    ciudad
     usuarioregistroid
     fecharegistro
-    provinciaid
-    cantonid
-    sexoid
-    paisid
+    provincia
+    sexo
     tecnicaconservacionid
     piezamuseableid
 

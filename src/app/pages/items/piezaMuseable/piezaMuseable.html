@@ -37,12 +37,13 @@
               (enviadorOrigenes)="optenerBotanicaOrigenes($event)"></botanica>
             <entomologia [item]="item" *ngIf="item.categoriaid.catalogoid==constantes.entomologia" [detalle]="detalle" (enviadorCondicion)="obtenerDatoHijoEntomologia($event)"
               [tecnicaConservacionSelecionados]="tecnicaConservacionSelecionados" [submitted]="submitted" (validacionFormulario)="validarGuardar($event)"></entomologia>
-            <fotografia [item]="item" *ngIf="item.categoriaid.catalogoid==constantes.fotografia" [detalle]="detalle"></fotografia>
-            <geologia [item]="item" *ngIf="item.categoriaid.catalogoid==constantes.geologia" [detalle]="detalle"></geologia>
+            <fotografia [item]="item" *ngIf="item.categoriaid.catalogoid==constantes.fotografia" [detalle]="detalle" [submitted]="submitted" (validacionFormulario)="validarGuardar($event)"></fotografia>
+            <geologia [item]="item" *ngIf="item.categoriaid.catalogoid==constantes.geologia" [detalle]="detalle" [submitted]="submitted" (validacionFormulario)="validarGuardar($event)"></geologia>
             <istrumentalCientifico [item]="item" *ngIf="item.categoriaid.catalogoid==constantes.instrumental" (enviadorCondicion)="obtenerDatoHijo($event)"
               [materialesSelecionados]="materialesSelecionados" [detalle]="detalle" [submitted]="submitted" (validacionFormulario)="validarGuardar($event)"></istrumentalCientifico>
-            <paleontologia [item]="item" *ngIf="item.categoriaid.catalogoid==constantes.peleontologia" [detalle]="detalle"></paleontologia>
-            <zoologia [item]="item" *ngIf="item.categoriaid.catalogoid==constantes.zoologia" [detalle]="detalle"></zoologia>
+            <paleontologia [item]="item" *ngIf="item.categoriaid.catalogoid==constantes.peleontologia" [detalle]="detalle" [submitted]="submitted" (validacionFormulario)="validarGuardar($event)"></paleontologia>
+            <zoologia [item]="item" *ngIf="item.categoriaid.catalogoid==constantes.zoologia" [detalle]="detalle" [submitted]="submitted" 
+              (validacionFormulario)="validarGuardar($event)" [tecnicasConservacionZooSelecionados]="tecnicasConservacionZooSelecionados" (enviadorCondicion)="obtenerMaterialesZoo($event)"></zoologia>
 
             <div class="separadorInventario">
               <h5>DATOS DE LOCALIZACIÓN</h5>
@@ -178,7 +179,7 @@
                 </div>
               </div>
             </div>
-            <datosRecoleccion [detalle]="detalle" *ngIf="item.categoriaid.catalogoid==constantes.entomologia || item.categoriaid.catalogoid==constantes.botanica"></datosRecoleccion>
+            <datosRecoleccion [detalle]="detalle" *ngIf="item.categoriaid.catalogoid==constantes.entomologia || item.categoriaid.catalogoid==constantes.botanica || item.categoriaid.catalogoid==constantes.zoologia"></datosRecoleccion>
             <div *ngIf="!esCatalogacion" class="separadorInventario">
               <h5>CONDICIÓN LEGAL DEL BIEN</h5>
               <div style="width: 100%;text-align: right">

@@ -57,6 +57,7 @@ export class PiezaMuseableComponent implements OnInit {
   tecnicaConservacionBotanicaSelecionados = [];
   origenesBotanicaSeleccionados = [];
   materialesArqueologiaSelecionados = [];
+  tecnicasConservacionZooSelecionados = []
   foto = null;
   @Output() enviadorCondicion = new EventEmitter();
   @Output() enviadorCatalogos = new EventEmitter();
@@ -203,7 +204,7 @@ export class PiezaMuseableComponent implements OnInit {
         nombresColumna = [''];
         break;
       case this.constantes.zoologia:
-        nombresColumna = [''];
+        nombresColumna = ['tecnicaConservacionEntomologia'];
         break;
 
       default:
@@ -265,8 +266,11 @@ export class PiezaMuseableComponent implements OnInit {
               break;
 
             case this.constantes.zoologia:
-              catalogos.forEach(x => {
-              });
+            this.tecnicasConservacionZooSelecionados = [];
+            catalogos.forEach(x => {
+              this.tecnicasConservacionZooSelecionados.push(x.piezacatalogoPk.catalogoid + "")
+
+            });
               break;
 
             default:
@@ -494,6 +498,17 @@ export class PiezaMuseableComponent implements OnInit {
     }
   }
 
+  obtenerMaterialesZoo(catalogos) {
+    this.tecnicasConservacionZooSelecionados = catalogos;
+    if (this.esCatalogacion) {
+      let catalogosDetalle = []
+      this.tecnicasConservacionZooSelecionados.forEach(x => {
+        catalogosDetalle.push(new DetalleCatalogo(x, "tecnicaConservacionZoo"))
+      });
+      this.enviadorCatalogos.emit(catalogosDetalle);
+    }
+  }
+
   optenerBotanicaOrigenes(catalogos) {
     this.origenesBotanicaSeleccionados = catalogos;
     if (this.esCatalogacion) this.enviadorCatalogos.emit(catalogos)
@@ -589,9 +604,14 @@ export class PiezaMuseableComponent implements OnInit {
       case this.constantes.zoologia:
         tipo = 9
         piezaDetalle.piezazoologicadetalle = this.detalle
-        if (this.tecnicaConservacionSelecionados.length > 0) {
+        if (this.tecnicasConservacionZooSelecionados.length > 0) {
           catalogosDetalle = [];
+          this.tecnicasConservacionZooSelecionados.forEach(x => {
+            catalogosDetalle.push(new DetalleCatalogo(x, "tecnicaConservacionZoo"))
+          });
         }
+
+
         break;
       default:
         break;
