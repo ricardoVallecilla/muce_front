@@ -534,6 +534,7 @@ export class PiezaMuseableComponent implements OnInit {
     let piezaDetalle = new PiezaDetalle();
     let catalogosDetalle = null;
     let tipo;
+    if(this.detalle.detalleid==null)this.piezaMuseable.fecharegistroinventario= new Date()
     switch (this.item.categoriaid.catalogoid) {
       case this.constantes.instrumental:
         tipo = 6

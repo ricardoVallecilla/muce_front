@@ -8,13 +8,51 @@
         <div class="ui-g-12 ui-md-12 ui-lg-1">Museo</div>
         <div class="ui-g-12 ui-md-12 ui-lg-2">
 
-          <p-dropdown  [options]="museoItem" name="museo" (ngModelChange)="movimientos=[];buscar()" filter="true" [style]="{'width': '100%'}"
+          <p-dropdown [options]="museoItem" name="museo" (ngModelChange)="movimientos=[];buscar()" filter="true" [style]="{'width': '100%'}"
             [(ngModel)]="museo"></p-dropdown>
         </div>
-        
+
       </div>
       <div style="padding: 0">
         <p-tabView>
+          <p-tabPanel header="Reporte General">
+            <div class="ui-g">
+              <div class="ui-g-6">
+                  <p-panel header="Piezas Museo">
+                      <p-dataTable [value]="cantidadPiezas" emptyMessage="{{properties.sinDatos}}" >
+                          <p-column field="categoria" header="Categoría" [sortable]="true"></p-column>
+                          <p-column field="cantidad" header="Cantidad" [sortable]="true"></p-column>
+
+                        </p-dataTable>
+                  </p-panel>
+              </div>
+              <div class="ui-g-6">
+                  <p-panel header="Iventario">
+                      <p-dataTable [value]="cantidadPiezasInventario" emptyMessage="{{properties.sinDatos}}" >
+                          <p-column field="categoria" header="Año" [sortable]="true"></p-column>
+                          <p-column field="cantidad" header="Cantidad" [sortable]="true"></p-column>
+
+                        </p-dataTable>
+                  </p-panel>
+              </div>
+              <div class="ui-g-6">
+                  <p-panel header="Catalogación">
+                      <p-dataTable [value]="cantidadPiezasCatalogacion" emptyMessage="{{properties.sinDatos}}" >
+                          <p-column field="categoria" header="Año" [sortable]="true"></p-column>
+                          <p-column field="cantidad" header="Cantidad" [sortable]="true"></p-column>
+
+                        </p-dataTable>
+                  </p-panel>
+              </div>
+              <div class="ui-g-6">
+                  <p-panel header="Restauración">
+                      <h4>TOTAL: {{restauracion}}</h4>
+                  </p-panel>
+              </div>
+            </div>
+
+            
+          </p-tabPanel>
           <p-tabPanel header="Movimientos">
             <p-dataTable [value]="movimientos" emptyMessage="{{properties.sinDatos}}" [paginator]="true" [rows]="properties.cantidadRegistros">
 

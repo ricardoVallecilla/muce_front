@@ -42,6 +42,7 @@ export class PiezaMuseable {
     extintores;
     montaje;
     itemid:any;
+    fecharegistroinventario;
     constructor(itemid) {
         this.procesojuridico=false;
         this.humedad=false;

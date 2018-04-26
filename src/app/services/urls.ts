@@ -63,6 +63,9 @@ export class UrlServices {
     movimientosItem=this.movimientos+"pieza/movimientos/"
     guardarMuseoFile = this.museo + 'file'
     pendientesgeneral=this.movimientos+"pendientes/general"
+    reporteExposicion=this.item+"/reporteExposicion"
+    urlImagen=this.item+"urlImagen"
+    reporteGeneral=this.item+"reportegeneral"
     constructor() {
 
     }

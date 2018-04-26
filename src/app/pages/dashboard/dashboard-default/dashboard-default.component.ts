@@ -35,7 +35,11 @@ export class DashboardDefaultComponent implements OnInit {
   movimientosPendientesLista = [];
   movimientosPendientes = 0;
   esAdmin = false
-  verDasboard=false
+  verDasboard = false;
+  cantidadPiezas = []
+  cantidadPiezasInventario = []
+  cantidadPiezasCatalogacion = []
+  restauracion=0;
   constructor(
     private _generalService: GeneralService,
     private _router: Router,
@@ -49,21 +53,21 @@ export class DashboardDefaultComponent implements OnInit {
         var decrypted = CryptoJS.AES.decrypt(localStorage.getItem("sesion"), this.key);
         let persona = JSON.parse(decrypted.toString(CryptoJS.enc.Utf8))
         console.log(persona);
-        
+
         this.museo = persona.usuario.museoId;
 
         if (persona.usuario.rolId.rolid == this.constantes.rolAdministrador || persona.usuario.rolId.rolid == this.constantes.rolDirector) {
           this.esAdmin = true;
-          this.verDasboard=true;
+          this.verDasboard = true;
 
         } else if (persona.usuario.rolId.rolid == this.constantes.rolCustodio) {
-          this.verDasboard=true;
+          this.verDasboard = true;
           this.esAdmin = false;
         }
 
         this.cargarMuseos();
         if (this.museo) {
-
+          this.cargarMureporteGeneral()
           this.cargarMovimientosPendientes();
           this.cargarMovimientosPendientesConfirmacion()
 
@@ -115,6 +119,7 @@ export class DashboardDefaultComponent implements OnInit {
   }
   buscar() {
     if (this.museo != null) {
+      this.cargarMureporteGeneral()
       this.cargarMovimientosPendientes();
       this.cargarMovimientosPendientesConfirmacion()
     }
@@ -149,6 +154,41 @@ export class DashboardDefaultComponent implements OnInit {
         });
   }
 
+  cargarMureporteGeneral() {
+    this._museoServices.reporteGeneral(this.museo.museoid, this.constantes.grupoCultural)
+      .subscribe((reporte: any) => {
+        let cantidadPiezas = []
+        let total = 0
+        reporte.cantidadPiezas.forEach(x => {
+          cantidadPiezas.push({ "categoria": x[0], "cantidad": x[1] })
+          total += x[1]
+        });
+        
+        cantidadPiezas.push({ "categoria": "TOTAL", "cantidad": total })
+        this.cantidadPiezas=cantidadPiezas
+
+        
+        let cantidadPiezasInventario = []
+        let totalInventario = 0
+        reporte.cantidadPiezasInventario.forEach(x => {
+          cantidadPiezasInventario.push({ "categoria": x[0], "cantidad": x[1] })
+          totalInventario += x[1]
+        });
+        cantidadPiezasInventario.push({ "categoria": "TOTAL", "cantidad": totalInventario })
+        this.cantidadPiezasInventario=cantidadPiezasInventario
+
+        let cantidadPiezasCatalogacion = []
+        let totalCatalogacion = 0
+        reporte.cantidadPiezasCatalogacion.forEach(x => {
+          cantidadPiezasCatalogacion.push({ "categoria": x[0], "cantidad": x[1] })
+          totalCatalogacion += x[1]
+        });
+        cantidadPiezasCatalogacion.push({ "categoria": "TOTAL", "cantidad": totalCatalogacion })
+        this.cantidadPiezasCatalogacion=cantidadPiezasCatalogacion;
+        this.restauracion=reporte.cantidadPiezasRestauracion
+
+      }, (err: any) => null);
+  }
 
 
 }

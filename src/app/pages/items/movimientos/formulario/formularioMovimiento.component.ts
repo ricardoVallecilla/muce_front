@@ -39,7 +39,241 @@ export class FormularioMovimientoComponent implements OnInit {
   @Input() movimiento: Movimiento = null;
   @Input() tipoFormulario = null;
   @Output() notificarGuardar = new EventEmitter();
-  piezasAgregadas = [];
+  vistaPreviaExposicion = false
+  listaExposicion = [];
+  piezasAgregadas = [{
+    "itemid": 202,
+    "codigocontrol": "1213-123",
+    "descripcion": "descripcion",
+    "nombre": "pieza entomologica",
+    "marca": null,
+    "modelo": null,
+    "numeroserie": "213215",
+    "valor": 123,
+    "otroingreso": null,
+    "custodiodos": null,
+    "fechaadquisicion": 850366800000,
+    "procedencia": "12/12/1996",
+    "tipoingreso": {
+      "catalogoid": 14,
+      "nombre": "ADQUISICIÓN",
+      "descripcion": "ADQUISICIÓN",
+      "activo": true,
+      "usuarioregistroid": null,
+      "fecharegistro": null,
+      "catalogopadreid": {
+        "catalogoid": 9,
+        "nombre": "TIPO DE INGRESO",
+        "descripcion": "TIPO DE INGRESO DE UN ITEM",
+        "activo": true,
+        "usuarioregistroid": null,
+        "fecharegistro": null,
+        "catalogopadreid": null
+      }
+    },
+    "fechaingreso": 1524286800000,
+    "tipodocumento": null,
+    "restaurado": false,
+    "fecharestaurado": null,
+    "detalles": "12/12/1996",
+    "usuarioregistroid": null,
+    "fecharegistro": null,
+    "estadoid": null,
+    "grupoid": {
+      "catalogoid": 19,
+      "nombre": "CULTURAL",
+      "descripcion": "Cultural",
+      "activo": true,
+      "usuarioregistroid": null,
+      "fecharegistro": null,
+      "catalogopadreid": {
+        "catalogoid": 16,
+        "nombre": "GRUPO",
+        "descripcion": "GRUPO",
+        "activo": true,
+        "usuarioregistroid": null,
+        "fecharegistro": null,
+        "catalogopadreid": null
+      }
+    },
+    "categoriaid": {
+      "catalogoid": 27,
+      "nombre": "ENTOMOLÓGICA",
+      "descripcion": "ENTOMOLÓGICA",
+      "activo": true,
+      "usuarioregistroid": null,
+      "fecharegistro": null,
+      "catalogopadreid": {
+        "catalogoid": 22,
+        "nombre": "GRUPO CULTURAL",
+        "descripcion": "GRUPO CULTURAL",
+        "activo": true,
+        "usuarioregistroid": null,
+        "fecharegistro": null,
+        "catalogopadreid": null
+      }
+    },
+    "museoid": {
+      "museoid": 142,
+      "nombres": "Museo uno",
+      "descripcion": "descripción adicional actualizada",
+      "ubicacion": "ubicacion del museo actualizada",
+      "telefono": "0987056550",
+      "directora": "Directo museo",
+      "usuarioregistroid": null,
+      "fecharegistro": null,
+      "cutodioId": {
+        "id": 1,
+        "username": "ricardo",
+        "password": "$2a$10$D4OLKI6yy68crm.3imC9X.P2xqKHs5TloWUcr6z5XdOqnTrAK84ri",
+        "enabled": true,
+        "nombres": "Ricardo Vallecilla",
+        "rolId": {
+          "rolid": 3,
+          "nombre": "custodio",
+          "descripcion": "custodio",
+          "permisoSet": [{
+            "permisoid": 4,
+            "nombre": "ACCESO A MUSEO ASIGNADO",
+            "detalle": "ACCESO A MUSEO ASIGNADO",
+            "url": "/MUSEO"
+          }, {
+            "permisoid": 7,
+            "nombre": "ACCESO AL MODULO DE MOVIMIENTOS DEL MUSEO ASIGNADO",
+            "detalle": "ACCESO AL MODULO DE MOVIMIENTOS DEL MUSEO ASIGNADO",
+            "url": "ACCESO AL MODULO DE MOVIMIENTOS DEL MUSEO ASIGNADO"
+          }, {
+            "permisoid": 9,
+            "nombre": "REPORTES MUSEO ASIGNADO",
+            "detalle": "REPORTES MUSEO ASIGNADO",
+            "url": "REPORTES MUSEO ASIGNADO"
+          }
+          ]
+        },
+        "authorities": [],
+        "accountNonExpired": true,
+        "accountNonLocked": true,
+        "credentialsNonExpired": true
+      }
+    }
+  }, {
+    "itemid": 203,
+    "codigocontrol": "456465",
+    "descripcion": "descripcion",
+    "nombre": "instrumental",
+    "marca": "aaa",
+    "modelo": null,
+    "numeroserie": "654564",
+    "valor": 123,
+    "otroingreso": null,
+    "custodiodos": null,
+    "fechaadquisicion": 1523509200000,
+    "procedencia": "555",
+    "tipoingreso": {
+      "catalogoid": 14,
+      "nombre": "ADQUISICIÓN",
+      "descripcion": "ADQUISICIÓN",
+      "activo": true,
+      "usuarioregistroid": null,
+      "fecharegistro": null,
+      "catalogopadreid": {
+        "catalogoid": 9,
+        "nombre": "TIPO DE INGRESO",
+        "descripcion": "TIPO DE INGRESO DE UN ITEM",
+        "activo": true,
+        "usuarioregistroid": null,
+        "fecharegistro": null,
+        "catalogopadreid": null
+      }
+    },
+    "fechaingreso": 1524632400000,
+    "tipodocumento": null,
+    "restaurado": false,
+    "fecharestaurado": null,
+    "detalles": "234234",
+    "usuarioregistroid": null,
+    "fecharegistro": null,
+    "estadoid": null,
+    "grupoid": {
+      "catalogoid": 19,
+      "nombre": "CULTURAL",
+      "descripcion": "Cultural",
+      "activo": true,
+      "usuarioregistroid": null,
+      "fecharegistro": null,
+      "catalogopadreid": {
+        "catalogoid": 16,
+        "nombre": "GRUPO",
+        "descripcion": "GRUPO",
+        "activo": true,
+        "usuarioregistroid": null,
+        "fecharegistro": null,
+        "catalogopadreid": null
+      }
+    },
+    "categoriaid": {
+      "catalogoid": 30,
+      "nombre": "INSTRUMENTAL CIENTíFICO",
+      "descripcion": "INSTRUMENTAL CIENTíFICO",
+      "activo": true,
+      "usuarioregistroid": null,
+      "fecharegistro": null,
+      "catalogopadreid": {
+        "catalogoid": 22,
+        "nombre": "GRUPO CULTURAL",
+        "descripcion": "GRUPO CULTURAL",
+        "activo": true,
+        "usuarioregistroid": null,
+        "fecharegistro": null,
+        "catalogopadreid": null
+      }
+    },
+    "museoid": {
+      "museoid": 142,
+      "nombres": "Museo uno",
+      "descripcion": "descripción adicional actualizada",
+      "ubicacion": "ubicacion del museo actualizada",
+      "telefono": "0987056550",
+      "directora": "Directo museo",
+      "usuarioregistroid": null,
+      "fecharegistro": null,
+      "cutodioId": {
+        "id": 1,
+        "username": "ricardo",
+        "password": "$2a$10$D4OLKI6yy68crm.3imC9X.P2xqKHs5TloWUcr6z5XdOqnTrAK84ri",
+        "enabled": true,
+        "nombres": "Ricardo Vallecilla",
+        "rolId": {
+          "rolid": 3,
+          "nombre": "custodio",
+          "descripcion": "custodio",
+          "permisoSet": [{
+            "permisoid": 4,
+            "nombre": "ACCESO A MUSEO ASIGNADO",
+            "detalle": "ACCESO A MUSEO ASIGNADO",
+            "url": "/MUSEO"
+          }, {
+            "permisoid": 7,
+            "nombre": "ACCESO AL MODULO DE MOVIMIENTOS DEL MUSEO ASIGNADO",
+            "detalle": "ACCESO AL MODULO DE MOVIMIENTOS DEL MUSEO ASIGNADO",
+            "url": "ACCESO AL MODULO DE MOVIMIENTOS DEL MUSEO ASIGNADO"
+          }, {
+            "permisoid": 9,
+            "nombre": "REPORTES MUSEO ASIGNADO",
+            "detalle": "REPORTES MUSEO ASIGNADO",
+            "url": "REPORTES MUSEO ASIGNADO"
+          }
+          ]
+        },
+        "authorities": [],
+        "accountNonExpired": true,
+        "accountNonLocked": true,
+        "credentialsNonExpired": true
+      }
+    }
+  }
+  ]
+    ;
   itemsSeleccionados = [];
   items = []
   piezasSeleccionados = [];
@@ -59,6 +293,7 @@ export class FormularioMovimientoComponent implements OnInit {
   esfiltroTexto;
   textoFiltra;
   diccionarioImpresion = {}
+  categoriasCultural = []
   constructor(
     private confirmationService: ConfirmationService,
     private domSanitizer: DomSanitizer,
@@ -127,7 +362,7 @@ export class FormularioMovimientoComponent implements OnInit {
         this.movimiento.provincia = "Pichinca"
         this.movimiento.ciudad = "Quito"
         this.movimiento.receptorcargo = "Custodio"
-        
+
         this.museoSeleccionado = this.museoItem.find(x => (x.value != null && x.value.museoid == movimiento.museoid)).value
         this.cambiarMuseo();
 
@@ -209,15 +444,15 @@ export class FormularioMovimientoComponent implements OnInit {
 
 
   buscar(first = 0, rows = this.properties.cantidadRegistros) {
-    if( this.categoria!=null)
-    this._itemService.cantidadfiltrarItemsMovimientos(this.museo.museoid, 0, this.categoria.catalogoid)
-      .subscribe((cantidad: number) => {
-        this.totalRecords = cantidad;
-        this._itemService.filtrarItemsMovimientos(this.museo.museoid, 0, this.categoria.catalogoid, first, rows)
-          .subscribe((items: any[]) => {
-            this.items = items;
-          }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }));
-      }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }));
+    if (this.categoria != null)
+      this._itemService.cantidadfiltrarItemsMovimientos(this.museo.museoid, 0, this.categoria.catalogoid)
+        .subscribe((cantidad: number) => {
+          this.totalRecords = cantidad;
+          this._itemService.filtrarItemsMovimientos(this.museo.museoid, 0, this.categoria.catalogoid, first, rows)
+            .subscribe((items: any[]) => {
+              this.items = items;
+            }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }));
+        }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }));
 
   }
 
@@ -254,10 +489,10 @@ export class FormularioMovimientoComponent implements OnInit {
   cargarMuseos() {
     this._museoServices.obtenerTodoMuseos()
       .subscribe((museos: any[]) => {
-     
-        if(this.museo)this.museo = museos.find(x => x.museoid == this.museo.museoid);
+
+        if (this.museo) this.museo = museos.find(x => x.museoid == this.museo.museoid);
         this.museoItem = [{ label: this.properties.labelSeleccione, value: null }];
-        let museosLocales=[]
+        let museosLocales = []
         if (this.museo) {
           museosLocales = museos.filter(x => x.museoid != this.museo.museoid)
         } else {
@@ -274,7 +509,7 @@ export class FormularioMovimientoComponent implements OnInit {
   cargarCatalogos() {
 
     this._catalogoService.obtenerCatalogosHijosPorPadres([this.constantes.tipoMovimientosEgreso,
-    this.constantes.tipoMovimientosIngreso, this.constantes.estadosPiezasMovimientos, this.constantes.grupo])
+    this.constantes.tipoMovimientosIngreso, this.constantes.estadosPiezasMovimientos, this.constantes.grupo, this.constantes.grupoCulturalPadre])
       .subscribe((catalogos: any[]) => {
         catalogos.forEach(x => {
           this.diccionarioImpresion[x.catalogoid + ""] = x.nombre
@@ -282,8 +517,10 @@ export class FormularioMovimientoComponent implements OnInit {
         this.tiposMovimientosGeneral = catalogos;
         this.tiposEgresos = catalogos.filter(x => x.catalogopadreid.catalogoid == this.constantes.tipoMovimientosEgreso);
         this.tiposIngresos = catalogos.filter(x => x.catalogopadreid.catalogoid == this.constantes.tipoMovimientosIngreso);
+        this.categoriasCultural = catalogos.filter(x => x.catalogopadreid.catalogoid == this.constantes.grupoCulturalPadre);
         catalogos.filter(x => x.catalogopadreid.catalogoid == this.constantes.grupo).forEach(x => {
           this.grupoItem.push({ label: x.nombre, value: x })
+
         });
       }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }),
         () => {
@@ -294,7 +531,7 @@ export class FormularioMovimientoComponent implements OnInit {
 
 
   cambiarTipo() {
-    
+
     switch (this.tipoSeleccionado) {
       case this.constantes.prestamoInterno + "":
       case this.constantes.traspasointerno + "":
@@ -385,8 +622,8 @@ export class FormularioMovimientoComponent implements OnInit {
   }
 
   agregarItems() {
-    this.grupo=null;
-    this.categoria=null;
+    this.grupo = null;
+    this.categoria = null;
     let piezas = [...this.piezasAgregadas];
     this.itemsSeleccionados.forEach(x => {
       let encontrado = this.piezasAgregadas.find(x2 => x2.itemid == x.itemid)
@@ -538,15 +775,232 @@ export class FormularioMovimientoComponent implements OnInit {
     let innerContents2 = innerContents.replace('*:"', ':');
     popupWinindow = window.open('', '_blank', 'scrollbars=no,menubar=no,toolbar=no,location=no,status=no,titlebar=no');
     popupWinindow.document.open();
-    let tituloReporte="ACTA DE EGRESO DE OBRAS / MOVIMIENTO"
+    let tituloReporte = "ACTA DE EGRESO DE OBRAS / MOVIMIENTO"
     let estilosReporte = new EstilosReportes()
     //formatoFecha = "dd/MM/yyyy";
     let fechaDate = new Date(this.movimiento.fechamovimiento);
-    let fecha=fechaDate.getDay()+"/"+fechaDate.getMonth()+"/"+fechaDate.getFullYear();
+    let fecha = fechaDate.getDay() + "/" + fechaDate.getMonth() + "/" + fechaDate.getFullYear();
     popupWinindow.document.write('<html><head><style>' + estilosReporte.estilo + '</style></head><body onload="window.print();window.close()"> <div >'
-      + this.properties.cabezeraReporte(tituloReporte,this.movimiento.movimientoid, fecha,1)
+      + this.properties.cabezeraReporte(tituloReporte, this.movimiento.movimientoid, fecha, 1)
       + innerContents2
       + '</div></html>');
     popupWinindow.document.close();
+  }
+  printExposicion() {
+    let printSectionId = "exposicionPrint"
+    let popupWinindow
+    let innerContents = document.getElementById(printSectionId).innerHTML;
+    let innerContents2 = innerContents.replace('*:"', ':');
+    popupWinindow = window.open('', '_blank', 'scrollbars=no,menubar=no,toolbar=no,location=no,status=no,titlebar=no');
+    popupWinindow.document.open();
+    let tituloReporte = "ITEMS PARA EXPOSICIÓN"
+    let estilosReporte = new EstilosReportes()
+    //formatoFecha = "dd/MM/yyyy";
+    let fechaDate = new Date(this.movimiento.fechamovimiento);
+    let fecha = fechaDate.getDay() + "/" + fechaDate.getMonth() + "/" + fechaDate.getFullYear();
+    popupWinindow.document.write('<html><head><style>' + estilosReporte.estilo + '</style></head><body onload="window.print();window.close()"> <div >'
+      + this.properties.cabezeraReporte(tituloReporte, "", fecha, 0)
+      + innerContents2
+      + '</div></html>');
+    popupWinindow.document.close();
+  }
+
+
+  consultaReporteExposicion() {
+    let consultaReporte = [];
+    this.categoriasCultural.forEach(categoria => {
+
+      let listaCategoria = this.piezasAgregadas.filter(x => x.categoriaid.catalogoid == categoria.catalogoid);
+      if (listaCategoria.length > 0) {
+        let tipo
+        switch (categoria.catalogoid) {
+          case this.constantes.arqueologia:
+            tipo = 1
+            break;
+          case this.constantes.botanica:
+            tipo = 2
+            break;
+          case this.constantes.instrumental:
+            tipo = 6;
+            break;
+          case this.constantes.entomologia:
+            tipo = 3;
+            break;
+          case this.constantes.fotografia:
+            tipo = 5
+            break;
+          case this.constantes.geologia:
+            tipo = 7
+            break;
+
+          case this.constantes.peleontologia:
+            tipo = 8
+            break;
+
+          case this.constantes.zoologia:
+            tipo = 9
+            break;
+
+          default:
+            break;
+        }
+        let consulta = { tipo: tipo, items: [] }
+        listaCategoria.forEach(item => {
+          consulta.items.push(item.itemid)
+        });
+        consultaReporte.push(consulta)
+      }
+
+    });
+
+    console.log(JSON.stringify(consultaReporte));
+
+    console.log(this.piezasAgregadas);
+
+    this._itemService.reporteExposicion(consultaReporte)
+      .subscribe((items: any[]) => {
+        this.listaExposicion = []
+        items.forEach(x => {
+          let listaRegistros = []
+          switch (x.tipo) {
+
+            case 1:
+              x.items.forEach(registro => {
+                let registroJson = {}
+                registroJson["nombre"] = registro[0]
+                registroJson["ruta"] = registro[1]
+                registroJson["categoria"] = registro[2]
+                registroJson["periodo"] = registro[3]
+                registroJson["cronologia"] = registro[4]
+                registroJson["cultura"] = registro[5]
+                registroJson["fase"] = registro[6]
+                registroJson["alto"] = registro[7]
+                registroJson["largo"] = registro[8]
+                registroJson["profundidad"] = registro[9]
+                registroJson["diametro"] = registro[10]
+                registroJson["espesor"] = registro[11]
+                registroJson["peso"] = registro[12]
+                if (registro[1] != null) this.descargarFoto(registroJson);
+                listaRegistros.push(registroJson)
+              });
+              break;
+            case 3:
+              x.items.forEach(registro => {
+                let registroJson = {}
+                registroJson["nombre"] = registro[0]
+                registroJson["ruta"] = registro[1]
+                registroJson["cientifico"] = registro[2]
+                registroJson["comun"] = registro[3]
+                registroJson["autor"] = registro[4]
+                registroJson["clase"] = registro[5]
+                registroJson["anio"] = registro[6]
+                if (registro[1] != null) this.descargarFoto(registroJson);
+                listaRegistros.push(registroJson)
+              });
+              break;
+            //fotografia
+            case 5:
+              x.items.forEach(registro => {
+                let registroJson = {}
+                registroJson["nombre"] = registro[0]
+                registroJson["ruta"] = registro[1]
+                registroJson["titulo"] = registro[2]
+                registroJson["tematica"] = registro[3]
+                registroJson["procedimiento"] = registro[4]
+                registroJson["autor"] = registro[5]
+                registroJson["siglo"] = registro[6]
+                registroJson["alto"] = registro[7]
+                registroJson["largo"] = registro[8]
+                if (registro[1] != null) this.descargarFoto(registroJson);
+                listaRegistros.push(registroJson)
+              });
+              break;
+            //instrumental cientifico
+            case 6:
+              x.items.forEach(registro => {
+                let registroJson = {}
+                registroJson["nombre"] = registro[0]
+                registroJson["ruta"] = registro[1]
+                if (registro[1] != null) this.descargarFoto(registroJson);
+                registroJson["inventor"] = registro[2]
+                registroJson["fabricante"] = registro[3]
+                registroJson["lugar"] = registro[4]
+                registroJson["fecha"] = registro[5]
+                registroJson["alto"] = registro[6]
+                registroJson["largo"] = registro[7]
+                registroJson["profundidad"] = registro[8]
+                registroJson["diametro"] = registro[9]
+                registroJson["espesor"] = registro[10]
+                registroJson["peso"] = registro[11]
+
+                listaRegistros.push(registroJson)
+              });
+              break;
+            //geologia
+            case 7:
+              x.items.forEach(registro => {
+                let registroJson = {}
+                registroJson["nombre"] = registro[0]
+                registroJson["ruta"] = registro[1]
+                if (registro[1] != null) this.descargarFoto(registroJson);
+
+                listaRegistros.push(registroJson)
+              });
+              break;
+            //Peleontologia
+            case 8:
+              x.items.forEach(registro => {
+                let registroJson = {}
+                registroJson["nombre"] = registro[0]
+                registroJson["ruta"] = registro[1]
+                if (registro[1] != null) this.descargarFoto(registroJson);
+                registroJson["cientifico"] = registro[2]
+                registroJson["comun"] = registro[3]
+                registroJson["clase"] = registro[4]
+                
+
+                listaRegistros.push(registroJson)
+              });
+              break;
+              //zoologia
+            case 9:
+            x.items.forEach(registro => {
+              let registroJson = {}
+              registroJson["nombre"] = registro[0]
+              registroJson["ruta"] = registro[1]
+              if (registro[1] != null) this.descargarFoto(registroJson);
+              registroJson["cientifico"] = registro[2]
+              registroJson["comun"] = registro[3]
+              registroJson["autor"] = registro[4]
+             
+
+              listaRegistros.push(registroJson)
+            });
+              break;
+
+            default:
+              break;
+          }
+          this.listaExposicion.push({ "tipo": x.tipo, "registros": listaRegistros })
+        });
+
+
+        this.vistaPreviaExposicion = true;
+
+      }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo cargar los movimientos.' }));
+  }
+
+  descargarFoto(registroLista) {
+    this._itemService.downloadUrlImagen(registroLista.ruta).
+      subscribe((foto: any) => {
+
+
+        let blob = new Blob([foto.blob()], { type: 'image/jpeg' });
+        registroLista.imagen = this.domSanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
+
+        //let blob = new Blob([foto.blob()], { type: 'image/jpeg' });
+        //this.foto = this.domSanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
+      }, (err: any) => {
+      }, () => { });
   }
 }
