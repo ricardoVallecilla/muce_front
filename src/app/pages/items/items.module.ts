@@ -58,6 +58,7 @@ import { Seccion2InstrumentalComponent } from './catalogacion/instrumental/secci
 import { MessageService } from 'primeng/components/common/messageservice';
 import { BajasComponent } from './bajas/bajas.component';
 import { CatalogacionImprimirComponent } from './catalogacion/catalogacionImprimir.component';
+import { RestauracionComponent } from './movimientos/restauracion/restauracion.component';
 
 
 
@@ -154,7 +155,7 @@ export const ItemRoutes: Routes = [
      EntomologiaComponent, FotografiaComponent, GeologiaComponent, PaleontologiaComponent, ZoologiaComponent,MovimientosComponent,FormularioMovimientoComponent,
       IstrumentalCientificoComponent, ArtesComponent,Seccion2ArqueologiaComponent,CatalogacionComponent,YacimientoComponent,Seccion3ArqueologiaComponent,
       UsoAcademicoComponent,Seccion2EntomologiaComponent,Seccion3EntomologiaComponent,Seccion2InstrumentalComponent,CatalogacionImprimirComponent,
-      BajasComponent]
+      BajasComponent, RestauracionComponent]
   , providers: [GeneralService, ConfirmationService, CatalogoService, UsuarioService, MuseoServices,ItemService,MovimientosService,MessageService]
 })
 export class ItemModule { }

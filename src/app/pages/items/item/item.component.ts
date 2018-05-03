@@ -33,6 +33,7 @@ export class ItemComponent implements OnInit {
   detallePiezaMuseable = false;
   catalogacion = false;
   baja=false
+  restauracion = false
   museo = null;
   es = this.properties.es;
   verPopUp = false;
@@ -219,29 +220,41 @@ export class ItemComponent implements OnInit {
     this.detallePiezaMuseable = true
     this.catalogacion = false;
     this.baja=false;
+    this.restauracion = false
   }
   verCatalogacion(item) {
     this.item = item;
     this.detallePiezaMuseable = false
     this.catalogacion = true;
     this.baja=false;
+    this.restauracion = false
   }
   verFormBaja(item) {
     this.item = item;
     this.detallePiezaMuseable = false
     this.catalogacion = false;
     this.baja=true;
-
+    this.restauracion = false
   }
   obtenerDatoHijo(event) {
     this.detallePiezaMuseable = false
     this.catalogacion = false;
     this.baja=false;
+    this.restauracion = false
     if (event) {
       this.msgs = [];
       this.msgs.push({ severity: 'success', summary: 'Éxito', detail: 'Item Actualizado.' });
     }
   }
+  
+  verFormRestauracion(item) {
+    this.item = item;
+    this.detallePiezaMuseable = false
+    this.catalogacion = false;
+    this.baja=false;
+    this.restauracion = true
+  }
+
   obtenerCategorias(event) {
     this.esfiltroTexto = false;
     this.textoFiltra = null;

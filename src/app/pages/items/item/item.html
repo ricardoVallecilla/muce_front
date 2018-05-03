@@ -65,7 +65,8 @@
                   icon="fas fa-align-justify" title="Movimientos Pieza"></button>
                 <button type="button" class="buttonAction" *ngIf="item.grupoid.catalogoid==constantes.grupoCultural" pButton (click)="verFormBaja(item)"
                   icon="fas fa fa-window-close" title="Baja"></button>
-                  
+                <button type="button" class="buttonAction" *ngIf="item.grupoid.catalogoid==constantes.grupoCultural" pButton (click)="verFormRestauracion(item)"
+                  icon="fas fa fa-cogs" title="Restauración"></button>  
               </ng-template>
             </p-column>
           </p-dataTable>
@@ -267,6 +268,9 @@
   </div>
   <div class="col-sm-12" *ngIf="baja">
     <bajas (enviadorCondicion)="obtenerDatoHijo($event)" [item]="item"></bajas>
+  </div>
+  <div class="col-sm-12" *ngIf="restauracion">
+    <restauracion (enviadorCondicion)="obtenerDatoHijo($event)" [item]="item"></restauracion>
   </div>
 </div>
 
