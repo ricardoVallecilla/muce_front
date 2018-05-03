@@ -131,11 +131,17 @@ export class ItemService {
     downloadFotografiaTipo(id,tipo) {
         return this._generalServices.getResources("getFile", this.url.downloadFotografiaTipo + id+"/"+tipo )
     }
+    downloadUrlImagen(url) {
+        return this._generalServices.getResources("postFile", this.url.urlImagen,url )
+    }
     obtenerCatalogosHijos(padreId): Observable<any> {
         return this._generalServices.getResources("get", this.url.obtenerCatalogosHijos + padreId)
     }
     guardarItem(item): Observable<any> {
         return this._generalServices.getResources("post", this.url.item, item)
+    }
+    reporteExposicion(filtro): Observable<any> {
+        return this._generalServices.getResources("post", this.url.reporteExposicion, filtro)
     }
     optenerDetalle(tipo, piezaMuseableId): Observable<any> {
         switch (tipo) {

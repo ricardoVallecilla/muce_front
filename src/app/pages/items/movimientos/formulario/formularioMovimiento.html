@@ -17,7 +17,8 @@
             Institución *:
           </div>
           <div class="ui-grid-col-10">
-            <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="institucion" [(ngModel)]="movimiento.institucion" required />
+            <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="institucion" [(ngModel)]="movimiento.institucion"
+              required />
             <div class="ui-messages-error" *ngIf="form.submitted  && !form.form.controls.institucion?.valid">El campo Institución es requerido</div>
             <div class="impresion">
               {{movimiento.institucion}}
@@ -29,7 +30,8 @@
             Dirección *:
           </div>
           <div class="ui-grid-col-10">
-            <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="direccion" [(ngModel)]="movimiento.direccion"required />
+            <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="direccion" [(ngModel)]="movimiento.direccion"
+              required />
             <div class="ui-messages-error" *ngIf="form.submitted  && !form.form.controls.direccion?.valid">El campo Dirección es requerido</div>
             <div class="impresion">
               {{movimiento.direccion}}
@@ -41,7 +43,8 @@
             País *:
           </div>
           <div class="ui-grid-col-10">
-            <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="pais" [(ngModel)]="movimiento.pais" required />
+            <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="pais" [(ngModel)]="movimiento.pais" required
+            />
             <div class="ui-messages-error" *ngIf="form.submitted  && !form.form.controls.pais?.valid">El campo País es requerido</div>
             <div class="impresion">
               {{movimiento.pais}}
@@ -65,7 +68,8 @@
             Ciudad *:
           </div>
           <div class="ui-grid-col-10">
-            <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="ciudad" [(ngModel)]="movimiento.ciudad" required />
+            <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="ciudad" [(ngModel)]="movimiento.ciudad" required
+            />
             <div class="ui-messages-error" *ngIf="form.submitted  && !form.form.controls.ciudad?.valid">El campo Ciudad es requerido</div>
             <div class="impresion">
               {{movimiento.ciudad}}
@@ -77,7 +81,8 @@
             Teléfono *:
           </div>
           <div class="ui-grid-col-10">
-            <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="telefono" [(ngModel)]="movimiento.telefono"required />
+            <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="telefono" [(ngModel)]="movimiento.telefono"
+              required />
             <div class="ui-messages-error" *ngIf="form.submitted  && !form.form.controls.telefono?.valid">El campo Teléfono es requerido</div>
             <div class="impresion">
               {{movimiento.telefono}}
@@ -89,7 +94,8 @@
             Correo electrónico *:
           </div>
           <div class="ui-grid-col-10">
-            <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="email" [(ngModel)]="movimiento.email" required />
+            <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="email" [(ngModel)]="movimiento.email" required
+            />
             <div class="ui-messages-error" *ngIf="form.submitted  && !form.form.controls.email?.valid">El campo Correo electrónico es requerido</div>
             <div class="impresion">
               {{movimiento.email}}
@@ -139,7 +145,7 @@
               <div class="ui-g-10" *ngIf="tipoSeleccionado == constantes.prestamoInterno || tipoSeleccionado == constantes.traspasointerno">
                 <p-dropdown [options]="museoItem" filter="true" [style]="{'width': '100%'}" name="museo" [(ngModel)]="museoSeleccionado"
                   (ngModelChange)="cambiarMuseo()" required></p-dropdown>
-                  
+
                 <div class="ui-messages-error" *ngIf="form.submitted  && !form.form.controls.procedencia?.valid">El campo Procedencia es requerido</div>
               </div>
 
@@ -154,7 +160,7 @@
                 {{tipo=='1'?'EGRESO':'INGRESO'}}
               </div>
               <div class="ui-g-12">
-                
+
                 {{diccionarioImpresion[tipoSeleccionado]}}
               </div>
               <div class="ui-g-12">
@@ -180,7 +186,8 @@
               <div class="ui-g-12">
                 <div class="ui-g-12">Fecha de inicio *:</div>
 
-                <p-calendar name="fechainicioprestamo" [disabled]="desabilitados" [locale]="es" [showIcon]="true" [(ngModel)]="movimiento.fechainicioprestamo" required></p-calendar> 
+                <p-calendar name="fechainicioprestamo" [disabled]="desabilitados" [locale]="es" [showIcon]="true" [(ngModel)]="movimiento.fechainicioprestamo"
+                  required></p-calendar>
                 <div class="ui-messages-error" *ngIf="form.submitted  && !form.form.controls.fechainicioprestamo?.valid">El campo Fecha de inicio es requerido</div>
                 <div class="impresion">
                   {{movimiento.fechainicioprestamo | date: properties.formatoFecha}}
@@ -189,14 +196,15 @@
               <div class="ui-g-12">
                 <div class="ui-g-12">Fecha de entrega *:</div>
 
-                <p-calendar name="fechafinprestamo" [disabled]="desabilitados" [locale]="es" [showIcon]="true" [(ngModel)]="movimiento.fechafinprestamo" required></p-calendar> 
+                <p-calendar name="fechafinprestamo" [disabled]="desabilitados" [locale]="es" [showIcon]="true" [(ngModel)]="movimiento.fechafinprestamo"
+                  required></p-calendar>
                 <div class="ui-messages-error" *ngIf="form.submitted  && !form.form.controls.fechafinprestamo?.valid">El campo Fecha de entrega es requerido</div>
                 <div class="impresion">
                   {{movimiento.fechafinprestamo | date: properties.formatoFecha}}
                 </div>
               </div>
               <div class="ui-g-12">
-                  
+
                 <div class="ui-g-12">Aseguradora:</div>
                 <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="aseguradora" [(ngModel)]="movimiento.aseguradora"
                 />
@@ -205,7 +213,7 @@
                 </div>
               </div>
               <div class="ui-g-12">
-                
+
                 <div class="ui-g-12">Número de seguro:</div>
                 <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="numeroseguro" [(ngModel)]="movimiento.numeroseguro"
                 />
@@ -214,7 +222,7 @@
                 </div>
               </div>
               <div class="ui-g-12">
-                
+
                 <div class="ui-g-12">Valor seguro:</div>
                 <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="valorseguro" [(ngModel)]="movimiento.valorseguro"
                 />
@@ -223,7 +231,7 @@
                 </div>
               </div>
               <div class="ui-g-12">
-                
+
                 <div class="ui-g-12">Forma de envío:</div>
                 <p-inputSwitch [disabled]="desabilitados" [(ngModel)]="movimiento.formaenvio" onLabel="AÉREA" offLabel="TERRESTRE" name="formaenvio"
                   required></p-inputSwitch>
@@ -255,7 +263,8 @@
             Nombre *:
           </div>
           <div class="ui-grid-col-10">
-            <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="entreganombre" [(ngModel)]="movimiento.entreganombre"required />
+            <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="entreganombre" [(ngModel)]="movimiento.entreganombre"
+              required />
             <div class="ui-messages-error" *ngIf="form.submitted  && !form.form.controls.entreganombre?.valid">El campo Nombre es requerido</div>
             <div class="impresion">
               {{movimiento.entreganombre}}
@@ -267,7 +276,8 @@
             Cargo *:
           </div>
           <div class="ui-grid-col-10">
-            <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="entregacargo" [(ngModel)]="movimiento.entregacargo" required />
+            <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="entregacargo" [(ngModel)]="movimiento.entregacargo"
+              required />
             <div class="ui-messages-error" *ngIf="form.submitted  && !form.form.controls.entregacargo?.valid">El campo Cargo es requerido</div>
             <div class="impresion">
               {{movimiento.entregacargo}}
@@ -279,7 +289,8 @@
             Reserva *:
           </div>
           <div class="ui-grid-col-10">
-            <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="entregareserva" [(ngModel)]="movimiento.entregareserva" required />
+            <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="entregareserva" [(ngModel)]="movimiento.entregareserva"
+              required />
             <div class="ui-messages-error" *ngIf="form.submitted  && !form.form.controls.entregareserva?.valid">El campo Reserva es requerido</div>
             <div class="impresion">
               {{movimiento.entregareserva}}
@@ -291,7 +302,8 @@
             C.I *:
           </div>
           <div class="ui-grid-col-10">
-            <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="entregaci" [(ngModel)]="movimiento.entregaci" required />
+            <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="entregaci" [(ngModel)]="movimiento.entregaci"
+              required />
             <div class="ui-messages-error" *ngIf="form.submitted  && !form.form.controls.entregaci?.valid">El campo C.I es requerido</div>
             <div class="impresion">
               {{movimiento.entregaci}}
@@ -312,7 +324,7 @@
 
 
       </div>
-      
+
       <div class="separadorInventario">
         <h5>4. DATOS DEL FUNCIONARIO RECEPTOR</h5>
         <div style="width: 100%;text-align: right">
@@ -328,7 +340,8 @@
             Nombre *:
           </div>
           <div class="ui-grid-col-10">
-            <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="receptornombre" [(ngModel)]="movimiento.receptornombre" required />
+            <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="receptornombre" [(ngModel)]="movimiento.receptornombre"
+              required />
             <div class="ui-messages-error" *ngIf="form.submitted  && !form.form.controls.receptornombre?.valid">El campo Nombre es requerido</div>
             <div class="impresion">
               {{movimiento.receptornombre}}
@@ -340,7 +353,8 @@
             Cargo *:
           </div>
           <div class="ui-grid-col-10">
-            <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="receptorcargo" [(ngModel)]="movimiento.receptorcargo" required />
+            <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="receptorcargo" [(ngModel)]="movimiento.receptorcargo"
+              required />
             <div class="ui-messages-error" *ngIf="form.submitted  && !form.form.controls.receptorcargo?.valid">El campo Cargo es requerido</div>
             <div class="impresion">
               {{movimiento.receptorcargo}}
@@ -352,7 +366,8 @@
             Reserva *:
           </div>
           <div class="ui-grid-col-10">
-            <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="receptorreserva" [(ngModel)]="movimiento.receptorreserva" required />
+            <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="receptorreserva" [(ngModel)]="movimiento.receptorreserva"
+              required />
             <div class="ui-messages-error" *ngIf="form.submitted  && !form.form.controls.receptorreserva?.valid">El campo Reserva es requerido</div>
             <div class="impresion">
               {{movimiento.receptorreserva}}
@@ -364,7 +379,8 @@
             C.I *:
           </div>
           <div class="ui-grid-col-10">
-            <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="receptorci" [(ngModel)]="movimiento.receptorci" required />
+            <input [readonly]="desabilitados" pInputText type="text" maxlength="150" name="receptorci" [(ngModel)]="movimiento.receptorci"
+              required />
             <div class="ui-messages-error" *ngIf="form.submitted  && !form.form.controls.receptorci?.valid">El campo C.I es requerido</div>
             <div class="impresion">
               {{movimiento.receptorci}}
@@ -400,6 +416,7 @@
           <p-column *ngIf="tipoFormulario==1" [style]="{'width':'38px'}" header="Seleccionar" selectionMode="multiple"></p-column>
         </p-dataTable>
         <div class="ui-g-12 ui-md-12 ui-lg-12 alineacionBotones" *ngIf="!desabilitados && !esDevolucion">
+          <button pButton type="button" (click)="consultaReporteExposicion()" icon="{{properties.nuevo.icon}}" label="Reporte Exposición"></button>
           <button pButton type="button" (click)="agregarItem()" icon="{{properties.nuevo.icon}}" label="Agregar"></button>
           <button pButton type="button" (click)="quitarSeleccionados()" icon="{{properties.nuevo.icon}}" label="Quitar Seleccionados"></button>
           <button pButton type="button" (click)="quitarTodos()" icon="{{properties.nuevo.icon}}" label="Quitar Todos"></button>
@@ -507,7 +524,226 @@
 
   </p-footer>
 </p-dialog>
+<p-dialog [(visible)]="vistaPreviaExposicion" [style]="{'overflow': 'auto','max-height':'650px'}" [responsive]="true" showEffect="fade"
+  [modal]="true" [draggable]="false" resizable="false" resizable="false" minWidth="1200" [positionTop]="140" [positionLeft]="350">
+  <p-header>
+    Vista Previa Reporte Exposición
+  </p-header>
+  <div id="exposicionPrint">
+    <ng-container *ngFor="let categoria of listaExposicion">
+      <ng-container [ngSwitch]="categoria.tipo">
+        <ng-container *ngSwitchCase="1">
+          <div class="separadorInventario">
+            <h5>ARQUEOLOGÍA</h5>
+            <div style="width: 100%;text-align: right">
+              <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+              <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+            </div>
+          </div>
+          <p-dataTable [value]="categoria.registros">
+            <p-column field="nombre" header="Nombre"></p-column>
+            <p-column field="categoria" header="Categoría Morfofuncional"></p-column>
+            <p-column field="periodo" header="Período Histórico"></p-column>
+            <p-column field="cronologia" header="Cronología"></p-column>
+            <p-column field="cultura" header="Cultura"></p-column>
+            <p-column field="fase" header="Fase"></p-column>
+            <p-column header="Dimensiones">
+              <ng-template let-detalle="rowData" pTemplate="body">
+                <div class="ui-g">
 
+                  <div class="ui-g-12">
+                    Alto: {{detalle.alto}}
+                  </div>
+
+                  <div class="ui-g-12">
+                    Largo: {{detalle.largo}}
+                  </div>
+
+                  <div class="ui-g-12">
+                    Ancho: {{detalle.profundidad}}
+                  </div>
+
+                  <div class="ui-g-12">
+                    Diámetro: {{detalle.diametro}}
+                  </div>
+
+                  <div class="ui-g-12">
+                    Espesor: {{detalle.espesor}}
+                  </div>
+
+                  <div class="ui-g-12">
+                    Peso: {{detalle.peso}}
+                  </div>
+                </div>
+              </ng-template>
+            </p-column>
+            <p-column header="Fotografía" [style]="{'width':'200px'}">
+              <ng-template let-registro="rowData" pTemplate="body">
+                <img *ngIf="registro.imagen" style="width: 200px ;height: 200px;" [src]="registro.imagen" alt="">
+              </ng-template>
+            </p-column>
+          </p-dataTable>
+        </ng-container>
+        <ng-container *ngSwitchCase="3">
+          <div class="separadorInventario">
+            <h5>ENTOMOLOGÍA</h5>
+            <div style="width: 100%;text-align: right">
+              <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+              <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+            </div>
+          </div>
+          <p-dataTable [value]="categoria.registros">
+            <p-column field="nombre" header="Nombre"></p-column>
+            <p-column field="cientifico" header="Nombre Científico"></p-column>
+            <p-column field="comun" header="Nombre común"></p-column>
+            <p-column field="autor" header="Autor"></p-column>
+            <p-column field="clase" header="Clase"></p-column>
+            <p-column field="anio" header="Año"></p-column>
+            <p-column header="Fotografía" [style]="{'width':'200px'}">
+              <ng-template let-registro="rowData" pTemplate="body">
+                <img *ngIf="registro.imagen" style="width: 200px ;height: 200px;" [src]="registro.imagen" alt="">
+              </ng-template>
+            </p-column>
+          </p-dataTable>
+        </ng-container>
+        <ng-container *ngSwitchCase="6">
+          <div class="separadorInventario">
+            <h5>INSTRUMENTAL CIENTÍFICO</h5>
+            <div style="width: 100%;text-align: right">
+              <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+              <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+            </div>
+          </div>
+          <p-dataTable [value]="categoria.registros">
+            <p-column field="nombre" header="Nombre"></p-column>
+            <p-column field="inventor" header="Nombre Científico"></p-column>
+            <p-column field="fabricante" header="Fabricante"></p-column>
+            <p-column field="lugar" header="Lugar Fabricación"></p-column>
+            <p-column field="fecha" header="Siglo / Año">
+              <ng-template let-movimiento="rowData" pTemplate="body">
+                {{movimiento.fecha | date: properties.formatoFecha}}
+              </ng-template>
+            </p-column>
+            <p-column header="Dimensiones">
+              <ng-template let-detalle="rowData" pTemplate="body">
+                <div class="ui-g">
+
+                  <div class="ui-g-12">
+                    Alto: {{detalle.alto}}
+                  </div>
+
+                  <div class="ui-g-12">
+                    Largo: {{detalle.largo}}
+                  </div>
+
+                  <div class="ui-g-12">
+                    Profundidad: {{detalle.profundidad}}
+                  </div>
+
+                  <div class="ui-g-12">
+                    Diámetro: {{detalle.diametro}}
+                  </div>
+
+                  <div class="ui-g-12">
+                    Espesor: {{detalle.espesor}}
+                  </div>
+
+                  <div class="ui-g-12">
+                    Peso: {{detalle.peso}}
+                  </div>
+                </div>
+              </ng-template>
+            </p-column>
+            <p-column header="Fotografía" [style]="{'width':'200px'}">
+              <ng-template let-registro="rowData" pTemplate="body">
+                <img *ngIf="registro.imagen" style="width: 200px ;height: 200px;" [src]="registro.imagen" alt="">
+              </ng-template>
+            </p-column>
+          </p-dataTable>
+        </ng-container>
+        <ng-container *ngSwitchCase="7">
+          <div class="separadorInventario">
+            <h5>GEOLOGÍA</h5>
+            <div style="width: 100%;text-align: right">
+              <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+              <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+            </div>
+          </div>
+          <p-dataTable [value]="categoria.registros">
+            <p-column field="nombre" header="Nombre"></p-column>           
+            <p-column header="Fotografía" [style]="{'width':'200px'}">
+              <ng-template let-registro="rowData" pTemplate="body">
+                <img *ngIf="registro.imagen" style="width: 200px ;height: 200px;" [src]="registro.imagen" alt="">
+              </ng-template>
+            </p-column>
+          </p-dataTable>
+        </ng-container>
+        <ng-container *ngSwitchCase="8">
+          <div class="separadorInventario">
+            <h5>PALEONTOLOGÍA</h5>
+            <div style="width: 100%;text-align: right">
+              <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+              <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+            </div>
+          </div>
+          <p-dataTable [value]="categoria.registros">
+            <p-column field="nombre" header="Nombre"></p-column>
+            <p-column field="cientifico" header="Nombre Científico"></p-column>
+            <p-column field="comun" header="Nombre Común"></p-column>
+            <p-column field="clase" header="Nombre"></p-column>
+           
+            <p-column header="Fotografía" [style]="{'width':'200px'}">
+              <ng-template let-registro="rowData" pTemplate="body">
+                <img *ngIf="registro.imagen" style="width: 200px ;height: 200px;" [src]="registro.imagen" alt="">
+              </ng-template>
+            </p-column>
+          </p-dataTable>
+        </ng-container>
+        <ng-container *ngSwitchCase="9">
+          <div class="separadorInventario">
+            <h5>PALEONTOLOGÍA</h5>
+            <div style="width: 100%;text-align: right">
+              <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+              <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+            </div>
+          </div>
+          <p-dataTable [value]="categoria.registros">
+            <p-column field="nombre" header="Nombre"></p-column>
+            <p-column field="cientifico" header="Nombre Científico"></p-column>
+            <p-column field="comun" header="Nombre Común"></p-column>
+            <p-column field="autor" header="Autor"></p-column>
+           
+            <p-column header="Fotografía" [style]="{'width':'200px'}">
+              <ng-template let-registro="rowData" pTemplate="body">
+                <img *ngIf="registro.imagen" style="width: 200px ;height: 200px;" [src]="registro.imagen" alt="">
+              </ng-template>
+            </p-column>
+          </p-dataTable>
+        </ng-container>
+      </ng-container>
+
+
+
+    </ng-container>
+  </div>
+
+
+  <p-footer>
+    <div class="ui-g">
+
+      <div class="ui-g-12" style="text-align: center">
+
+
+        <button pButton type="button" (click)="printExposicion()" label="{{properties.imprimir.label}}" icon="{{properties.imprimir.icon}}"
+          class="ui-button-secondary"></button>
+        <button pButton type="button" icon="{{properties.cancelar.icon}}" label="Cancelar" (click)="vistaPreviaExposicion=false"></button>
+      </div>
+
+    </div>
+
+  </p-footer>
+
+</p-dialog>
 <p-dialog [(visible)]="verPopUpPendientes" [style]="{'overflow': 'auto','max-height':'650px'}" [responsive]="true" showEffect="fade"
   [modal]="true" [draggable]="false" resizable="false" resizable="false" minWidth="1100" [positionTop]="140" [positionLeft]="350">
   <p-header>

@@ -27,4 +27,10 @@ export class MuseoServices {
 
         return this._generalServices.getResources("post", this.url.guardarMuseoFile, formData)
     }
+
+    reporteGeneral(museoid,grupoid): Observable<any> { 
+        return this._generalServices.getResources("post", this.url.reporteGeneral, {	"museoId":museoid,	"grupoId":grupoid})
+    }
+
+
 }

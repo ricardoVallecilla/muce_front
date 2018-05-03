@@ -147,6 +147,10 @@ export class CatalogacionComponent implements OnInit {
       .subscribe((detalle: any[]) => {
         if (detalle[0].fechafabricacion != undefined && detalle[0].fechafabricacion != null) detalle[0].fechafabricacion = new Date(detalle[0].fechafabricacion)
         this.detalle = detalle[0]
+        if(this.piezaMuseable.catalogado==null){
+          this.piezaMuseable.fecharegistrocatalogacion=new Date()
+          this.piezaMuseable.catalogado=true;
+        }
         this.detalle.piezamuseableid = this.piezaMuseable
 
       }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }),
