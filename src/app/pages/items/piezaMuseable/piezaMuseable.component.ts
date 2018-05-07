@@ -19,6 +19,7 @@ import { GeologiaModel } from '../../../models/categorias/geologia.model';
 import { PaleontologiaModel } from '../../../models/categorias/paleontologia.model';
 import { ZoologiaModel } from '../../../models/categorias/zoolgia.model';
 import { EstilosReportes } from '../../estiloImpresion';
+import { Arte } from '../../../models/categorias/arte.model';
 @Component({
   selector: 'piezaMuseable',
   templateUrl: './piezaMuseable.html'
@@ -56,8 +57,9 @@ export class PiezaMuseableComponent implements OnInit {
   tecnicaConservacionSelecionados = []
   tecnicaConservacionBotanicaSelecionados = [];
   origenesBotanicaSeleccionados = [];
-  materialesArqueologiaSelecionados = [];
+  materialesArteSelecionados = []
   tecnicasConservacionZooSelecionados = []
+  materialesArqueologiaSelecionados = []
   foto = null;
   @Output() enviadorCondicion = new EventEmitter();
   @Output() enviadorCatalogos = new EventEmitter();
@@ -166,6 +168,10 @@ export class PiezaMuseableComponent implements OnInit {
         tipo = 9
         break;
 
+      case this.constantes.arte:
+      tipo = 10
+      break
+
       default:
         break;
     }
@@ -205,6 +211,10 @@ export class PiezaMuseableComponent implements OnInit {
         break;
       case this.constantes.zoologia:
         nombresColumna = ['tecnicaConservacionEntomologia'];
+        break;
+
+      case this.constantes.arte:
+        nombresColumna = [''];
         break;
 
       default:
@@ -266,11 +276,18 @@ export class PiezaMuseableComponent implements OnInit {
               break;
 
             case this.constantes.zoologia:
-            this.tecnicasConservacionZooSelecionados = [];
-            catalogos.forEach(x => {
-              this.tecnicasConservacionZooSelecionados.push(x.piezacatalogoPk.catalogoid + "")
+              this.tecnicasConservacionZooSelecionados = [];
+              catalogos.forEach(x => {
+                this.tecnicasConservacionZooSelecionados.push(x.piezacatalogoPk.catalogoid + "")
+              });
+              break;
 
-            });
+            case this.constantes.arte:
+              this.materialesArteSelecionados = [];
+              catalogos.forEach(x => {
+                this.materialesArteSelecionados.push(x.piezacatalogoPk.catalogoid + "")
+
+              });
               break;
 
             default:
@@ -329,6 +346,11 @@ export class PiezaMuseableComponent implements OnInit {
       case this.constantes.zoologia:
         padreId = this.constantes.zoologiaEstadoBien;
         break;
+
+      case this.constantes.arte:
+        padreId = this.constantes.arteEstadoBien;
+        break;
+
       default:
         break;
     }
@@ -367,6 +389,9 @@ export class PiezaMuseableComponent implements OnInit {
         break;
       case this.constantes.zoologia:
         this.detalle = new ZoologiaModel(this.piezaMuseable)
+        break;
+      case this.constantes.arte:
+        this.detalle = new Arte(this.piezaMuseable)
         break;
       default:
         break;
@@ -509,6 +534,17 @@ export class PiezaMuseableComponent implements OnInit {
     }
   }
 
+  obtenerMaterialesArte(catalogos) {
+    this.materialesArteSelecionados = catalogos;
+    if (this.esCatalogacion) {
+      let catalogosDetalle = []
+      this.materialesArteSelecionados.forEach(x => {
+        catalogosDetalle.push(new DetalleCatalogo(x, "materialesArte"))
+      });
+      this.enviadorCatalogos.emit(catalogosDetalle);
+    }
+  }
+
   optenerBotanicaOrigenes(catalogos) {
     this.origenesBotanicaSeleccionados = catalogos;
     if (this.esCatalogacion) this.enviadorCatalogos.emit(catalogos)
@@ -611,8 +647,16 @@ export class PiezaMuseableComponent implements OnInit {
             catalogosDetalle.push(new DetalleCatalogo(x, "tecnicaConservacionZoo"))
           });
         }
-
-
+        break;
+      case this.constantes.arte:
+        tipo = 10  
+        piezaDetalle.piezaartedetalle = this.detalle
+        if (this.materialesArteSelecionados.length > 0) {
+          catalogosDetalle = [];
+          this.materialesArteSelecionados.forEach(x => {
+            catalogosDetalle.push(new DetalleCatalogo(x, "materialesArte"))
+          });
+        }
         break;
       default:
         break;

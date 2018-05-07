@@ -17,6 +17,7 @@ export class Constantes{
     instrumental=30
     peleontologia=31
     zoologia=32
+    arte=1002
     isntrumentalEstadoBien=58;
     arqueologiaEstadoBien = 322;
     botanicaEstadoBien=351;
@@ -25,6 +26,7 @@ export class Constantes{
     geologiaEstadoBien=401;
     paleontologiaEstadoBien=415;
     zoologiaEstadoBien=429;
+    arteEstadoBien=757
     estadoConservacion=87;
     integridadPieza=91
     ubicaciones=33;
@@ -46,6 +48,7 @@ export class Constantes{
     devolucionPrestamoExterno=734
 
     tecnicasConservacionZoo = 750
+    materialesArte = 786
     sexo = 754
     /*
     740	1	EN DESINFECCIÓN

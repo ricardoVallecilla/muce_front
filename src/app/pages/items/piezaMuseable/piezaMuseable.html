@@ -44,6 +44,8 @@
             <paleontologia [item]="item" *ngIf="item.categoriaid.catalogoid==constantes.peleontologia" [detalle]="detalle" [submitted]="submitted" (validacionFormulario)="validarGuardar($event)"></paleontologia>
             <zoologia [item]="item" *ngIf="item.categoriaid.catalogoid==constantes.zoologia" [detalle]="detalle" [submitted]="submitted" 
               (validacionFormulario)="validarGuardar($event)" [tecnicasConservacionZooSelecionados]="tecnicasConservacionZooSelecionados" (enviadorCondicion)="obtenerMaterialesZoo($event)"></zoologia>
+            <artes [item]="item" *ngIf="item.categoriaid.catalogoid==constantes.arte" [detalle]="detalle" [submitted]="submitted" 
+              (validacionFormulario)="validarGuardar($event)" [materialesArteSelecionados]="materialesArteSelecionados" (enviadorCondicion)="obtenerMaterialesArte($event)"></artes>
 
             <div class="separadorInventario">
               <h5>DATOS DE LOCALIZACIÓN</h5>

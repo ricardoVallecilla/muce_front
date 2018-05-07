@@ -31,6 +31,7 @@ export class UrlServices {
     obtenerDetalleGeologica=this.proxy+"/geologica/piezaMuseable/"
     obtenerDetallePaleontologica=this.proxy+"/paleontologica/piezaMuseable/"
     obtenerDetalleZoologica=this.proxy+"/zoologica/piezaMuseable/"
+    obtenerDetalleArte=this.proxy+"/arte/piezaMuseable/"
 
     downloadFotografia=this.piezaMuseable+"fotografia/"
     downloadFotografiaTipo=this.piezaMuseable+"detalle/fotografia/"

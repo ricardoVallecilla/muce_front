@@ -161,6 +161,8 @@ export class ItemService {
                 return this._generalServices.getResources("get", this.url.obtenerDetallePaleontologica + piezaMuseableId);
             case 9:
                 return this._generalServices.getResources("get", this.url.obtenerDetalleZoologica + piezaMuseableId);
+            case 10:
+                return this._generalServices.getResources("get", this.url.obtenerDetalleArte + piezaMuseableId);
         }
 
         // return this._generalServices.getResources("post", this.url.item, item)

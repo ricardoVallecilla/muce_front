@@ -155,7 +155,7 @@ export const ItemRoutes: Routes = [
      EntomologiaComponent, FotografiaComponent, GeologiaComponent, PaleontologiaComponent, ZoologiaComponent,MovimientosComponent,FormularioMovimientoComponent,
       IstrumentalCientificoComponent, ArtesComponent,Seccion2ArqueologiaComponent,CatalogacionComponent,YacimientoComponent,Seccion3ArqueologiaComponent,
       UsoAcademicoComponent,Seccion2EntomologiaComponent,Seccion3EntomologiaComponent,Seccion2InstrumentalComponent,CatalogacionImprimirComponent,
-      BajasComponent, RestauracionComponent]
+      BajasComponent, RestauracionComponent, ArtesComponent]
   , providers: [GeneralService, ConfirmationService, CatalogoService, UsuarioService, MuseoServices,ItemService,MovimientosService,MessageService]
 })
 export class ItemModule { }

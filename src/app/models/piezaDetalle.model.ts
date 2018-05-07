@@ -9,6 +9,7 @@ export class PiezaDetalle {
     piezainstrumentaldetalle;
     piezapaleontologicadetalle;
     piezazoologicadetalle;
+    piezaartedetalle
 
     constructor() {
 
