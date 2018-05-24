@@ -500,7 +500,7 @@
   <div class="ui-g">
 
     <div class="ui-g-12 ui-md-12 ui-lg-12" style="padding: 0">
-      <p-dataTable [value]="items" [globalFilter]="gb" emptyMessage="{{properties.sinDatos}}" [(selection)]="itemsSeleccionados"
+      <p-dataTable [value]="items"  emptyMessage="{{properties.sinDatos}}" [(selection)]="itemsSeleccionados"
         [lazy]="true" [paginator]="true" [rows]="properties.cantidadRegistros" (onLazyLoad)="loadItemLazy($event)" [totalRecords]="totalRecords">
         <p-column field="categoriaid.nombre" header="Categoria" [sortable]="true"></p-column>
         <p-column field="nombre" header="Nombre" [sortable]="true"></p-column>
@@ -750,7 +750,7 @@
     LISTA DE MOVIMIENTOS PENDIENTES A DEVOLVER
   </p-header>
 
-  <p-dataTable [value]="movimientosPendientesDevolucion" [globalFilter]="gb" emptyMessage="{{properties.sinDatos}}" [paginator]="true"
+  <p-dataTable [value]="movimientosPendientesDevolucion"  emptyMessage="{{properties.sinDatos}}" [paginator]="true"
     [rows]="10">
 
     <p-column field="fechamovimiento" header="Fecha Movimiento" [sortable]="true" [style]="{'width':'155px','text-align': 'center'}">
