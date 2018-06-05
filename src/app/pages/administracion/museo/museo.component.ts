@@ -19,7 +19,7 @@ export class MuseoComponent implements OnInit {
     custodios: any[]
     custodiosModel: any[]
     urlImage: any
-
+    acciones="Museo"
     properties = new Properties();
     constantes = new Constantes();
     msgs: Message[] = []
