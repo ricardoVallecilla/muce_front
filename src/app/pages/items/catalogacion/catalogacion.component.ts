@@ -76,7 +76,6 @@ export class CatalogacionComponent implements OnInit {
           this.descargarFoto(10);
           this.descargarFoto(11);
 
-
         }
 
       }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }));
@@ -138,7 +137,11 @@ export class CatalogacionComponent implements OnInit {
       case this.constantes.zoologia:
         tipo = 9
         break;
-
+        
+      case this.constantes.arte:
+        tipo = 10
+        break;
+        
       default:
         break;
     }

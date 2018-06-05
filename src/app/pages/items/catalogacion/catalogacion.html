@@ -92,9 +92,29 @@
                 <p-tabPanel header="REGISTRO GRÁFICOS PUBLICADOS" *ngSwitchCase="constantes.instrumental">
                     <instrumental-seccion2 *ngIf="detalle!=null" [detalle]="detalle" (validacionFormulario)="validarTabs($event)" [submitted]="submitted"></instrumental-seccion2>
                 </p-tabPanel>
+
+                <p-tabPanel header="JUICIO VALORATIVO" *ngSwitchCase="constantes.arte">
+                    <arte-seccion2 *ngIf="detalle!=null" [detalle]="detalle"></arte-seccion2>
+                </p-tabPanel>
+
+                <p-tabPanel header="SEMBLANZA DEL AUTOR/A" *ngSwitchCase="constantes.arte">
+                    <arte-seccion3 *ngIf="detalle!=null" [detalle]="detalle"></arte-seccion3>
+                </p-tabPanel>
+
+                <p-tabPanel header="CONTEXTO SOCIAL DE LA OBRA" *ngSwitchCase="constantes.arte">
+                    <arte-seccion4 *ngIf="detalle!=null" [detalle]="detalle"></arte-seccion4>
+                </p-tabPanel>
+
+                <p-tabPanel header="ANÁLISIS GRÁFICO DE LA OBRA" *ngSwitchCase="constantes.arte">
+                    <arte-seccion5 *ngIf="detalle!=null" [detalle]="detalle"></arte-seccion5>
+                </p-tabPanel>
                 
                 <p-tabPanel header="USO ACADÉMICO Y/O CIENTÍFICO DEL BIEN">
                     <usoAcademico *ngIf="piezaMuseable!=null" [piezaMuseable]="piezaMuseable" (validacionFormulario)="validarTabs($event)" [submitted]="submitted"></usoAcademico>
+                </p-tabPanel>
+
+                <p-tabPanel header="CONTEXTO ACADÉMICO DE LA OBRA" *ngSwitchCase="constantes.arte">
+                    <arte-seccion3 *ngIf="detalle!=null" [detalle]="detalle"></arte-seccion3>
                 </p-tabPanel>
 
             </p-tabView>
