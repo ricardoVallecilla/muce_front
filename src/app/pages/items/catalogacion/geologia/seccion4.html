@@ -1,0 +1,95 @@
+<div class="separadorInventario">
+    <h5>PROPIEDADES FÍSICAS</h5>
+    <div style="width: 100%;text-align: right">
+          <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+          <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+    </div>
+</div>
+<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin" *ngIf="detalle!=null">
+
+    <div class="ui-grid-row">
+      Escisión mineral *:
+    </div>
+    <div class="ui-grid-row">
+          <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="rasgos" [(ngModel)]="detalle.rasgos"
+                #rasgos="ngModel" required></textarea>
+          <div class="ui-messages-error" *ngIf="submitted>0  && elaboracion.invalid">El campo Escisión mineral es requerido</div>
+          <div class="impresion">
+                {{detalle.rasgos}}
+          </div>
+    </div>
+    <div class="ui-grid-row">
+      Color:
+    </div>
+    <div class="ui-grid-row">
+          <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="calidad" [(ngModel)]="detalle.calidad"></textarea>
+          <div class="impresion">
+                {{detalle.calidad}}
+          </div>
+    </div>
+    <div class="ui-grid-row">
+      Densidad *:
+    </div>
+    <div class="ui-grid-row">
+          <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="originalidad" [(ngModel)]="detalle.originalidad"
+                #originalidad="ngModel" required></textarea>
+          <div class="ui-messages-error" *ngIf="submitted>0  && decoracion.invalid">El campo Densidad es requerido</div>
+          <div class="impresion">
+                {{detalle.originalidad}}
+          </div>
+    </div>
+    <div class="ui-grid-row">
+      Transparencia:
+    </div>
+    <div class="ui-grid-row">
+          <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="importancia" [(ngModel)]="detalle.importancia"></textarea>
+          <div class="impresion">
+                {{detalle.importancia}}
+          </div>
+    </div>
+    <div class="ui-grid-row">
+      Fuerza y fractura mineral:
+    </div>
+    <div class="ui-grid-row">
+          <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="comercial" [(ngModel)]="detalle.comercial"></textarea>
+          <div class="impresion">
+                {{detalle.comercial}}
+          </div>
+    </div>
+    <div class="ui-grid-row">
+      Dureza:
+    </div>
+    <div class="ui-grid-row">
+          <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="comparacion" [(ngModel)]="detalle.comparacion"></textarea>
+          <div class="impresion">
+                {{detalle.comparacion}}
+          </div>
+    </div>
+    <div class="ui-grid-row">
+      Luminiscencia:
+    </div>
+    <div class="ui-grid-row">
+          <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="importancia" [(ngModel)]="detalle.importancia"></textarea>
+          <div class="impresion">
+                {{detalle.importancia}}
+          </div>
+    </div>
+    <div class="ui-grid-row">
+      Brillo:
+    </div>
+    <div class="ui-grid-row">
+          <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="comercial" [(ngModel)]="detalle.comercial"></textarea>
+          <div class="impresion">
+                {{detalle.comercial}}
+          </div>
+    </div>
+    <div class="ui-grid-row">
+      Color de veta:
+    </div>
+    <div class="ui-grid-row">
+          <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="comparacion" [(ngModel)]="detalle.comparacion"></textarea>
+          <div class="impresion">
+                {{detalle.comparacion}}
+          </div>
+    </div>
+</div>

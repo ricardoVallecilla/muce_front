@@ -1,0 +1,59 @@
+<div class="separadorInventario">
+    <h5>CONTEXTO ACADÉMICO DEL ESPÉCIMEN</h5>
+    <div style="width: 100%;text-align: right">
+          <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+          <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+    </div>
+</div>
+<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin" *ngIf="detalle!=null">
+
+    <div class="ui-grid-row">
+      Materias donde fue utilizado *:
+    </div>
+    <div class="ui-grid-row">
+          <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="rasgos" [(ngModel)]="detalle.rasgos"
+                #rasgos="ngModel" required></textarea>
+          <div class="ui-messages-error" *ngIf="submitted>0  && elaboracion.invalid">El campo Materias donde fue utilizado es requerido</div>
+          <div class="impresion">
+                {{detalle.rasgos}}
+          </div>
+    </div>
+    <div class="ui-grid-row">
+      Laboratorios donde fue utilizado:
+    </div>
+    <div class="ui-grid-row">
+          <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="calidad" [(ngModel)]="detalle.calidad"></textarea>
+          <div class="impresion">
+                {{detalle.calidad}}
+          </div>
+    </div>
+    <div class="ui-grid-row">
+      Docentes que lo utilizaron *:
+    </div>
+    <div class="ui-grid-row">
+          <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="originalidad" [(ngModel)]="detalle.originalidad"
+                #originalidad="ngModel" required></textarea>
+          <div class="ui-messages-error" *ngIf="submitted>0  && decoracion.invalid">El campo Docentes que lo utilizaron es requerido</div>
+          <div class="impresion">
+                {{detalle.originalidad}}
+          </div>
+    </div>
+    <div class="ui-grid-row">
+      Aporte del objeto a la construcción del conocimiento:
+    </div>
+    <div class="ui-grid-row">
+          <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="importancia" [(ngModel)]="detalle.importancia"></textarea>
+          <div class="impresion">
+                {{detalle.importancia}}
+          </div>
+    </div>
+    <div class="ui-grid-row">
+      Observaciones:
+    </div>
+    <div class="ui-grid-row">
+          <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="comercial" [(ngModel)]="detalle.comercial"></textarea>
+          <div class="impresion">
+                {{detalle.comercial}}
+          </div>
+    </div>
+</div>
