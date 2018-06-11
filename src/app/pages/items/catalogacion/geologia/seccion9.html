@@ -1,95 +1,119 @@
 <div class="separadorInventario">
-    <h5>DATOS DE LA RECOLECCIÓN</h5>
-    <div style="width: 100%;text-align: right">
-          <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
-          <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
-    </div>
+      <h5>DATOS DE LA RECOLECCIÓN</h5>
+      <div style="width: 100%;text-align: right">
+            <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+            <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+      </div>
 </div>
 <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin" *ngIf="detalle!=null">
+      <div class="ui-grid-row">
+            <div class="ui-grid-col-5">
+                  Método de descubrimiento :
+            </div>
+            <div class="ui-grid-col-7">
+                  <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin">
+                        <div class="ui-grid-row">
+                              <div class="ui-grid-col-5">
+                                    Prospección empírica :
+                              </div>
+                              <div class="ui-grid-col-7">
+                                    <p-checkbox [(ngModel)]="detalle.prospeccionEmpirica" binary="true"></p-checkbox>
+                              </div>
+                        </div>
+                        <div class="ui-grid-row">
+                              <div class="ui-grid-col-5">
+                                    Prospección geológica:
+                              </div>
+                              <div class="ui-grid-col-7">
+                                    <p-checkbox [(ngModel)]="detalle.prospeccionGeologica" binary="true"></p-checkbox>
+                              </div>
+                        </div>
+                  </div>
+            </div>
+      </div>
+      <div class="ui-grid-row">
+            Observaciones :
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="600" name="observaciones" [(ngModel)]="detalle.observaciones"></textarea>
+            <div class="impresion">
+                  {{detalle.observaciones}}
+            </div>
+      </div>
+      <div class="ui-grid-row">
+            Datos de la persona responsable de la recolección:
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="2000" name="responsable" [(ngModel)]="detalle.responsable"></textarea>
+            <div class="impresion">
+                  {{detalle.responsable}}
+            </div>
+      </div>
+      <div class="ui-grid-row">
+            Datos del geólogo/a a cargo de la prospección:
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="2000" name="geologo" [(ngModel)]="detalle.geologo"></textarea>
+            <div class="impresion">
+                  {{detalle.geologo}}
+            </div>
+      </div>
+      <div class="ui-grid-row">
+            Breve biografía del geólogo/a:
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="2000" name="biografia" [(ngModel)]="detalle.biografia"></textarea>
+            <div class="impresion">
+                  {{detalle.biografia}}
+            </div>
+      </div>
+      <div class="ui-grid-row">
+            Publicaciones del geólogo/a:
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="2000" name="publicaciones" [(ngModel)]="detalle.publicaciones"></textarea>
+            <div class="impresion">
+                  {{detalle.publicaciones}}
+            </div>
+      </div>
+      <div class="ui-grid-row">
+            Relación del geólogo/a con la Universidad Central del Ecuador:
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="2000" name="uce" [(ngModel)]="detalle.uce"></textarea>
+            <div class="impresion">
+                  {{detalle.uce}}
+            </div>
+      </div>
+</div>
+<div class="separadorInventario">
+      <h5>TESAURO</h5>
+      <div style="width: 100%;text-align: right">
+            <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+            <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+      </div>
+</div>
+<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin" *ngIf="detalle!=null">
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="tesauro" [(ngModel)]="detalle.tesauro"></textarea>
+            <div class="impresion">
+                  {{detalle.tesauro}}
+            </div>
+      </div>
+</div>
 
-    <div class="ui-grid-row">
-      Método de descubrimiento *:
-    </div>
-    <div class="ui-grid-row">
-          <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="rasgos" [(ngModel)]="detalle.rasgos"
-                #rasgos="ngModel" required></textarea>
-          <div class="ui-messages-error" *ngIf="submitted>0  && elaboracion.invalid">El campo Método de descubrimiento es requerido</div>
-          <div class="impresion">
-                {{detalle.rasgos}}
-          </div>
-    </div>
-    <div class="ui-grid-row">
-      Prospección empírica :
-    </div>
-    <div class="ui-grid-row">
-          <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="calidad" [(ngModel)]="detalle.calidad"></textarea>
-          <div class="impresion">
-                {{detalle.calidad}}
-          </div>
-    </div>
-    <div class="ui-grid-row">
-      Prospección arqueológica :
-    </div>
-    <div class="ui-grid-row">
-          <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="calidad" [(ngModel)]="detalle.calidad"></textarea>
-          <div class="impresion">
-                {{detalle.calidad}}
-          </div>
-    </div>
-    <div class="ui-grid-row">
-      Observaciones *:
-    </div>
-    <div class="ui-grid-row">
-          <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="originalidad" [(ngModel)]="detalle.originalidad"
-                #originalidad="ngModel" required></textarea>
-          <div class="ui-messages-error" *ngIf="submitted>0  && decoracion.invalid">El campo Observaciones es requerido</div>
-          <div class="impresion">
-                {{detalle.originalidad}}
-          </div>
-    </div>
-    <div class="ui-grid-row">
-      Datos de la persona responsable de la recolección:
-    </div>
-    <div class="ui-grid-row">
-          <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="importancia" [(ngModel)]="detalle.importancia"></textarea>
-          <div class="impresion">
-                {{detalle.importancia}}
-          </div>
-    </div>
-    <div class="ui-grid-row">
-      Datos del geólogo/a a cargo de la prospección:
-    </div>
-    <div class="ui-grid-row">
-          <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="comercial" [(ngModel)]="detalle.comercial"></textarea>
-          <div class="impresion">
-                {{detalle.comercial}}
-          </div>
-    </div>
-    <div class="ui-grid-row">
-      Breve biografía del geólogo/a:
-    </div>
-    <div class="ui-grid-row">
-          <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="comercial" [(ngModel)]="detalle.comercial"></textarea>
-          <div class="impresion">
-                {{detalle.comercial}}
-          </div>
-    </div>
-    <div class="ui-grid-row">
-      Publicaciones del geólogo/a:
-    </div>
-    <div class="ui-grid-row">
-          <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="comercial" [(ngModel)]="detalle.comercial"></textarea>
-          <div class="impresion">
-                {{detalle.comercial}}
-          </div>
-    </div>
-    <div class="ui-grid-row">
-      Relación del geólogo/a con la Universidad Central del Ecuador:
-    </div>
-    <div class="ui-grid-row">
-          <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="comercial" [(ngModel)]="detalle.comercial"></textarea>
-          <div class="impresion">
-                {{detalle.comercial}}
-          </div>
-    </div>
+<div class="separadorInventario">
+      <h5>PALABRAS CLAVE</h5>
+      <div style="width: 100%;text-align: right">
+            <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+            <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+      </div>
+</div>
+<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin" *ngIf="detalle!=null">
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="600" name="palabrasClaves" [(ngModel)]="detalle.palabrasClaves"></textarea>
+            <div class="impresion">
+                  {{detalle.palabrasClaves}}
+            </div>
+      </div>
 </div>

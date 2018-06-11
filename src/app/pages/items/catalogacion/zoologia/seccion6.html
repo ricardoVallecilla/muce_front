@@ -1,50 +1,135 @@
 <div class="separadorInventario">
-    <h5>CONTEXTO SOCIAL DEL ESPÉCIMEN</h5>
-    <div style="width: 100%;text-align: right">
-          <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
-          <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
-    </div>
+      <h5>PROCESOS DE LOCALIZACIÓN DEL ESPÉCIMEN</h5>
+      <div style="width: 100%;text-align: right">
+            <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+            <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+      </div>
+</div>
+<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin" *ngIf="detalle!=null">
+      <div class="ui-grid-row">
+            Metodología de recolección:
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="calidad" [(ngModel)]="detalle.calidad"></textarea>
+            <div class="impresion">
+                  {{detalle.calidad}}
+            </div>
+      </div>
+      <div class="ui-grid-row">
+            Materiales utilizados:
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="calidad" [(ngModel)]="detalle.calidad"></textarea>
+            <div class="impresion">
+                  {{detalle.calidad}}
+            </div>
+      </div>
+      <div class="ui-grid-row">
+            Permisos mediambientales:
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="calidad" [(ngModel)]="detalle.calidad"></textarea>
+            <div class="impresion">
+                  {{detalle.calidad}}
+            </div>
+      </div>
+</div>
+<div class="separadorInventario">
+      <h5>CONTEXTO SOCIAL DEL ESPÉCIMEN</h5>
+      <div style="width: 100%;text-align: right">
+            <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+            <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+      </div>
 </div>
 <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin" *ngIf="detalle!=null">
 
-    <div class="ui-grid-row">
-      Creencias relacionadas con el espécimen *:
-    </div>
-    <div class="ui-grid-row">
-          <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="rasgos" [(ngModel)]="detalle.rasgos"
-                #rasgos="ngModel" required></textarea>
-          <div class="ui-messages-error" *ngIf="submitted>0  && elaboracion.invalid">El campo Creencias relacionadas con el espécimen es requerido</div>
-          <div class="impresion">
-                {{detalle.rasgos}}
-          </div>
-    </div>
-    <div class="ui-grid-row">
-      Rituales asociados al espécimen:
-    </div>
-    <div class="ui-grid-row">
-          <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="calidad" [(ngModel)]="detalle.calidad"></textarea>
-          <div class="impresion">
-                {{detalle.calidad}}
-          </div>
-    </div>
-    <div class="ui-grid-row">
-      Semiótica asociada al espécimen *:
-    </div>
-    <div class="ui-grid-row">
-          <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="originalidad" [(ngModel)]="detalle.originalidad"
-                #originalidad="ngModel" required></textarea>
-          <div class="ui-messages-error" *ngIf="submitted>0  && decoracion.invalid">El campo Semiótica asociada al espécimen es requerido</div>
-          <div class="impresion">
-                {{detalle.originalidad}}
-          </div>
-    </div>
-    <div class="ui-grid-row">
-      Gastronomía asociada al espécimen:
-    </div>
-    <div class="ui-grid-row">
-          <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="importancia" [(ngModel)]="detalle.importancia"></textarea>
-          <div class="impresion">
-                {{detalle.importancia}}
-          </div>
-    </div>
+      <div class="ui-grid-row">
+            Creencias relacionadas con el espécimen *:
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="rasgos" [(ngModel)]="detalle.rasgos"
+                  #rasgos="ngModel" required></textarea>
+            <div class="ui-messages-error" *ngIf="submitted>0  && elaboracion.invalid">El campo Creencias relacionadas con el espécimen es requerido</div>
+            <div class="impresion">
+                  {{detalle.rasgos}}
+            </div>
+      </div>
+      <div class="ui-grid-row">
+            Rituales asociados al espécimen:
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="calidad" [(ngModel)]="detalle.calidad"></textarea>
+            <div class="impresion">
+                  {{detalle.calidad}}
+            </div>
+      </div>
+      <div class="ui-grid-row">
+            Semiótica asociada al espécimen *:
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="originalidad" [(ngModel)]="detalle.originalidad"
+                  #originalidad="ngModel" required></textarea>
+            <div class="ui-messages-error" *ngIf="submitted>0  && decoracion.invalid">El campo Semiótica asociada al espécimen es requerido</div>
+            <div class="impresion">
+                  {{detalle.originalidad}}
+            </div>
+      </div>
+      <div class="ui-grid-row">
+            Gastronomía asociada al espécimen:
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="importancia" [(ngModel)]="detalle.importancia"></textarea>
+            <div class="impresion">
+                  {{detalle.importancia}}
+            </div>
+      </div>
+</div>
+<div class="separadorInventario">
+      <h5>OBSERVACIONES</h5>
+      <div style="width: 100%;text-align: right">
+            <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+            <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+      </div>
+</div>
+<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin" *ngIf="detalle!=null">
+
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="rasgos" [(ngModel)]="detalle.rasgos"
+                  #rasgos="ngModel" required></textarea>
+            <div class="ui-messages-error" *ngIf="submitted>0  && elaboracion.invalid">El campo Materias donde fue utilizado es requerido</div>
+            <div class="impresion">
+                  {{detalle.rasgos}}
+            </div>
+      </div>
+</div>
+<div class="separadorInventario">
+      <h5>TESAURO</h5>
+      <div style="width: 100%;text-align: right">
+            <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+            <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+      </div>
+</div>
+<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin" *ngIf="detalle!=null">
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="tesauro" [(ngModel)]="detalle.tesauro"></textarea>
+            <div class="impresion">
+                  {{detalle.tesauro}}
+            </div>
+      </div>
+</div>
+
+<div class="separadorInventario">
+      <h5>PALABRAS CLAVE</h5>
+      <div style="width: 100%;text-align: right">
+            <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+            <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+      </div>
+</div>
+<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin" *ngIf="detalle!=null">
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="600" name="palabrasClaves" [(ngModel)]="detalle.palabrasClaves"></textarea>
+            <div class="impresion">
+                  {{detalle.palabrasClaves}}
+            </div>
+      </div>
 </div>
