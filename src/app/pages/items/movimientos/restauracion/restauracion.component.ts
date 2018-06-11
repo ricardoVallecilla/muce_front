@@ -21,7 +21,7 @@ import { DetalleCatalogo } from "../../../../models/detallecatalogo.model";
     @Input() detalle = null
     @Input() piezaMuseable: PiezaMuseable = null
     @Output() enviadorCondicion = new EventEmitter()
-
+    esCatalogacion=false
     properties = new Properties()
     constantes = new Constantes()
     es = this.properties.es
