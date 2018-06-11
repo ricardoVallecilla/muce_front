@@ -1,50 +1,46 @@
 <div class="separadorInventario">
-    <h5>CONTEXTO DE PRODUCCIÓN FOTOGRÁFICA</h5>
-    <div style="width: 100%;text-align: right">
-          <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
-          <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
-    </div>
+      <h5>CONTEXTO DE PRODUCCIÓN FOTOGRÁFICA</h5>
+      <div style="width: 100%;text-align: right">
+            <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+            <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+      </div>
 </div>
 <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin" *ngIf="detalle!=null">
 
-    <div class="ui-grid-row">
-      Autor personal *:
-    </div>
-    <div class="ui-grid-row">
-          <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="rasgos" [(ngModel)]="detalle.rasgos"
-                #rasgos="ngModel" required></textarea>
-          <div class="ui-messages-error" *ngIf="submitted>0  && elaboracion.invalid">El campo Autor personal es requerido</div>
-          <div class="impresion">
-                {{detalle.rasgos}}
-          </div>
-    </div>
-    <div class="ui-grid-row">
-      Autor familiar:
-    </div>
-    <div class="ui-grid-row">
-          <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="calidad" [(ngModel)]="detalle.calidad"></textarea>
-          <div class="impresion">
-                {{detalle.calidad}}
-          </div>
-    </div>
-    <div class="ui-grid-row">
-      Autor corporativo *:
-    </div>
-    <div class="ui-grid-row">
-          <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="originalidad" [(ngModel)]="detalle.originalidad"
-                #originalidad="ngModel" required></textarea>
-          <div class="ui-messages-error" *ngIf="submitted>0  && decoracion.invalid">El campo Autor corporativo es requerido</div>
-          <div class="impresion">
-                {{detalle.originalidad}}
-          </div>
-    </div>
-    <div class="ui-grid-row">
-      Autor coleccionista:
-    </div>
-    <div class="ui-grid-row">
-          <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="importancia" [(ngModel)]="detalle.importancia"></textarea>
-          <div class="impresion">
-                {{detalle.importancia}}
-          </div>
-    </div>
+      <div class="ui-grid-row">
+            Autor personal :
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="personal" [(ngModel)]="detalle.personal"></textarea>
+            <div class="impresion">
+                  {{detalle.personal}}
+            </div>
+      </div>
+      <div class="ui-grid-row">
+            Autor familiar:
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="familiar" [(ngModel)]="detalle.familiar"></textarea>
+            <div class="impresion">
+                  {{detalle.familiar}}
+            </div>
+      </div>
+      <div class="ui-grid-row">
+            Autor corporativo :
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="corporativo" [(ngModel)]="detalle.corporativo"></textarea>
+            <div class="impresion">
+                  {{detalle.corporativo}}
+            </div>
+      </div>
+      <div class="ui-grid-row">
+            Autor coleccionista:
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="coleccionista" [(ngModel)]="detalle.coleccionista"></textarea>
+            <div class="impresion">
+                  {{detalle.coleccionista}}
+            </div>
+      </div>
 </div>

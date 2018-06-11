@@ -20,7 +20,7 @@ export class Seccion5ArteComponent implements OnInit, OnChanges {
   @Input() item = null;
   @Input() submitted=0;
   @Output() validacionFormulario = new EventEmitter();
-  camposObligatorios=["elaboracion","decoracion","coloresusados","semioticocolores"]
+  camposObligatorios=["colorUsado", "colorProcedencia", "analisisSemiotico"]
   es = this.properties.es;
   paisItem = [{ label: this.properties.labelSeleccione, value: null }]
   constructor(
@@ -43,9 +43,9 @@ export class Seccion5ArteComponent implements OnInit, OnChanges {
         });
         
         if (valido==1){
-          this.validacionFormulario.emit({indentificador:1,tab:"CONTEXTO ACADÉMICO DE LA OBRA",valido:true})
+          this.validacionFormulario.emit({indentificador:5,tab:"ANÁLISIS GRÁFICO DE LA OBRA",valido:true})
         }else{
-          this.validacionFormulario.emit({indentificador:1,tab:"CONTEXTO ACADÉMICO DE LA OBRA",valido:false})
+          this.validacionFormulario.emit({indentificador:5,tab:"ANÁLISIS GRÁFICO DE LA OBRA",valido:false})
         }
       }
       

@@ -72,8 +72,6 @@ import { Seccion2GeoComponent } from './catalogacion/geologia/seccion2.component
 import { Seccion3GeoComponent } from './catalogacion/geologia/seccion3.component';
 import { Seccion4GeoComponent } from './catalogacion/geologia/seccion4.component';
 import { Seccion5GeoComponent } from './catalogacion/geologia/seccion5.component';
-import { Seccion6GeoComponent } from './catalogacion/geologia/seccion6.component';
-import { Seccion7GeoComponent } from './catalogacion/geologia/seccion7.component';
 import { Seccion8GeoComponent } from './catalogacion/geologia/seccion8.component';
 import { Seccion2PaleoComponent } from './catalogacion/paleontologia/seccion2.component';
 import { Seccion3PaleoComponent } from './catalogacion/paleontologia/seccion3.component';
@@ -85,7 +83,6 @@ import { Seccion4ZooComponent } from './catalogacion/zoologia/seccion4.component
 import { Seccion5ZooComponent } from './catalogacion/zoologia/seccion5.component';
 import { Seccion6ZooComponent } from './catalogacion/zoologia/seccion6.component';
 import { Seccion7ZooComponent } from './catalogacion/zoologia/seccion7.component';
-import { Seccion7FotoComponent } from './catalogacion/fotografia/seccion7.component';
 import { Seccion9GeoComponent } from './catalogacion/geologia/seccion9.component';
 import { Seccion10GeoComponent } from './catalogacion/geologia/seccion10.component';
 import { Seccion11GeoComponent } from './catalogacion/geologia/seccion11.component';
@@ -187,8 +184,8 @@ export const ItemRoutes: Routes = [
     IstrumentalCientificoComponent, ArtesComponent, Seccion2ArqueologiaComponent, CatalogacionComponent, YacimientoComponent, Seccion3ArqueologiaComponent,
     UsoAcademicoComponent, Seccion2EntomologiaComponent, Seccion3EntomologiaComponent, Seccion2InstrumentalComponent, CatalogacionImprimirComponent,
     BajasComponent, RestauracionComponent, ArtesComponent, Seccion2ArteComponent, Seccion3ArteComponent, Seccion4ArteComponent, Seccion5ArteComponent,
-    Seccion2FotoComponent, Seccion3FotoComponent, Seccion4FotoComponent, Seccion5FotoComponent, Seccion6FotoComponent, Seccion7FotoComponent,
-    Seccion2GeoComponent, Seccion3GeoComponent, Seccion4GeoComponent, Seccion5GeoComponent, Seccion6GeoComponent, Seccion7GeoComponent, Seccion8GeoComponent, Seccion9GeoComponent, Seccion10GeoComponent, Seccion11GeoComponent,
+    Seccion2FotoComponent, Seccion3FotoComponent, Seccion4FotoComponent, Seccion5FotoComponent, Seccion6FotoComponent,
+    Seccion2GeoComponent, Seccion3GeoComponent, Seccion4GeoComponent, Seccion5GeoComponent, Seccion8GeoComponent, Seccion9GeoComponent, Seccion10GeoComponent, Seccion11GeoComponent,
     Seccion2PaleoComponent, Seccion3PaleoComponent, Seccion4PaleoComponent, Seccion5PaleoComponent, Seccion6PaleoComponent, 
     Seccion2ZooComponent, Seccion3ZooComponent, Seccion4ZooComponent, Seccion5ZooComponent, Seccion6ZooComponent, Seccion7ZooComponent
   ]

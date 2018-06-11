@@ -94,90 +94,83 @@
                 </p-tabPanel>
 
                 <p-tabPanel header="JUICIO VALORATIVO" *ngSwitchCase="constantes.arte">
-                    <arte-seccion2 *ngIf="detalle!=null" [detalle]="detalle"></arte-seccion2>
+                    <arte-seccion2 *ngIf="detalle!=null" [detalle]="detalle" (validacionFormulario)="validarTabs($event)" [submitted]="submitted"></arte-seccion2> 
                 </p-tabPanel>
 
                 <p-tabPanel header="SEMBLANZA DEL AUTOR/A" *ngSwitchCase="constantes.arte">
-                    <arte-seccion3 *ngIf="detalle!=null" [detalle]="detalle"></arte-seccion3>
+                    <arte-seccion3 *ngIf="detalle!=null" [detalle]="detalle" (validacionFormulario)="validarTabs($event)" [submitted]="submitted"></arte-seccion3>
                 </p-tabPanel>
 
                 <p-tabPanel header="CONTEXTO SOCIAL DE LA OBRA" *ngSwitchCase="constantes.arte">
-                    <arte-seccion4 *ngIf="detalle!=null" [detalle]="detalle"></arte-seccion4>
+                    <arte-seccion4 *ngIf="detalle!=null" [detalle]="detalle" (validacionFormulario)="validarTabs($event)" [submitted]="submitted"></arte-seccion4>
                 </p-tabPanel>
 
                 <p-tabPanel header="ANÁLISIS GRÁFICO DE LA OBRA" *ngSwitchCase="constantes.arte">
-                    <arte-seccion5 *ngIf="detalle!=null" [detalle]="detalle"></arte-seccion5>
-                </p-tabPanel>
-                
-                <p-tabPanel header="USO ACADÉMICO Y/O CIENTÍFICO DEL BIEN">
-                    <usoAcademico *ngIf="piezaMuseable!=null" [piezaMuseable]="piezaMuseable" (validacionFormulario)="validarTabs($event)" [submitted]="submitted"></usoAcademico>
+                    <arte-seccion5 *ngIf="detalle!=null" [detalle]="detalle" (validacionFormulario)="validarTabs($event)" [submitted]="submitted"></arte-seccion5>
                 </p-tabPanel>
 
                 <p-tabPanel header="CONTEXTO SOCIAL DE LA FOTOGRAFÍA" *ngSwitchCase="constantes.fotografia">
-                    <foto-seccion2 *ngIf="detalle!=null" [detalle]="detalle"></foto-seccion2>
+                    <foto-seccion2 *ngIf="detalle!=null" [detalle]="detalle" (validacionFormulario)="validarTabs($event)" [submitted]="submitted"></foto-seccion2>
                 </p-tabPanel>
 
                 <p-tabPanel header="DERECHOS SOBRE LA FOTOGRAFÍA" *ngSwitchCase="constantes.fotografia">
-                    <foto-seccion3 *ngIf="detalle!=null" [detalle]="detalle"></foto-seccion3>
+                    <foto-seccion3 *ngIf="detalle!=null" [detalle]="detalle" (validacionFormulario)="validarTabs($event)" [submitted]="submitted"></foto-seccion3>
                 </p-tabPanel>
 
                 <p-tabPanel header="CONTEXTO TÉCNICO DE LA FOTOGRAFÍA" *ngSwitchCase="constantes.fotografia">
-                    <foto-seccion4 *ngIf="detalle!=null" [detalle]="detalle"></foto-seccion4>
+                    <foto-seccion4 *ngIf="detalle!=null" [detalle]="detalle" (validacionFormulario)="validarTabs($event)" [submitted]="submitted"></foto-seccion4>
                 </p-tabPanel>
 
                 <p-tabPanel header="CONTEXTO DE PRODUCCIÓN FOTOGRÁFICA" *ngSwitchCase="constantes.fotografia">
-                    <foto-seccion5 *ngIf="detalle!=null" [detalle]="detalle"></foto-seccion5>
+                    <foto-seccion5 *ngIf="detalle!=null" [detalle]="detalle" (validacionFormulario)="validarTabs($event)" [submitted]="submitted"></foto-seccion5>
                 </p-tabPanel>
 
-                <p-tabPanel header="CONTEXTO ACADÉMICO DE LA OBRA" *ngSwitchCase="constantes.arte">
-                    <arte-seccion3 *ngIf="detalle!=null" [detalle]="detalle"></arte-seccion3>
+                <p-tabPanel header="DESCRIPCIÓN FOTOGRÁFICA" *ngSwitchCase="constantes.fotografia">
+                    <foto-seccion6 *ngIf="detalle!=null" [detalle]="detalle" (validacionFormulario)="validarTabs($event)" [submitted]="submitted"></foto-seccion6>
                 </p-tabPanel>
 
                 <p-tabPanel header="DESCRIPCIÓN MINERAL" *ngSwitchCase="constantes.geologia">
-                    <geo-seccion2 *ngIf="detalle!=null" [detalle]="detalle"></geo-seccion2>
+                    <geo-seccion2 *ngIf="detalle!=null" [detalle]="detalle" (validacionFormulario)="validarTabs($event)" [submitted]="submitted"></geo-seccion2>
                 </p-tabPanel>
 
                 <p-tabPanel header="CRISTALOGRAFÍA" *ngSwitchCase="constantes.geologia">
-                    <geo-seccion3 *ngIf="detalle!=null" [detalle]="detalle"></geo-seccion3>
+                    <geo-seccion3 *ngIf="detalle!=null" [detalle]="detalle" (validacionFormulario)="validarTabs($event)" [submitted]="submitted"></geo-seccion3>
                 </p-tabPanel>
 
                 <p-tabPanel header="PROPIEDADES FÍSICAS" *ngSwitchCase="constantes.geologia">
-                    <geo-seccion4 *ngIf="detalle!=null" [detalle]="detalle"></geo-seccion4>
+                    <geo-seccion4 *ngIf="detalle!=null" [detalle]="detalle" (validacionFormulario)="validarTabs($event)" [submitted]="submitted"></geo-seccion4>
                 </p-tabPanel>
 
                 <p-tabPanel header="PROPIEDADES ÓPTICAS" *ngSwitchCase="constantes.geologia">
-                    <geo-seccion5 *ngIf="detalle!=null" [detalle]="detalle"></geo-seccion5>
+                    <geo-seccion5 *ngIf="detalle!=null" [detalle]="detalle" (validacionFormulario)="validarTabs($event)" [submitted]="submitted"></geo-seccion5>
                 </p-tabPanel>
 
-                <p-tabPanel header="PROPIEDADES DE CÁLCULO" *ngSwitchCase="constantes.geologia">
-                    <geo-seccion6 *ngIf="detalle!=null" [detalle]="detalle"></geo-seccion6>
-                </p-tabPanel>
-
-                <p-tabPanel header="CLASIFICACIÓN MINERAL" *ngSwitchCase="constantes.geologia">
-                    <geo-seccion7 *ngIf="detalle!=null" [detalle]="detalle"></geo-seccion7>
-                </p-tabPanel>
-
-                <p-tabPanel header="PLANOS DEL YACIMIENTO" *ngSwitchCase="constantes.geologia">
+                <p-tabPanel header="INFORMACIÓN YACIMIENTO" *ngSwitchCase="constantes.geologia">
                     <geo-seccion8 *ngIf="detalle!=null" [detalle]="detalle"></geo-seccion8>
                 </p-tabPanel>
 
-                <p-tabPanel header="DATOS DE LA RECOLECCIÓN" *ngSwitchCase="constantes.geologia">
+                <!-- <p-tabPanel header="DATOS DE LA RECOLECCIÓN" *ngSwitchCase="constantes.geologia">
                     <geo-seccion9 *ngIf="detalle!=null" [detalle]="detalle"></geo-seccion9>
                 </p-tabPanel>
 
                 <p-tabPanel header="DATOS DEL YACIMIENTO" *ngSwitchCase="constantes.geologia">
                     <geo-seccion10 *ngIf="detalle!=null" [detalle]="detalle"></geo-seccion10>
+                </p-tabPanel> -->
+                
+                <p-tabPanel header="USO ACADÉMICO Y/O CIENTÍFICO DEL BIEN">
+                    <usoAcademico *ngIf="piezaMuseable!=null" [piezaMuseable]="piezaMuseable" (validacionFormulario)="validarTabs($event)" [submitted]="submitted"></usoAcademico>
                 </p-tabPanel>
 
-                <p-tabPanel header="DATOS DEL YACIMIENTO" *ngSwitchCase="constantes.paleontologia">
+
+                <p-tabPanel header="DATOS DEL YACIMIENTO" *ngSwitchCase="constantes.peleontologia">
                     <paleo-seccion2 *ngIf="detalle!=null" [detalle]="detalle"></paleo-seccion2>
                 </p-tabPanel>
 
-                <p-tabPanel header="PLANOS DEL YACIMIENTO" *ngSwitchCase="constantes.paleontologia">
+                <p-tabPanel header="PLANOS DEL YACIMIENTO" *ngSwitchCase="constantes.peleontologia">
                     <paleo-seccion3 *ngIf="detalle!=null" [detalle]="detalle"></paleo-seccion3>
                 </p-tabPanel>
 
-                <p-tabPanel header="DATOS DE LA EXTRACCIÓN DEL BIEN PALEONTOLÓGICO" *ngSwitchCase="constantes.paleontologia">
+                <p-tabPanel header="DATOS DE LA EXTRACCIÓN DEL BIEN PALEONTOLÓGICO" *ngSwitchCase="constantes.peleontologia">
                     <paleo-seccion4 *ngIf="detalle!=null" [detalle]="detalle"></paleo-seccion4>
                 </p-tabPanel>
 
@@ -201,19 +194,15 @@
                     <zoo-seccion6 *ngIf="detalle!=null" [detalle]="detalle"></zoo-seccion6>
                 </p-tabPanel>
 
-                <p-tabPanel header="CONTEXTO SOCIAL DEL BIEN PALEONTOLÓGICO" *ngSwitchCase="constantes.paleontologia">
+                <p-tabPanel header="CONTEXTO SOCIAL DEL BIEN PALEONTOLÓGICO" *ngSwitchCase="constantes.peleontologia">
                     <paleo-seccion5 *ngIf="detalle!=null" [detalle]="detalle"></paleo-seccion5>
                 </p-tabPanel>
 
-                <p-tabPanel header="CONTEXTO ACADÉMICO DE LA FOTOGRAFÍA" *ngSwitchCase="constantes.fotografia">
-                    <foto-seccion7 *ngIf="detalle!=null" [detalle]="detalle"></foto-seccion7>
-                </p-tabPanel>
-
-                <p-tabPanel header="CONTEXTO ACADÉMICO DEL ESPÉCIMEN" *ngSwitchCase="constantes.geologia">
+                <!-- <p-tabPanel header="CONTEXTO ACADÉMICO DEL ESPÉCIMEN" *ngSwitchCase="constantes.geologia">
                     <geo-seccion11 *ngIf="detalle!=null" [detalle]="detalle"></geo-seccion11>
-                </p-tabPanel>
+                </p-tabPanel> -->
 
-                <p-tabPanel header="CONTEXTO ACADÉMICO DEL BIEN PALEONTOLÓGICO" *ngSwitchCase="constantes.paleontologia">
+                <p-tabPanel header="CONTEXTO ACADÉMICO DEL BIEN PALEONTOLÓGICO" *ngSwitchCase="constantes.peleontologia">
                     <paleo-seccion6 *ngIf="detalle!=null" [detalle]="detalle"></paleo-seccion6>
                 </p-tabPanel>
 

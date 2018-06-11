@@ -1,30 +1,86 @@
 <div class="separadorInventario">
-    <h5>CLASIFICACIÓN</h5>
-    <div style="width: 100%;text-align: right">
-          <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
-          <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
-    </div>
+      <h5>DESCRIPCIÓN FOTOGRÁFICA</h5>
+      <div style="width: 100%;text-align: right">
+            <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+            <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+      </div>
 </div>
 <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin" *ngIf="detalle!=null">
 
-    <div class="ui-grid-row">
-      Tesauro *:
-    </div>
-    <div class="ui-grid-row">
-          <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="rasgos" [(ngModel)]="detalle.rasgos"
-                #rasgos="ngModel" required></textarea>
-          <div class="ui-messages-error" *ngIf="submitted>0  && elaboracion.invalid">El campo Tesauro es requerido</div>
-          <div class="impresion">
-                {{detalle.rasgos}}
-          </div>
-    </div>
-    <div class="ui-grid-row">
-      Palabras clave:
-    </div>
-    <div class="ui-grid-row">
-          <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="calidad" [(ngModel)]="detalle.calidad"></textarea>
-          <div class="impresion">
-                {{detalle.calidad}}
-          </div>
-    </div>
+      <div class="ui-grid-row">
+            Descripción personal :
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="descripcionPersonal" [(ngModel)]="detalle.descripcionPersonal"></textarea>
+            <div class="impresion">
+                  {{detalle.descripcionPersonal}}
+            </div>
+      </div>
+      <div class="ui-grid-row">
+            Descripción familiar :
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="descripcionFamiliar" [(ngModel)]="detalle.descripcionFamiliar"></textarea>
+            <div class="impresion">
+                  {{detalle.descripcionFamiliar}}
+            </div>
+      </div>
+      <div class="ui-grid-row">
+            Descripción corporativa :
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="descripcionCorporativa" [(ngModel)]="detalle.descripcionCorporativa"></textarea>
+            <div class="impresion">
+                  {{detalle.descripcionCorporativa}}
+            </div>
+      </div>
+      <div class="ui-grid-row">
+            Encuentros o evento :
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="evento" [(ngModel)]="detalle.evento"></textarea>
+            <div class="impresion">
+                  {{detalle.evento}}
+            </div>
+      </div>
+      <div class="ui-grid-row">
+            Descripción paisajística :
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="descripcionPaisajista" [(ngModel)]="detalle.descripcionPaisajista"></textarea>
+            <div class="impresion">
+                  {{detalle.descripcionPaisajista}}
+            </div>
+      </div>
+</div>
+<div class="separadorInventario">
+      <h5>TESAURO</h5>
+      <div style="width: 100%;text-align: right">
+            <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+            <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+      </div>      
+</div>
+<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin" *ngIf="detalle!=null">
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="tesauro" [(ngModel)]="detalle.tesauro"></textarea>
+            <div class="impresion">
+                  {{detalle.tesauro}}
+            </div>
+      </div>
+</div>
+
+<div class="separadorInventario">
+      <h5>PALABRAS CLAVE</h5>
+      <div style="width: 100%;text-align: right">
+            <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+            <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+      </div>
+</div>
+<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin" *ngIf="detalle!=null">
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="600" name="palabrasClaves" [(ngModel)]="detalle.palabrasClaves"></textarea>
+            <div class="impresion">
+                  {{detalle.palabrasClaves}}
+            </div>
+      </div> 
 </div>

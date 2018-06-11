@@ -11,71 +11,66 @@
             Breve biografía del autor/a *:
       </div>
       <div class="ui-grid-row">
-            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="rasgos" [(ngModel)]="detalle.rasgos"
-                  #rasgos="ngModel" required></textarea>
-            <div class="ui-messages-error" *ngIf="submitted>0  && elaboracion.invalid">El campo Breve biografía del autor/a es requerido</div>
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="biografia" [(ngModel)]="detalle.biografia"
+                  #biografia="ngModel" required></textarea>
+            <div class="ui-messages-error" *ngIf="submitted>0  && biografia.invalid">El campo Breve biografía del autor/a es requerido</div>
             <div class="impresion">
-                  {{detalle.rasgos}}
+                  {{detalle.biografia}}
             </div>
       </div>
 
       <div class="ui-grid-row">
-            Formación artística *:
+            Formación artística :
       </div>
       <div class="ui-grid-row">
-            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="rasgos" [(ngModel)]="detalle.rasgos"
-                  #rasgos="ngModel" required></textarea>
-            <div class="ui-messages-error" *ngIf="submitted>0  && elaboracion.invalid">El campo Formación artística es requerido</div>
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="formacion" [(ngModel)]="detalle.formacion"
+                  #formacion="ngModel"></textarea>
             <div class="impresion">
-                  {{detalle.rasgos}}
+                  {{detalle.formacion}}
             </div>
       </div>
 
       <div class="ui-grid-row">
-            Movimientos artíticos u organizaciones a las que perteneció / pertenece *:
+            Movimientos artíticos u organizaciones a las que perteneció / pertenece :
       </div>
       <div class="ui-grid-row">
-            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="rasgos" [(ngModel)]="detalle.rasgos"
-                  #rasgos="ngModel" required></textarea>
-            <div class="ui-messages-error" *ngIf="submitted>0  && elaboracion.invalid">El campo Movimientos artíticos u organizaciones a las que perteneció / pertenece es requerido</div>
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="1500" name="movimientoArtistico" [(ngModel)]="detalle.movimientoArtistico"
+                  #movimientoArtistico="ngModel"></textarea>
             <div class="impresion">
-                  {{detalle.rasgos}}
+                  {{detalle.movimientoArtistico}}
             </div>
       </div>
 
       <div class="ui-grid-row">
-            Exposiciones realizadas *:
+            Exposiciones realizadas :
       </div>
       <div class="ui-grid-row">
-            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="rasgos" [(ngModel)]="detalle.rasgos"
-                  #rasgos="ngModel" required></textarea>
-            <div class="ui-messages-error" *ngIf="submitted>0  && elaboracion.invalid">El campo Exposiciones realizadas es requerido</div>
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="exposicion" [(ngModel)]="detalle.exposicion"
+                  #exposicion="ngModel"></textarea>
             <div class="impresion">
-                  {{detalle.rasgos}}
+                  {{detalle.exposicion}}
             </div>
       </div>
 
       <div class="ui-grid-row">
-            Premios recibidos *:
+            Premios recibidos :
       </div>
       <div class="ui-grid-row">
-            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="rasgos" [(ngModel)]="detalle.rasgos"
-                  #rasgos="ngModel" required></textarea>
-            <div class="ui-messages-error" *ngIf="submitted>0  && elaboracion.invalid">El campo Premios recibidos es requerido</div>
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="2000" name="premios" [(ngModel)]="detalle.premios"
+                  #premios="ngModel"></textarea>
             <div class="impresion">
-                  {{detalle.rasgos}}
+                  {{detalle.premios}}
             </div>
       </div>
 
       <div class="ui-grid-row">
-            Instituciones y coleccionistas que posean sus obras *:
+            Instituciones y coleccionistas que posean sus obras :
       </div>
       <div class="ui-grid-row">
-            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="rasgos" [(ngModel)]="detalle.rasgos"
-                  #rasgos="ngModel" required></textarea>
-            <div class="ui-messages-error" *ngIf="submitted>0  && elaboracion.invalid">El campo Instituciones y coleccionistas que posean sus obras es requerido</div>
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="2000" name="colleccionista" [(ngModel)]="detalle.colleccionista"
+                  #colleccionista="ngModel"></textarea>
             <div class="impresion">
-                  {{detalle.rasgos}}
+                  {{detalle.colleccionista}}
             </div>
       </div>
 </div>

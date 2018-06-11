@@ -11,11 +11,11 @@
             Contexto socio-cultura *:
       </div>
       <div class="ui-grid-row">
-            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="rasgos" [(ngModel)]="detalle.rasgos"
-                  #rasgos="ngModel" required></textarea>
-            <div class="ui-messages-error" *ngIf="submitted>0  && elaboracion.invalid">El campo Contexto socio-cultura es requerido</div>
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="contextoSocio" [(ngModel)]="detalle.contextoSocio"
+                  #contextoSocio="ngModel" required></textarea>
+            <div class="ui-messages-error" *ngIf="submitted>0  && contextoSocio.invalid">El campo Contexto socio-cultura es requerido</div>
             <div class="impresion">
-                  {{detalle.rasgos}}
+                  {{detalle.contextoSocio}}
             </div>
       </div>
 
@@ -23,11 +23,11 @@
             Contexto histórico *:
       </div>
       <div class="ui-grid-row">
-            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="rasgos" [(ngModel)]="detalle.rasgos"
-                  #rasgos="ngModel" required></textarea>
-            <div class="ui-messages-error" *ngIf="submitted>0  && elaboracion.invalid">El campo Contexto histórico es requerido</div>
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="contextoHistorico" [(ngModel)]="detalle.contextoHistorico"
+                  #contextoHistorico="ngModel" required></textarea>
+            <div class="ui-messages-error" *ngIf="submitted>0  && contextoHistorico.invalid">El campo Contexto histórico es requerido</div>
             <div class="impresion">
-                  {{detalle.rasgos}}
+                  {{detalle.contextoHistorico}}
             </div>
       </div>
 
@@ -35,11 +35,10 @@
             Contexto de situación o estado *:
       </div>
       <div class="ui-grid-row">
-            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="rasgos" [(ngModel)]="detalle.rasgos"
-                  #rasgos="ngModel" required></textarea>
-            <div class="ui-messages-error" *ngIf="submitted>0  && elaboracion.invalid">El campo Contexto de situación o estado es requerido</div>
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="contextoSituacion" [(ngModel)]="detalle.contextoSituacion"
+                  #contextoSituacion="ngModel"></textarea>
             <div class="impresion">
-                  {{detalle.rasgos}}
+                  {{detalle.contextoSituacion}}
             </div>
       </div>
 
@@ -47,11 +46,11 @@
             Contexto espacial *:
       </div>
       <div class="ui-grid-row">
-            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="rasgos" [(ngModel)]="detalle.rasgos"
-                  #rasgos="ngModel" required></textarea>
-            <div class="ui-messages-error" *ngIf="submitted>0  && elaboracion.invalid">El campo Contexto espacial es requerido</div>
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="contextoEspacial" [(ngModel)]="detalle.contextoEspacial"
+                  #contextoEspacial="ngModel" required></textarea>
+            <div class="ui-messages-error" *ngIf="submitted>0  && contextoEspacial.invalid">El campo Contexto espacial es requerido</div>
             <div class="impresion">
-                  {{detalle.rasgos}}
+                  {{detalle.contextoEspacial}}
             </div>
       </div>
 
@@ -59,11 +58,11 @@
             Contexto temporal *:
       </div>
       <div class="ui-grid-row">
-            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="rasgos" [(ngModel)]="detalle.rasgos"
-                  #rasgos="ngModel" required></textarea>
-            <div class="ui-messages-error" *ngIf="submitted>0  && elaboracion.invalid">El campo Contexto temporal es requerido</div>
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="contextoTemporal" [(ngModel)]="detalle.contextoTemporal"
+                  #contextoTemporal="ngModel" required></textarea>
+            <div class="ui-messages-error" *ngIf="submitted>0  && contextoTemporal.invalid">El campo Contexto temporal es requerido</div>
             <div class="impresion">
-                  {{detalle.rasgos}}
+                  {{detalle.contextoTemporal}}
             </div>
       </div>
 </div>

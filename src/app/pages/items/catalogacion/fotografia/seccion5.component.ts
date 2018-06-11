@@ -20,7 +20,7 @@ export class Seccion5FotoComponent implements OnInit, OnChanges {
   @Input() item = null;
   @Input() submitted=0;
   @Output() validacionFormulario = new EventEmitter();
-  camposObligatorios=["elaboracion","decoracion","coloresusados","semioticocolores"]
+  camposObligatorios=[]
   es = this.properties.es;
   paisItem = [{ label: this.properties.labelSeleccione, value: null }]
   constructor(
@@ -43,9 +43,9 @@ export class Seccion5FotoComponent implements OnInit, OnChanges {
         });
         
         if (valido==1){
-          this.validacionFormulario.emit({indentificador:1,tab:"CLASIFICACIÓN",valido:true})
+          this.validacionFormulario.emit({indentificador:6,tab:"CONTEXTO DE PRODUCCIÓN FOTOGRÁFICA",valido:true})
         }else{
-          this.validacionFormulario.emit({indentificador:1,tab:"CLASIFICACIÓN",valido:false})
+          this.validacionFormulario.emit({indentificador:6,tab:"CONTEXTO DE PRODUCCIÓN FOTOGRÁFICA",valido:false})
         }
       }
       
