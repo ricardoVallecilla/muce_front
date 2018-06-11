@@ -1,0 +1,102 @@
+<div class="separadorInventario">
+      <h5>PROPIEDADES ÓPTICAS</h5>
+      <div style="width: 100%;text-align: right">
+            <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+            <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+      </div>
+</div>
+<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin" *ngIf="detalle!=null">
+
+      <div class="ui-grid-row">
+            Relación de Gladstone-Dale :
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="600" name="gladstone" [(ngModel)]="detalle.gladstone"></textarea>
+            <div class="impresion">
+                  {{detalle.gladstone}}
+            </div>
+      </div>
+      <div class="ui-grid-row">
+            Datos ópticos:
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="600" name="opticos" [(ngModel)]="detalle.opticos"></textarea>
+            <div class="impresion">
+                  {{detalle.opticos}}
+            </div>
+      </div>
+</div>
+<div class="separadorInventario">
+      <h5>PROPIEDADES DE CÁLCULO</h5>
+      <div style="width: 100%;text-align: right">
+            <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+            <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+      </div>
+</div>
+<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin" *ngIf="detalle!=null">
+
+      <div class="ui-grid-row">
+            Índice de electrones :
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="200" name="electrones" [(ngModel)]="detalle.electrones"></textarea>
+            <div class="impresion">
+                  {{detalle.electrones}}
+            </div>
+      </div>
+      <div class="ui-grid-row">
+            Índice de fermión:
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="200" name="fermion" [(ngModel)]="detalle.fermion"></textarea>
+            <div class="impresion">
+                  {{detalle.fermion}}
+            </div>
+      </div>
+      <div class="ui-grid-row">
+            Fotoelectricidad :
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="200" name="fotoelectricidad" [(ngModel)]="detalle.fotoelectricidad"></textarea>
+            <div class="impresion">
+                  {{detalle.fotoelectricidad}}
+            </div>
+      </div>
+      <div class="ui-grid-row">
+            Radioactividad:
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="200" name="radioactividad" [(ngModel)]="detalle.radioactividad"></textarea>
+            <div class="impresion">
+                  {{detalle.radioactividad}}
+            </div>
+      </div>
+</div>
+<div class="separadorInventario">
+      <h5>CLASIFICACIÓN MINERAL</h5>
+      <div style="width: 100%;text-align: right">
+            <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+            <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+      </div>
+</div>
+<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin" *ngIf="detalle!=null">
+
+      <div class="ui-grid-row">
+            Clasificación de DANA :
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="600" name="dana" [(ngModel)]="detalle.dana"></textarea>
+            <div class="impresion">
+                  {{detalle.dana}}
+            </div>
+      </div>
+      <div class="ui-grid-row">
+            Clasificación de STRUNZ:
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="600" name="strunz" [(ngModel)]="detalle.strunz"></textarea>
+            <div class="impresion">
+                  {{detalle.strunz}}
+            </div>
+      </div>
+</div>

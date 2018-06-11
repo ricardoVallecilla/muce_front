@@ -36,7 +36,12 @@ export class CatalogacionComponent implements OnInit {
     arqueologiaForma: false,
     usoAcademico: false,
     entomologiaProcesos: false,
-    instrumentalRegistros:false
+    instrumentalRegistros:false,
+    arteRegistro: false,
+    fotografia: false,
+    geologia: false,
+    paleontologia: false,
+    zoologia: false
   }
   validado = false;
   paisItem = [{ label: this.properties.labelSeleccione, value: null }]
@@ -75,7 +80,6 @@ export class CatalogacionComponent implements OnInit {
           this.descargarFoto(9);
           this.descargarFoto(10);
           this.descargarFoto(11);
-
 
         }
 
@@ -138,7 +142,11 @@ export class CatalogacionComponent implements OnInit {
       case this.constantes.zoologia:
         tipo = 9
         break;
-
+        
+      case this.constantes.arte:
+        tipo = 10
+        break;
+        
       default:
         break;
     }
@@ -190,6 +198,46 @@ export class CatalogacionComponent implements OnInit {
 
         break;
 
+        case this.constantes.arte:
+        if (!this.validacionesTabs.arteRegistro) {
+          this.msgs.push({ severity: 'error', summary: 'Error de Validación', detail: 'Verifique los campos obligatorios. (USE BOTON VALIDAR)' });
+          return false;
+        }
+
+        break;
+
+        case this.constantes.fotografia:
+        if (!this.validacionesTabs.fotografia) {
+          this.msgs.push({ severity: 'error', summary: 'Error de Validación', detail: 'Verifique los campos obligatorios. (USE BOTON VALIDAR)' });
+          return false;
+        }
+
+        break;
+
+        case this.constantes.geologia:
+        if (!this.validacionesTabs.geologia) {
+          this.msgs.push({ severity: 'error', summary: 'Error de Validación', detail: 'Verifique los campos obligatorios. (USE BOTON VALIDAR)' });
+          return false;
+        }
+
+        break;
+
+        case this.constantes.peleontologia:
+        if (!this.validacionesTabs.paleontologia) {
+          this.msgs.push({ severity: 'error', summary: 'Error de Validación', detail: 'Verifique los campos obligatorios. (USE BOTON VALIDAR)' });
+          return false;
+        }
+
+        break;
+
+        case this.constantes.zoologia:
+        if (!this.validacionesTabs.zoologia) {
+          this.msgs.push({ severity: 'error', summary: 'Error de Validación', detail: 'Verifique los campos obligatorios. (USE BOTON VALIDAR)' });
+          return false;
+        }
+
+        break;
+
       default:
         break;
     }
@@ -215,6 +263,26 @@ export class CatalogacionComponent implements OnInit {
       case this.constantes.entomologia:
         tipo = 3
         piezaDetalle.piezaentomologicadetalle = this.detalle
+        break;
+      case this.constantes.arte:
+        tipo = 10
+        piezaDetalle.piezaartedetalle = this.detalle
+        break;
+      case this.constantes.fotografia:
+        tipo = 5
+        piezaDetalle.piezafotograficadetalle = this.detalle
+        break;
+      case this.constantes.geologia:
+        tipo = 7
+        piezaDetalle.piezageologicadetalle = this.detalle
+        break;
+      case this.constantes.peleontologia:
+        tipo = 8
+        piezaDetalle.piezapaleontologicadetalle = this.detalle
+        break;
+      case this.constantes.zoologia:
+        tipo = 10
+        piezaDetalle.piezazoologicadetalle = this.detalle
         break;
       default:
         break;
@@ -292,6 +360,21 @@ export class CatalogacionComponent implements OnInit {
       //seccion instrumental
       case 4:
         this.validacionesTabs.instrumentalRegistros = event.valido;
+        break;
+      case 5:
+        this.validacionesTabs.arteRegistro = event.valido;
+        break;
+      case 6:
+        this.validacionesTabs.fotografia = event.valido;
+        break;
+      case 7:
+        this.validacionesTabs.geologia = event.valido;
+        break;
+      case 8:
+        this.validacionesTabs.paleontologia = event.valido;
+        break;
+      case 9:
+        this.validacionesTabs.zoologia = event.valido;
         break;
       default:
         break;

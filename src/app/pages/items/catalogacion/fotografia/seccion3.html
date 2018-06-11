@@ -1,0 +1,37 @@
+<div class="separadorInventario">
+      <h5>DERECHOS SOBRE LA FOTOGRAFÍA</h5>
+      <div style="width: 100%;text-align: right">
+            <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+            <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+      </div>
+</div>
+<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin" *ngIf="detalle!=null">
+
+      <div class="ui-grid-row">
+            Tipo de derechos (Copyleft, Copyright, etc) :
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="600" name="tipoDerecho" [(ngModel)]="detalle.tipoDerecho"></textarea>
+            <div class="impresion">
+                  {{detalle.tipoDerecho}}
+            </div>
+      </div>
+      <div class="ui-grid-row">
+            Derechos de explotación:
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="600" name="derecho" [(ngModel)]="detalle.derecho"></textarea>
+            <div class="impresion">
+                  {{detalle.derecho}}
+            </div>
+      </div>
+      <div class="ui-grid-row">
+            Cláusulas especiales :
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="2000" name="clausulas" [(ngModel)]="detalle.clausulas"></textarea>
+            <div class="impresion">
+                  {{detalle.clausulas}}
+            </div>
+      </div>
+</div>

@@ -1,0 +1,64 @@
+<div class="separadorInventario">
+      <h5>JUICIO VALORATIVO</h5>
+      <div style="width: 100%;text-align: right">
+            <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+            <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+      </div>
+</div>
+<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin" *ngIf="detalle!=null">
+
+      <div class="ui-grid-row">
+            Rasgos estéticos :
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="rasgoEstetico" [(ngModel)]="detalle.rasgoEstetico"></textarea>
+            <div class="impresion">
+                  {{detalle.rasgoEstetico}}
+            </div>
+      </div>
+      <div class="ui-grid-row">
+            Calidad artística:
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="calidadEstetica" [(ngModel)]="detalle.calidadEstetica"></textarea>
+            <div class="impresion">
+                  {{detalle.calidadEstetica}}
+            </div>
+      </div>
+      <div class="ui-grid-row">
+            Originalidad :
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="originalidad" [(ngModel)]="detalle.originalidad"></textarea>
+            <div class="impresion">
+                  {{detalle.originalidad}}
+            </div>
+      </div>
+      <div class="ui-grid-row">
+            Importancia histórica-artística:
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="historicaArtistica" [(ngModel)]="detalle.historicaArtistica"></textarea>
+            <div class="impresion">
+                  {{detalle.historicaArtistica}}
+            </div>
+      </div>
+      <div class="ui-grid-row">
+            Importancia comercial:
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="comercial" [(ngModel)]="detalle.comercial"></textarea>
+            <div class="impresion">
+                  {{detalle.comercial}}
+            </div>
+      </div>
+      <div class="ui-grid-row">
+            Comparación con obras del mismo autor/a:
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="comparacion" [(ngModel)]="detalle.comparacion"></textarea>
+            <div class="impresion">
+                  {{detalle.comparacion}}
+            </div>
+      </div>
+</div>

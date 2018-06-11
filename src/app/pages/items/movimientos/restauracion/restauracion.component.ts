@@ -24,6 +24,7 @@ import { DetalleCatalogo } from "../../../../models/detallecatalogo.model";
     esCatalogacion=false
     properties = new Properties()
     constantes = new Constantes()
+    esCatalogacion: any
     es = this.properties.es
     msgs: Message[] = [];
     acciones = ""

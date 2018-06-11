@@ -1,0 +1,91 @@
+<div class="separadorInventario">
+      <h5>PROPIEDADES FÍSICAS</h5>
+      <div style="width: 100%;text-align: right">
+            <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+            <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+      </div>
+</div>
+<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin" *ngIf="detalle!=null">
+
+      <div class="ui-grid-row">
+            Escisión mineral :
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="600" name="escision" [(ngModel)]="detalle.escision"></textarea>
+            <div class="impresion">
+                  {{detalle.escision}}
+            </div>
+      </div>
+      <div class="ui-grid-row">
+            Color:
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="600" name="color" [(ngModel)]="detalle.color"></textarea>
+            <div class="impresion">
+                  {{detalle.color}}
+            </div>
+      </div>
+      <div class="ui-grid-row">
+            Densidad :
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="600" name="densidad" [(ngModel)]="detalle.densidad"></textarea>
+            <div class="impresion">
+                  {{detalle.densidad}}
+            </div>
+      </div>
+      <div class="ui-grid-row">
+            Transparencia:
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="600" name="transparencia" [(ngModel)]="detalle.transparencia"></textarea>
+            <div class="impresion">
+                  {{detalle.transparencia}}
+            </div>
+      </div>
+      <div class="ui-grid-row">
+            Fuerza y fractura mineral:
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="600" name="fuerza" [(ngModel)]="detalle.fuerza"></textarea>
+            <div class="impresion">
+                  {{detalle.fuerza}}
+            </div>
+      </div>
+      <div class="ui-grid-row">
+            Dureza:
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="600" name="dureza" [(ngModel)]="detalle.dureza"></textarea>
+            <div class="impresion">
+                  {{detalle.dureza}}
+            </div>
+      </div>
+      <div class="ui-grid-row">
+            Luminiscencia:
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="600" name="luminicencia" [(ngModel)]="detalle.luminicencia"></textarea>
+            <div class="impresion">
+                  {{detalle.luminicencia}}
+            </div>
+      </div>
+      <div class="ui-grid-row">
+            Brillo:
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="600" name="brillo" [(ngModel)]="detalle.brillo"></textarea>
+            <div class="impresion">
+                  {{detalle.brillo}}
+            </div>
+      </div>
+      <div class="ui-grid-row">
+            Color de veta:
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="600" name="veta" [(ngModel)]="detalle.veta"></textarea>
+            <div class="impresion">
+                  {{detalle.veta}}
+            </div>
+      </div>
+</div>

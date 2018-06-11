@@ -28,7 +28,6 @@
                 <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
                 <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
               </div>
-
             </div>
             <arqueologia [item]="item" *ngIf="item.categoriaid.catalogoid==constantes.arqueologia" [detalle]="detalle" [materialesArqueologiaSelecionados]="materialesArqueologiaSelecionados"
               (enviadorCondicion)="obtenerMaterialesArquelogica($event)" [submitted]="submitted" (validacionFormulario)="validarGuardar($event)"></arqueologia>

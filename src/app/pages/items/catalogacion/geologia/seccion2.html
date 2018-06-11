@@ -1,0 +1,83 @@
+<div class="separadorInventario">
+      <h5>DESCRIPCIÓN MINERAL</h5>
+      <div style="width: 100%;text-align: right">
+            <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+            <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+      </div>
+</div>
+<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin" *ngIf="detalle!=null">
+
+      <div class="ui-grid-row">
+            Fórmula química *:
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="200" name="formula" [(ngModel)]="detalle.formula"
+                  #formula="ngModel" required></textarea>
+            <div class="ui-messages-error" *ngIf="submitted>0  && formula.invalid">El campo Fórmula química es requerido</div>
+            <div class="impresion">
+                  {{detalle.formula}}
+            </div>
+      </div>
+      <div class="ui-grid-row">
+            Composición *:
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="1000" name="composicion" [(ngModel)]="detalle.composicion"
+                  #composicion="ngModel" required></textarea>
+            <div class="ui-messages-error" *ngIf="submitted>0  && composicion.invalid">El campo Composición es requerido</div>
+            <div class="impresion">
+                  {{detalle.composicion}}
+            </div>
+      </div>
+      <div class="ui-grid-row">
+            Fórmula empírica *:
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="200" name="empirica" [(ngModel)]="detalle.empirica"
+                  #empirica="ngModel" required></textarea>
+            <div class="ui-messages-error" *ngIf="submitted>0  && empirica.invalid">El campo Fórmula empírica es requerido</div>
+            <div class="impresion">
+                  {{detalle.empirica}}
+            </div>
+      </div>
+      <div class="ui-grid-row">
+            Relación con otros minerales:
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="1000" name="relacion" [(ngModel)]="detalle.relacion"></textarea>
+            <div class="impresion">
+                  {{detalle.relacion}}
+            </div>
+      </div>
+      <div class="ui-grid-row">
+            Estado con la IMA (Asociación Internacional de Mineralogía) *:
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="600" name="ima" [(ngModel)]="detalle.ima"
+                  #ima="ngModel" required></textarea>
+            <div class="ui-messages-error" *ngIf="submitted>0  && ima.invalid">El campo Estado con la IMA (Asociación Internacional de Mineralogía) requerido</div>
+            <div class="impresion">
+                  {{detalle.ima}}
+            </div>
+      </div>
+      <div class="ui-grid-row">
+            Origen del nombre *:
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="1500" name="origen" [(ngModel)]="detalle.origen"
+                  #origen="ngModel" required></textarea>
+            <div class="ui-messages-error" *ngIf="submitted>0  && origen.invalid">El campo Origen del nombre es requerido</div>
+            <div class="impresion">
+                  {{detalle.origen}}
+            </div>
+      </div>
+      <div class="ui-grid-row">
+            Sinónimos de otras especies minerales:
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="600" name="sinonimo" [(ngModel)]="detalle.sinonimo"></textarea>
+            <div class="impresion">
+                  {{detalle.sinonimo}}
+            </div>
+      </div>
+</div>

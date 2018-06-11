@@ -1,0 +1,62 @@
+<div class="separadorInventario">
+      <h5>CONTEXTO SOCIAL DE LA FOTOGRAFÍA</h5>
+      <div style="width: 100%;text-align: right">
+            <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+            <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+      </div>
+</div>
+<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin" *ngIf="detalle!=null">
+
+      <div class="ui-grid-row">
+            Contexto socio-cultural *:
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="contextoCultural" [(ngModel)]="detalle.contextoCultural"
+                  #contextoCultural="ngModel" required></textarea>
+            <div class="ui-messages-error" *ngIf="submitted>0  && contextoCultural.invalid">El campo Contexto socio-cultural es requerido</div>
+            <div class="impresion">
+                  {{detalle.contextoCultural}}
+            </div>
+      </div>
+      <div class="ui-grid-row">
+            Contexto histórico *:
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="contextoHistorico" [(ngModel)]="detalle.contextoHistorico"
+                  #contextoHistorico="ngModel" required></textarea>
+            <div class="ui-messages-error" *ngIf="submitted>0  && contextoHistorico.invalid">El campo Contexto histórico es requerido</div>
+            <div class="impresion">
+                  {{detalle.contextoHistorico}}
+            </div>
+      </div>
+      <div class="ui-grid-row">
+            Contexto de situación o estado :
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="contextoSituacion" [(ngModel)]="detalle.contextoSituacion"
+                  #contextoSituacion="ngModel" required></textarea>
+            <div class="impresion">
+                  {{detalle.contextoSituacion}}
+            </div>
+      </div>
+      <div class="ui-grid-row">
+            Contexto espacial *:
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="contextoEspacial" [(ngModel)]="detalle.contextoEspacial"
+                  #contextoEspacial="ngModel" required></textarea>
+            <div class="ui-messages-error" *ngIf="submitted>0  && contextoEspacial.invalid">El campo Contexto espacial es requerido</div>
+            <div class="impresion">
+                  {{detalle.contextoEspacial}}
+            </div>
+      </div>
+      <div class="ui-grid-row">
+            Contexto temporal:
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="contextoTemporal" [(ngModel)]="detalle.contextoTemporal"></textarea>
+            <div class="impresion">
+                  {{detalle.contextoTemporal}}
+            </div>
+      </div>
+</div>

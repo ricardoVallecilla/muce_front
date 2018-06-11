@@ -1,0 +1,28 @@
+<div class="separadorInventario">
+    <h5>REGISTRO FOTOGRÁFICO DEL ECOSISTEMA</h5>
+    <div style="width: 100%;text-align: right">
+          <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+          <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+    </div>
+</div>
+<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin" *ngIf="detalle!=null">
+
+    <div class="ui-grid-row">
+      Fotógrafo/a:
+    </div>
+    <div class="ui-grid-row">
+          <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="calidad" [(ngModel)]="detalle.calidad"></textarea>
+          <div class="impresion">
+                {{detalle.calidad}}
+          </div>
+    </div>
+    <div class="ui-grid-row">
+      Lugar y fecha de registro:
+    </div>
+    <div class="ui-grid-row">
+          <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="comercial" [(ngModel)]="detalle.comercial"></textarea>
+          <div class="impresion">
+                {{detalle.comercial}}
+          </div>
+    </div>
+</div>

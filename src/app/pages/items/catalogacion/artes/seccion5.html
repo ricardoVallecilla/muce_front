@@ -1,0 +1,98 @@
+<div class="separadorInventario">
+      <h5>ANÁLISIS GRÁFICO DE LA OBRA</h5>
+      <div style="width: 100%;text-align: right">
+            <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+            <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+      </div>
+</div>
+<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin" *ngIf="detalle!=null">
+
+      <div class="ui-grid-row">
+            Símbolos y diseños utilizados :
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="simboloDisenio" [(ngModel)]="detalle.simboloDisenio"
+                  #simboloDisenio="ngModel"></textarea>
+            <div class="impresion">
+                  {{detalle.simboloDisenio}}
+            </div>
+      </div>
+
+      <div class="ui-grid-row">
+            Análisis semiótico de los símbolos y diseños :
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="semiotico" [(ngModel)]="detalle.semiotico"
+                  #semiotico="ngModel"></textarea>
+            <div class="impresion">
+                  {{detalle.semiotico}}
+            </div>
+      </div>
+
+      <div class="ui-grid-row">
+            Colores utilizados *:
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="colorUsado" [(ngModel)]="detalle.colorUsado"
+                  #colorUsado="ngModel" required></textarea>
+            <div class="ui-messages-error" *ngIf="submitted>0  && colorUsado.invalid">El campo Colores utilizados es requerido</div>
+            <div class="impresion">
+                  {{detalle.colorUsado}}
+            </div>
+      </div>
+
+      <div class="ui-grid-row">
+            Procedencia de colores *:
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="colorProcedencia" [(ngModel)]="detalle.colorProcedencia"
+                  #colorProcedencia="ngModel" required></textarea>
+            <div class="ui-messages-error" *ngIf="submitted>0  && colorProcedencia.invalid">El campo Procedencia de colores es requerido</div>
+            <div class="impresion">
+                  {{detalle.colorProcedencia}}
+            </div>
+      </div>
+
+      <div class="ui-grid-row">
+            Análisis semiótico de colores *:
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="analisisSemiotico" [(ngModel)]="detalle.analisisSemiotico"
+                  #analisisSemiotico="ngModel" required></textarea>
+            <div class="ui-messages-error" *ngIf="submitted>0  && analisisSemiotico.invalid">El campo Análisis semiótico de colores es requerido</div>
+            <div class="impresion">
+                  {{detalle.analisisSemiotico}}
+            </div>
+      </div>
+</div>
+<div class="separadorInventario">
+      <h5>TESAURO</h5>
+      <div style="width: 100%;text-align: right">
+            <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+            <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+      </div>      
+</div>
+<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin" *ngIf="detalle!=null">
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="tesauro" [(ngModel)]="detalle.tesauro"></textarea>
+            <div class="impresion">
+                  {{detalle.tesauro}}
+            </div>
+      </div>
+</div>
+
+<div class="separadorInventario">
+      <h5>PALABRAS CLAVE</h5>
+      <div style="width: 100%;text-align: right">
+            <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+            <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+      </div>
+</div>
+<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin" *ngIf="detalle!=null">
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="600" name="palabrasClaves" [(ngModel)]="detalle.palabrasClaves"></textarea>
+            <div class="impresion">
+                  {{detalle.palabrasClaves}}
+            </div>
+      </div>
+</div>

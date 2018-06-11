@@ -1,0 +1,84 @@
+<div class="separadorInventario">
+      <h5>CONTEXTO TÉCNICO DE LA FOTOGRAFÍA</h5>
+      <div style="width: 100%;text-align: right">
+            <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+            <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+      </div>
+</div>
+<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin" *ngIf="detalle!=null">
+
+      <div class="ui-grid-row">
+            Color *:
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="2000" name="color" [(ngModel)]="detalle.color"
+                  #color="ngModel" required></textarea>
+            <div class="ui-messages-error" *ngIf="submitted>0  && color.invalid">El campo Color es requerido</div>
+            <div class="impresion">
+                  {{detalle.color}}
+            </div>
+      </div>
+      <div class="ui-grid-row">
+            Cámara :
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="2000" name="camara" [(ngModel)]="detalle.camara"></textarea>
+            <div class="impresion">
+                  {{detalle.camara}}
+            </div>
+      </div>
+      <div class="ui-grid-row">
+            Modelo *:
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="2000" name="modelo" [(ngModel)]="detalle.modelo"></textarea>
+            <div class="impresion">
+                  {{detalle.modelo}}
+            </div>
+      </div>
+      <div class="ui-grid-row">
+            Tiempo de exposición :
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="2000" name="exposicion" [(ngModel)]="detalle.exposicion"></textarea>
+            <div class="impresion">
+                  {{detalle.exposicion}}
+            </div>
+      </div>
+      <div class="ui-grid-row">
+            Objetivo:
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="2000" name="objetivo" [(ngModel)]="detalle.objetivo"></textarea>
+            <div class="impresion">
+                  {{detalle.objetivo}}
+            </div>
+      </div>
+      <div class="ui-grid-row">
+            Distancia focal:
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="2000" name="focal" [(ngModel)]="detalle.focal"></textarea>
+            <div class="impresion">
+                  {{detalle.focal}}
+            </div>
+      </div>
+      <div class="ui-grid-row">
+            Velocidad ISO:
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="2000" name="iso" [(ngModel)]="detalle.iso"></textarea>
+            <div class="impresion">
+                  {{detalle.iso}}
+            </div>
+      </div>
+      <div class="ui-grid-row">
+            Luz:
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="2000" name="luz" [(ngModel)]="detalle.luz"></textarea>
+            <div class="impresion">
+                  {{detalle.luz}}
+            </div>
+      </div>
+</div>
