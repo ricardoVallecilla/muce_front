@@ -1,113 +1,140 @@
 <div class="separadorInventario">
-    <h5>CONTEXTO SOCIAL DEL BIEN PALEONTOLÓGICO</h5>
-    <div style="width: 100%;text-align: right">
-          <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
-          <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
-    </div>
+      <h5>CONTEXTO SOCIAL DEL BIEN PALEONTOLÓGICO</h5>
+      <div style="width: 100%;text-align: right">
+            <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+            <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+      </div>
 </div>
 <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin" *ngIf="detalle!=null">
 
-    <div class="ui-grid-row">
-      Uso social del bien paleontológico *:
-    </div>
-    <div class="ui-grid-row">
-          <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="rasgos" [(ngModel)]="detalle.rasgos"
-                #rasgos="ngModel" required></textarea>
-          <div class="ui-messages-error" *ngIf="submitted>0  && elaboracion.invalid">El campo Uso social del bien paleontológico es requerido</div>
-          <div class="impresion">
-                {{detalle.rasgos}}
-          </div>
-    </div>
-    <div class="ui-grid-row">
-      Uso primario:
-    </div>
-    <div class="ui-grid-row">
-          <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="calidad" [(ngModel)]="detalle.calidad"></textarea>
-          <div class="impresion">
-                {{detalle.calidad}}
-          </div>
-    </div>
-    <div class="ui-grid-row">
-      Uso alternativo *:
-    </div>
-    <div class="ui-grid-row">
-          <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="originalidad" [(ngModel)]="detalle.originalidad"
-                #originalidad="ngModel" required></textarea>
-          <div class="ui-messages-error" *ngIf="submitted>0  && decoracion.invalid">El campo Uso alternativo es requerido</div>
-          <div class="impresion">
-                {{detalle.originalidad}}
-          </div>
-    </div>
-    <div class="ui-grid-row">
-      Restricciones de uso:
-    </div>
-    <div class="ui-grid-row">
-          <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="importancia" [(ngModel)]="detalle.importancia"></textarea>
-          <div class="impresion">
-                {{detalle.importancia}}
-          </div>
-    </div>
-    <div class="ui-grid-row">
-      Asociaciones con creencias mágico-religiosas:
-    </div>
-    <div class="ui-grid-row">
-          <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="comercial" [(ngModel)]="detalle.comercial"></textarea>
-          <div class="impresion">
-                {{detalle.comercial}}
-          </div>
-    </div>
-    <div class="ui-grid-row">
-      Peculiaridades del uso del bien paleontológico:
-    </div>
-    <div class="ui-grid-row">
-          <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="comparacion" [(ngModel)]="detalle.comparacion"></textarea>
-          <div class="impresion">
-                {{detalle.comparacion}}
-          </div>
-    </div>
-    <div class="ui-grid-row">
-      Pertenencia del bien paleontológico (chamán, gobernante, poblador, etc):
-    </div>
-    <div class="ui-grid-row">
-          <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="comercial" [(ngModel)]="detalle.comercial"></textarea>
-          <div class="impresion">
-                {{detalle.comercial}}
-          </div>
-    </div>
-    <div class="ui-grid-row">
-      Cuándo se utiliza el bien paleontológico:
-    </div>
-    <div class="ui-grid-row">
-          <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="comparacion" [(ngModel)]="detalle.comparacion"></textarea>
-          <div class="impresion">
-                {{detalle.comparacion}}
-          </div>
-    </div>
-    <div class="ui-grid-row">
-      Dónde se utiliza el bien paleontológico:
-    </div>
-    <div class="ui-grid-row">
-          <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="comercial" [(ngModel)]="detalle.comercial"></textarea>
-          <div class="impresion">
-                {{detalle.comercial}}
-          </div>
-    </div>
-    <div class="ui-grid-row">
-      Dónde se coloca el bien paleontológico al ser utilizado:
-    </div>
-    <div class="ui-grid-row">
-          <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="comparacion" [(ngModel)]="detalle.comparacion"></textarea>
-          <div class="impresion">
-                {{detalle.comparacion}}
-          </div>
-    </div>
-    <div class="ui-grid-row">
-      Vida aproximada del bien paleontológico:
-    </div>
-    <div class="ui-grid-row">
-          <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="comparacion" [(ngModel)]="detalle.comparacion"></textarea>
-          <div class="impresion">
-                {{detalle.comparacion}}
-          </div>
-    </div>
+      <div class="ui-grid-row">
+            Uso social del bien paleontológico *:
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="usoSocial" [(ngModel)]="detalle.usoSocial"></textarea>
+            <div class="impresion">
+                  {{detalle.usoSocial}}
+            </div>
+      </div>
+      <div class="ui-grid-row">
+            Uso primario:
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="usoPrimario" [(ngModel)]="detalle.usoPrimario"></textarea>
+            <div class="impresion">
+                  {{detalle.usoPrimario}}
+            </div>
+      </div>
+      <div class="ui-grid-row">
+            Uso alternativo *:
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="alternativo" [(ngModel)]="detalle.alternativo"></textarea>
+            <div class="impresion">
+                  {{detalle.alternativo}}
+            </div>
+      </div>
+      <div class="ui-grid-row">
+            Restricciones de uso:
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="usoRestriccion" [(ngModel)]="detalle.usoRestriccion"></textarea>
+            <div class="impresion">
+                  {{detalle.usoRestriccion}}
+            </div>
+      </div>
+      <div class="ui-grid-row">
+            Asociaciones con creencias mágico-religiosas:
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="creencia" [(ngModel)]="detalle.creencia"></textarea>
+            <div class="impresion">
+                  {{detalle.creencia}}
+            </div>
+      </div>
+      <div class="ui-grid-row">
+            Peculiaridades del uso del bien paleontológico:
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="usoBien" [(ngModel)]="detalle.usoBien"></textarea>
+            <div class="impresion">
+                  {{detalle.usoBien}}
+            </div>
+      </div>
+      <div class="ui-grid-row">
+            Pertenencia del bien paleontológico (chamán, gobernante, poblador, etc):
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="pertenencia" [(ngModel)]="detalle.pertenencia"></textarea>
+            <div class="impresion">
+                  {{detalle.pertenencia}}
+            </div>
+      </div>
+      <div class="ui-grid-row">
+            Cuándo se utiliza el bien paleontológico:
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="utilizaBien" [(ngModel)]="detalle.utilizaBien"></textarea>
+            <div class="impresion">
+                  {{detalle.utilizaBien}}
+            </div>
+      </div>
+      <div class="ui-grid-row">
+            Dónde se utiliza el bien paleontológico:
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="dondeUtiliza" [(ngModel)]="detalle.dondeUtiliza"></textarea>
+            <div class="impresion">
+                  {{detalle.dondeUtiliza}}
+            </div>
+      </div>
+      <div class="ui-grid-row">
+            Dónde se coloca el bien paleontológico al ser utilizado:
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="dondeColoca" [(ngModel)]="detalle.dondeColoca"></textarea>
+            <div class="impresion">
+                  {{detalle.dondeColoca}}
+            </div>
+      </div>
+      <div class="ui-grid-row">
+            Vida aproximada del bien paleontológico:
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="vidaAproximada" [(ngModel)]="detalle.vidaAproximada"></textarea>
+            <div class="impresion">
+                  {{detalle.vidaAproximada}}
+            </div>
+      </div>
+</div>
+<div class="separadorInventario">
+      <h5>TESAURO</h5>
+      <div style="width: 100%;text-align: right">
+            <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+            <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+      </div>
+</div>
+<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin" *ngIf="detalle!=null">
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="tesauro" [(ngModel)]="detalle.tesauro"></textarea>
+            <div class="impresion">
+                  {{detalle.tesauro}}
+            </div>
+      </div>
+</div>
+
+<div class="separadorInventario">
+      <h5>PALABRAS CLAVE</h5>
+      <div style="width: 100%;text-align: right">
+            <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+            <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+      </div>
+</div>
+<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin" *ngIf="detalle!=null">
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="600" name="palabrasClaves" [(ngModel)]="detalle.palabrasClaves"></textarea>
+            <div class="impresion">
+                  {{detalle.palabrasClaves}}
+            </div>
+      </div>
 </div>

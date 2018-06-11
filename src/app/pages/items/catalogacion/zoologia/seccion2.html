@@ -1,41 +1,240 @@
 <div class="separadorInventario">
-    <h5>CONTEXTO GEOGRÁFICO</h5>
-    <div style="width: 100%;text-align: right">
-          <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
-          <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
-    </div>
+      <h5>DATOS DE LOCALIZACIÓN DEL YACIMIENTO </h5>
+      <div style="width: 100%;text-align: right">
+            <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+            <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+      </div>
 </div>
 <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin" *ngIf="detalle!=null">
 
-    <div class="ui-grid-row">
-      Análisis geográfico *:
-    </div>
-    <div class="ui-grid-row">
-          <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="rasgos" [(ngModel)]="detalle.rasgos"
-                #rasgos="ngModel" required></textarea>
-          <div class="ui-messages-error" *ngIf="submitted>0  && elaboracion.invalid">El campo Análisis geográfico es requerido</div>
-          <div class="impresion">
-                {{detalle.rasgos}}
-          </div>
-    </div>
-    <div class="ui-grid-row">
-      Comportamiento del espécimen en relación a su área geográfica:
-    </div>
-    <div class="ui-grid-row">
-          <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="calidad" [(ngModel)]="detalle.calidad"></textarea>
-          <div class="impresion">
-                {{detalle.calidad}}
-          </div>
-    </div>
-    <div class="ui-grid-row">
-      Relación del espécimen con el clima *:
-    </div>
-    <div class="ui-grid-row">
-          <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="originalidad" [(ngModel)]="detalle.originalidad"
-                #originalidad="ngModel" required></textarea>
-          <div class="ui-messages-error" *ngIf="submitted>0  && decoracion.invalid">El campo Relación del espécimen con el clima es requerido</div>
-          <div class="impresion">
-                {{detalle.originalidad}}
-          </div>
-    </div>
+      <div class="ui-grid-row">
+            <div class="ui-grid-col-2">
+                  Provincia:
+            </div>
+            <div class="ui-grid-col-4">
+                  <p-dropdown [options]="provinciaItem" [style]="{'width':'100%'}" [(ngModel)]="detalle.yacimientoprovinciaid" name="provinciaid"
+                        (ngModelChange)="obtenerCanton($event)"></p-dropdown>
+                  <div class="impresion">
+                        {{detalle.yacimientoprovinciaid?.valor}}
+                  </div>
+            </div>
+            <div class="ui-grid-col-2">
+                  Canton:
+            </div>
+            <div class="ui-grid-col-4">
+                  <p-dropdown [options]="cantonItem" [style]="{'width':'100%'}" name="cantonid" [(ngModel)]="detalle.yacimientocantonid"></p-dropdown>
+                  <div class="impresion">
+                        {{detalle.yacimientocantonid?.valor}}
+                  </div>
+            </div>
+
+
+      </div>
+      <div class="ui-grid-row">
+            <div class="ui-grid-col-2">
+                  Ciudad:
+            </div>
+            <div class="ui-grid-col-4">
+                  <p-dropdown [options]="cantonItem" [style]="{'width':'100%'}" name="cantonid" [(ngModel)]="detalle.yacimientociudadid"></p-dropdown>
+                  <div class="impresion">
+                        {{detalle.yacimientociudadid?.valor}}
+                  </div>
+            </div>
+            <div class="ui-grid-col-2">
+                  Direccion:
+            </div>
+            <div class="ui-grid-col-4">
+                  <input pInputText type="text" maxlength="150" name="modelo" [(ngModel)]="detalle.yacimientodireccion" required />
+                  <div class="impresion">
+                        {{detalle.yacimientodireccion}}
+                  </div>
+            </div>
+
+      </div>
+      <div class="ui-grid-row">
+            <div class="ui-grid-col-2">
+                  Localización geográfica:
+            </div>
+            <div class="ui-grid-col-10">
+                  <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin">
+
+                        <div class="ui-grid-row">
+                              <div class="ui-grid-col-2">
+                                    Latitud:
+                              </div>
+                              <div class="ui-grid-col-10">
+                                    <input pInputText type="text" maxlength="150" name="modelo" [(ngModel)]="detalle.yacimientolatitud" required />
+                                    <div class="impresion">
+                                          {{detalle.yacimientolatitud}}
+                                    </div>
+                              </div>
+                        </div>
+                        <div class="ui-grid-row">
+                              <div class="ui-grid-col-2">
+                                    Longitud:
+                              </div>
+                              <div class="ui-grid-col-10">
+                                    <input pInputText type="text" maxlength="150" name="modelo" [(ngModel)]="detalle.yacimientolongitud" required />
+                                    <div class="impresion">
+                                          {{detalle.yacimientolongitud}}
+                                    </div>
+                              </div>
+                        </div>
+                        <div class="ui-grid-row">
+                              <div class="ui-grid-col-2">
+                                    Altura:
+                              </div>
+                              <div class="ui-grid-col-10">
+                                    <input pInputText type="text" maxlength="150" name="modelo" [(ngModel)]="detalle.yacimientoaltura" required />
+                                    <div class="impresion">
+                                          {{detalle.yacimientoaltura}}
+                                    </div>
+                              </div>
+                        </div>
+                  </div>
+            </div>
+
+      </div>
+      <div class="ui-grid-row">
+            <div class="ui-grid-col-2">
+                  Contenedor INPC:
+            </div>
+            <div class="ui-grid-col-10">
+                  <input pInputText type="text" maxlength="150" name="direccionelectronica" [(ngModel)]="detalle.yacimientocontenedor" required
+                  />
+                  <div class="impresion">
+                        {{detalle.yacimientocontenedor}}
+                  </div>
+            </div>
+
+
+      </div>
+
+</div>
+<div class="separadorInventario">
+      <h5>CONTEXTO GEOGRÁFICO</h5>
+      <div style="width: 100%;text-align: right">
+            <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+            <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+      </div>
+</div>
+<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin" *ngIf="detalle!=null">
+
+      <div class="ui-grid-row">
+            Análisis geográfico *:
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="geografico" [(ngModel)]="detalle.geografico"
+                  #geografico="ngModel" ></textarea>
+            <div class="ui-messages-error" *ngIf="submitted>0  && geografico.invalid">El campo Análisis geográfico es requerido</div>
+            <div class="impresion">
+                  {{detalle.geografico}}
+            </div>
+      </div>
+      <div class="ui-grid-row">
+            Comportamiento del espécimen en relación a su área geográfica:
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="comportamiento" [(ngModel)]="detalle.comportamiento"></textarea>
+            <div class="impresion">
+                  {{detalle.comportamiento}}
+            </div>
+      </div>
+      <div class="ui-grid-row">
+            Relación del espécimen con el clima:
+      </div>
+      <div class="ui-grid-row">
+            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="relacion" [(ngModel)]="detalle.relacion"></textarea>
+            <div class="impresion">
+                  {{detalle.relacion}}
+            </div>
+      </div>
+</div>
+<div class="separadorInventario">
+      <h5>REGISTRO FOTOGRÁFICO DEL ECOSISTEMA</h5>
+      <div style="width: 100%;text-align: right">
+            <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+            <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+      </div>
+</div>
+<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin" *ngIf="detalle!=null">
+
+      <div class="ui-grid-row">
+            <div class="ui-grid-col-12">
+                  <img *ngIf="fotoyacimiento!=null" style="max-width: 100%" [src]="fotoyacimiento">
+                  <input name="file" type="file" accept="image/*" id="adjuntar" class="ui-g-12 ui-md-12 ui-lg-12 inputUpload" (change)="fileChangeEvent($event,16)"
+                        placeholder="Subir Archivo..." />
+            </div>
+      </div>
+      <div class="ui-grid-row">
+            Fotógrafo/a:
+      </div>
+      <div class="ui-grid-row">
+            <input pInputText type="text" maxlength="150" name="fotografo" [(ngModel)]="detalle.fotografo" />
+            <div class="impresion">
+                  {{detalle.fotografo}}
+            </div>
+      </div>
+      <div class="ui-grid-row">
+            Lugar y fecha de registro:
+      </div>
+      <div class="ui-grid-row">
+            <input pInputText type="text" maxlength="150" name="fotografo" [(ngModel)]="detalle.lugarFecha" />
+            <div class="impresion">
+                  {{detalle.lugarFecha}}
+            </div>
+      </div>
+</div>
+<div class="separadorInventario">
+      <h5>CARTOGRAFÍAS DEL ECOSISTEMA</h5>
+      <div style="width: 100%;text-align: right">
+            <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+            <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+      </div>
+</div>
+<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin" *ngIf="detalle!=null">
+
+      <div class="ui-grid-row">
+            <div class="ui-grid-col-12">
+                  <img *ngIf="fotoyacimientoplano!=null" style="max-width: 100%" [src]="fotoyacimientoplano">
+                  <input name="file" type="file" accept="image/*" id="adjuntar" class="ui-g-12 ui-md-12 ui-lg-12 inputUpload" (change)="fileChangeEvent($event,17)"
+                        placeholder="Subir Archivo..." />
+            </div>
+      </div>
+      <div class="ui-grid-row">
+            Responsable:
+      </div>
+      <div class="ui-grid-row">
+            <input pInputText type="text" maxlength="150" name="responsable" [(ngModel)]="detalle.responsable" />
+            <div class="impresion">
+                  {{detalle.responsable}}
+            </div>
+      </div>
+      <div class="ui-grid-row">
+            Fuente:
+      </div>
+      <div class="ui-grid-row">
+            <input pInputText type="text" maxlength="150" name="fuente" [(ngModel)]="detalle.fuente" />
+            <div class="impresion">
+                  {{detalle.fuente}}
+            </div>
+      </div>
+      <div class="ui-grid-row">
+            Escala:
+      </div>
+      <div class="ui-grid-row">
+            <input pInputText type="text" maxlength="150" name="escala" [(ngModel)]="detalle.escala" />
+            <div class="impresion">
+                  {{detalle.escala}}
+            </div>
+      </div>
+      <div class="ui-grid-row">
+            Lugar y fecha de obtención:
+      </div>
+      <div class="ui-grid-row">
+            <input pInputText type="text" maxlength="150" name="lugarFechaObtencion" [(ngModel)]="detalle.lugarFechaObtencion" />
+            <div class="impresion">
+                  {{detalle.lugarFechaObtencion}}
+            </div>
+      </div>
 </div>

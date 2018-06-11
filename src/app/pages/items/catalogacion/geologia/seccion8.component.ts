@@ -43,14 +43,14 @@ export class Seccion8GeoComponent implements OnInit {
 
 
   descargarFoto(tipo) {
-    this._itemService.downloadFotografiaTipo(this.detalle.detalleid,tipo).
+    this._itemService.downloadFotografiaTipo(this.detalle.detalleid, tipo).
       subscribe((foto: any) => {
         
-        if(tipo==2){
+        if(tipo==12){
           let blob = new Blob([foto.blob()], { type: 'image/jpeg' });
            this.fotoyacimiento = this.domSanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
         }
-        if(tipo==3){
+        if(tipo==13){
           let blob = new Blob([foto.blob()], { type: 'image/jpeg' });
            this.fotoyacimientoplano = this.domSanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
         }
@@ -59,6 +59,7 @@ export class Seccion8GeoComponent implements OnInit {
       }, (err: any) => {
       }, () => { });
   }
+  
   cargarCatalogos() {
     this._catalogoService.obtenerCatalogosHijosPorPadres([this.constantes.ubicaciones])
       .subscribe((catalogos: any[]) => {

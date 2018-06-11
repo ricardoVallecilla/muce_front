@@ -20,7 +20,7 @@ export class Seccion4PaleoComponent implements OnInit, OnChanges {
   @Input() item = null;
   @Input() submitted=0;
   @Output() validacionFormulario = new EventEmitter();
-  camposObligatorios=["elaboracion","decoracion","coloresusados","semioticocolores"]
+  camposObligatorios=[]
   es = this.properties.es;
   paisItem = [{ label: this.properties.labelSeleccione, value: null }]
   constructor(
@@ -43,9 +43,9 @@ export class Seccion4PaleoComponent implements OnInit, OnChanges {
         });
         
         if (valido==1){
-          this.validacionFormulario.emit({indentificador:1,tab:"CONTEXTO SOCIAL DE LA FOTOGRAFÍA",valido:true})
+          this.validacionFormulario.emit({indentificador:8,tab:"DATOS DE LA EXTRACCIÓN DEL BIEN PALEONTOLÓGICO",valido:true})
         }else{
-          this.validacionFormulario.emit({indentificador:1,tab:"CONTEXTO SOCIAL DE LA FOTOGRAFÍA",valido:false})
+          this.validacionFormulario.emit({indentificador:8,tab:"DATOS DE LA EXTRACCIÓN DEL BIEN PALEONTOLÓGICO",valido:false})
         }
       }
       
