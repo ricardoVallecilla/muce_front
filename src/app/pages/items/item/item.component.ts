@@ -223,10 +223,10 @@ export class ItemComponent implements OnInit {
     this.restauracion = false
   }
   verCatalogacion(item) {
-    this.item = item;
+    this.item = item
     this.detallePiezaMuseable = false
-    this.catalogacion = true;
-    this.baja=false;
+    this.catalogacion = true
+    this.baja=false
     this.restauracion = false
   }
   verFormBaja(item) {

@@ -80,7 +80,7 @@ export class MuseoComponent implements OnInit {
     }
     
     guardar() { 
-        let index: number = this.custodiosModel.findIndex(x => x.value == this.museo.cutodioId.id);
+        let index: number = this.custodiosModel.findIndex(x => x.id == this.museo.cutodioId.id);
         if (index != -1) {
             this.museo.cutodioId = this.custodiosModel[index]
         }

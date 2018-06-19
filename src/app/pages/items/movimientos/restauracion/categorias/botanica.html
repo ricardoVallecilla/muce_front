@@ -1,0 +1,162 @@
+<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin"  *ngIf="detalle!=null">
+
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Especie:
+    </div>
+    <div class="ui-grid-col-10">
+      <input pInputText type="text" maxlength="150" name="especie" [(ngModel)]="detalle.especie" disabled="true"/>
+      <div class="impresion">
+          {{detalle.especie}}
+        </div>
+    </div>
+  </div>
+
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Autor:
+    </div>
+    <div class="ui-grid-col-10">
+      <input pInputText type="text" maxlength="150" name="autor" [(ngModel)]="detalle.autor" disabled="true"/>
+      <div class="impresion">
+          {{detalle.autor}}
+        </div>
+    </div>
+  </div>
+
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Nombre Común:
+    </div>
+    <div class="ui-grid-col-10">
+      <input pInputText type="text" maxlength="150" name="nombrecomun" [(ngModel)]="detalle.nombrecomun" disabled="true"/>
+      <div class="impresion">
+          {{detalle.nombrecomun}}
+        </div>
+    </div>
+  </div>
+
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Plublicado en:
+    </div>
+    <div class="ui-grid-col-10">
+      <input pInputText type="text" maxlength="150" name="morfofuncional" [(ngModel)]="detalle.publicado" disabled="true"/>
+      <div class="impresion">
+          {{detalle.publicado}}
+        </div>
+    </div>
+  </div>
+
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Clase:
+    </div>
+    <div class="ui-grid-col-10">
+      <input pInputText type="text" maxlength="150" name="morfofuncional" [(ngModel)]="detalle.clase" disabled="true"/>
+      <div class="impresion">
+          {{detalle.clase}}
+        </div>
+    </div>
+  </div>
+
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Subclase:
+    </div>
+    <div class="ui-grid-col-10">
+      <input pInputText type="text" maxlength="150" name="morfofuncional" [(ngModel)]="detalle.subclase" disabled="true"/>
+      <div class="impresion">
+          {{detalle.subclase}}
+        </div>
+    </div>
+  </div>
+
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Orden:
+    </div>
+    <div class="ui-grid-col-10">
+      <input pInputText type="text" maxlength="150" name="morfofuncional" [(ngModel)]="detalle.orden" disabled="true"/>
+      <div class="impresion">
+          {{detalle.orden}}
+        </div>
+    </div>
+  </div>
+
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Familia:
+    </div>
+    <div class="ui-grid-col-10">
+      <input pInputText type="text" maxlength="150" name="morfofuncional" [(ngModel)]="detalle.familia" disabled="true"/>
+      <div class="impresion">
+          {{detalle.familia}}
+        </div>
+    </div>
+  </div>
+
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Género:
+    </div>
+    <div class="ui-grid-col-10">
+      <input pInputText type="text" maxlength="150" name="morfofuncional" [(ngModel)]="detalle.genero" disabled="true"/>
+      <div class="impresion">
+          {{detalle.genero}}
+        </div>
+    </div>
+  </div>
+
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Origen:
+    </div>
+    <div class="ui-grid-col-10">
+      <div class="ui-g ocultar">
+        <div class="ui-g-3" *ngFor="let estado of origenItem">
+          <p-checkbox name="origenes" value="{{estado.catalogoid}}" label="{{estado.nombre}}" (click)="imprOrigen()" [(ngModel)]="origenesBotanicaSeleccionados" disabled="true"></p-checkbox>
+        </div>
+      </div>
+      <div class="ui-g impresion" style="width: 100%">
+          <div class="ui-g-3" *ngFor="let estado of origenesBotanicaSeleccionados">
+              
+              <input type="checkbox" style="display: initial !important"  checked>{{diccionarioImpresion[estado]}}
+              
+            </div>
+          
+        </div>
+    </div>
+  </div>
+
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Técnica de conservación:
+    </div>
+    <div class="ui-grid-col-10">
+      <div class="ui-g ocultar">
+        <div class="ui-g-3" *ngFor="let estado of tecnicasItem">
+          <p-checkbox name="tecnicas" value="{{estado.catalogoid}}" label="{{estado.nombre}}" (click)="impr()" [(ngModel)]="tecnicaConservacionBotanicaSelecionados" disabled="true"></p-checkbox>
+        </div>
+      </div>
+      <div class="ui-g impresion" style="width: 100%">
+          <div class="ui-g-3" *ngFor="let estado of tecnicaConservacionBotanicaSelecionados">
+              <input type="checkbox" style="display: initial !important"  checked>{{diccionarioImpresion[estado]}}
+            </div>
+        </div>
+    </div>
+  </div>
+
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Descripcion *:
+    </div>
+    <div class="ui-grid-col-10">
+      <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="550" name="detalles" [(ngModel)]="detalle.descripcion" disabled="true"></textarea>
+      <div class="impresion">
+          {{detalle.descripcion}}
+        </div>
+    </div>
+  </div>
+
+</div>

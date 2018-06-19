@@ -79,6 +79,16 @@ import { Seccion5PaleoComponent } from './catalogacion/paleontologia/seccion5.co
 import { Seccion2ZooComponent } from './catalogacion/zoologia/seccion2.component';
 import { Seccion6ZooComponent } from './catalogacion/zoologia/seccion6.component';
 import { Seccion9GeoComponent } from './catalogacion/geologia/seccion9.component';
+import { ArqueologiaResComponent } from './movimientos/restauracion/categorias/arqueologia.component';
+import { BotanicaResComponent } from './movimientos/restauracion/categorias/botanica.component';
+import { EntomologiaResComponent } from './movimientos/restauracion/categorias/entomologia.component';
+import { FotografiaResComponent } from './movimientos/restauracion/categorias/fotografia.component';
+import { GeologiaResComponent } from './movimientos/restauracion/categorias/geologia.component';
+import { PaleontologiaResComponent } from './movimientos/restauracion/categorias/paleontologia.component';
+import { ZoologiaResComponent } from './movimientos/restauracion/categorias/zoologia.component';
+import { ArtesResComponent } from './movimientos/restauracion/categorias/artes.component';
+import { IstrumentalCientificoResComponent } from './movimientos/restauracion/categorias/istrumentalCientifico.component';
+import { RestauracionServices } from '../../services/restauracion/restauracion.services';
 
 
 
@@ -179,8 +189,10 @@ export const ItemRoutes: Routes = [
     Seccion2FotoComponent, Seccion3FotoComponent, Seccion4FotoComponent, Seccion5FotoComponent, Seccion6FotoComponent,
     Seccion2GeoComponent, Seccion3GeoComponent, Seccion4GeoComponent, Seccion5GeoComponent, Seccion8GeoComponent, Seccion9GeoComponent, 
     Seccion2PaleoComponent, Seccion4PaleoComponent, Seccion5PaleoComponent, 
-    Seccion2ZooComponent, Seccion6ZooComponent
+    Seccion2ZooComponent, Seccion6ZooComponent,
+    ArqueologiaResComponent, BotanicaResComponent,EntomologiaResComponent, FotografiaResComponent, GeologiaResComponent, PaleontologiaResComponent,
+    ZoologiaResComponent,ArtesResComponent,IstrumentalCientificoResComponent
   ]
-  , providers: [GeneralService, ConfirmationService, CatalogoService, UsuarioService, MuseoServices, ItemService, MovimientosService, MessageService]
+  , providers: [GeneralService, ConfirmationService, CatalogoService, UsuarioService, MuseoServices, ItemService, MovimientosService, MessageService, RestauracionServices]
 })
 export class ItemModule { }

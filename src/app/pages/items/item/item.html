@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-sm-12" *ngIf="!detallePiezaMuseable && !catalogacion && !baja">
+  <div class="col-sm-12" *ngIf="!detallePiezaMuseable && !catalogacion && !baja && !restauracion">
     <app-card *ngIf="!noTieneMuseo" [title]="'Filtros'">
       <div class="ui-g">
         <div *ngIf="filtrarMuseos" class="ui-g-12 ui-md-12 ui-lg-1">Museo</div>
@@ -66,7 +66,7 @@
                 <button type="button" class="buttonAction" *ngIf="item.grupoid.catalogoid==constantes.grupoCultural" pButton (click)="verFormBaja(item)"
                   icon="fas fa fa-window-close" title="Baja"></button>
                 <button type="button" class="buttonAction" *ngIf="item.grupoid.catalogoid==constantes.grupoCultural" pButton (click)="verFormRestauracion(item)"
-                  icon="fas fa fa-cogs" title="Restauración"></button>  
+                  icon="fas fa fa-cogs" title="Restauración"></button>
               </ng-template>
             </p-column>
           </p-dataTable>

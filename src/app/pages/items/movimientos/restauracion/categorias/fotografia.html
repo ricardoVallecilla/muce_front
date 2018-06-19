@@ -1,0 +1,111 @@
+<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin"  *ngIf="detalle!=null">
+  
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Titulo:
+    </div>
+    <div class="ui-grid-col-10">
+      <input pInputText type="text" maxlength="150" name="morfofuncional" [(ngModel)]="detalle.titulo" disabled="true" />
+    </div>
+  </div>
+
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Temática:
+    </div>
+    <div class="ui-grid-col-10">
+      <input pInputText type="text" maxlength="150" name="morfofuncional" [(ngModel)]="detalle.tematica" disabled="true" />
+    </div>
+  </div>
+
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Tipología:
+    </div>
+    <div class="ui-grid-col-10">
+      <input pInputText type="text" maxlength="150" name="morfofuncional" [(ngModel)]="detalle.tipologia" disabled="true" />
+    </div>
+  </div>
+
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Procedimiento/Soporte:
+    </div>
+    <div class="ui-grid-col-10">
+      <input pInputText type="text" maxlength="150" name="morfofuncional" [(ngModel)]="detalle.procedimiento" disabled="true" />
+    </div>
+  </div>
+
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Autor:
+    </div>
+    <div class="ui-grid-col-10">
+      <input pInputText type="text" maxlength="150" name="morfofuncional" [(ngModel)]="detalle.autor" disabled="true" />
+    </div>
+  </div>
+
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Fondo:
+    </div>
+    <div class="ui-grid-col-6">
+      <input pInputText type="text" maxlength="150" name="morfofuncional" [(ngModel)]="detalle.fondo" disabled="true" />
+    </div>
+    <div class="ui-grid-col-2">
+      Siglo/Año:
+    </div>
+    <div class="ui-grid-col-2">
+      <input pInputText type="text" maxlength="150" name="morfofuncional" [(ngModel)]="detalle.sigloano" disabled="true" />
+    </div>
+  </div>
+
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">Dimensiones:</div>
+    <div class="ui-grid-col-10">
+      <div class="ui-g">
+          <div class="ui-g-2">
+              Alto *:
+            </div>
+            <div class="ui-g-2">
+              <input pInputText type="text" maxlength="150" name="alto" [(ngModel)]="detalle.alto" disabled="true"/>
+            </div>
+            <div class="ui-g-2">
+              Largo *:
+            </div>
+            <div class="ui-g-2">
+              <input pInputText type="text" maxlength="150" name="largo" [(ngModel)]="detalle.largo" disabled="true"/>
+            </div>
+          </div>
+        </div>
+    </div>
+
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Inscripciones:
+    </div>
+    <div class="ui-grid-col-10">
+      <input pInputText type="text" maxlength="150" name="morfofuncional" [(ngModel)]="detalle.inscripciones" disabled="true" />
+    </div>
+  </div>
+
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Elementos relacionados:
+    </div>
+    <div class="ui-grid-col-10">
+      <input pInputText type="text" maxlength="150" name="morfofuncional" [(ngModel)]="detalle.elementosrelacionado" disabled="true"/>
+    </div>
+  </div>
+
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Descripción:
+    </div>
+    <div class="ui-grid-col-10">
+      <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="550" name="detalles" [(ngModel)]="detalle.descripcion"
+        disabled="true"></textarea>
+    </div>
+  </div>
+
+</div>

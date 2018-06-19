@@ -3,333 +3,703 @@
     <app-card [title]="acciones">
       <div style="width: 100%" *ngIf="!esCatalogacion">
         <button pButton type="button" style="width: 100%" (click)="volver()" label="Atrás"></button>
+
       </div>
       <br>
       <p-messages [(value)]="msgs"></p-messages>
+
       <div class="ui-g" *ngIf="piezaMuseable!=null">
-        <form #form="ngForm" style="width: 100%" novalidate>
-          
-          <div class="separadorInventario">
-            <h4>FICHA DE CONSERVACIÓN/RESTAURACIÓN {{item?.categoriaid.nombre}}</h4>
-            <div style="width: 100%;text-align: right">
-              <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
-              <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
-            </div>
+
+        <div *ngIf="!esCatalogacion" class="separadorInventario" style="width: 100%;">
+          <h4>FICHA DE CONSERVACIÓN / RESTAURACIÓN {{item?.categoriaid.nombre}}</h4>
+          <div style="width: 100%;text-align: right">
+            <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+            <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
           </div>
+        </div>
 
-          <div id="print-section">
-            <div class="separadorInventario">
-              <h5>INFORMACIÓN TÉCNICA</h5>
-              <div style="width: 100%;text-align: right">
-                <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
-                <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
-              </div>
-            </div>
+        <div class="ui-g" *ngIf="bandera==1">
+          <div class="ui-g-12 ui-md-12 ui-lg-12" style="padding: 0">
+            <p-dataTable [value]="restauracionList" emptyMessage="{{properties.sinDatos}}">
+              <p-column field="origenHistorico" header="Origen Historico" [sortable]="true"></p-column>
+              <p-column field="fecha" header="Fecha de restauración" [sortable]="true"></p-column>
+              <p-column header="Opciones" [style]="{'width':'135px','text-align':'center'}">
+                <ng-template let-rest="rowData" pTemplate="body">
+                  <button type="button" class="buttonAction" pButton (click)="verRestauracion(rest.id)" icon="{{properties.iconEditar}}" title="Editar"></button>
+                </ng-template>
+              </p-column>
+            </p-dataTable>
+          </div>
+          <!-- <div class="ui-g-12 ui-md-12 ui-lg-12 alineacionBotones">
+            <button pButton (click)="nuevo()" icon="fa fa-fw fa-check" label="Nuevo"></button>
+          </div> -->
+        </div>
 
-            <arqueologia [item]="item" *ngIf="item.categoriaid.catalogoid==constantes.arqueologia" [detalle]="detalle" [materialesArqueologiaSelecionados]="materialesArqueologiaSelecionados"
-              (enviadorCondicion)="obtenerMaterialesArquelogica($event)" [submitted]="submitted" (validacionFormulario)="validarGuardar($event)"></arqueologia>
-            <botanica [item]="item" *ngIf="item.categoriaid.catalogoid==constantes.botanica" [detalle]="detalle" [origenesBotanicaSeleccionados]="origenesBotanicaSeleccionados"
-              [tecnicaConservacionBotanicaSelecionados]="tecnicaConservacionBotanicaSelecionados" (enviadorTecnicas)="optenerBotanicaTecnicas($event)"
-              (enviadorOrigenes)="optenerBotanicaOrigenes($event)"></botanica>
-            <entomologia [item]="item" *ngIf="item.categoriaid.catalogoid==constantes.entomologia" [detalle]="detalle" (enviadorCondicion)="obtenerDatoHijoEntomologia($event)"
-              [tecnicaConservacionSelecionados]="tecnicaConservacionSelecionados" [submitted]="submitted" (validacionFormulario)="validarGuardar($event)"></entomologia>
-            <fotografia [item]="item" *ngIf="item.categoriaid.catalogoid==constantes.fotografia" [detalle]="detalle" [submitted]="submitted" (validacionFormulario)="validarGuardar($event)"></fotografia>
-            <geologia [item]="item" *ngIf="item.categoriaid.catalogoid==constantes.geologia" [detalle]="detalle" [submitted]="submitted" (validacionFormulario)="validarGuardar($event)"></geologia>
-            <istrumentalCientifico [item]="item" *ngIf="item.categoriaid.catalogoid==constantes.instrumental" (enviadorCondicion)="obtenerDatoHijo($event)"
-              [materialesSelecionados]="materialesSelecionados" [detalle]="detalle" [submitted]="submitted" (validacionFormulario)="validarGuardar($event)"></istrumentalCientifico>
-            <paleontologia [item]="item" *ngIf="item.categoriaid.catalogoid==constantes.peleontologia" [detalle]="detalle" [submitted]="submitted" (validacionFormulario)="validarGuardar($event)"></paleontologia>
-            <zoologia [item]="item" *ngIf="item.categoriaid.catalogoid==constantes.zoologia" [detalle]="detalle" [submitted]="submitted" 
-              (validacionFormulario)="validarGuardar($event)" [tecnicasConservacionZooSelecionados]="tecnicasConservacionZooSelecionados" (enviadorCondicion)="obtenerMaterialesZoo($event)"></zoologia>
+        <div class="ui-g" *ngIf="bandera==0">
+          <form #form="ngForm" style="width: 100%" novalidate (ngSubmit)="guardar()">
+            <p-tabView [ngSwitch]="item.categoriaid.catalogoid">
+              <p-growl [(value)]="msgs" life="1500" baseZIndex="2"></p-growl>
+              <p-tabPanel header="Ficha Inventario">
+                <div id="print-section">
 
-            <div class="separadorInventario">
-              <h5>DATOS HISTORICOS</h5>
-              <div style="width: 100%;text-align: right">
-                <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
-                <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
-              </div>
-            </div>
-
-
-            <div class="separadorInventario">
-              <h5>DATOS DE LOCALIZACIÓN</h5>
-              <div style="width: 100%;text-align: right">
-                <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
-                <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
-              </div>
-            </div>
-
-            <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin">
-              <div class="ui-grid-row">
-                <div class="ui-grid-col-2">
-                  Provincia *:
-                </div>
-                <div class="ui-grid-col-4">
-                  <p-dropdown [options]="provinciaItem" [(ngModel)]="piezaMuseable.provinciaid" name="provinciaid" (ngModelChange)="obtenerCanton($event)"
-                    required></p-dropdown>
-                  <div class="ui-messages-error" *ngIf="submitted>0  && !form.form.controls.provinciaid?.valid">El campo Provincia es requerido</div>
-                </div>
-                <div class="ui-grid-col-2">
-                  Canton *:
-                </div>
-                <div class="ui-grid-col-4">
-                  <p-dropdown [options]="cantonItem" name="cantonid" [(ngModel)]="piezaMuseable.cantonid" required></p-dropdown>
-                  <div class="ui-messages-error" *ngIf="submitted>0  && !form.form.controls.cantonid?.valid">El campo Canton es requerido</div>
-                </div>
-              </div>
-              <div class="ui-grid-row">
-                <div class="ui-grid-col-2">
-                  Ciudad *:
-                </div>
-                <div class="ui-grid-col-4">
-                  <p-dropdown [options]="cantonItem" name="ciudadid" [(ngModel)]="piezaMuseable.ciudadid" required></p-dropdown>
-                  <div class="ui-messages-error" *ngIf="submitted>0  && !form.form.controls.ciudadid?.valid">El campo Ciudad es requerido</div>
-                </div>
-                <div class="ui-grid-col-2">
-                  Contenedor *:
-                </div>
-                <div class="ui-grid-col-4">
-                  <input pInputText type="text" maxlength="150" name="contenedor" [(ngModel)]="piezaMuseable.contenedor" required />
-                  <div class="ui-messages-error" *ngIf="submitted>0  && !form.form.controls.contenedor?.valid">El campo Contenedor es requerido</div>
-                  <div class="impresion">
-                    {{piezaMuseable.contenedor}}
+                  <div class="separadorInventario">
+                    <h5>INFORMACIÓN TÉCNICA</h5>
+                    <div style="width: 100%;text-align: right">
+                      <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+                      <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+                    </div>
                   </div>
-                </div>
-              </div>
-              <div class="ui-grid-row">
-                <div class="ui-grid-col-2">
-                  Dirección *:
-                </div>
-                <div class="ui-grid-col-4">
-                  <input pInputText type="text" maxlength="150" name="direccion" [(ngModel)]="piezaMuseable.direccion" required />
-                  <div class="ui-messages-error" *ngIf="submitted>0  && !form.form.controls.direccion?.valid">El campo Dirección es requerido</div>
-                  <div class="impresion">
-                    {{piezaMuseable.direccion}}
-                  </div>
-                </div>
-                <div class="ui-grid-col-2">
-                  No. *:
-                </div>
-                <div class="ui-grid-col-4">
-                  <input pInputText type="text" maxlength="150" name="numero" [(ngModel)]="piezaMuseable.numero" required />
-                  <div class="ui-messages-error" *ngIf="submitted>0  && !form.form.controls.numero?.valid">El campo No. es requerido</div>
-                  <div class="impresion">
-                    {{piezaMuseable.numero}}
-                  </div>
-                </div>
-              </div>
-              <div class="ui-grid-row">
-                <div class="ui-grid-col-2">
-                  Email *:
-                </div>
-                <div class="ui-grid-col-4">
-                  <input pInputText type="text" maxlength="150" name="direccionelectronica" [(ngModel)]="piezaMuseable.direccionelectronica"
-                    required />
-                  <div class="ui-messages-error" *ngIf="submitted>0  && !form.form.controls.direccionelectronica?.valid">El campo Email es requerido</div>
-                  <div class="impresion">
-                    {{piezaMuseable.direccionelectronica}}
-                  </div>
-                </div>
-                <div class="ui-grid-col-2">
-                  Teléfono *:
-                </div>
-                <div class="ui-grid-col-4">
-                  <input pInputText type="text" maxlength="150" name="telefono" [(ngModel)]="piezaMuseable.telefono" required />
-                  <div class="ui-messages-error" *ngIf="submitted>0  && !form.form.controls.telefono?.valid">El campo Teléfono es requerido</div>
-                  <div class="impresion">
-                    {{piezaMuseable.telefono}}
-                  </div>
-                </div>
-              </div>
-              <div class="ui-grid-row">
-                <div class="ui-grid-col-2">
-                  Disposición en el contendor *:
-                </div>
-                <div class="ui-grid-col-10">
-                  <input pInputText type="text" maxlength="150" name="disposicioncontenedor" [(ngModel)]="piezaMuseable.disposicioncontenedor"
-                    required />
-                  <div class="ui-messages-error" *ngIf="submitted>0  && !form.form.controls.disposicioncontenedor?.valid">El campo Disposición en el contendor es requerido</div>
-                  <div class="impresion">
-                    {{piezaMuseable.disposicioncontenedor}}
-                  </div>
-                </div>
-              </div>
-              <div class="ui-grid-row">
-                <div class="ui-grid-col-2">
-                  Responsable:
-                </div>
-                <div class="ui-grid-col-4">
-                  <input pInputText type="text" maxlength="150" name="responsable" [(ngModel)]="piezaMuseable.responsable" />
+                  <arqueologia-res [item]="item" *ngIf="item.categoriaid.catalogoid==constantes.arqueologia" [detalle]="detalle" [materialesArqueologiaSelecionados]="materialesArqueologiaSelecionados"
+                    (enviadorCondicion)="obtenerMaterialesArquelogica($event)" [submitted]="submitted"></arqueologia-res>
+                  <botanica-res [item]="item" *ngIf="item.categoriaid.catalogoid==constantes.botanica" [detalle]="detalle" [origenesBotanicaSeleccionados]="origenesBotanicaSeleccionados"
+                    [tecnicaConservacionBotanicaSelecionados]="tecnicaConservacionBotanicaSelecionados" (enviadorTecnicas)="optenerBotanicaTecnicas($event)"
+                    (enviadorOrigenes)="optenerBotanicaOrigenes($event)"></botanica-res>
+                  <entomologia-res [item]="item" *ngIf="item.categoriaid.catalogoid==constantes.entomologia" [detalle]="detalle" (enviadorCondicion)="obtenerDatoHijoEntomologia($event)"
+                    [tecnicaConservacionSelecionados]="tecnicaConservacionSelecionados" [submitted]="submitted"></entomologia-res>
+                  <fotografia-res [item]="item" *ngIf="item.categoriaid.catalogoid==constantes.fotografia" [detalle]="detalle" [submitted]="submitted"></fotografia-res>
+                  <geologia-res [item]="item" *ngIf="item.categoriaid.catalogoid==constantes.geologia" [detalle]="detalle" [submitted]="submitted"></geologia-res>
+                  <istrumentalCientifico-res [item]="item" *ngIf="item.categoriaid.catalogoid==constantes.instrumental" (enviadorCondicion)="obtenerDatoHijo($event)"
+                    [materialesSelecionados]="materialesSelecionados" [detalle]="detalle" [submitted]="submitted"></istrumentalCientifico-res>
+                  <paleontologia-res [item]="item" *ngIf="item.categoriaid.catalogoid==constantes.peleontologia" [detalle]="detalle" [submitted]="submitted"></paleontologia-res>
+                  <zoologia-res [item]="item" *ngIf="item.categoriaid.catalogoid==constantes.zoologia" [detalle]="detalle" [submitted]="submitted"
+                    [tecnicasConservacionZooSelecionados]="tecnicasConservacionZooSelecionados" (enviadorCondicion)="obtenerMaterialesZoo($event)"></zoologia-res>
+                  <artes-res [item]="item" *ngIf="item.categoriaid.catalogoid==constantes.arte" [detalle]="detalle" [materialesArteSelecionados]="materialesArteSelecionados"
+                    (enviadorCondicion)="obtenerMaterialesArte($event)"></artes-res>
 
-                  <div class="impresion">
-                    {{piezaMuseable.responsable}}
+                  <div class="separadorInventario">
+                    <h5>DATOS DE LOCALIZACIÓN</h5>
+                    <div style="width: 100%;text-align: right">
+                      <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+                      <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+                    </div>
                   </div>
-                </div>
-                <div class="ui-grid-col-2">
-                  Cédudala Ciudadania:
-                </div>
-                <div class="ui-grid-col-4">
-                  <input pInputText type="text" maxlength="150" name="responsableci" [(ngModel)]="piezaMuseable.responsableci" />
+                  <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin">
 
-                  <div class="impresion">
-                    {{piezaMuseable.responsableci}}
-                  </div>
-                </div>
-              </div>
-            </div>
-            <datosRecoleccion [detalle]="detalle" *ngIf="item.categoriaid.catalogoid==constantes.entomologia || item.categoriaid.catalogoid==constantes.botanica || item.categoriaid.catalogoid==constantes.zoologia"></datosRecoleccion>
-    
-            <div class="separadorInventario">
-              <h5>ESTADO GENERAL DEL BIEN</h5>
-              <div style="width: 100%;text-align: right">
-                <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
-                <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
-              </div>
-            </div>
-            <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin">
-              <div class="ui-grid-row">
-                <div class="ui-grid-col-2">
-                  Estado de conservación:
-                </div>
-                <div class="ui-grid-col-6">
-                  <div class="ui-g ocultar">
-                    <div class="ui-g-3 " *ngFor="let estado of estadoConservacionItem">
+                    <div class="ui-grid-row">
+                      <div class="ui-grid-col-2">
+                        Provincia *:
+                      </div>
+                      <div class="ui-grid-col-4">
+                        <p-dropdown [options]="provinciaItem" [(ngModel)]="piezaMuseable.provinciaid" name="provinciaid" (ngModelChange)="obtenerCanton($event)"
+                          disabled="true"></p-dropdown>
+                      </div>
+                      <div class="ui-grid-col-2">
+                        Canton *:
+                      </div>
+                      <div class="ui-grid-col-4">
+                        <p-dropdown [options]="cantonItem" name="cantonid" [(ngModel)]="piezaMuseable.cantonid" disabled="true"></p-dropdown>
+                      </div>
 
-                      <p-radioButton name="estadoConservacion" value="{{estado.catalogoid}}" (click)="setearEstadoConservacion()" label="{{estado.nombre}}"
-                        [(ngModel)]="estadoConservacion" required></p-radioButton>
 
-                      <div class="impresion">
-                        {{estado.nombre}}
+                    </div>
+                    <div class="ui-grid-row">
+                      <div class="ui-grid-col-2">
+                        Ciudad *:
+                      </div>
+                      <div class="ui-grid-col-4">
+                        <p-dropdown [options]="cantonItem" name="ciudadid" [(ngModel)]="piezaMuseable.ciudadid" disabled="true"></p-dropdown>
+                      </div>
+                      <div class="ui-grid-col-2">
+                        Contenedor *:
+                      </div>
+                      <div class="ui-grid-col-4">
+                        <input pInputText type="text" maxlength="150" name="contenedor" [(ngModel)]="piezaMuseable.contenedor" disabled="true" />
+                        <div class="impresion">
+                          {{piezaMuseable.contenedor}}
+                        </div>
+                      </div>
+
+                    </div>
+                    <div class="ui-grid-row">
+                      <div class="ui-grid-col-2">
+                        Dirección *:
+                      </div>
+                      <div class="ui-grid-col-4">
+                        <input pInputText type="text" maxlength="150" name="direccion" [(ngModel)]="piezaMuseable.direccion" disabled="true" />
+                        <div class="impresion">
+                          {{piezaMuseable.direccion}}
+                        </div>
+                      </div>
+                      <div class="ui-grid-col-2">
+                        No. *:
+                      </div>
+                      <div class="ui-grid-col-4">
+                        <input pInputText type="text" maxlength="150" name="numero" [(ngModel)]="piezaMuseable.numero" disabled="true" />
+                        <div class="impresion">
+                          {{piezaMuseable.numero}}
+                        </div>
+                      </div>
+
+                    </div>
+                    <div class="ui-grid-row">
+                      <div class="ui-grid-col-2">
+                        Email *:
+                      </div>
+                      <div class="ui-grid-col-4">
+                        <input pInputText type="text" maxlength="150" name="direccionelectronica" [(ngModel)]="piezaMuseable.direccionelectronica"
+                          disabled="true" />
+                        <div class="impresion">
+                          {{piezaMuseable.direccionelectronica}}
+                        </div>
+                      </div>
+                      <div class="ui-grid-col-2">
+                        Teléfono *:
+                      </div>
+                      <div class="ui-grid-col-4">
+                        <input pInputText type="text" maxlength="150" name="telefono" [(ngModel)]="piezaMuseable.telefono" disabled="true" />
+                        <div class="impresion">
+                          {{piezaMuseable.telefono}}
+                        </div>
+                      </div>
+
+                    </div>
+                    <div class="ui-grid-row">
+                      <div class="ui-grid-col-2">
+                        Disposición en el contendor *:
+                      </div>
+                      <div class="ui-grid-col-10">
+                        <input pInputText type="text" maxlength="150" name="disposicioncontenedor" [(ngModel)]="piezaMuseable.disposicioncontenedor"
+                          disabled="true" />
+                        <div class="impresion">
+                          {{piezaMuseable.disposicioncontenedor}}
+                        </div>
+
+
+                      </div>
+
+                    </div>
+                    <div class="ui-grid-row">
+                      <div class="ui-grid-col-2">
+                        Responsable:
+                      </div>
+                      <div class="ui-grid-col-4">
+                        <input pInputText type="text" maxlength="150" name="responsable" [(ngModel)]="piezaMuseable.responsable" disabled="true"
+                        />
+
+                        <div class="impresion">
+                          {{piezaMuseable.responsable}}
+                        </div>
+                      </div>
+                      <div class="ui-grid-col-2">
+                        Cédudala Ciudadania:
+                      </div>
+                      <div class="ui-grid-col-4">
+                        <input pInputText type="text" maxlength="150" name="responsableci" [(ngModel)]="piezaMuseable.responsableci" disabled="true"
+                        />
+
+                        <div class="impresion">
+                          {{piezaMuseable.responsableci}}
+                        </div>
                       </div>
                     </div>
                   </div>
-                  <div class="ui-messages-error" *ngIf="submitted>0  && !form.form.controls.estadoConservacion?.valid">El campo Estado de conservación es requerido</div>
-                  <div class="impresion">
-                    {{diccionarioImpresion[estadoConservacion]}}
-                  </div>
-                </div>
-              </div>
-              <div *ngIf="!esCatalogacion" class="ui-grid-row">
-                <div class="ui-g ocultar" style="width: 100%">
-                  <div class="ui-g-3" *ngFor="let estado of estadoDelBien">
-                    <p-checkbox name="estadobien" value="{{estado.catalogoid}}" label="{{estado.nombre}}" [(ngModel)]="estadosBienSelecionados"></p-checkbox>
-                  </div>
-                </div>
-                <div class="ui-g impresion" style="width: 100%">
-                  <div class="ui-g-3" *ngFor="let estado of estadosBienSelecionados">
-                    <input type="checkbox" style="display: initial !important" checked>{{diccionarioImpresion[estado]}}
-                  </div>
-                </div>
-              </div>
-              <div class="ui-grid-row">
-                <div class="ui-grid-col-2">
-                  Intervenciones inadecuadas *:
-                </div>
-                <div class="ui-grid-col-4">
-                  <p-inputSwitch [(ngModel)]="piezaMuseable.intervencionesinadecuadas" onLabel="Si" offLabel="No" name="intervencionesinadecuadas"
-                    required></p-inputSwitch>
-                  <div class="ui-messages-error" *ngIf="submitted>0  && !form.form.controls.intervencionesinadecuadas?.valid">El campo Nombre es requerido</div>
-                  <div class="impresion">
-                    {{piezaMuseable.intervencionesinadecuadas?'SI':'NO'}}
-                  </div>
-                </div>
-              </div>
-              <div class="ui-grid-row">
-                <div class="ui-grid-col-2">
-                  Estado de integridad:
-                </div>
-                <div class="ui-grid-col-6">
-                  <div class="ui-g ocultar">
-                    <div class="ui-g-3" *ngFor="let estado of integridadPiezaItem">
-                      <p-radioButton name="integridad" value="{{estado.catalogoid}}" label="{{estado.nombre}}" (click)="setearIntegridadPieza()"
-                        [(ngModel)]="integridadPieza"></p-radioButton>
+                  <div class="separadorInventario">
+                    <h5>ESTADO GENERAL DEL BIEN</h5>
+                    <div style="width: 100%;text-align: right">
+                      <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+                      <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
                     </div>
                   </div>
-                  <div class="ui-messages-error" *ngIf="submitted>0  && integridadPieza==null">El campo Estado de integridad es requerido</div>
-                  <div class="impresion">
-                    {{diccionarioImpresion[integridadPieza]}}
+                  <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin">
+                    <div class="ui-grid-row">
+                      <div class="ui-grid-col-2">
+                        Estado de conservación:
+                      </div>
+                      <div class="ui-grid-col-6">
+                        <div class="ui-g ocultar">
+                          <div class="ui-g-3 " *ngFor="let estado of estadoConservacionItem">
+
+                            <p-radioButton name="estadoConservacion" value="{{estado.catalogoid}}" (click)="setearEstadoConservacion()" label="{{estado.nombre}}"
+                              [(ngModel)]="estadoConservacion" disabled="true"></p-radioButton>
+
+                            <div class="impresion">
+                              {{estado.nombre}}
+                            </div>
+                          </div>
+                        </div>
+                        <div class="impresion">
+                          {{diccionarioImpresion[estadoConservacion]}}
+                        </div>
+
+                      </div>
+                    </div>
+                    <div *ngIf="!esCatalogacion" class="ui-grid-row">
+                      <div class="ui-g ocultar" style="width: 100%">
+                        <div class="ui-g-3" *ngFor="let estado of estadoDelBien">
+                          <p-checkbox name="estadobien" value="{{estado.catalogoid}}" label="{{estado.nombre}}" [(ngModel)]="estadosBienSelecionados"
+                            disabled="true"></p-checkbox>
+                        </div>
+                      </div>
+                      <div class="ui-g impresion" style="width: 100%">
+                        <div class="ui-g-3" *ngFor="let estado of estadosBienSelecionados">
+                          <input type="checkbox" style="display: initial !important" checked disabled="true">{{diccionarioImpresion[estado]}}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="ui-grid-row">
+                      <div class="ui-grid-col-2">
+                        Intervenciones inadecuadas *:
+                      </div>
+                      <div class="ui-grid-col-4">
+                        <p-inputSwitch [(ngModel)]="piezaMuseable.intervencionesinadecuadas" onLabel="Si" offLabel="No" name="intervencionesinadecuadas"
+                          disabled="true"></p-inputSwitch>
+                        <div class="impresion">
+                          {{piezaMuseable.intervencionesinadecuadas?'SI':'NO'}}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="ui-grid-row">
+                      <div class="ui-grid-col-2">
+                        Estado de integridad:
+                      </div>
+                      <div class="ui-grid-col-6">
+                        <div class="ui-g ocultar">
+                          <div class="ui-g-3" *ngFor="let estado of integridadPiezaItem">
+                            <p-radioButton name="integridad" value="{{estado.catalogoid}}" label="{{estado.nombre}}" (click)="setearIntegridadPieza()"
+                              [(ngModel)]="integridadPieza" disabled="true"></p-radioButton>
+                          </div>
+                        </div>
+                        <div class="impresion">
+                          {{diccionarioImpresion[integridadPieza]}}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="separadorInventario">
+                    <h5>DATOS DE CONTROL INVENTARIO</h5>
+                    <div style="width: 100%;text-align: right">
+                      <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+                      <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+                    </div>
+                  </div>
+
+                  <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin">
+
+                    <div class="ui-grid-row">
+                      <div class="ui-grid-col-2">
+                        Entidad investigadora *:
+                      </div>
+                      <div class="ui-grid-col-4">
+                        <input pInputText type="text" maxlength="150" [(ngModel)]="piezaMuseable.entidadinvestigadora" name="entidadinvestigadora"
+                          disabled="true" />
+                        <div class="impresion">
+                          {{piezaMuseable.entidadinvestigadora}}
+                        </div>
+                      </div>
+                      <div class="ui-grid-col-2">
+                        Inventariado por *:
+                      </div>
+                      <div class="ui-grid-col-4">
+                        <input pInputText type="text" maxlength="150" [(ngModel)]="piezaMuseable.inventariadopor" name="inventariadopor" disabled="true"
+                        />
+                        <div class="impresion">
+                          {{piezaMuseable.inventariadopor}}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="ui-grid-row">
+                      <div class="ui-grid-col-2">
+                        Fecha de inventario *:
+                      </div>
+                      <div class="ui-grid-col-4">
+                        <p-calendar name="fechainventario" [locale]="es" [(ngModel)]="piezaMuseable.fechainventario" [showIcon]="true" disabled="true"></p-calendar>
+                        <div class="impresion">
+                          {{piezaMuseable.fechainventario | date: properties.formatoFecha}}
+                        </div>
+                      </div>
+                      <div class="ui-grid-col-2">
+                        Revisado por *:
+                      </div>
+                      <div class="ui-grid-col-4">
+                        <input pInputText type="text" maxlength="150" [(ngModel)]="piezaMuseable.revisadopor" name="revisadopor" disabled="true"
+                        />
+                        <div class="impresion">
+                          {{piezaMuseable.revisadopor}}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="ui-grid-row">
+                      <div class="ui-grid-col-2">
+                        Fecha de revisión *:
+                      </div>
+                      <div class="ui-grid-col-4">
+                        <p-calendar name="fecharevision" [locale]="es" [(ngModel)]="piezaMuseable.fecharevision" [showIcon]="true" disabled="true"></p-calendar>
+                        <div class="impresion">
+                          {{piezaMuseable.fecharevision | date: properties.formatoFecha}}
+                        </div>
+                      </div>
+                      <div class="ui-grid-col-2">
+                        Aprobado por *:
+                      </div>
+                      <div class="ui-grid-col-4">
+                        <input pInputText type="text" maxlength="150" [(ngModel)]="piezaMuseable.aprobadopor" name="aprobadopor" disabled="true"
+                        />
+                        <div class="impresion">
+                          {{piezaMuseable.aprobadopor}}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="ui-grid-row">
+                      <div class="ui-grid-col-2">
+                        Fecha de aprobación *:
+                      </div>
+                      <div class="ui-grid-col-4">
+                        <p-calendar name="fechaaprobacion" [locale]="es" [(ngModel)]="piezaMuseable.fechaaprobacion" [showIcon]="true" disabled="true"></p-calendar>
+                        <div class="impresion">
+                          {{piezaMuseable.fechaaprobacion | date: properties.formatoFecha}}
+                        </div>
+                      </div>
+                      <div class="ui-grid-col-2">
+                        Registrado por *:
+                      </div>
+                      <div class="ui-grid-col-4">
+                        <input pInputText type="text" maxlength="150" name="registrofotograficopor" [(ngModel)]="piezaMuseable.registrofotograficopor"
+                          disabled="true" />
+                        <div class="impresion">
+                          {{piezaMuseable.registrofotograficopor}}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </p-tabPanel>
+              <p-tabPanel header="DATOS HISTÓRICOS">
+                <div class="separadorInventario">
+                  <h5>DATOS HISTÓRICOS</h5>
+                  <div style="width: 100%;text-align: right">
+                    <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+                    <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+                  </div>
+                </div>
+                <div class="ui-grid-row">
+                  <div class="ui-grid-col-2">
+                    Origen histórico *:
+                  </div>
+                  <div class="ui-grid-col-10">
+                    <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="300" name="origenHistorico" [(ngModel)]="restauracion.origenHistorico"
+                      #origenHistorico="ngModel" required></textarea>
+                    <div class="ui-messages-error" *ngIf="submitted > 0  && origenHistorico.invalid">El campo Origen histórico es requerido</div>
+                    <div class="impresion">
+                      {{restauracion.origenHistorico}}
+                    </div>
+                  </div>
+                </div>
+                <div class="ui-grid-row">
+                  <div class="ui-grid-col-2">
+                    Cambios de ubicación :
+                  </div>
+                  <div class="ui-grid-col-10">
+                    <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="300" name="cambioUbicacion" [(ngModel)]="restauracion.cambioUbicacion"
+                      #descripcion="ngModel"></textarea>
+                    <div class="impresion">
+                      {{restauracion.cambioUbicacion}}
+                    </div>
+                  </div>
+                </div>
+                <div class="ui-grid-row">
+                  <div class="ui-grid-col-2">
+                    Restauraciones y/o modificaciones :
+                  </div>
+                  <div class="ui-grid-col-10">
+                    <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="300" name="restauracionModificacion" [(ngModel)]="restauracion.restauracionModificacion"
+                      #descripcion="ngModel"></textarea>
+                    <div class="impresion">
+                      {{restauracion.restauracionModificacion}}
+                    </div>
+                  </div>
+                </div>
+                <div class="ui-grid-row">
+                  <div class="ui-grid-col-2">
+                    Exposiciones :
+                  </div>
+                  <div class="ui-grid-col-10">
+                    <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="300" name="exposiciones" [(ngModel)]="restauracion.exposiciones"
+                      #descripcion="ngModel"></textarea>
+                    <div class="impresion">
+                      {{restauracion.exposiciones}}
+                    </div>
+                  </div>
+                </div>
+              </p-tabPanel>
+              <p-tabPanel header="PROPUESTA DE INTERVENCIÓN">
+                <div class="separadorInventario">
+                  <h5>PROPUESTA DE INTERVENCIÓN</h5>
+                  <div style="width: 100%;text-align: right">
+                    <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+                    <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+                  </div>
+                </div>
+                <div class="ui-grid-row">
+                  <div class="ui-grid-col-2">
+                    Estudios previos :
+                  </div>
+                  <div class="ui-grid-col-10">
+                    <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="600" name="estudiosPrevios" [(ngModel)]="restauracion.estudiosPrevios"
+                      #descripcion="ngModel"></textarea>
+                    <div class="impresion">
+                      {{restauracion.estudiosPrevios}}
+                    </div>
+                  </div>
+                </div>
+                <div class="ui-grid-row">
+                  <div class="ui-grid-col-2">
+                    Estudios analíticos :
+                  </div>
+                  <div class="ui-grid-col-10">
+                    <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="600" name="estudiosAnaliticos" [(ngModel)]="restauracion.estudiosAnaliticos"
+                      #descripcion="ngModel"></textarea>
+                    <div class="impresion">
+                      {{restauracion.estudiosAnaliticos}}
+                    </div>
+                  </div>
+                </div>
+                <div class="ui-grid-row">
+                  <div class="ui-grid-col-2">
+                    Estudios históricos :
+                  </div>
+                  <div class="ui-grid-col-10">
+                    <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="600" name="descripcion" [(ngModel)]="restauracion.estudiosHistorico"
+                      #descripcion="ngModel"></textarea>
+                    <div class="impresion">
+                      {{restauracion.estudiosHistorico}}
+                    </div>
+                  </div>
+                </div>
+                <div class="ui-grid-row">
+                  <div class="ui-grid-col-2">
+                    Tratamiento *:
+                  </div>
+                  <div class="ui-grid-col-10">
+                    <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="3000" name="descripcion" [(ngModel)]="restauracion.tratamiento"
+                      #descripcion="ngModel"></textarea>
+                    <div class="impresion">
+                      {{restauracion.tratamiento}}
+                    </div>
+                  </div>
+                </div>
+              </p-tabPanel>
+              <p-tabPanel header="RECURSOS">
+                <div class="separadorInventario">
+                  <h5>RECURSOS</h5>
+                  <div style="width: 100%;text-align: right">
+                    <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+                    <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+                  </div>
+                </div>
+                <div class="ui-grid-row">
+                  <div class="ui-grid-col-2">
+                    Tecnicos:
+                  </div>
+                  <div class="ui-grid-col-10">
+                    <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin">
+
+                      <div class="ui-grid-row">
+                        <div class="ui-grid-col-2">
+                          Restaurador:
+                        </div>
+                        <div class="ui-grid-col-10">
+                          <input pInputText type="text" maxlength="150" name="modelo" [(ngModel)]="restauracion.restaurador" />
+                          <div class="impresion">
+                            {{restauracion.restaurador}}
+                          </div>
+                        </div>
+                      </div>
+                      <div class="ui-grid-row">
+                        <div class="ui-grid-col-2">
+                          Biólogo:
+                        </div>
+                        <div class="ui-grid-col-10">
+                          <input pInputText type="text" maxlength="150" name="modelo" [(ngModel)]="restauracion.biologo" />
+                          <div class="impresion">
+                            {{restauracion.biologo}}
+                          </div>
+                        </div>
+                      </div>
+                      <div class="ui-grid-row">
+                        <div class="ui-grid-col-2">
+                          Químico:
+                        </div>
+                        <div class="ui-grid-col-10">
+                          <input pInputText type="text" maxlength="150" name="modelo" [(ngModel)]="restauracion.quimico" />
+                          <div class="impresion">
+                            {{restauracion.quimico}}
+                          </div>
+                        </div>
+                      </div>
+                      <div class="ui-grid-row">
+                        <div class="ui-grid-col-2">
+                          Historiador:
+                        </div>
+                        <div class="ui-grid-col-10">
+                          <input pInputText type="text" maxlength="150" name="modelo" [(ngModel)]="restauracion.historiador" />
+                          <div class="impresion">
+                            {{restauracion.historiador}}
+                          </div>
+                        </div>
+                      </div>
+                      <div class="ui-grid-row">
+                        <div class="ui-grid-col-2">
+                          Arquitecto:
+                        </div>
+                        <div class="ui-grid-col-10">
+                          <input pInputText type="text" maxlength="150" name="modelo" [(ngModel)]="restauracion.arquitecto" />
+                          <div class="impresion">
+                            {{restauracion.arquitecto}}
+                          </div>
+                        </div>
+                      </div>
+                      <div class="ui-grid-row">
+                        <div class="ui-grid-col-2">
+                          Fotógrafo:
+                        </div>
+                        <div class="ui-grid-col-10">
+                          <input pInputText type="text" maxlength="150" name="modelo" [(ngModel)]="restauracion.fotografo" />
+                          <div class="impresion">
+                            {{restauracion.fotografo}}
+                          </div>
+                        </div>
+                      </div>
+                      <div class="ui-grid-row">
+                        <div class="ui-grid-col-2">
+                          Auxiliar de restauración:
+                        </div>
+                        <div class="ui-grid-col-10">
+                          <input pInputText type="text" maxlength="150" name="modelo" [(ngModel)]="restauracion.auxiliar" />
+                          <div class="impresion">
+                            {{restauracion.auxiliar}}
+                          </div>
+                        </div>
+                      </div>
+                      <div class="ui-grid-row">
+                        <div class="ui-grid-col-2">
+                          Observaciones :
+                        </div>
+                        <div class="ui-grid-col-10">
+                          <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="600" name="observacion" [(ngModel)]="descripcion.observacion"
+                            #descripcion="ngModel"></textarea>
+                          <div class="impresion">
+                            {{restauracion.observacion}}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="ui-grid-row">
+                    <div class="ui-grid-col-2">
+                      Tecnicos:
+                    </div>
+                    <div class="ui-grid-col-10">
+                      <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin">
+
+                        <div class="ui-grid-row">
+                          <div class="ui-grid-col-2">
+                            Instrumental:
+                          </div>
+                          <div class="ui-grid-col-10">
+                            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="600" name="tecInstrumental" [(ngModel)]="restauracion.tecInstrumental"
+                              #descripcion="ngModel"></textarea>
+                            <div class="impresion">
+                              {{restauracion.tecInstrumental}}
+                            </div>
+                          </div>
+                        </div>
+                        <div class="ui-grid-row">
+                          <div class="ui-grid-col-2">
+                            Químico:
+                          </div>
+                          <div class="ui-grid-col-10">
+                            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="600" name="tecQuimico" [(ngModel)]="restauracion.tecQuimico"
+                              #descripcion="ngModel"></textarea>
+                            <div class="impresion">
+                              {{restauracion.tecQuimico}}
+                            </div>
+                          </div>
+                        </div>
+                        <div class="ui-grid-row">
+                          <div class="ui-grid-col-2">
+                            Observaciones :
+                          </div>
+                          <div class="ui-grid-col-10">
+                            <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="600" name="tecObservacion" [(ngModel)]="restauracion.tecObservacion"
+                              #descripcion="ngModel"></textarea>
+                            <div class="impresion">
+                              {{restauracion.tecObservacion}}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </p-tabPanel>
+              <p-tabPanel header="REGISTRO FOTOGRÁFICO">
+                <div class="separadorInventario">
+                  <h5>REGISTRO FOTOGRÁFICO</h5>
+                  <div style="width: 100%;text-align: right">
+                    <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
+                    <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
+                  </div>
+                </div>
+                <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin" *ngIf="detalle!=null">
+                  <div class="ui-grid-row">
+                    <div class="ui-grid-col-12">
+                      <img *ngIf="fotoUno!=null" style="max-width: 100%" [src]="fotoUno">
+                      <input name="file" type="file" accept="image/*" id="adjuntar" class="ui-g-12 ui-md-12 ui-lg-12 inputUpload" (change)="fileChangeEvent($event,18)"
+                        placeholder="Subir Archivo..." required />
+                    </div>
+                  </div>
+                </div>
+                <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin" *ngIf="detalle!=null">
+                  <div class="ui-grid-row">
+                    <div class="ui-grid-col-12">
+                      <img *ngIf="fotoDos!=null" style="max-width: 100%" [src]="fotoDos">
+                      <input name="file" type="file" accept="image/*" id="adjuntar" class="ui-g-12 ui-md-12 ui-lg-12 inputUpload" (change)="fileChangeEvent($event,19)"
+                        placeholder="Subir Archivo..." required />
+                    </div>
+                  </div>
+                </div>
+                <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin" *ngIf="detalle!=null">
+                  <div class="ui-grid-row">
+                    <div class="ui-grid-col-12">
+                      <img *ngIf="fotoTres!=null" style="max-width: 100%" [src]="fotoTres">
+                      <input name="file" type="file" accept="image/*" id="adjuntar" class="ui-g-12 ui-md-12 ui-lg-12 inputUpload" (change)="fileChangeEvent($event,20)"
+                        placeholder="Subir Archivo..." required />
+                    </div>
+                  </div>
+                </div>
+                <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin" *ngIf="detalle!=null">
+                  <div class="ui-grid-row">
+                    <div class="ui-grid-col-12">
+                      <img *ngIf="fotoCuatro!=null" style="max-width: 100%" [src]="fotoCuatro">
+                      <input name="file" type="file" accept="image/*" id="adjuntar" class="ui-g-12 ui-md-12 ui-lg-12 inputUpload" (change)="fileChangeEvent($event,21)"
+                        placeholder="Subir Archivo..." required />
+                    </div>
+                  </div>
+                </div>
+              </p-tabPanel>
+              <div class="pagebreak"> </div>
+              <div *ngIf="!esCatalogacion" class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin ocultar">
+                <div class="ui-grid-row">
+                  <div class="ui-grid-col-3">
+                    <button pButton type="button" (click)="guardar()" label="{{properties.guardar.label}}" icon="{{properties.guardar.icon}}"></button>
+                  </div>
+                  <div class="ui-grid-col-3">
+                    <button pButton type="button" (click)="volver()" label="{{properties.cancelar.label}}" icon="{{properties.cancelar.icon}}"
+                      class="ui-button-secondary"></button>
+                  </div>
+                  <div class="ui-grid-col-3">
+                    <button pButton type="button" (click)="print()" label="{{properties.imprimir.label}}" icon="{{properties.imprimir.icon}}"
+                      class="ui-button-secondary"></button>
+                  </div>
+                  <div class="ui-grid-col-3">
+                    <button pButton type="button" (click)="verHistorico()" label="Historico" icon="{{properties.buscar
+                      .icon}}" class="ui-button-secondary"></button>
                   </div>
                 </div>
               </div>
-            </div>
-
-            <div class="pagebreak"> </div>
-    
-            <div *ngIf="!esCatalogacion" class="separadorInventario">
-              <h5>FOTOGRÁFIA</h5>
-              <div style="width: 100%;text-align: right">
-                <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
-                <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
-              </div>
-            </div>
-            <div *ngIf="!esCatalogacion" class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin">
-              <div class="ui-grid-row">
-                <div class="ui-grid-col-12">
-                  <img *ngIf="foto!=null" style="max-width: 100%" [src]="foto">
-                  <input name="file" type="file" id="adjuntar" accept="image/*" class="ui-g-12 ui-md-12 ui-lg-12 inputUpload" (change)="fileChangeEvent($event)"
-                    placeholder="Subir Archivo..." />
-                  <div class="ui-messages-error" *ngIf="submitted>0  && piezaMuseable.piezamuseableid == null && documento == null">El campo Fotrográfia es requerido</div>
-                </div>
-              </div>
-            </div>
-
-            <div *ngIf="!esCatalogacion" class="separadorInventario">
-              <h5>DATOS DE CONTROL DE BIENES UCE</h5>
-              <div style="width: 100%;text-align: right">
-                <button pButton type="button" icon="fas fa-arrow-circle-down" onclick="window.scrollTo(0,document.body.scrollHeight);"></button>
-                <button pButton type="button" icon="fas fa-arrow-circle-up" onclick="document.documentElement.scrollTop = 0"></button>
-              </div>
-            </div>
-
-            <div *ngIf="!esCatalogacion" class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin">
-              <div class="ui-grid-row">
-                <div class="ui-grid-col-2">
-                  Provincia:
-                </div>
-                <div class="ui-grid-col-4">
-                  <p-dropdown [options]="provinciaItem" name="provinciabienesid" [(ngModel)]="piezaMuseable.provinciabienesid"></p-dropdown>
-                </div>
-                <div class="ui-grid-col-2">
-                  Fecha de transferencia:
-                </div>
-                <div class="ui-grid-col-4">
-                  {{item.fechaadquisicion | date: properties.formatoFecha}}
-                </div>
-              </div>
-              <div class="ui-grid-row">
-                <div class="ui-grid-col-2">
-                  Procedencia:
-                </div>
-                <div class="ui-grid-col-4">
-                  {{item.procedencia}}
-                </div>
-                <div class="ui-grid-col-2">
-                  Custodio:
-                </div>
-                <div class="ui-grid-col-4">
-                  <div *ngIf="museo && museo.cutodioId">{{museo.cutodioId.nombres}}</div>
-                </div>
-              </div>
-            </div>
-            <div *ngIf="!esCatalogacion" class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin ocultar">
-              <div class="ui-grid-row">
-                <div class="ui-grid-col-2"></div>
-                <div class="ui-grid-col-3">
-                  <button pButton type="button" (click)="subtmit();formularioValido=form.valid" label="{{properties.guardar.label}}" icon="{{properties.guardar.icon}}"></button>
-                </div>
-                <div class="ui-grid-col-3">
-                  <button pButton type="button" (click)="volver()" label="{{properties.cancelar.label}}" icon="{{properties.cancelar.icon}}"
-                    class="ui-button-secondary"></button>
-
-                </div>
-                <div class="ui-grid-col-3">
-                  <button pButton type="button" (click)="print()" label="{{properties.imprimir.label}}" icon="{{properties.imprimir.icon}}"
-                    class="ui-button-secondary"></button>
-                </div>
-                <div class="ui-grid-col-1"></div>
-              </div>
-            </div>
-          </div>
-        </form>
+            </p-tabView>
+          </form>
+        </div>
       </div>
     </app-card>
   </div>

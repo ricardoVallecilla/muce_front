@@ -1,0 +1,208 @@
+<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin"  *ngIf="detalle!=null">
+
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Nombre:
+    </div>
+    <div class="ui-grid-col-4">
+      {{item?.nombre}}
+    </div>
+    <div class="ui-grid-col-2">
+      Tipo de bien:
+    </div>
+    <div class="ui-grid-col-4">
+      <input pInputText type="text" maxlength="150" name="tipobien" [(ngModel)]="detalle.tipobien" disabled="true"/>
+      <div class="impresion">
+          {{detalle.tipobien}}
+        </div>
+    </div>
+
+
+  </div>
+
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Otra denominación:
+    </div>
+    <div class="ui-grid-col-10">
+      <input pInputText type="text" maxlength="150" name="otradenominacion" [(ngModel)]="detalle.otradenominacion" disabled="true"/>
+      <div class="impresion">
+          {{detalle.otradenominacion}}
+        </div>
+    </div>
+
+  </div>
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Material *:
+    </div>
+    <div class="ui-grid-col-10">
+        <div class="ui-g ocultar">
+            <div class="ui-g-3" *ngFor="let estado of materialesItem">
+                <p-checkbox name="materiales" value="{{estado.catalogoid}}" label="{{estado.nombre}}" (click)="impr()" [(ngModel)]="materialesSelecionados" disabled="true"></p-checkbox>
+              </div>
+        </div>
+        <div class="ui-g impresion" style="width: 100%">
+            <div class="ui-g-3" *ngFor="let estado of materialesSelecionados">
+                <input type="checkbox" style="display: initial !important"  checked>{{diccionarioImpresion[estado]}}
+              </div>
+          </div>
+    </div>
+  </div>
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Técnica:
+    </div>
+    <div class="ui-grid-col-4">
+      <input pInputText type="text" maxlength="150" name="tecnica" [(ngModel)]="detalle.tecnica" disabled="true"/>
+      <div class="impresion">
+          {{detalle.tecnica}}
+        </div>
+    </div>
+    <div class="ui-grid-col-2">
+      Fabricante:
+    </div>
+    <div class="ui-grid-col-4">
+      <input pInputText type="text" maxlength="150" name="fabricante" [(ngModel)]="detalle.fabricante" disabled="true"/>
+      <div class="impresion">
+          {{detalle.fabricante}}
+        </div>
+    </div>
+
+
+  </div>
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Lugar de fabricación:
+    </div>
+    <div class="ui-grid-col-4">
+      <input pInputText type="text" maxlength="150" name="lugarfabricacion" [(ngModel)]="detalle.lugarfabricacion" disabled="true"/>
+      <div class="impresion">
+          {{detalle.lugarfabricacion}}
+        </div>
+    </div>
+    <div class="ui-grid-col-2">
+      Fecha fabricación:
+    </div>
+    <div class="ui-grid-col-4">
+      <p-calendar name="fechafabricacion" [locale]="es" [(ngModel)]="detalle.fechafabricacion" [showIcon]="true" #fechafabricacion="ngModel" disabled="true"></p-calendar>       
+      <div class="impresion">
+          {{detalle.fechafabricacion | date: properties.formatoFecha}}
+        </div>
+    </div>
+
+  </div>
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Funciona:
+    </div>
+    <div class="ui-grid-col-4">
+      <p-inputSwitch [(ngModel)]="detalle.funciona" onLabel="Si" offLabel="No" name="funciona" disabled="true"></p-inputSwitch>
+      <div class="impresion">
+          {{detalle.funciona?'SI':'NO'}}
+        </div>
+    </div>
+    <div class="ui-grid-col-2">
+      En Uso:
+    </div>
+    <div class="ui-grid-col-4">
+      <p-inputSwitch [(ngModel)]="detalle.enuso" onLabel="Si" offLabel="No" name="enuso" disabled="true"></p-inputSwitch>
+      <div class="impresion">
+          {{detalle.enuso?'SI':'NO'}}
+        </div>
+    </div>
+
+
+  </div>
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Inscripciones:
+    </div>
+    <div class="ui-grid-col-4">
+      <input pInputText type="text" maxlength="150" name="procedencia" [(ngModel)]="detalle.inscripciones" disabled="true"/>
+      <div class="impresion">
+          {{detalle.inscripciones}}
+        </div>
+    </div>
+  </div>
+  <div class="ui-grid-row">
+      <div class="ui-grid-col-2">Dimensiones:</div>
+      <div class="ui-grid-col-10" style="padding: 0">
+        <div class="ui-g">
+  
+          <div class="ui-g-2">
+            Alto *:
+          </div>
+          <div class="ui-g-2">
+            <input pInputText type="number"  name="alto" [(ngModel)]="detalle.alto" #alto="ngModel" disabled="true" />
+            <div class="impresion">
+              {{detalle.alto}}
+            </div>
+          </div>
+          <div class="ui-g-2">
+            Largo *:
+          </div>
+          <div class="ui-g-2">
+            <input pInputText type="number" maxlength="150" name="largo" [(ngModel)]="detalle.largo"  #largo="ngModel" disabled="true" />
+            <div class="impresion">
+              {{detalle.largo}}
+            </div>
+          </div>
+          <div class="ui-g-2">
+            Profundidad *:
+          </div>
+          <div class="ui-g-2">
+            <input pInputText type="number"  name="profundidad" [(ngModel)]="detalle.profundidad"  #profundidad="ngModel" disabled="true" />
+            <div class="impresion">
+              {{detalle.profundidad}}
+            </div>
+          </div>
+          <div class="ui-g-2">
+            Diámetro *:
+          </div>
+          <div class="ui-g-2">
+  
+            <input pInputText type="number"  name="diametro" [(ngModel)]="detalle.diametro"  #diametro="ngModel" disabled="true" />
+            <div class="impresion">
+              {{detalle.diametro}}
+            </div>
+  
+          </div>
+          <div class="ui-g-2">
+            Espesor *:
+          </div>
+          <div class="ui-g-2">
+            <input pInputText type="number"  name="espesor" [(ngModel)]="detalle.espesor"  #espesor="ngModel" disabled="true" />
+            <div class="impresion">
+              {{detalle.espesor}}
+            </div>
+          </div>
+          <div class="ui-g-2">
+            Peso *:
+          </div>
+          <div class="ui-g-2">
+            <input pInputText type="number"  name="peso" [(ngModel)]="detalle.peso"  #peso="ngModel" disabled="true" />
+            <div class="impresion">
+              {{detalle.peso}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Descripción *:
+    </div>
+    <div class="ui-grid-col-10">
+      <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="550" name="descripcion" [(ngModel)]="detalle.descripcion" #descripcion="ngModel" disabled="true"></textarea>
+      <div class="impresion">
+          {{detalle.descripcion}}
+        </div>
+    </div>
+
+  </div>
+
+
+
+</div>
