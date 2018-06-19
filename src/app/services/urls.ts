@@ -68,6 +68,8 @@ export class UrlServices {
     reporteExposicion=this.item+"/reporteExposicion"
     urlImagen=this.item+"urlImagen"
     reporteGeneral=this.item+"reportegeneral"
+    restauracion=this.proxy+"/restauracion/"
+
     constructor() {
 
     }
