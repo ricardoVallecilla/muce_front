@@ -142,6 +142,7 @@ export class FormularioMovimientoComponent implements OnInit {
       case this.constantes.diccionarioMovimientoEstado.desinfecion.tipoMovimiento:
       case this.constantes.diccionarioMovimientoEstado.otro.tipoMovimiento:
       case this.constantes.diccionarioMovimientoEstado.restauracion.tipoMovimiento:
+      case this.constantes.diccionarioMovimientoEstado.exposicion.tipoMovimiento:
       case this.constantes.prestamoExterno:
         this.movimiento.institucion = movimiento.institucion
         this.movimiento.direccion = movimiento.direccion
@@ -329,6 +330,9 @@ export class FormularioMovimientoComponent implements OnInit {
       case this.constantes.devolucionOtro + "":
         this.cargarMovimientosPendientesIngreso(this.constantes.diccionarioMovimientoEstado.otro.tipoMovimiento);
         break;
+      case this.constantes.devolucionExposicion + "":
+        this.cargarMovimientosPendientesIngreso(this.constantes.diccionarioMovimientoEstado.exposicion.tipoMovimiento);
+        break;
       default:
         break;
     }
@@ -471,6 +475,9 @@ export class FormularioMovimientoComponent implements OnInit {
 
         case this.constantes.diccionarioMovimientoEstado.otro.tipoMovimiento:
           nuevoEstadoPiezas = this.tiposMovimientosGeneral.find(x => x.catalogoid == this.constantes.diccionarioMovimientoEstado.otro.estadoPieza);
+          break;
+          case this.constantes.diccionarioMovimientoEstado.exposicion.tipoMovimiento:
+          nuevoEstadoPiezas = this.tiposMovimientosGeneral.find(x => x.catalogoid == this.constantes.diccionarioMovimientoEstado.exposicion.estadoPieza);
           break;
 
         default:
@@ -725,25 +732,25 @@ export class FormularioMovimientoComponent implements OnInit {
                 registroJson["cientifico"] = registro[2]
                 registroJson["comun"] = registro[3]
                 registroJson["clase"] = registro[4]
-                
+
 
                 listaRegistros.push(registroJson)
               });
               break;
-              //zoologia
+            //zoologia
             case 9:
-            x.items.forEach(registro => {
-              let registroJson = {}
-              registroJson["nombre"] = registro[0]
-              registroJson["ruta"] = registro[1]
-              if (registro[1] != null) this.descargarFoto(registroJson);
-              registroJson["cientifico"] = registro[2]
-              registroJson["comun"] = registro[3]
-              registroJson["autor"] = registro[4]
-             
+              x.items.forEach(registro => {
+                let registroJson = {}
+                registroJson["nombre"] = registro[0]
+                registroJson["ruta"] = registro[1]
+                if (registro[1] != null) this.descargarFoto(registroJson);
+                registroJson["cientifico"] = registro[2]
+                registroJson["comun"] = registro[3]
+                registroJson["autor"] = registro[4]
 
-              listaRegistros.push(registroJson)
-            });
+
+                listaRegistros.push(registroJson)
+              });
               break;
 
             default:

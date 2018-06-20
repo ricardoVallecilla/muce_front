@@ -102,6 +102,7 @@ export class ItemComponent implements OnInit {
     this.esfiltroTexto = false;
     this.textoFiltra = null;
     this.items = []
+    this.msgs=[]
 
     if (this.categoria != null) {
       this._itemService.cantidad(this.museo.museoid, this.grupo.catalogoid, this.categoria.catalogoid)

@@ -41,6 +41,7 @@ export class Constantes{
     prestamoExterno=723;
     prestamoInterno=724;
     traspasointerno=725;
+    devolucionExposicion=796
     devolucionOtro=730
     devolucionDesinfeccion=731
     devolucionRestauracion=732
@@ -72,7 +73,7 @@ export class Constantes{
         restauracion:{tipoMovimiento:726,estadoPieza:739},
         otro:{tipoMovimiento:728,estadoPieza:738},
         desinfecion:{tipoMovimiento:727,estadoPieza:740},
-
+        exposicion:{tipoMovimiento:749,estadoPieza:795},
     }
 
 

@@ -86,6 +86,7 @@ export class DashboardDefaultComponent implements OnInit {
       , this.constantes.diccionarioMovimientoEstado.desinfecion.tipoMovimiento
       , this.constantes.diccionarioMovimientoEstado.otro.tipoMovimiento
       , this.constantes.diccionarioMovimientoEstado.restauracion.tipoMovimiento
+      , this.constantes.diccionarioMovimientoEstado.exposicion.tipoMovimiento
     ])
       .subscribe((movimientos: any[]) => {
         movimientos.forEach(x => {
