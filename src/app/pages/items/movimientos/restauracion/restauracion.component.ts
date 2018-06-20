@@ -23,6 +23,7 @@ import { PiezaDetalle } from '../../../../models/piezaDetalle.model';
 import { EstilosReportes } from '../../../estiloImpresion';
 import { RestauracionServices } from '../../../../services/restauracion/restauracion.services';
 import { RestauracionModel } from '../../../../models/restauracion.model';
+import * as CryptoJS from 'crypto-js';
 
 @Component({
     selector: 'restauracion',
@@ -78,6 +79,7 @@ import { RestauracionModel } from '../../../../models/restauracion.model';
 
   restauracion: any
   restauracionList = []
+  isRestaurador: any
   
   constructor(
     private domSanitizer: DomSanitizer,
@@ -96,6 +98,22 @@ import { RestauracionModel } from '../../../../models/restauracion.model';
       this.acciones = "Detalle de la pieza: " + this.item.nombre;
       this.buscar()
       this.obtenerLastRestauracion()
+      
+      if (this.item.estadoid.catalogoid == this.constantes.estadoItemRestauracion) {
+        this.bandera = 0 
+      } else { 
+        this.obtenerRestauracionByItem()
+      }
+    }
+  }
+
+  verRol() {
+    if (localStorage.getItem("sesion") != null) {
+      var decrypted = CryptoJS.AES.decrypt(localStorage.getItem("sesion"), this.properties.key);
+      let persona = JSON.parse(decrypted.toString(CryptoJS.enc.Utf8))
+      if (persona.usuario.rolId.rolid == this.constantes.rolRestaurador) {
+        this.isRestaurador = true
+      }
     }
   }
 
@@ -125,6 +143,7 @@ import { RestauracionModel } from '../../../../models/restauracion.model';
   }
 
   obtenerRestauracionByItem() {
+    this.bandera = 1 
     this.restauracionServices.obtenerRestauracionByItem(this.item.itemid)
       .subscribe((restauraciones: any[]) => {
         this.restauracionList = restauraciones

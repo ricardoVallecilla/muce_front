@@ -51,6 +51,7 @@ export class Constantes{
     tecnicasConservacionZoo = 750
     materialesArte = 786
     sexo = 754
+    estadoItemRestauracion = 739
     /*
     740	1	EN DESINFECCIÓN
 739	1	EN RESTAURACIÓN
