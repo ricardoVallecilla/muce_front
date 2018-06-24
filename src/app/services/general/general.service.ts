@@ -18,11 +18,9 @@ export class GeneralService {
     key = "HackersSeeIT2";
     constructor(private _http: Http, private _router: Router) { }
 
-    autenticar(username = null, password = null) {
+    autenticarMuse(username = null, password = null) {
         let params = new URLSearchParams();
         let headers = new Headers();
-        if (username == null) username = "registro";
-        if (password == null) password = "password"
         headers.append('Authorization', 'Basic ' + btoa("uce.edu.ec.muce.seguridad:uce.edu.ec.muce.seguridad"))
         let options = new RequestOptions({ headers: headers });
         console.log(params.toString());
@@ -54,7 +52,7 @@ export class GeneralService {
 
 
                             },
-                            err => { 
+                            err => {
                                 //console.log("error",err.status)
                                 if (err.status == 401) {
                                     this.stopBlock()
@@ -63,12 +61,41 @@ export class GeneralService {
                             }
                         );
                 },
-                err => { 
+                err => {
                     this.stopBlock()
                     if (err.status == 401) {
                         this._router.navigate(['/authentication/login/error']);
                     }
-                 }
+                }
+            );
+    }
+
+    autenticar(username, password) {
+        let credenciales = {
+            usuario: username,
+            password: password
+
+        }
+        this._http.post(this.url.loginActive, credenciales)
+            //.map(res => res.json())
+            .subscribe(
+                
+                
+                res => {
+                    let codigo=res["_body"]
+                    console.log("asdfgbn");
+                    if (codigo == "0000002" || codigo == "0000003")
+                        this.autenticarMuse(username, password)
+                    else
+                        this._router.navigate(['/authentication/login/error']);
+
+                },
+                err => {
+                    this.stopBlock()
+                    if (err.status == 401) {
+                        this._router.navigate(['/authentication/login/error']);
+                    }
+                }
             );
     }
 
@@ -187,7 +214,7 @@ export class GeneralService {
         return null;
     }
 
-    stopBlock(){
+    stopBlock() {
         this.blockUI.stop();
     }
     private handleError() {

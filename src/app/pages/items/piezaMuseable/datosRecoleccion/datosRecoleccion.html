@@ -9,7 +9,7 @@
 
   <div class="ui-grid-row">
     <div class="ui-grid-col-2">
-      Latitud (WGS84) *:
+      Latitud (WGS84):
     </div>
     <div class="ui-grid-col-4">
       <input pInputText type="text" maxlength="150" name="latitud" [(ngModel)]="detalle.latitud"  />
@@ -18,7 +18,7 @@
         </div>
     </div>
     <div class="ui-grid-col-2">
-      Longitud (WGS84) *:
+      Longitud (WGS84):
     </div>
     <div class="ui-grid-col-4">
       <input pInputText type="text" maxlength="150" name="longitud" [(ngModel)]="detalle.longitud"  />
@@ -29,7 +29,7 @@
   </div>
   <div class="ui-grid-row">
     <div class="ui-grid-col-2">
-      Elevación *:
+      Elevación:
     </div>
     <div class="ui-grid-col-10">
       <input pInputText type="text" maxlength="150" name="elevacion" [(ngModel)]="detalle.elevacion"  />
@@ -41,7 +41,7 @@
   </div>
   <div class="ui-grid-row">
     <div class="ui-grid-col-2">
-      Localización precisa *:
+      Localización precisa:
     </div>
     <div class="ui-grid-col-10">
       <input pInputText type="text" maxlength="150" name="localizacionprecisa" [(ngModel)]="detalle.localizacionprecisa" />
@@ -52,13 +52,13 @@
   </div>
   <div class="ui-grid-row">
     <div class="ui-grid-col-2">
-      País *:
+      País:
     </div>
     <div class="ui-grid-col-4">
       <p-dropdown [options]="paisItem" [(ngModel)]="detalle.paisid" filter="true" name="paisid" ></p-dropdown>
     </div>
     <div class="ui-grid-col-2">
-      Estado/Provincia *:
+      Estado/Provincia:
     </div>
     <div class="ui-grid-col-4">
       <input pInputText type="text" maxlength="150" name="provincia" [(ngModel)]="detalle.provincia" />
@@ -69,7 +69,7 @@
   </div>
   <div class="ui-grid-row">
     <div class="ui-grid-col-2">
-      Cantón *:
+      Cantón:
     </div>
     <div class="ui-grid-col-4">
       <input pInputText type="text" maxlength="150" name="canton" [(ngModel)]="detalle.canton" />
@@ -78,7 +78,7 @@
         </div>
     </div>
     <div class="ui-grid-col-2">
-      Ciudad *:
+      Ciudad:
     </div>
     <div class="ui-grid-col-4">
       <input pInputText type="text" maxlength="150" name="ciudad" [(ngModel)]="detalle.ciudad" />
@@ -89,7 +89,7 @@
   </div>
   <div class="ui-grid-row">
     <div class="ui-grid-col-2">
-      Persona recolectora *:
+      Persona recolectora:
     </div>
     <div class="ui-grid-col-10">
       <input pInputText type="text" maxlength="150" name="morfofuncional" [(ngModel)]="detalle.personarecolectora" />

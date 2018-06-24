@@ -54,7 +54,7 @@ export class ArqueologiaComponent implements OnInit, OnChanges {
   ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
 
     if(changes.submitted!=undefined){
-      console.log(this.submitted);
+      
       if(this.submitted>0){
         let valido=1
         this.camposObligatorios.forEach(x => {

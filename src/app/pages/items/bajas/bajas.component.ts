@@ -217,7 +217,7 @@ export class BajasComponent implements OnInit {
 
   confirmar(){
     this.bajaItem.motivos=JSON.stringify(this.motivosSeleccionados);
-    console.log(this.bajaItem);
+    
 
     this.confirmationService.confirm({
       key: "confirmarNotificacion",

@@ -46,7 +46,7 @@ export class Seccion2InstrumentalComponent implements OnInit {
   ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
 
     if(changes.submitted!=undefined){
-      console.log(this.submitted);
+      
       if(this.submitted>0){
         let valido=1
         this.camposObligatorios.forEach(x => {
@@ -100,7 +100,7 @@ export class Seccion2InstrumentalComponent implements OnInit {
   }
 
   fileChangeEvent(event, tipo = null) {
-    console.log(event)
+    
     let e = event.srcElement ? event.srcElement : event.target;
     let tipoLocal;
     let id = this.detalle.detalleid;

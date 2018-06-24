@@ -223,7 +223,7 @@
     </div>
     <div class="ui-grid-col-10">
       <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="550" name="descripcion" [(ngModel)]="detalle.descripcion" #descripcion="ngModel" required></textarea>
-      <div class="ui-messages-error" *ngIf="submitted>0  && peso.invalid">El campo Descripción es requerido</div>
+      <div class="ui-messages-error" *ngIf="submitted>0  && descripcion.invalid">El campo Descripción es requerido</div>
       <div class="impresion">
           {{detalle.descripcion}}
         </div>

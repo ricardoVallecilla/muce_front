@@ -36,7 +36,7 @@ export class CatalogacionComponent implements OnInit {
     arqueologiaForma: false,
     usoAcademico: false,
     entomologiaProcesos: false,
-    instrumentalRegistros:false,
+    instrumentalRegistros: false,
     arteRegistro: false,
     fotografia: false,
     geologia: false,
@@ -142,11 +142,11 @@ export class CatalogacionComponent implements OnInit {
       case this.constantes.zoologia:
         tipo = 9
         break;
-        
+
       case this.constantes.arte:
         tipo = 10
         break;
-        
+
       default:
         break;
     }
@@ -155,9 +155,9 @@ export class CatalogacionComponent implements OnInit {
       .subscribe((detalle: any[]) => {
         if (detalle[0].fechafabricacion != undefined && detalle[0].fechafabricacion != null) detalle[0].fechafabricacion = new Date(detalle[0].fechafabricacion)
         this.detalle = detalle[0]
-        if(this.piezaMuseable.catalogado==null){
-          this.piezaMuseable.fecharegistrocatalogacion=new Date()
-          this.piezaMuseable.catalogado=true;
+        if (this.piezaMuseable.catalogado == null) {
+          this.piezaMuseable.fecharegistrocatalogacion = new Date()
+          this.piezaMuseable.catalogado = true;
         }
         this.detalle.piezamuseableid = this.piezaMuseable
 
@@ -190,7 +190,7 @@ export class CatalogacionComponent implements OnInit {
         }
 
         break;
-        case this.constantes.instrumental:
+      case this.constantes.instrumental:
         if (!this.validacionesTabs.instrumentalRegistros) {
           this.msgs.push({ severity: 'error', summary: 'Error de Validación', detail: 'Verifique los campos obligatorios. (USE BOTON VALIDAR)' });
           return false;
@@ -198,7 +198,7 @@ export class CatalogacionComponent implements OnInit {
 
         break;
 
-        case this.constantes.arte:
+      case this.constantes.arte:
         if (!this.validacionesTabs.arteRegistro) {
           this.msgs.push({ severity: 'error', summary: 'Error de Validación', detail: 'Verifique los campos obligatorios. (USE BOTON VALIDAR)' });
           return false;
@@ -206,7 +206,7 @@ export class CatalogacionComponent implements OnInit {
 
         break;
 
-        case this.constantes.fotografia:
+      case this.constantes.fotografia:
         if (!this.validacionesTabs.fotografia) {
           this.msgs.push({ severity: 'error', summary: 'Error de Validación', detail: 'Verifique los campos obligatorios. (USE BOTON VALIDAR)' });
           return false;
@@ -214,7 +214,7 @@ export class CatalogacionComponent implements OnInit {
 
         break;
 
-        case this.constantes.geologia:
+      case this.constantes.geologia:
         if (!this.validacionesTabs.geologia) {
           this.msgs.push({ severity: 'error', summary: 'Error de Validación', detail: 'Verifique los campos obligatorios. (USE BOTON VALIDAR)' });
           return false;
@@ -222,7 +222,7 @@ export class CatalogacionComponent implements OnInit {
 
         break;
 
-        case this.constantes.peleontologia:
+      case this.constantes.peleontologia:
         if (!this.validacionesTabs.paleontologia) {
           this.msgs.push({ severity: 'error', summary: 'Error de Validación', detail: 'Verifique los campos obligatorios. (USE BOTON VALIDAR)' });
           return false;
@@ -230,7 +230,7 @@ export class CatalogacionComponent implements OnInit {
 
         break;
 
-        case this.constantes.zoologia:
+      case this.constantes.zoologia:
         if (!this.validacionesTabs.zoologia) {
           this.msgs.push({ severity: 'error', summary: 'Error de Validación', detail: 'Verifique los campos obligatorios. (USE BOTON VALIDAR)' });
           return false;
@@ -338,12 +338,12 @@ export class CatalogacionComponent implements OnInit {
       this.msgs.push({ severity: 'error', summary: 'Error de Validación', detail: 'Verifique los campos obligatorios de la pestaña: FICHA DE INVENTARIO' });
     }
     this.validacionesTabs.piezaMuseable = formularioPiezaMuseable;
-    console.log(formularioPiezaMuseable);
+
 
   }
 
   validarTabs(event) {
-    console.log(event);
+
     switch (event.indentificador) {
       //seccion 2 de arqueologia
       case 1:
@@ -382,6 +382,84 @@ export class CatalogacionComponent implements OnInit {
     if (!event.valido) {
       this.msgs.push({ severity: 'error', summary: 'Error de Validación', detail: 'Verifique los campos obligatorios de la pestaña: ' + event.tab });
     }
+    this.mensajeValido()
+
+  }
+
+  mensajeValido() {
+    if (!this.validacionesTabs.piezaMuseable || !this.validacionesTabs.usoAcademico) {
+      this.msgs.push({ severity: 'error', summary: 'Error de Validación', detail: 'Verifique los campos obligatorios. (USE BOTON VALIDAR)' });
+      return false;
+    }
+
+    switch (this.item.categoriaid.catalogoid) {
+      case this.constantes.arqueologia:
+        if (!this.validacionesTabs.arqueologiaForma) {
+          this.msgs.push({ severity: 'error', summary: 'Error de Validación', detail: 'Verifique los campos obligatorios. (USE BOTON VALIDAR)' });
+          return false;
+        }
+
+        break;
+      case this.constantes.entomologia:
+        if (!this.validacionesTabs.entomologiaProcesos) {
+          this.msgs.push({ severity: 'error', summary: 'Error de Validación', detail: 'Verifique los campos obligatorios. (USE BOTON VALIDAR)' });
+          return false;
+        }
+
+        break;
+      case this.constantes.instrumental:
+        if (!this.validacionesTabs.instrumentalRegistros) {
+          this.msgs.push({ severity: 'error', summary: 'Error de Validación', detail: 'Verifique los campos obligatorios. (USE BOTON VALIDAR)' });
+          return false;
+        }
+
+        break;
+
+      case this.constantes.arte:
+        if (!this.validacionesTabs.arteRegistro) {
+          this.msgs.push({ severity: 'error', summary: 'Error de Validación', detail: 'Verifique los campos obligatorios. (USE BOTON VALIDAR)' });
+          return false;
+        }
+
+        break;
+
+      case this.constantes.fotografia:
+        if (!this.validacionesTabs.fotografia) {
+          this.msgs.push({ severity: 'error', summary: 'Error de Validación', detail: 'Verifique los campos obligatorios. (USE BOTON VALIDAR)' });
+          return false;
+        }
+
+        break;
+
+      case this.constantes.geologia:
+        if (!this.validacionesTabs.geologia) {
+          this.msgs.push({ severity: 'error', summary: 'Error de Validación', detail: 'Verifique los campos obligatorios. (USE BOTON VALIDAR)' });
+          return false;
+        }
+
+        break;
+
+      case this.constantes.peleontologia:
+        if (!this.validacionesTabs.paleontologia) {
+          this.msgs.push({ severity: 'error', summary: 'Error de Validación', detail: 'Verifique los campos obligatorios. (USE BOTON VALIDAR)' });
+          return false;
+        }
+
+        break;
+
+      case this.constantes.zoologia:
+        if (!this.validacionesTabs.zoologia) {
+          this.msgs.push({ severity: 'error', summary: 'Error de Validación', detail: 'Verifique los campos obligatorios. (USE BOTON VALIDAR)' });
+          return false;
+        }
+
+        break;
+
+      default:
+        break;
+    }
+    this.msgs = []
+    this.msgs.push({ severity: 'success', summary: 'Validación Correcta', detail: 'Todos los datos obligatorios ingresados.' });
 
   }
   validar() {

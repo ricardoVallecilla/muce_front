@@ -282,12 +282,12 @@ export class CatalogacionImprimirComponent implements OnInit {
       this.msgs.push({ severity: 'error', summary: 'Error de Validación', detail: 'Verifique los campos obligatorios de la pestaña: FICHA DE INVENTARIO' });
     }
     this.validacionesTabs.piezaMuseable = formularioPiezaMuseable;
-    console.log(formularioPiezaMuseable);
+    
 
   }
 
   validarTabs(event) {
-    console.log(event);
+    
     switch (event.indentificador) {
       //seccion 2 de arqueologia
       case 1:

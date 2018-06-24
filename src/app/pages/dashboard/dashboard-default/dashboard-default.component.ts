@@ -52,7 +52,7 @@ export class DashboardDefaultComponent implements OnInit {
       if (localStorage.getItem("sesion") != null) {
         var decrypted = CryptoJS.AES.decrypt(localStorage.getItem("sesion"), this.key);
         let persona = JSON.parse(decrypted.toString(CryptoJS.enc.Utf8))
-        console.log(persona);
+        
 
         this.museo = persona.usuario.museoId;
 
@@ -75,7 +75,7 @@ export class DashboardDefaultComponent implements OnInit {
       }
 
     } catch (error) {
-      console.log(error)
+      
       this._generalService.stopBlock();
       this._router.navigate(['/authentication/login']);
     }
@@ -98,7 +98,7 @@ export class DashboardDefaultComponent implements OnInit {
             let diff = hoy - fechafinprestamo;
 
             let dias = (diff / (1000 * 60 * 60 * 24));
-            console.log(dias);
+            
             x.dias = dias
           }
           if (x.tipomovimientoid.catalogoid == this.constantes.devolucionOtro

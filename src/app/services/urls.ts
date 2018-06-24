@@ -10,6 +10,7 @@ export class UrlServices {
 
     login = this.autorizacion + "/uaa/oauth/token?grant_type=password"
     token = this.autorizacion + "/uaa/user"
+    loginActive=this.autorizacion+'/uaa/active'
 
     catalogos=this.proxy+"/catalogo/"
     item=this.proxy+"/item/"

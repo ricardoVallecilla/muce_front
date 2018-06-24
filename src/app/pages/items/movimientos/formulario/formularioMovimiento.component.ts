@@ -239,6 +239,7 @@ export class FormularioMovimientoComponent implements OnInit {
           if (cantidad > 0) {
             this._itemService.filtroTexto(this.museo.museoid, this.textoFiltra, first, rows)
               .subscribe((items: any[]) => {
+                items=items.filter(x=>x.estadoid==null)
                 this.items = items;
               }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }));
           } else {
@@ -628,9 +629,7 @@ export class FormularioMovimientoComponent implements OnInit {
 
     });
 
-    console.log(JSON.stringify(consultaReporte));
 
-    console.log(this.piezasAgregadas);
 
     this._itemService.reporteExposicion(consultaReporte)
       .subscribe((items: any[]) => {
