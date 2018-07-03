@@ -32,7 +32,7 @@ export class ItemComponent implements OnInit {
   item: Item = null;
   detallePiezaMuseable = false;
   catalogacion = false;
-  baja=false
+  baja = false
   restauracion = false
   museo = null;
   es = this.properties.es;
@@ -43,8 +43,11 @@ export class ItemComponent implements OnInit {
   esfiltroTexto = false;
   textoFiltra = null
   museosItem = [{ label: this.properties.labelSeleccione, value: null }]
-  esAdmin=false;
-  noTieneMuseo=false;
+  esAdmin = false;
+  noTieneMuseo = false;
+  especifico = false;
+  esCustodio = false;
+  textoGrupo
   constructor(
     private _generalService: GeneralService,
     private _router: Router,
@@ -59,24 +62,40 @@ export class ItemComponent implements OnInit {
 
   ngOnInit() {
     if (localStorage.getItem("sesion") != null) {
+      let grupoId;
       var decrypted = CryptoJS.AES.decrypt(localStorage.getItem("sesion"), this.properties.key);
       let persona = JSON.parse(decrypted.toString(CryptoJS.enc.Utf8))
 
       this.museo = persona.usuario.museoId;
-      
-      if (persona.usuario.rolId.rolid == this.constantes.rolAdministrador || persona.usuario.rolId.rolid == this.constantes.rolDirector|| persona.usuario.rolId.rolid == this.constantes.rolRestaurador) {
+
+      if (persona.usuario.rolId.rolid == this.constantes.rolAdministrador
+        || persona.usuario.rolId.rolid == this.constantes.rolDirector) {
         this.filtrarMuseos = true;
         this.buscarTodosMuseo();
-      } else  if (persona.usuario.rolId.rolid == this.constantes.rolCustodio && this.museo!=null){
+      } else if (persona.usuario.rolId.rolid == this.constantes.rolCoordinador && this.museo != null) {
+        this.filtrarMuseos = true;
+        this.especifico = true;
         this.buscarMuseo();
-      }else{
-        this.noTieneMuseo=true
+      } else if (persona.usuario.rolId.rolid == this.constantes.rolCustodio && this.museo != null) {
+        grupoId = this.constantes.grupoCultural
+        this.esCustodio = true;
+        this.buscarMuseo();
+      } else if (persona.usuario.rolId.rolid == this.constantes.rolAdministrativo && this.museo != null) {
+        grupoId = this.constantes.grupoAdminsitrativo
+        this.esCustodio = true;
+        this.buscarMuseo();
+      } else if (persona.usuario.rolId.rolid == this.constantes.rolTecnologia && this.museo != null) {
+        grupoId = this.constantes.grupoTecnologico
+        this.esCustodio = true;
+        this.buscarMuseo();
+      } else {
+        this.noTieneMuseo = true
         this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No tiene asignado ningun museo. Consulte con el administrador de sistema.' })
       }
 
-
+      this.cargarCatalogos(grupoId)
     }
-    this.cargarCatalogos()
+
   }
 
   buscarMuseo() {
@@ -102,54 +121,59 @@ export class ItemComponent implements OnInit {
     this.esfiltroTexto = false;
     this.textoFiltra = null;
     this.items = []
-    this.msgs=[]
+    this.msgs = []
+    if (this.grupo) {
+      if (this.categoria != null) {
+        this._itemService.cantidad(this.museo.museoid, this.grupo.catalogoid, this.categoria.catalogoid)
+          .subscribe((cantidad: number) => {
+            this.totalRecords = cantidad
+            if (cantidad > 0) {
+              this._itemService.filtrarItem(this.museo.museoid, this.grupo.catalogoid, this.categoria.catalogoid, 0, this.properties.cantidadRegistros)
+                .subscribe((items: any[]) => {
+                  this.items = items;
+                }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }));
+            } else {
+              this.items = [];
+            }
 
-    if (this.categoria != null) {
-      this._itemService.cantidad(this.museo.museoid, this.grupo.catalogoid, this.categoria.catalogoid)
-        .subscribe((cantidad: number) => {
-          this.totalRecords = cantidad
-          if (cantidad > 0) {
-            this._itemService.filtrarItem(this.museo.museoid, this.grupo.catalogoid, this.categoria.catalogoid, 0, this.properties.cantidadRegistros)
-              .subscribe((items: any[]) => {
-                this.items = items;
-              }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }));
-          }else{
-            this.items=[];
-          }
-
-        }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }));
-
-
-    } else
-      this.buscarTodos();
-  }
-
-  loadLazy(event) {
-    if (this.esfiltroTexto) {
-      this.filtrarItem(event.first, event.rows)
-    } else {
-      if (this.categoria != null)
-        this._itemService.filtrarItem(this.museo.museoid, this.grupo.catalogoid, this.categoria.catalogoid, event.first, event.rows)
-          .subscribe((items: any[]) => {
-            this.items = items;
           }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }));
-      else {
-        if (this.museo != null && this.grupo != null)
-          this._itemService.filtrarItem(this.museo.museoid, this.grupo.catalogoid, null, event.first, event.rows)
-            .subscribe((items: any[]) => {
-              this.items = items;
-            }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }),
-              () => {
-              });
-      }
+
+
+      } else
+        this.buscarTodos();
     }
 
   }
 
-  filtrarItem(first=0,rows=this.properties.cantidadRegistros) {
-    this.grupo = null
-    this.categoria=null
-    this.categoriaItem=[{ label: this.properties.labelSeleccione, value: null }]
+  loadLazy(event) {
+    if (this.grupo != null && this.categoria != null) {
+
+
+      if (this.esfiltroTexto) {
+        this.filtrarItem(event.first, event.rows)
+      } else {
+        if (this.categoria != null)
+          this._itemService.filtrarItem(this.museo.museoid, this.grupo.catalogoid, this.categoria.catalogoid, event.first, event.rows)
+            .subscribe((items: any[]) => {
+              this.items = items;
+            }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }));
+        else {
+          if (this.museo != null && this.grupo != null)
+            this._itemService.filtrarItem(this.museo.museoid, this.grupo.catalogoid, null, event.first, event.rows)
+              .subscribe((items: any[]) => {
+                this.items = items;
+              }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }),
+                () => {
+                });
+        }
+      }
+    }
+  }
+
+  filtrarItem(first = 0, rows = this.properties.cantidadRegistros) {
+    //this.grupo = null
+    this.categoria = null
+    this.categoriaItem = [{ label: this.properties.labelSeleccione, value: null }]
     this.esfiltroTexto = true;
     if (this.textoFiltra != null)
       this._itemService.cantidadFiltroTexto(this.museo.museoid, this.textoFiltra)
@@ -160,8 +184,8 @@ export class ItemComponent implements OnInit {
               .subscribe((items: any[]) => {
                 this.items = items;
               }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }));
-          }else{
-            this.items=[];
+          } else {
+            this.items = [];
           }
 
         }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }));
@@ -177,8 +201,8 @@ export class ItemComponent implements OnInit {
             .subscribe((items: any[]) => {
               this.items = items;
             }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }));
-        }else{
-          this.items=[];
+        } else {
+          this.items = [];
         }
 
       }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }));
@@ -188,7 +212,7 @@ export class ItemComponent implements OnInit {
 
 
 
-  cargarCatalogos() {
+  cargarCatalogos(grupo) {
     try {
       this._catalogoService.obtenerCatalogosHijosPorPadres([this.constantes.tipoIngreso, this.constantes.grupo])
         .subscribe((catalogos: any[]) => {
@@ -198,11 +222,16 @@ export class ItemComponent implements OnInit {
           catalogos.filter(x => x.catalogopadreid.catalogoid == this.constantes.grupo).forEach(x => {
             this.grupoItem.push({ label: x.nombre, value: x })
           });
+
+          if (grupo) {
+            this.grupo = this.grupoItem.find(x => x.value != null && x.value.catalogoid == grupo).value;
+            this.obtenerCategorias(this.grupo)
+          }
         }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Catalogos.' }),
           () => {
           });
     } catch (error) {
-      
+
       this._generalService.stopBlock();
       this._router.navigate(['/authentication/login']);
     }
@@ -220,39 +249,39 @@ export class ItemComponent implements OnInit {
     this.item = item;
     this.detallePiezaMuseable = true
     this.catalogacion = false;
-    this.baja=false;
+    this.baja = false;
     this.restauracion = false
   }
   verCatalogacion(item) {
     this.item = item
     this.detallePiezaMuseable = false
     this.catalogacion = true
-    this.baja=false
+    this.baja = false
     this.restauracion = false
   }
   verFormBaja(item) {
     this.item = item;
     this.detallePiezaMuseable = false
     this.catalogacion = false;
-    this.baja=true;
+    this.baja = true;
     this.restauracion = false
   }
   obtenerDatoHijo(event) {
     this.detallePiezaMuseable = false
     this.catalogacion = false;
-    this.baja=false;
+    this.baja = false;
     this.restauracion = false
     if (event) {
       this.msgs = [];
       this.msgs.push({ severity: 'success', summary: 'Éxito', detail: 'Item Actualizado.' });
     }
   }
-  
+
   verFormRestauracion(item) {
     this.item = item;
     this.detallePiezaMuseable = false
     this.catalogacion = false;
-    this.baja=false;
+    this.baja = false;
     this.restauracion = true
   }
 

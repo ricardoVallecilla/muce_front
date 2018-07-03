@@ -33,6 +33,7 @@ export class BajasComponent implements OnInit {
   @Input() item: Item = null;
   @Input() detalle = null;
   @Input() piezaMuseable: PiezaMuseable = null;
+  @Input() esCustodio = false;
   motivos
   motivosSeleccionados=[]
   es = this.properties.es;

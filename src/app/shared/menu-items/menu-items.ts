@@ -133,12 +133,14 @@ export class MenuItems {
       var decrypted = CryptoJS.AES.decrypt(localStorage.getItem("sesion"), this.properties.key);
       let persona = JSON.parse(decrypted.toString(CryptoJS.enc.Utf8))
       //console.log(persona)
-      if(persona.usuario.rolId.rolid==this.constantes.rolAdministrador ||persona.usuario.rolId.rolid==this.constantes.rolDirector){
+      if(persona.usuario.rolId.rolid==this.constantes.rolAdministrador ){
         MENUITEMS.push(MenuAdmin)
-      }else if (persona.usuario.rolId.rolid==this.constantes.rolCustodio){
+      }else if (persona.usuario.rolId.rolid==this.constantes.rolCustodio 
+        ||persona.usuario.rolId.rolid==this.constantes.rolDirector
+        ||persona.usuario.rolId.rolid==this.constantes.rolCoordinador
+        ||persona.usuario.rolId.rolid==this.constantes.rolAdministrativo
+        ||persona.usuario.rolId.rolid==this.constantes.rolTecnologia){
         MENUITEMS.push(MenuCustodio)
-      }else if (persona.usuario.rolId.rolid==this.constantes.rolRestaurador){
-        MENUITEMS.push(MenuRestaurador)
       }
       
     }

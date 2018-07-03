@@ -86,4 +86,7 @@ export class Constantes{
     rolSinPermisos=5;
     motivosBaja=741
     estadoDadoBaja=748
+    rolCoordinador=4
+    rolAdministrativo=6
+    rolTecnologia=7
 }

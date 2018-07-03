@@ -71,6 +71,8 @@ import * as CryptoJS from 'crypto-js';
   @Output() enviadorCondicion = new EventEmitter();
   @Output() enviadorCatalogos = new EventEmitter();
   @Input() esCatalogacion = false;
+  @Input() esCustodio = false;
+  
   formularioValido = false;
   diccionarioImpresion = {}
   @Output() validacionFormulario = new EventEmitter();

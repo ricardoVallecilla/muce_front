@@ -21,6 +21,8 @@ export class CatalogacionComponent implements OnInit {
   msgs: Message[] = [];
 
   @Input() detalle = null;
+  @Input() esCustodio = false;
+  
   @Input() item = null;
   piezaMuseable = null;
   es = this.properties.es;

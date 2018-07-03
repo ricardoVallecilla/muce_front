@@ -724,7 +724,7 @@
               <div class="ui-grid-row">
                 <div class="ui-grid-col-2"></div>
                 <div class="ui-grid-col-3">
-                  <button pButton type="button" (click)="subtmit();formularioValido=form.valid" label="{{properties.guardar.label}}" icon="{{properties.guardar.icon}}"></button>
+                  <button pButton type="button" (click)="subtmit();formularioValido=form.valid" *ngIf="esCustodio" label="{{properties.guardar.label}}" icon="{{properties.guardar.icon}}"></button>
                 </div>
                 <div class="ui-grid-col-3">
                   <button pButton type="button" (click)="volver()" label="{{properties.cancelar.label}}" icon="{{properties.cancelar.icon}}"

@@ -15,54 +15,59 @@ export class ItemService {
     }
 
     itemById(id) {
-        return this._generalServices.getResources("get", this.url.item+id)
+        return this._generalServices.getResources("get", this.url.item + id)
     }
     todosItem() {
         return this._generalServices.getResources("get", this.url.item)
     }
 
-    filtrarItem(museoId, grupoId , categoriaId = null,pagina,registros): Observable<any> {
+    filtrarItem(museoId, grupoId, categoriaId = null, pagina, registros): Observable<any> {
         let filtro;
-        if ( categoriaId != null)
-            filtro = {
-                "museoId": museoId,
-                "grupoId": grupoId,
-                "categoriaId": categoriaId,
-                "pagina":pagina,
-                "registros":registros
-            }
-        else
-            filtro = { "museoId": museoId ,"grupoId": grupoId,"pagina":pagina, "registros":registros}
-        return this._generalServices.getResources("post", this.url.filtrarItem, filtro)
+        if (grupoId != null) {
+
+            if (categoriaId != null)
+                filtro = {
+                    "museoId": museoId,
+                    "grupoId": grupoId,
+                    "categoriaId": categoriaId,
+                    "pagina": pagina,
+                    "registros": registros
+                }
+            else
+                filtro = { "museoId": museoId, "grupoId": grupoId, "pagina": pagina, "registros": registros }
+            return this._generalServices.getResources("post", this.url.filtrarItem, filtro)
+
+        }
+
     }
-    cantidad(museoId, grupoId , categoriaId = null): Observable<any> {
+    cantidad(museoId, grupoId, categoriaId = null): Observable<any> {
         let filtro;
-        if ( categoriaId != null)
+        if (categoriaId != null)
             filtro = {
                 "museoId": museoId,
                 "grupoId": grupoId,
                 "categoriaId": categoriaId,
-                "pagina":0,
-                "registros":0
+                "pagina": 0,
+                "registros": 0
             }
         else
-            filtro = { "museoId": museoId ,"grupoId": grupoId}
+            filtro = { "museoId": museoId, "grupoId": grupoId }
         return this._generalServices.getResources("post", this.url.cantidadItem, filtro)
     }
 
     cantidadFiltroTexto(museoId, texto): Observable<any> {
-        let filtro = { "museoId": museoId ,"texto": texto}            
+        let filtro = { "museoId": museoId, "texto": texto }
         return this._generalServices.getResources("post", this.url.cantidadFiltroTexto, filtro)
     }
-    filtroTexto(museoId, texto,pagina,registros): Observable<any> {
-        let filtro = { "museoId": museoId ,"texto": texto,"pagina":pagina, "registros":registros}            
+    filtroTexto(museoId, texto, pagina, registros): Observable<any> {
+        let filtro = { "museoId": museoId, "texto": texto, "pagina": pagina, "registros": registros }
         return this._generalServices.getResources("post", this.url.filtroTexto, filtro)
     }
-    filtrarItemsMovimientos(museoId, grupoId, categoriaId,pagina,registros): Observable<any> {
+    filtrarItemsMovimientos(museoId, grupoId, categoriaId, pagina, registros): Observable<any> {
         let filtro = {
             "museoId": museoId,
             "grupoId": grupoId,
-            "categoriaId": categoriaId,"pagina":pagina, "registros":registros
+            "categoriaId": categoriaId, "pagina": pagina, "registros": registros
         }
         return this._generalServices.getResources("post", this.url.filtrarItem + "/movimiento", filtro)
     }
@@ -108,31 +113,31 @@ export class ItemService {
     }
     guardarCatalogacion(tipo, detalle, catalogosDetalle = null): Observable<any> {
         var formData = new FormData();
-        
+
         formData.append('tipo', tipo);
-        formData.append('detalle', JSON.stringify(detalle));        
+        formData.append('detalle', JSON.stringify(detalle));
         if (catalogosDetalle != null) formData.append('catalogosDetalle', JSON.stringify(catalogosDetalle));
         return this._generalServices.getResources("post", this.url.guardarCatalogacion, formData)
 
     }
 
-    subirFoto(tipo,file,id){
+    subirFoto(tipo, file, id) {
         var formData = new FormData();
         formData.append('file', file[0]);
         formData.append('tipo', tipo);
         formData.append('id', id);
-      
+
         return this._generalServices.getResources("postFile", this.url.subirFoto, formData)
     }
 
     downloadFotografia(id) {
         return this._generalServices.getResources("getFile", this.url.downloadFotografia + id, )
     }
-    downloadFotografiaTipo(id,tipo) {
-        return this._generalServices.getResources("getFile", this.url.downloadFotografiaTipo + id+"/"+tipo )
+    downloadFotografiaTipo(id, tipo) {
+        return this._generalServices.getResources("getFile", this.url.downloadFotografiaTipo + id + "/" + tipo)
     }
     downloadUrlImagen(url) {
-        return this._generalServices.getResources("postFile", this.url.urlImagen,url )
+        return this._generalServices.getResources("postFile", this.url.urlImagen, url)
     }
     obtenerCatalogosHijos(padreId): Observable<any> {
         return this._generalServices.getResources("get", this.url.obtenerCatalogosHijos + padreId)
@@ -154,7 +159,7 @@ export class ItemService {
             case 3:
                 return this._generalServices.getResources("get", this.url.optenerDetalleEntomologia + piezaMuseableId);
             case 5:
-                return this._generalServices.getResources("get", this.url.obtenerDetalleFotografica + piezaMuseableId);    
+                return this._generalServices.getResources("get", this.url.obtenerDetalleFotografica + piezaMuseableId);
             case 7:
                 return this._generalServices.getResources("get", this.url.obtenerDetalleGeologica + piezaMuseableId);
             case 8:

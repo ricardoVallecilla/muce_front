@@ -2,16 +2,16 @@
   <div class="col-sm-12" *ngIf="!detallePiezaMuseable && !catalogacion && !baja && !restauracion">
     <app-card *ngIf="!noTieneMuseo" [title]="'Filtros'">
       <div class="ui-g">
-        <div *ngIf="filtrarMuseos" class="ui-g-12 ui-md-12 ui-lg-1">Museo</div>
-        <div *ngIf="filtrarMuseos" class="ui-g-12 ui-md-12 ui-lg-2">
-
+        <div *ngIf="filtrarMuseos && !especifico" class="ui-g-12 ui-md-12 ui-lg-1">Museo</div>
+        <div *ngIf="filtrarMuseos && !especifico" class="ui-g-12 ui-md-12 ui-lg-2">
           <p-dropdown [disabled]="bandera==1" [options]="museosItem" name="grupo" filter="true" [style]="{'width': '100%'}" [(ngModel)]="museo"></p-dropdown>
+
         </div>
         <div class="ui-g-12 ui-md-12 ui-lg-1">Grupo</div>
         <div class="ui-g-12 ui-md-12 ui-lg-2">
-
-          <p-dropdown [disabled]="bandera==1" [options]="grupoItem" name="grupo" filter="true" [style]="{'width': '100%'}" [(ngModel)]="grupo"
-            (ngModelChange)="obtenerCategorias($event)"></p-dropdown>
+          <p-dropdown *ngIf="filtrarMuseos" [disabled]="bandera==1 || !filtrarMuseos" [options]="grupoItem" name="grupo" filter="true"
+            [style]="{'width': '100%'}" [(ngModel)]="grupo" (ngModelChange)="obtenerCategorias($event)"></p-dropdown>
+          <span *ngIf="!filtrarMuseos"> {{grupo?.nombre}}</span>
         </div>
         <div class="ui-g-12 ui-md-12 ui-lg-1">Categorias</div>
         <div class="ui-g-12 ui-md-12 ui-lg-2">
@@ -43,7 +43,7 @@
 
       <p-messages [(value)]="msgs"></p-messages>
       <div class="ui-g" *ngIf="bandera==0">
-        
+
 
         <div class="ui-g-12 ui-md-12 ui-lg-12" style="padding: 0">
           <p-dataTable [value]="items" emptyMessage="{{properties.sinDatos}}" [lazy]="true" [paginator]="true" [rows]="properties.cantidadRegistros"
@@ -81,7 +81,7 @@
       <div class="ui-g" *ngIf="bandera==1">
         <form #form="ngForm" (ngSubmit)="form.valid && guardar()" style="width: 100%" novalidate>
 
-          <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin" >
+          <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin">
             <div class="ui-grid-row">
               <div class="ui-grid-col-2">
                 Código de Control *:
@@ -107,7 +107,7 @@
               <div class="ui-grid-col-10">
                 <textarea pInputTextarea style="resize: none; width: 100%" rows="3" maxlength="550" name="descripcion" [(ngModel)]="item.descripcion"
                   required></textarea>
-                  <div class="ui-messages-error" *ngIf="form.submitted  && !form.form.controls.descripcion?.valid">El campo Descripción es requerido</div>
+                <div class="ui-messages-error" *ngIf="form.submitted  && !form.form.controls.descripcion?.valid">El campo Descripción es requerido</div>
               </div>
 
             </div>
@@ -116,13 +116,13 @@
                 Marca:
               </div>
               <div class="ui-grid-col-4">
-                <input pInputText type="text" maxlength="150" name="marca" [(ngModel)]="item.marca"  />
+                <input pInputText type="text" maxlength="150" name="marca" [(ngModel)]="item.marca" />
               </div>
               <div class="ui-grid-col-2">
                 Modelo:
               </div>
               <div class="ui-grid-col-4">
-                <input pInputText type="text" maxlength="150" name="modelo" [(ngModel)]="item.modelo"  />
+                <input pInputText type="text" maxlength="150" name="modelo" [(ngModel)]="item.modelo" />
               </div>
 
             </div>
@@ -138,7 +138,7 @@
                 Valor Costo Histórico:
               </div>
               <div class="ui-grid-col-4">
-                <input pInputText type="number"  name="valor" [(ngModel)]="item.valor" required />
+                <input pInputText type="number" name="valor" [(ngModel)]="item.valor" required />
                 <div class="ui-messages-error" *ngIf="form.submitted  && !form.form.controls.valor?.valid">El campo Valor Costo Histórico es requerido</div>
               </div>
 
@@ -154,7 +154,7 @@
                 Custodio Dos:
               </div>
               <div class="ui-grid-col-4">
-                <input pInputText type="text" maxlength="150" name="custodiodos" [(ngModel)]="item.custodiodos"  />
+                <input pInputText type="text" maxlength="150" name="custodiodos" [(ngModel)]="item.custodiodos" />
               </div>
 
             </div>
@@ -185,7 +185,7 @@
                 <p-dropdown [options]="tipoItem" name="tipoItem" [(ngModel)]="item.tipoingreso" required></p-dropdown>
                 <div class="ui-messages-error" *ngIf="form.submitted  && item.tipoingreso==null">El campo Tipo de Ingreso es requerido</div>
               </div>
-              
+
 
             </div>
             <div class="ui-grid-row">
@@ -201,7 +201,7 @@
               </div>
               <div class="ui-grid-col-4">
                 <input pInputText type="text" maxlength="150" name="tipodocumento" [(ngModel)]="item.tipodocumento" />
-                
+
               </div>
 
             </div>
@@ -210,8 +210,8 @@
                 Restaurado *:
               </div>
               <div class="ui-grid-col-4">
-                <p-inputSwitch [(ngModel)]="item.restaurado" onLabel="Si" offLabel="No" name="restaurado" ></p-inputSwitch>
-                
+                <p-inputSwitch [(ngModel)]="item.restaurado" onLabel="Si" offLabel="No" name="restaurado"></p-inputSwitch>
+
               </div>
               <div class="ui-grid-col-2">
                 Fecha de Restaurado:
@@ -219,7 +219,7 @@
               <div class="ui-grid-col-4">
                 <p-calendar [disabled]="item.restaurado==false" name="fecharestaurado" [locale]="es" [(ngModel)]="item.fecharestaurado" [showIcon]="true"
                   required></p-calendar>
-                  <div class="ui-messages-error" *ngIf="form.submitted  && !form.form.controls.fecharestaurado?.valid && item.restaurado==true">El campo Fecha de Restaurado es requerido</div>
+                <div class="ui-messages-error" *ngIf="form.submitted  && !form.form.controls.fecharestaurado?.valid && item.restaurado==true">El campo Fecha de Restaurado es requerido</div>
               </div>
 
             </div>
@@ -231,7 +231,7 @@
               <div class="ui-grid-col-10">
                 <textarea pInputTextarea style="resize: none; width: 100%" rows="3" maxlength="550" name="detalles" [(ngModel)]="item.detalles"
                   required></textarea>
-                  <div class="ui-messages-error" *ngIf="form.submitted  && !form.form.controls.detalles?.valid">El campo Detalles es requerido</div>
+                <div class="ui-messages-error" *ngIf="form.submitted  && !form.form.controls.detalles?.valid">El campo Detalles es requerido</div>
               </div>
 
             </div>
@@ -239,7 +239,7 @@
             <div class="ui-grid-row">
               <div class="ui-grid-col-2"></div>
               <div class="ui-grid-col-3">
-                <button pButton type="submit" label="{{properties.guardar.label}}" icon="{{properties.guardar.icon}}" ></button>
+                <button pButton type="submit" *ngIf="!filtrarMuseos" label="{{properties.guardar.label}}" icon="{{properties.guardar.icon}}"></button>
               </div>
               <div class="ui-grid-col-3">
                 <button pButton type="button" (click)="volver()" label="{{properties.cancelar.label}}" icon="{{properties.cancelar.icon}}"
@@ -259,18 +259,18 @@
   <div style="width: 100%">
     <p-messages *ngIf="noTieneMuseo" [(value)]="msgs"></p-messages>
   </div>
-  
+
   <div class="col-sm-12" *ngIf="detallePiezaMuseable">
-    <piezaMuseable (enviadorCondicion)="obtenerDatoHijo($event)" [item]="item"></piezaMuseable>
+    <piezaMuseable [esCustodio]="esCustodio" (enviadorCondicion)="obtenerDatoHijo($event)" [item]="item"></piezaMuseable>
   </div>
   <div class="col-sm-12" *ngIf="catalogacion">
-    <catalogacion (enviadorCondicion)="obtenerDatoHijo($event)" [item]="item"></catalogacion>
+    <catalogacion [esCustodio]="esCustodio" (enviadorCondicion)="obtenerDatoHijo($event)" [item]="item"></catalogacion>
   </div>
   <div class="col-sm-12" *ngIf="baja">
-    <bajas (enviadorCondicion)="obtenerDatoHijo($event)" [item]="item"></bajas>
+    <bajas [esCustodio]="esCustodio" (enviadorCondicion)="obtenerDatoHijo($event)" [item]="item"></bajas>
   </div>
   <div class="col-sm-12" *ngIf="restauracion">
-    <restauracion (enviadorCondicion)="obtenerDatoHijo($event)" [item]="item"></restauracion>
+    <restauracion [esCustodio]="esCustodio" (enviadorCondicion)="obtenerDatoHijo($event)" [item]="item"></restauracion>
   </div>
 </div>
 
