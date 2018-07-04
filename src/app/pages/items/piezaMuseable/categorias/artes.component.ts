@@ -23,7 +23,7 @@ export class ArtesComponent implements OnInit, OnChanges {
   @Output() validacionFormulario = new EventEmitter();
   @Output() enviadorCondicion = new EventEmitter();
   @Input() materialesArteSelecionados = []
-  camposObligatorios=["descripcion"]
+  camposObligatorios=["titulo", "tecnica", "autor", "descripcion"]
 
   materialesItem = []
   diccionarioImpresion={}
@@ -31,7 +31,9 @@ export class ArtesComponent implements OnInit, OnChanges {
   es = this.properties.es;
   constructor(
     private _catalogoService: CatalogoService,
-    ) {}
+    ) {
+      console.log('Entro qui')
+    }
 
   ngOnInit() {
     this.cargarCatalogos()

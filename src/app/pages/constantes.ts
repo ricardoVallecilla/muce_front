@@ -17,7 +17,7 @@ export class Constantes{
     instrumental=30
     peleontologia=31
     zoologia=32
-    arte=1002
+    arte=794
     isntrumentalEstadoBien=58;
     arqueologiaEstadoBien = 322;
     botanicaEstadoBien=351;

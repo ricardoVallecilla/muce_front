@@ -1,21 +1,29 @@
-<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin"  *ngIf="detalle!=null">
-  
+<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin" *ngIf="detalle!=null">
+
   <div class="ui-grid-row">
     <div class="ui-grid-col-2">
       Tipo de bien:
     </div>
     <div class="ui-grid-col-10">
-      <input pInputText type="text" maxlength="150" name="morfofuncional" [(ngModel)]="detalle.tipoBien" required />
+      <input pInputText type="text" maxlength="150" name="tipoBien" [(ngModel)]="detalle.tipoBien" />
+    </div>
+    <div class="impresion">
+      {{detalle.tipoBien}}
     </div>
   </div>
 
   <div class="ui-grid-row">
     <div class="ui-grid-col-2">
-      Titulo:
+      Titulo *:
     </div>
     <div class="ui-grid-col-10">
-      <input pInputText type="text" maxlength="150" name="morfofuncional" [(ngModel)]="detalle.titulo" required />
+      <input pInputText type="text" maxlength="150" name="titulo" [(ngModel)]="detalle.titulo" #titulo="ngModel" required/>
     </div>
+    <div class="ui-messages-error" *ngIf="submitted>0  && titulo.invalid">El campo Titulo es requerido</div>
+    <div class="impresion">
+      {{detalle.titulo}}
+    </div>
+
   </div>
 
   <div class="ui-grid-row">
@@ -28,33 +36,86 @@
           <p-checkbox name="materiales" value="{{estado.catalogoid}}" label="{{estado.nombre}}" (click)="impr()" [(ngModel)]="materialesArteSelecionados"></p-checkbox>
         </div>
       </div>
-      <div class="ui-messages-error" *ngIf="submitted>0  && materialesArteSelecionados.length==0">El campo Material primario es requerido</div>
+      <div class="ui-messages-error" *ngIf="submitted>0  && materialesArteSelecionados.length==0">El campo Material es requerido</div>
       <div class="ui-g impresion" style="width: 100%">
-          <div class="ui-g-3" *ngFor="let estado of materialesArteSelecionados">
-              
-              <input type="checkbox" style="display: initial !important"  checked>{{diccionarioImpresion[estado]}}
-              
-            </div>
-          
+        <div class="ui-g-3" *ngFor="let estado of materialesArteSelecionados">
+          <input type="checkbox" style="display: initial !important" checked>{{diccionarioImpresion[estado]}}
         </div>
+      </div>
     </div>
   </div>
 
   <div class="ui-grid-row">
     <div class="ui-grid-col-2">
-      Técnica:
+      Colección:
     </div>
     <div class="ui-grid-col-10">
-      <input pInputText type="text" maxlength="150" name="morfofuncional" [(ngModel)]="detalle.tecnica" required />
+      <input pInputText type="text" maxlength="150" name="coleccion" [(ngModel)]="detalle.coleccion" />
+    </div>
+    <div class="impresion">
+      {{detalle.coleccion}}
     </div>
   </div>
 
   <div class="ui-grid-row">
     <div class="ui-grid-col-2">
-      Autor:
+      Fondo:
     </div>
     <div class="ui-grid-col-10">
-      <input pInputText type="text" maxlength="150" name="morfofuncional" [(ngModel)]="detalle.autor" required />
+      <input pInputText type="text" maxlength="150" name="fondo" [(ngModel)]="detalle.fondo" />
+    </div>
+    <div class="impresion">
+      {{detalle.fondo}}
+    </div>
+  </div>
+
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Técnica *:
+    </div>
+    <div class="ui-grid-col-10">
+      <input pInputText type="text" maxlength="150" name="tecnica" [(ngModel)]="detalle.tecnica" #tecnica="ngModel" required/>
+    </div>
+    <div class="ui-messages-error" *ngIf="submitted>0  && tecnica.invalid">El campo Técnica es requerido</div>
+    <div class="impresion">
+      {{detalle.tecnica}}
+    </div>
+  </div>
+
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Autor *:
+    </div>
+   <div class="ui-grid-col-10">
+      <input pInputText type="text" maxlength="150" name="autor" [(ngModel)]="detalle.autor" #autor="ngModel" required/>
+    </div>
+    <div class="ui-messages-error" *ngIf="submitted>0  && autor.invalid">El campo Autor es requerido</div>
+    <div class="impresion">
+      {{detalle.autor}}
+    </div>
+  </div>
+
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Epoca:
+    </div>
+    <div class="ui-grid-col-10">
+      <input pInputText type="text" maxlength="150" name="epoca" [(ngModel)]="detalle.epoca" />
+    </div>
+    <div class="impresion">
+      {{detalle.epoca}}
+    </div>
+  </div>
+
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Etapa:
+    </div>
+    <div class="ui-grid-col-10">
+      <input pInputText type="text" maxlength="150" name="etapa" [(ngModel)]="detalle.etapa" />
+    </div>
+    <div class="impresion">
+      {{detalle.etapa}}
     </div>
   </div>
 
@@ -63,43 +124,46 @@
       Siglo/Año:
     </div>
     <div class="ui-grid-col-10">
-      <input pInputText type="text" maxlength="150" name="morfofuncional" [(ngModel)]="detalle.sigloanio" required />
+      <input pInputText type="text" maxlength="150" name="sigloanio" [(ngModel)]="detalle.sigloanio" />
+    </div>
+    <div class="impresion">
+      {{detalle.sigloanio}}
     </div>
   </div>
 
   <div class="ui-grid-row">
-    <div class="ui-grid-col-2">Dimensiones:</div>
+    <div class="ui-grid-col-2">Dimensiones *:</div>
     <div class="ui-grid-col-10">
       <div class="ui-g">
         <div class="ui-g-2">
           Alto:
         </div>
         <div class="ui-g-2">
-          <input pInputText type="text" maxlength="150" name="alto" [(ngModel)]="detalle.alto"/>
+          <input pInputText type="text" maxlength="150" name="alto" [(ngModel)]="detalle.alto" />
         </div>
         <div class="ui-g-2">
           Largo:
         </div>
         <div class="ui-g-2">
-          <input pInputText type="text" maxlength="150" name="largo" [(ngModel)]="detalle.largo"/>
+          <input pInputText type="text" maxlength="150" name="largo" [(ngModel)]="detalle.largo" />
         </div>
         <div class="ui-g-2">
-            Ancho:
-          </div>
-          <div class="ui-g-2">
-            <input pInputText type="text" maxlength="150" name="ancho" [(ngModel)]="detalle.ancho"/>
-          </div>
-          <div class="ui-g-2">
-            Diámetro:
-          </div>
-          <div class="ui-g-2">
-            <input pInputText type="text" maxlength="150" name="diametro" [(ngModel)]="detalle.diametro"/>
+          Ancho:
+        </div>
+        <div class="ui-g-2">
+          <input pInputText type="text" maxlength="150" name="ancho" [(ngModel)]="detalle.ancho" />
+        </div>
+        <div class="ui-g-2">
+          Diámetro:
+        </div>
+        <div class="ui-g-2">
+          <input pInputText type="text" maxlength="150" name="diametro" [(ngModel)]="detalle.diametro" />
         </div>
         <div class="ui-g-2">
           Peso:
         </div>
         <div class="ui-g-2">
-          <input pInputText type="text" maxlength="150" name="alto" [(ngModel)]="detalle.peso"/>
+          <input pInputText type="text" maxlength="150" name="alto" [(ngModel)]="detalle.peso" />
         </div>
       </div>
     </div>
@@ -110,26 +174,24 @@
       Inscripciones:
     </div>
     <div class="ui-grid-col-10">
-      <input pInputText type="text" maxlength="150" name="morfofuncional" [(ngModel)]="detalle.inscripciones" required />
+      <input pInputText type="text" maxlength="150" name="inscripciones" [(ngModel)]="detalle.inscripciones" />
+    </div>
+    <div class="impresion">
+      {{detalle.inscripciones}}
     </div>
   </div>
 
   <div class="ui-grid-row">
     <div class="ui-grid-col-2">
-      Elementos relacionados:
+      Descripción *:
     </div>
     <div class="ui-grid-col-10">
-      <input pInputText type="text" maxlength="150" name="morfofuncional" [(ngModel)]="detalle.elementoRelacionados" required />
+      <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="550" name="descripcion" [(ngModel)]="detalle.descripcion"
+      #descripcion="ngModel" required></textarea>
+      <div class="ui-messages-error" *ngIf="submitted>0  && titulo.invalid">El campo Descripción es requerido</div>
     </div>
-  </div>
-
-  <div class="ui-grid-row">
-    <div class="ui-grid-col-2">
-      Descripción:
-    </div>
-    <div class="ui-grid-col-10">
-      <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="550" name="detalles" [(ngModel)]="detalle.descripcion"
-        required></textarea>
+    <div class="impresion">
+      {{detalle.descripcion}}
     </div>
   </div>
 
