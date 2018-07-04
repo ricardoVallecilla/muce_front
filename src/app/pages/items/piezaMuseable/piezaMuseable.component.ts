@@ -67,6 +67,7 @@ export class PiezaMuseableComponent implements OnInit {
   formularioValido = false;
   diccionarioImpresion = {}
   @Output() validacionFormulario = new EventEmitter();
+  @Input() esCustodio = false;
   camposObligatorios=["provinciaid","cantonid","ciudadid","contenedor","direccion","numero","telefono","entidadinvestigadora","inventariadopor","fechainventario", "revisadopor"
   ,"fecharevision","aprobadopor","fechaaprobacion","registrofotograficopor",  "disposicioncontenedor","estadointegridad","estadoconservacionid"]
   constructor(
