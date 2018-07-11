@@ -82,11 +82,10 @@ export class Constantes{
     rolCustodio = 3
     rolAdministrador = 1
     rolDirector=2
-    rolRestaurador=4;
+    rolCoordinador=4;
     rolSinPermisos=5;
     motivosBaja=741
     estadoDadoBaja=748
-    rolCoordinador=4
     rolAdministrativo=6
     rolTecnologia=7
 }

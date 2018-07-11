@@ -17,12 +17,23 @@ export class MuseoComponent implements OnInit {
     bandera: number = 0;
     documento: any
     custodios: any[]
+    coordinadors: any[]
+    administrativos: any[]
+    tecnologias: any[]
     custodiosModel: any[]
+    coordinadoresModel: any[]
+    administrativosModel: any[]
+    tecnologicosModel: any[]
     urlImage: any
     acciones="Museo"
     properties = new Properties();
     constantes = new Constantes();
     msgs: Message[] = []
+
+    cutodioId: any
+    coordinadorId: any
+    administrativoId: any
+    tecnologiaId: any
 
     constructor(
         public museoService: MuseoServices,
@@ -47,7 +58,15 @@ export class MuseoComponent implements OnInit {
 
     modificarMuseo(museo) {
         this.museo = museo
+        this.cutodioId = this.museo.cutodioId ? this.museo.cutodioId.id : null
+        this.coordinadorId = this.museo.coordinadorId ? this.museo.coordinadorId.id : null
+        this.administrativoId = this.museo.administrativoId ? this.museo.administrativoId.id : null
+        this.tecnologiaId = this.museo.tecnologiaId ? this.museo.tecnologiaId.id : null
+
         this.obtenerCustodios()
+        this.obtenerCoordinadores()
+        this.obtenerAdministrativos()
+        this.obtenerTecnologicos()
         this.bandera = 1;
     }
 
@@ -68,23 +87,103 @@ export class MuseoComponent implements OnInit {
             () => {})
     }
 
+    obtenerCoordinadores() {
+        this.coordinadors = [{ label: this.properties.labelSeleccione, value: null }]
+        this.usuarioService.obtenerUsuariosByRol(this.constantes.rolCoordinador)
+            .subscribe((coordinares : any[]) => {
+                this.coordinadoresModel = coordinares;
+                coordinares.forEach(element => {
+                    this.coordinadors.push({label: element.nombres, value: element.id })
+                    this.coordinadors = this.coordinadors.slice()
+                })
+            },
+            (err: any) => {
+                this.msgs = []
+                this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Coordinadores.' })
+            },
+            () => {})
+    }
+
+    obtenerAdministrativos() {
+        this.administrativos = [{ label: this.properties.labelSeleccione, value: null }]
+        this.usuarioService.obtenerUsuariosByRol(this.constantes.rolAdministrativo)
+            .subscribe((administrativos : any[]) => {
+                this.administrativosModel = administrativos;
+                administrativos.forEach(element => {
+                    this.administrativos.push({label: element.nombres, value: element.id })
+                    this.administrativos = this.administrativos.slice()
+                })
+            },
+            (err: any) => {
+                this.msgs = []
+                this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Administrativos.' })
+            },
+            () => {})
+    }
+
+    obtenerTecnologicos() {
+        this.tecnologias = [{ label: this.properties.labelSeleccione, value: null }]
+        this.usuarioService.obtenerUsuariosByRol(this.constantes.rolTecnologia)
+            .subscribe((tecnologicos : any[]) => {
+                this.tecnologicosModel = tecnologicos;
+                tecnologicos.forEach(element => {
+                    this.tecnologias.push({label: element.nombres, value: element.id })
+                    this.tecnologias = this.tecnologias.slice()
+                })
+            },
+            (err: any) => {
+                this.msgs = []
+                this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Tecnologicos.' })
+            },
+            () => {})
+    }
+
     nuevo() {
         this.bandera = 1;
         this.museo = new Object()
-        this.museo.cutodioId = new Object()
         this.obtenerCustodios()
+        this.obtenerCoordinadores()
+        this.obtenerAdministrativos()
+        this.obtenerTecnologicos()
     }
 
     cancelar() {
         this.obtenerTodoMuseos()
+        this.bandera = 0
+    }
+
+    eliminar() {
+        this.museoService.eliminar(this.museo.museoid)
+            .subscribe((resultado: any) => {
+                this.bandera = 0
+                
+            }, (err: any) => {
+                this.msgs.push({ severity: 'error', summary: 'Error', detail: 'Error al eliminar el museo.' })
+            }, () => {
+                this.obtenerTodoMuseos()
+            })
     }
     
     guardar() { 
-        let index: number = this.custodiosModel.findIndex(x => x.id == this.museo.cutodioId.id);
-        if (index != -1) {
-            this.museo.cutodioId = this.custodiosModel[index]
-        }
-        this.museoService.guardarMuseo(this.museo, this.documento)
+        let museoGuardar = this.museo
+
+        let index1: number = this.custodiosModel.findIndex(x => x.id == this.cutodioId);
+        if (index1 != -1) {
+            museoGuardar.cutodioId = this.custodiosModel[index1]
+        } 
+        let index2: number = this.coordinadoresModel.findIndex(x => x.id == this.coordinadorId);
+        if (index2 != -1) {
+            museoGuardar.coordinadorId = this.coordinadoresModel[index2]
+        } 
+        let index3: number = this.administrativosModel.findIndex(x => x.id == this.administrativoId);
+        if (index3 != -1) {
+            museoGuardar.administrativoId = this.administrativosModel[index3]
+        } 
+        let index4: number = this.tecnologicosModel.findIndex(x => x.id == this.tecnologiaId);
+        if (index4 != -1) {
+            museoGuardar.tecnologiaId = this.tecnologicosModel[index4]
+        } 
+        this.museoService.guardarMuseo(museoGuardar, this.documento)
             .subscribe((museo: any) => {
                 this.bandera=0;
             }, (err: any) => {

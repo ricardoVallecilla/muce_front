@@ -32,5 +32,8 @@ export class MuseoServices {
         return this._generalServices.getResources("post", this.url.reporteGeneral, {	"museoId":museoid,	"grupoId":grupoid})
     }
 
+    eliminar(museoid): Observable<any> {
+        return this._generalServices.getResources('delete', this.url.museo + museoid)
+    }
 
 }

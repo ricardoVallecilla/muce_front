@@ -52,12 +52,39 @@
                             <div class="ui-grid-col-4">
                                 <input type="text" pInputText maxlength="150" name="director" [(ngModel)]="museo.directora" required/>
                             </div>
+                            <div class="ui-grid-col-6">
+                            </div>
+                        </div>
+                        <div class="ui-grid-row">
                             <div class="ui-grid-col-2">
                                 Custodio *:
                             </div>
                             <div class="ui-grid-col-4">
-                                <p-dropdown name="dCustodio" [options]="custodios" [(ngModel)]="museo.cutodioId.id"
-                                    [autoWidth]="false" [filter]="true" required></p-dropdown>
+                                <p-dropdown name="dCustodio" [options]="custodios" [(ngModel)]="cutodioId"
+                                    [autoWidth]="false" [filter]="true" *ngIf="bandera==1" required></p-dropdown>
+                            </div>
+                            <div class="ui-grid-col-2">
+                                Coordinador *:
+                            </div>
+                            <div class="ui-grid-col-4">
+                                <p-dropdown name="dCoordinador" [options]="coordinadors" [(ngModel)]="coordinadorId"
+                                    [autoWidth]="false" [filter]="true" *ngIf="bandera==1" required></p-dropdown>
+                            </div>
+                        </div>
+                        <div class="ui-grid-row">
+                            <div class="ui-grid-col-2">
+                                Administrativo *:
+                            </div>
+                            <div class="ui-grid-col-4">
+                                <p-dropdown name="dAdministrativo" [options]="administrativos" [(ngModel)]="administrativoId"
+                                    [autoWidth]="false" [filter]="true" *ngIf="bandera==1" required></p-dropdown>
+                            </div>
+                            <div class="ui-grid-col-2">
+                                Técnologico *:
+                            </div>
+                            <div class="ui-grid-col-4">
+                                <p-dropdown name="dTecnologico" [options]="tecnologias" [(ngModel)]="tecnologiaId"
+                                    [autoWidth]="false" [filter]="true" *ngIf="bandera==1" required></p-dropdown>
                             </div>
                         </div>
                         <div class="ui-grid-row">
@@ -99,10 +126,14 @@
                                 <button pButton type="submit" label="{{properties.guardar.label}}" icon="{{properties.guardar.icon}}" [disabled]="!form.valid"></button>
                             </div>
                             <div class="ui-grid-col-3">
-                                <button pButton type="button" (click)="bandera=0" label="{{properties.cancelar.label}}" icon="{{properties.cancelar.icon}}"
+                                <button pButton type="button" (click)="cancelar()" label="{{properties.cancelar.label}}" icon="{{properties.cancelar.icon}}"
                                 class="ui-button-secondary"></button>
                             </div>
-                            <div class="ui-grid-col-4"></div>
+                            <div class="ui-grid-col-3">
+                                <button pButton type="button" (click)="eliminar()" label="{{properties.eliminar.label}}" icon="{{properties.eliminar.icon}}"
+                                class="ui-button-secondary"></button>
+                            </div>
+                            <div class="ui-grid-col-1"></div>
                         </div>
                     </div>
                 </form>  

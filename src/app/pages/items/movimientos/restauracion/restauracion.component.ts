@@ -113,9 +113,7 @@ import * as CryptoJS from 'crypto-js';
     if (localStorage.getItem("sesion") != null) {
       var decrypted = CryptoJS.AES.decrypt(localStorage.getItem("sesion"), this.properties.key);
       let persona = JSON.parse(decrypted.toString(CryptoJS.enc.Utf8))
-      if (persona.usuario.rolId.rolid == this.constantes.rolRestaurador) {
-        this.isRestaurador = true
-      }
+      this.isRestaurador = true
     }
   }
 

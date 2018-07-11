@@ -17,6 +17,7 @@ export class Properties{
     guardar={icon:"fa-floppy-o",label:"Guardar"}
     validar={icon:"fa-check",label:"Validar"}
     cancelar={icon:"fa-times",label:"Cancelar"}
+    eliminar={icon:"fa-trash-alt",label:"Eliminar"}
     atras={icon:"fa-times",label:"Atrás"}
     buscar ={icon:"fa-search-plus", label:"Buscar"};
     imprimir ={icon:"fa-print", label:"Imprimir"};

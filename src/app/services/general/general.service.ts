@@ -208,6 +208,13 @@ export class GeneralService {
                         this.blockUI.stop();
                         return res;
                     }).catch(this.handleError());
+            } else if (tipo == "delete") {
+                return this._http["delete"](url, optionsToken)
+                    .map((res: Response) => {
+                        this.blockUI.stop();
+                        //result = res.json();
+                        return result;
+                    }).catch(this.handleError());
             }
 
         }
