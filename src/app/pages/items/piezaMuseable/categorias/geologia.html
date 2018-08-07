@@ -1,140 +1,226 @@
-<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin"  *ngIf="detalle!=null">
-  
-    <div class="ui-grid-row">
-      <div class="ui-grid-col-2">
-        Material:
-      </div>
-      <div class="ui-grid-col-10">
-        <input pInputText type="text" maxlength="150" name="morfofuncional" [(ngModel)]="detalle.material" required />
-      </div>
-    </div>
-  
-    <div class="ui-grid-row">
-      <div class="ui-grid-col-2">
-        Clasificación:
-      </div>
-      <div class="ui-grid-col-10">
-        <input pInputText type="text" maxlength="150" name="morfofuncional" [(ngModel)]="detalle.clasificacion" required />
-      </div>
-    </div>
-  
-    <div class="ui-grid-row">
-      <div class="ui-grid-col-2">
-        Clasificación de campo:
-      </div>
-      <div class="ui-grid-col-10">
-        <input pInputText type="text" maxlength="150" name="morfofuncional" [(ngModel)]="detalle.clasificacioncampo" required />
-      </div>
-    </div>
+<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin" *ngIf="detalle!=null">
 
-    <div class="ui-grid-row">
-      <div class="ui-grid-col-2">Geocronología:</div>
-      <div class="ui-grid-col-10">
-        <div class="ui-g">
-          <div class="ui-g-2">
-            Era:
-          </div>
-          <div class="ui-g-2">
-            <input pInputText type="text" maxlength="150" name="alto" [(ngModel)]="detalle.era"/>
-          </div>
-          <div class="ui-g-2">
-            Período:
-          </div>
-          <div class="ui-g-2">
-            <input pInputText type="text" maxlength="150" name="largo" [(ngModel)]="detalle.periodo"/>
-          </div>
-          <div class="ui-g-2">
-              Época:
-            </div>
-            <div class="ui-g-2">
-              <input pInputText type="text" maxlength="150" name="alto" [(ngModel)]="detalle.epoca"/>
-            </div>
-            <div class="ui-g-2">
-              Edad:
-            </div>
-            <div class="ui-g-2">
-              <input pInputText type="text" maxlength="150" name="largo" [(ngModel)]="detalle.edad"/>
-          </div>
-        </div>
-      </div>
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Nombre Cientifico *:
     </div>
-  
-    <div class="ui-grid-row">
-      <div class="ui-grid-col-2">Dimensiones:</div>
-      <div class="ui-grid-col-10">
-        <div class="ui-g">
-          <div class="ui-g-2">
-            Alto:
-          </div>
-          <div class="ui-g-2">
-            <input pInputText type="text" maxlength="150" name="alto" [(ngModel)]="detalle.alto"/>
-          </div>
-          <div class="ui-g-2">
-            Largo:
-          </div>
-          <div class="ui-g-2">
-            <input pInputText type="text" maxlength="150" name="largo" [(ngModel)]="detalle.largo"/>
-          </div>
-          <div class="ui-g-2">
-              Ancho:
-            </div>
-            <div class="ui-g-2">
-              <input pInputText type="text" maxlength="150" name="alto" [(ngModel)]="detalle.ancho"/>
-            </div>
-            <div class="ui-g-2">
-              Diámetro:
-            </div>
-            <div class="ui-g-2">
-              <input pInputText type="text" maxlength="150" name="largo" [(ngModel)]="detalle.diametro"/>
-          </div>
-        </div>
-      </div>
+    <div class="ui-grid-col-10">
+      <input pInputText type="text" maxlength="150" name="cientifico" [(ngModel)]="detalle.cientifico" #cientifico="ngModel" required/>
     </div>
-  
-    <div class="ui-grid-row">
-      <div class="ui-grid-col-2">
-        Peso:
-      </div>
-      <div class="ui-grid-col-10">
-        <input pInputText type="text" maxlength="150" name="morfofuncional" required [(ngModel)]="detalle.peso"/>
-      </div>
+    <div class="ui-messages-error" *ngIf="submitted>0  && cientifico.invalid">El campo Cientifico es requerido</div>
+    <div class="impresion">
+      {{detalle.cientifico}}
     </div>
-  
-    <div class="ui-grid-row">
-      <div class="ui-grid-col-2">
-        Color:
-      </div>
-      <div class="ui-grid-col-10">
-        <input pInputText type="text" maxlength="150" name="morfofuncional" required [(ngModel)]="detalle.color"/>
-      </div>
-    </div>
-
-    <div class="ui-grid-row">
-      <div class="ui-grid-col-2">
-        Inscripciones:
-      </div>
-      <div class="ui-grid-col-10">
-        <input pInputText type="text" maxlength="150" name="morfofuncional" required [(ngModel)]="detalle.inscripciones"/>
-      </div>
-    </div>
-    
-      <div class="ui-grid-row">
-        <div class="ui-grid-col-2">
-          Elementos relacionados:
-        </div>
-        <div class="ui-grid-col-10">
-          <input pInputText type="text" maxlength="150" name="morfofuncional" required required [(ngModel)]="detalle.elementosrelacionados" />
-        </div>
-      </div>  
-  
-    <div class="ui-grid-row">
-      <div class="ui-grid-col-2">
-        Descripción:
-      </div>
-      <div class="ui-grid-col-10">
-        <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="550" name="detalles" [(ngModel)]="detalle.descripcion"
-          required></textarea>
-      </div>
-    </div>
-  
   </div>
+
+
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Nombre Comun *:
+    </div>
+    <div class="ui-grid-col-10">
+      <input pInputText type="text" maxlength="150" name="comun" [(ngModel)]="detalle.comun" #comun="ngModel" required/>
+    </div>
+    <div class="ui-messages-error" *ngIf="submitted>0  && comun.invalid">El campo Comun es requerido</div>
+    <div class="impresion">
+      {{detalle.comun}}
+    </div>
+  </div>
+
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Material *:
+    </div>
+    <div class="ui-grid-col-10">
+      <input pInputText type="text" maxlength="150" name="material" [(ngModel)]="detalle.material" #material="ngModel" required/>
+    </div>
+    <div class="ui-messages-error" *ngIf="submitted>0  && material.invalid">El campo Material es requerido</div>
+    <div class="impresion">
+      {{detalle.material}}
+    </div>
+  </div>
+
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Clasificación:
+    </div>
+
+    <div class="ui-grid-col-10">
+      <input pInputText type="text" maxlength="150" name="clasificacion" [(ngModel)]="detalle.clasificacion" />
+    </div>
+    <div class="impresion">
+      {{detalle.clasificacion}}
+    </div>
+  </div>
+
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Clasificación de campo:
+    </div>
+    <div class="ui-grid-col-10">
+      <input pInputText type="text" maxlength="150" name="clasificacioncampo" [(ngModel)]="detalle.clasificacioncampo" />
+    </div>
+    <div class="impresion">
+      {{detalle.clasificacioncampo}}
+    </div>
+  </div>
+
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">Geocronología:</div>
+    <div class="ui-grid-col-10">
+      <div class="ui-g">
+        <div class="ui-g-2">
+          Era:
+        </div>
+        <div class="ui-grid-col-2">
+          <input pInputText type="text" maxlength="150" name="era" [(ngModel)]="detalle.era" #era="ngModel" required/>
+        </div>
+        <div class="ui-messages-error" *ngIf="submitted>0  && era.invalid">El campo Era es requerido</div>
+        <div class="impresion">
+          {{detalle.era}}
+        </div>
+        <div class="ui-g-2">
+          Período:
+        </div>
+        <div class="ui-grid-col-2">
+          <input pInputText type="text" maxlength="150" name="periodo" [(ngModel)]="detalle.periodo" #periodo="ngModel" required/>
+        </div>
+        <div class="ui-messages-error" *ngIf="submitted>0  && periodo.invalid">El campo Periodo es requerido</div>
+        <div class="impresion">
+          {{detalle.periodo}}
+        </div>
+        <div class="ui-g-2">
+          Época:
+        </div>
+        <div class="ui-grid-col-2">
+          <input pInputText type="text" maxlength="150" name="epoca" [(ngModel)]="detalle.epoca" #epoca="ngModel" required/>
+        </div>
+        <div class="ui-messages-error" *ngIf="submitted>0  && epoca.invalid">El campo Epoca es requerido</div>
+        <div class="impresion">
+          {{detalle.epoca}}
+        </div>
+        <div class="ui-g-2">
+          Edad:
+        </div>
+        <div class="ui-grid-col-2">
+          <input pInputText type="text" maxlength="150" name="edad" [(ngModel)]="detalle.edad" #edad="ngModel" required/>
+        </div>
+        <div class="ui-messages-error" *ngIf="submitted>0  && edad.invalid">El campo Edad es requerido</div>
+        <div class="impresion">
+          {{detalle.edad}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">Dimensiones:</div>
+    <div class="ui-grid-col-10">
+      <div class="ui-g">
+        <div class="ui-g-2">
+          Alto *:
+        </div>
+        <div class="ui-grid-col-2">
+          <input pInputText type="text" maxlength="150" name="alto" [(ngModel)]="detalle.alto" #alto="ngModel" required/>
+        </div>
+        <div class="ui-messages-error" *ngIf="submitted>0  && alto.invalid">El campo Alto es requerido</div>
+        <div class="impresion">
+          {{detalle.alto}}
+        </div>
+        <div class="ui-g-2">
+          Largo *:
+        </div>
+        <div class="ui-grid-col-2">
+          <input pInputText type="text" maxlength="150" name="largo" [(ngModel)]="detalle.largo" #largo="ngModel" required/>
+        </div>
+        <div class="ui-messages-error" *ngIf="submitted>0  && largo.invalid">El campo Largo es requerido</div>
+        <div class="impresion">
+          {{detalle.largo}}
+        </div>
+        <div class="ui-g-2">
+          Ancho *:
+        </div>
+        <div class="ui-grid-col-2">
+          <input pInputText type="text" maxlength="150" name="ancho" [(ngModel)]="detalle.ancho" #ancho="ngModel" required/>
+        </div>
+        <div class="ui-messages-error" *ngIf="submitted>0  && ancho.invalid">El campo Ancho es requerido</div>
+        <div class="impresion">
+          {{detalle.ancho}}
+        </div>
+        <div class="ui-g-2">
+          Diámetro *:
+        </div>
+        <div class="ui-grid-col-2">
+          <input pInputText type="text" maxlength="150" name="diametro" [(ngModel)]="detalle.diametro" #diametro="ngModel" required/>
+        </div>
+        <div class="ui-messages-error" *ngIf="submitted>0  && diametro.invalid">El campo Diametro es requerido</div>
+        <div class="impresion">
+          {{detalle.diametro}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Peso:
+    </div>
+    <div class="ui-grid-col-10">
+      <input pInputText type="text" maxlength="150" name="peso" required [(ngModel)]="detalle.peso" />
+    </div>
+    <div class="impresion">
+      {{detalle.peso}}
+    </div>
+  </div>
+
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Color:
+    </div>
+    <div class="ui-grid-col-10">
+      <input pInputText type="text" maxlength="150" name="color" required [(ngModel)]="detalle.color" />
+    </div>
+    <div class="impresion">
+      {{detalle.color}}
+    </div>
+  </div>
+
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Inscripciones:
+    </div>
+    <div class="ui-grid-col-10">
+      <input pInputText type="text" maxlength="150" name="inscripciones" required [(ngModel)]="detalle.inscripciones" />
+    </div>
+    <div class="impresion">
+      {{detalle.inscripciones}}
+    </div>
+  </div>
+
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Elementos relacionados:
+    </div>
+    <div class="ui-grid-col-10">
+      <input pInputText type="text" maxlength="150" name="elementosrelacionados" required [(ngModel)]="detalle.elementosrelacionados"
+      />
+    </div>
+    <div class="impresion">
+      {{detalle.elementosrelacionados}}
+    </div>
+  </div>
+
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Descripción *:
+    </div>
+    <div class="ui-grid-col-10">
+        <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="550" name="descripcion" [(ngModel)]="detalle.descripcion"
+        #descripcion="ngModel" required></textarea>
+        <div class="ui-messages-error" *ngIf="submitted>0  && descripcion.invalid">El campo Descripción es requerido</div>
+      </div>
+      <div class="impresion">
+        {{detalle.descripcion}}
+      </div>
+  </div>
+</div>

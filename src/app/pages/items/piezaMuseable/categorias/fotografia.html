@@ -1,47 +1,142 @@
-<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin"  *ngIf="detalle!=null">
-  
+<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin" *ngIf="detalle!=null">
+
   <div class="ui-grid-row">
     <div class="ui-grid-col-2">
-      Titulo:
+      Titulo *:
     </div>
     <div class="ui-grid-col-10">
-      <input pInputText type="text" maxlength="150" name="morfofuncional" [(ngModel)]="detalle.titulo" required />
+      <input pInputText type="text" maxlength="150" name="titulo" [(ngModel)]="detalle.titulo" #titulo="ngModel" required/>
+    </div>
+    <div class="ui-messages-error" *ngIf="submitted>0  && titulo.invalid">El campo Titulo es requerido</div>
+    <div class="impresion">
+      {{detalle.titulo}}
     </div>
   </div>
 
   <div class="ui-grid-row">
     <div class="ui-grid-col-2">
-      Temática:
+      Autor *:
     </div>
     <div class="ui-grid-col-10">
-      <input pInputText type="text" maxlength="150" name="morfofuncional" [(ngModel)]="detalle.tematica" required />
+      <input pInputText type="text" maxlength="150" name="autor" [(ngModel)]="detalle.autor" #autor="ngModel" required/>
+    </div>
+    <div class="ui-messages-error" *ngIf="submitted>0  && autor.invalid">El campo Autor es requerido</div>
+    <div class="impresion">
+      {{detalle.autor}}
     </div>
   </div>
 
   <div class="ui-grid-row">
     <div class="ui-grid-col-2">
-      Tipología:
+      Temática *:
     </div>
     <div class="ui-grid-col-10">
-      <input pInputText type="text" maxlength="150" name="morfofuncional" [(ngModel)]="detalle.tipologia" required />
+      <input pInputText type="text" maxlength="150" name="tematica" [(ngModel)]="detalle.tematica" #tematica="ngModel" required/>
+    </div>
+    <div class="ui-messages-error" *ngIf="submitted>0  && tematica.invalid">El campo Tematica es requerido</div>
+    <div class="impresion">
+      {{detalle.tematica}}
     </div>
   </div>
 
   <div class="ui-grid-row">
     <div class="ui-grid-col-2">
-      Procedimiento/Soporte:
+      Tipología *:
     </div>
     <div class="ui-grid-col-10">
-      <input pInputText type="text" maxlength="150" name="morfofuncional" [(ngModel)]="detalle.procedimiento" required />
+      <input pInputText type="text" maxlength="150" name="tipologia" [(ngModel)]="detalle.tipologia" #tipologia="ngModel" required/>
+    </div>
+    <div class="ui-messages-error" *ngIf="submitted>0  && tipologia.invalid">El campo Tipología es requerido</div>
+    <div class="impresion">
+      {{detalle.tipologia}}
     </div>
   </div>
 
   <div class="ui-grid-row">
     <div class="ui-grid-col-2">
-      Autor:
+      Siglo/Año *:
     </div>
     <div class="ui-grid-col-10">
-      <input pInputText type="text" maxlength="150" name="morfofuncional" [(ngModel)]="detalle.autor" required />
+      <input pInputText type="text" maxlength="150" name="sigloano" [(ngModel)]="detalle.sigloano" #sigloano="ngModel" required/>
+    </div>
+    <div class="ui-messages-error" *ngIf="submitted>0  && sigloano.invalid">El campo Tipología es requerido</div>
+    <div class="impresion">
+      {{detalle.sigloano}}
+    </div>
+  </div>
+
+
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Procedimiento/Soporte *:
+    </div>
+    <div class="ui-grid-col-10">
+      <input pInputText type="text" maxlength="150" name="procedimiento" [(ngModel)]="detalle.procedimiento" #procedimiento="ngModel"
+        required/>
+    </div>
+    <div class="ui-messages-error" *ngIf="submitted>0  && procedimiento.invalid">El campo Procedimiento/Soporte es requerido</div>
+    <div class="impresion">
+      {{detalle.procedimiento}}
+    </div>
+  </div>
+
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Formato:
+    </div>
+    <div class="ui-grid-col-10">
+      <input pInputText type="text" maxlength="150" name="formato" [(ngModel)]="detalle.formato" />
+    </div>
+    <div class="impresion">
+      {{detalle.formato}}
+    </div>
+  </div>
+
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Plano:
+    </div>
+    <div class="ui-grid-col-10">
+      <input pInputText type="text" maxlength="150" name="plano" [(ngModel)]="detalle.plano" />
+    </div>
+    <div class="impresion">
+      {{detalle.plano}}
+    </div>
+  </div>
+
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Encuadre:
+    </div>
+    <div class="ui-grid-col-10">
+      <input pInputText type="text" maxlength="150" name="encuadre" [(ngModel)]="detalle.encuadre" />
+    </div>
+    <div class="impresion">
+      {{detalle.encuadre}}
+    </div>
+  </div>
+
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Angulo fotográfico:
+    </div>
+    <div class="ui-grid-col-10">
+      <input pInputText type="text" maxlength="150" name="angulo" [(ngModel)]="detalle.angulo" />
+    </div>
+    <div class="impresion">
+      {{detalle.angulo}}
+    </div>
+  </div>
+
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Colección:
+    </div>
+    <div class="ui-grid-col-10">
+      <input pInputText type="text" maxlength="150" name="coleccion" [(ngModel)]="detalle.coleccion" />
+    </div>
+    <div class="impresion">
+      {{detalle.coleccion}}
     </div>
   </div>
 
@@ -49,63 +144,65 @@
     <div class="ui-grid-col-2">
       Fondo:
     </div>
-    <div class="ui-grid-col-6">
-      <input pInputText type="text" maxlength="150" name="morfofuncional" [(ngModel)]="detalle.fondo" required />
+    <div class="ui-grid-col-10">
+      <input pInputText type="text" maxlength="150" name="fondo" [(ngModel)]="detalle.fondo" />
     </div>
-    <div class="ui-grid-col-2">
-      Siglo/Año:
-    </div>
-    <div class="ui-grid-col-2">
-      <input pInputText type="text" maxlength="150" name="morfofuncional" [(ngModel)]="detalle.sigloano" required />
+    <div class="impresion">
+      {{detalle.fondo}}
     </div>
   </div>
 
   <div class="ui-grid-row">
-    <div class="ui-grid-col-2">Dimensiones:</div>
+    <div class="ui-grid-col-2">Medidas:</div>
     <div class="ui-grid-col-10">
       <div class="ui-g">
-          <div class="ui-g-2">
-              Alto *:
-            </div>
-            <div class="ui-g-2">
-              <input pInputText type="text" maxlength="150" name="alto" [(ngModel)]="detalle.alto"/>
-            </div>
-            <div class="ui-g-2">
-              Largo *:
-            </div>
-            <div class="ui-g-2">
-              <input pInputText type="text" maxlength="150" name="largo" [(ngModel)]="detalle.largo"/>
-            </div>
-          </div>
+        <div class="ui-g-2">
+          Alto *:
         </div>
+        <div class="ui-grid-col-2">
+          <input pInputText type="text" maxlength="150" name="alto" [(ngModel)]="detalle.alto" #alto="ngModel" required/>
+        </div>
+        <div class="ui-messages-error" *ngIf="submitted>0  && alto.invalid">El campo Alto es requerido</div>
+        <div class="impresion">
+          {{detalle.alto}}
+        </div>
+        <div class="ui-g-2">
+          Largo *:
+        </div>
+        <div class="ui-grid-col-2">
+          <input pInputText type="text" maxlength="150" name="largo" [(ngModel)]="detalle.largo" #largo="ngModel" required/>
+        </div>
+        <div class="ui-messages-error" *ngIf="submitted>0  && largo.invalid">El campo Largo es requerido</div>
+        <div class="impresion">
+          {{detalle.largo}}
+        </div>
+      </div>
     </div>
+  </div>
 
   <div class="ui-grid-row">
     <div class="ui-grid-col-2">
       Inscripciones:
     </div>
     <div class="ui-grid-col-10">
-      <input pInputText type="text" maxlength="150" name="morfofuncional" [(ngModel)]="detalle.inscripciones" required />
+      <input pInputText type="text" maxlength="150" name="inscripciones" [(ngModel)]="detalle.inscripciones" />
+    </div>
+    <div class="impresion">
+      {{detalle.inscripciones}}
     </div>
   </div>
 
   <div class="ui-grid-row">
     <div class="ui-grid-col-2">
-      Elementos relacionados:
+      Descripción *:
     </div>
     <div class="ui-grid-col-10">
-      <input pInputText type="text" maxlength="150" name="morfofuncional" required [(ngModel)]="detalle.elementosrelacionado"/>
+      <input pInputText type="text" maxlength="150" name="descripcion" [(ngModel)]="detalle.descripcion" #descripcion="ngModel"
+        required/>
+    </div>
+    <div class="ui-messages-error" *ngIf="submitted>0  && descripcion.invalid">El campo Descripción es requerido</div>
+    <div class="impresion">
+      {{detalle.descripcion}}
     </div>
   </div>
-
-  <div class="ui-grid-row">
-    <div class="ui-grid-col-2">
-      Descripción:
-    </div>
-    <div class="ui-grid-col-10">
-      <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="550" name="detalles" [(ngModel)]="detalle.descripcion"
-        required></textarea>
-    </div>
-  </div>
-
 </div>

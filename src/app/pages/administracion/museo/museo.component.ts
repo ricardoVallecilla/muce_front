@@ -167,22 +167,41 @@ export class MuseoComponent implements OnInit {
     guardar() { 
         let museoGuardar = this.museo
 
-        let index1: number = this.custodiosModel.findIndex(x => x.id == this.cutodioId);
-        if (index1 != -1) {
-            museoGuardar.cutodioId = this.custodiosModel[index1]
-        } 
-        let index2: number = this.coordinadoresModel.findIndex(x => x.id == this.coordinadorId);
-        if (index2 != -1) {
-            museoGuardar.coordinadorId = this.coordinadoresModel[index2]
-        } 
-        let index3: number = this.administrativosModel.findIndex(x => x.id == this.administrativoId);
-        if (index3 != -1) {
-            museoGuardar.administrativoId = this.administrativosModel[index3]
-        } 
-        let index4: number = this.tecnologicosModel.findIndex(x => x.id == this.tecnologiaId);
-        if (index4 != -1) {
-            museoGuardar.tecnologiaId = this.tecnologicosModel[index4]
-        } 
+        if (this.cutodioId) {
+            let index1: number = this.custodiosModel.findIndex(x => x.id == this.cutodioId);
+            if (index1 != -1) {
+                museoGuardar.cutodioId = this.custodiosModel[index1]
+            }
+        } else {
+            museoGuardar.cutodioId = null
+        }
+
+        if (this.coordinadorId) {
+            let index2: number = this.coordinadoresModel.findIndex(x => x.id == this.coordinadorId);
+            if (index2 != -1) {
+                museoGuardar.coordinadorId = this.coordinadoresModel[index2]
+            } 
+        } else {
+            museoGuardar.coordinadorId = null
+        }
+
+        if (this.administrativoId) {
+            let index3: number = this.administrativosModel.findIndex(x => x.id == this.administrativoId);
+            if (index3 != -1) {
+                museoGuardar.administrativoId = this.administrativosModel[index3]
+            }
+        } else {
+            museoGuardar.administrativoId = null
+        }
+
+        if (this.tecnologiaId) {
+            let index4: number = this.tecnologicosModel.findIndex(x => x.id == this.tecnologiaId);
+            if (index4 != -1) {
+                museoGuardar.tecnologiaId = this.tecnologicosModel[index4]
+            } 
+        } else {
+            museoGuardar.tecnologiaId = null
+        }
         this.museoService.guardarMuseo(museoGuardar, this.documento)
             .subscribe((museo: any) => {
                 this.bandera=0;
