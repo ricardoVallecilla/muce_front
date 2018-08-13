@@ -15,10 +15,6 @@ export class UsuarioService {
         return this._generalServices.getResources("get", this.url.optenerUsuarios)
     }
 
-    obtenerUsuariosByRol(rolId): Observable<any[]> { 
-        return this._generalServices.getResources("get", this.url.obtenerUsuariosByRol + '/' + rolId)
-    }
-
     optenerRoles(): Observable<any> {
         return this._generalServices.getResources("get", this.url.optenerRoles)
     }
@@ -35,6 +31,13 @@ export class UsuarioService {
         return this._generalServices.getResources("post", this.url.optenerUsuarios,usuario)
     }
 
+    getRolUsuarioByUserId(rolId): Observable<any> {
+        return this._generalServices.getResources('get', this.url.rolUsuario + 'usuario/' + rolId)
+    }
+
+    getRolUsuarioByRolId(userId): Observable<any> {
+        return this._generalServices.getResources('get', this.url.rolUsuario + 'rol/' + userId)
+    }
 
     //     getUsuarioId(){
     //         return this._generalServices.getPersonaId();

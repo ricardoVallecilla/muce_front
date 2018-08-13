@@ -72,7 +72,7 @@ export class MuseoComponent implements OnInit {
 
     obtenerCustodios() {
         this.custodios = [{ label: this.properties.labelSeleccione, value: null }]
-        this.usuarioService.obtenerUsuariosByRol(this.constantes.rolCustodio)
+        this.usuarioService.getRolUsuarioByUserId(this.constantes.rolCustodio)
             .subscribe((custodios : any[]) => {
                 this.custodiosModel = custodios;
                 custodios.forEach(element => {
@@ -89,7 +89,7 @@ export class MuseoComponent implements OnInit {
 
     obtenerCoordinadores() {
         this.coordinadors = [{ label: this.properties.labelSeleccione, value: null }]
-        this.usuarioService.obtenerUsuariosByRol(this.constantes.rolCoordinador)
+        this.usuarioService.getRolUsuarioByUserId(this.constantes.rolCoordinador)
             .subscribe((coordinares : any[]) => {
                 this.coordinadoresModel = coordinares;
                 coordinares.forEach(element => {
@@ -106,7 +106,7 @@ export class MuseoComponent implements OnInit {
 
     obtenerAdministrativos() {
         this.administrativos = [{ label: this.properties.labelSeleccione, value: null }]
-        this.usuarioService.obtenerUsuariosByRol(this.constantes.rolAdministrativo)
+        this.usuarioService.getRolUsuarioByUserId(this.constantes.rolAdministrativo)
             .subscribe((administrativos : any[]) => {
                 this.administrativosModel = administrativos;
                 administrativos.forEach(element => {
@@ -123,7 +123,7 @@ export class MuseoComponent implements OnInit {
 
     obtenerTecnologicos() {
         this.tecnologias = [{ label: this.properties.labelSeleccione, value: null }]
-        this.usuarioService.obtenerUsuariosByRol(this.constantes.rolTecnologia)
+        this.usuarioService.getRolUsuarioByUserId(this.constantes.rolTecnologia)
             .subscribe((tecnologicos : any[]) => {
                 this.tecnologicosModel = tecnologicos;
                 tecnologicos.forEach(element => {

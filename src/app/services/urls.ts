@@ -70,6 +70,7 @@ export class UrlServices {
     urlImagen=this.item+"urlImagen"
     reporteGeneral=this.item+"reportegeneral"
     restauracion=this.proxy+"/restauracion/"
+    rolUsuario = this.proxy + '/rolusuario/'
 
     constructor() {
 
