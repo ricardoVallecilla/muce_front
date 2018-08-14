@@ -1,71 +1,97 @@
 <div class="row">
   <div class="col-sm-12">
-    <app-card [title]="acciones">
-
-
+    <app-card [title]="acciones" *ngIf="!asignar">
       <p-tabView>
         <p-tabPanel header="Usuarios" leftIcon="fa-users">
-            <p-messages [(value)]="msgs"></p-messages>
+          <p-messages [(value)]="msgs"></p-messages>
           <p-dataTable [value]="usuarios">
             <p-column field="username" header="Usuario"></p-column>
             <p-column field="nombres" header="Nombres"></p-column>
-            <p-column field="rol"  header="Rol" [style]="{'width':'175px'}">
+            <p-column header="Rol" [style]="{'width':'175px'}">
               <ng-template let-usuario="rowData" pTemplate="body">
-                <p-dropdown *ngIf="usuario.id!=0" [options]="rolItem" [(ngModel)]="usuario.rolId" (ngModelChange)="actualizarRol($event,usuario)"></p-dropdown>
+                <ul>
+                  <li *ngFor="let rol of usuario.roles">{{rol.nombre}}</li>
+                </ul>
+                <!--p-dropdown *ngIf="usuario.id!=0" [options]="rolItem" [(ngModel)]="usuario.rolId" (ngModelChange)="actualizarRol($event,usuario)"></p-dropdown-->
               </ng-template>
-            </p-column>           
+            </p-column>
+            <p-column header="Opciones" [style]="{'width':'135px','text-align':'center'}">
+              <ng-template let-usuario="rowData" pTemplate="body">
+                <button type="button" class="buttonAction" pButton (click)="modificarRoles(usuario)" icon="{{properties.iconEditar}}" title="Editar"></button>
+              </ng-template>
+            </p-column>
           </p-dataTable>
         </p-tabPanel>
         <p-tabPanel header="Roles" leftIcon="fa-user-circle-o">
-            <p-messages [(value)]="msgsRol"></p-messages>
+          <p-messages [(value)]="msgsRol"></p-messages>
           <p-dataTable [value]="roles" *ngIf="bandera==0">
             <p-column field="nombre" header="Nombre"></p-column>
             <p-column field="permisos" header="Permisos">
-                <ng-template let-rol="rowData" pTemplate="body">
-                    <ul>
-                      <li *ngFor="let permiso of rol.permisoSet">{{permiso.nombre}}</li>
-                    </ul>
-                  </ng-template>
-            </p-column>
-            <!-- <p-column header="Opciones" [style]="{'width':'175px'}">
               <ng-template let-rol="rowData" pTemplate="body">
-                <button pButton (click)="modificarPermisos(rol)" icon="fa fa-fw fa-check" label="Modificar Permisos"></button>
+                <ul>
+                  <li *ngFor="let permiso of rol.permisoSet">{{permiso.nombre}}</li>
+                </ul>
               </ng-template>
-            </p-column> -->
-
+            </p-column>
           </p-dataTable>
           <div *ngIf="bandera==1">
             <div class="ui-g">
-                <div class="ui-g-12 ui-md-12 ui-lg-6">
-                    <p-listbox [options]="permisos" [style]="{'width':'100%'}" [(ngModel)]="permisosSelecionado" multiple="multiple" checkbox="checkbox" filter="filter">
-                        <p-header>
-                          <i class="fa fa-user-circle-o"></i> ROL {{rolSeleccionado.nombre}}
-                        </p-header>
-                      </p-listbox>
-                </div>
-                <div class="ui-g-12 ui-md-12 ui-lg-6"></div>                  
-                
-                <div class="ui-g-12 ui-md-12 ui-lg-6 alineacionBotones" >
-                    <button pButton (click)="guardar()" icon="fa fa-fw fa-check" label="Guardar"></button>
-                </div>
-
+              <div class="ui-g-12 ui-md-12 ui-lg-6">
+                <p-listbox [options]="permisos" [style]="{'width':'100%'}" [(ngModel)]="permisosSelecionado" multiple="multiple" checkbox="checkbox"
+                  filter="filter">
+                  <p-header>
+                    <i class="fa fa-user-circle-o"></i> ROL {{rolSeleccionado.nombre}}
+                  </p-header>
+                </p-listbox>
+              </div>
+              <div class="ui-g-12 ui-md-12 ui-lg-6"></div>
+              <div class="ui-g-12 ui-md-12 ui-lg-6 alineacionBotones">
+                <button pButton (click)="guardar()" icon="fa fa-fw fa-check" label="Guardar"></button>
+              </div>
             </div>
-            
-            
           </div>
-
         </p-tabPanel>
-       
       </p-tabView>
+    </app-card>
+    <app-card [title]="titleAsignar" *ngIf="asignar">
+      <div class="ui-g">
+        <form #form="ngForm" (ngSubmit)="asignarRoles()" style="width: 100%" novalidate>
+          <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin">
+            <div class="ui-grid-row">
+              <div class="ui-grid-col-2">
+                Nombre :
+              </div>
+              <div class="ui-grid-col-6">
+                <input type="text" pInputText maxlength="150" name="nombre" [(ngModel)]="usuarioSeleccionado.nombres" disabled="true" />
+              </div>
+            </div>
+            <div class="ui-grid-row">
+              <div class="ui-grid-col-8">
+                <p-listbox name="rolesList" [options]="rolItem" [(ngModel)]="rolesEditar" multiple="multiple" checkbox="checkbox" optionLabel="nombre">
+                </p-listbox>
+              </div>
+            </div>
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-1"></div>
+                <div class="ui-grid-col-3">
+                    <button pButton type="submit" label="{{properties.guardar.label}}" icon="{{properties.guardar.icon}}" [disabled]="!form.valid"></button>
+                </div>
+                <div class="ui-grid-col-3">
+                    <button pButton type="button" (click)="cancelar()" label="{{properties.cancelar.label}}" icon="{{properties.cancelar.icon}}"
+                    class="ui-button-secondary"></button>
+                </div>
+                <div class="ui-grid-col-1"></div>
+            </div>
+          </div>
+        </form>
+      </div>
     </app-card>
   </div>
 </div>
 
 <p-confirmDialog key="confirmar" width="425" #cdEliminar>
-    <p-footer>
-        <button type="button" id="aceptarEliminarBtn" pButton icon="fa-check" label="Aceptar"
-            (click)="actualizarUsuarioRol();cdEliminar.reject()"></button>
-        <button type="button" id="cambiarConvocatoria();cancelarEliminarBtn" pButton icon="fa-times" label="Cancelar"
-            (click)="cdEliminar.reject()"></button>
-    </p-footer>
+  <p-footer>
+    <button type="button" id="aceptarEliminarBtn" pButton icon="fa-check" label="Aceptar" (click)="actualizarUsuarioRol();cdEliminar.reject()"></button>
+    <button type="button" id="cambiarConvocatoria();cancelarEliminarBtn" pButton icon="fa-times" label="Cancelar" (click)="cdEliminar.reject()"></button>
+  </p-footer>
 </p-confirmDialog>

@@ -3,7 +3,7 @@ import { Properties } from '../../properties'
 import { CatalogoService } from '../../../services/catalogos/catalogos.service'
 import { UsuarioService } from '../../../services/usuarios/usuarios.service'
 import { SelectItem } from 'primeng/primeng';
-import { Message,ConfirmationService } from 'primeng/primeng';
+import { Message, ConfirmationService } from 'primeng/primeng';
 @Component({
   selector: 'usuarios',
   templateUrl: './usuarios.html'
@@ -11,6 +11,7 @@ import { Message,ConfirmationService } from 'primeng/primeng';
 })
 export class UsuarioComponent implements OnInit {
   title = "Usuarios"
+  titleAsignar = 'Asignar Roles a Usuario'
   properties = new Properties();
   msgs: Message[] = [];
   acciones = this.properties.labelLista + this.title;
@@ -19,48 +20,87 @@ export class UsuarioComponent implements OnInit {
   rolSeleccionado = null;
   permisos = []
   permisosSelecionado = [];
-  usuarios=[];
-  rolItem=[]
-  
+  usuarios = [];
+  rolItem = []
+  rolesEditar = []
+  asignar = false
+
   msgsRol: Message[] = [];
-  usuarioSeleccionado=null;
+  usuarioSeleccionado = null;
   constructor(private _catalogoService: CatalogoService,
     private confirmationService: ConfirmationService,
     private _usuarioService: UsuarioService
   ) { }
 
   ngOnInit() {
-   
+
     this.cargarRoles();
     this.cargarPermisos();
   }
 
-  
+
 
   cargarRoles() {
     this._usuarioService.optenerRoles()
       .subscribe((roles: any[]) => {
         this.roles = roles;
-        this.rolItem=[{ label: this.properties.labelSeleccione, value: null }]
+        this.rolItem = []
         roles.forEach(x => {
-          this.rolItem.push({ label: x.nombre, value: x })
+          if (x.rolid != 1 && x.rolid != 5) {
+            this.rolItem.push(x)
+          }
         });
         this.cargarUsuarios()
       }, (err: any) => console.log(err),
-      () => {
-      });
+        () => {
+        });
   }
 
   // 
 
+  modificarRoles(usuario) {
+    this.usuarioSeleccionado = usuario
+    this.rolesEditar = usuario.roles
+    this.asignar = true
+  }
+
+  cancelar() {
+    this.cargarUsuarios()
+    this.asignar = false
+  }
+
+  asignarRoles() {
+    let rolAsignar = []
+    this.rolesEditar.forEach(element => {
+      rolAsignar.push({ rolId: element, usrId: this.usuarioSeleccionado})
+    })
+    this._usuarioService.asignarRoles(rolAsignar)
+      .subscribe(() => {
+          this.cargarUsuarios()
+          this.asignar = false
+          console.log('Asignados');
+      }, (err: any) => {
+        console.log(err);
+      }, () => { })
+  }
+
   cargarUsuarios() {
+    this.usuarios = []
     this._usuarioService.optenerUsuarios()
       .subscribe((usuarios: any[]) => {
-        
-        this.usuarios = usuarios;
+        usuarios.forEach(element => {
+          this._usuarioService.getRolUsuarioByRolId(element.id)
+            .subscribe((roles: any) => {
+              element.roles = roles
+              this.usuarios.push(element)
+              this.usuarios = this.usuarios.slice()
+            }, (err: any) => {
+              console.log(err)
+            }, () => { })
+        })
       }, (err: any) => console.log(err),
-      () => {
-      });
+        () => {
+        });
   }
 
   cargarPermisos() {
@@ -73,51 +113,51 @@ export class UsuarioComponent implements OnInit {
 
 
       }, (err: any) => console.log(err),
-      () => {
-      });
+        () => {
+        });
   }
 
   modificarPermisos(rol) {
-    this.permisosSelecionado=rol.permisoSet;
+    this.permisosSelecionado = rol.permisoSet;
     this.rolSeleccionado = rol
     this.bandera = 1;
   }
 
   guardar() {
     this.msgsRol = [];
-    
+
     this.rolSeleccionado.permisoSet = this.permisosSelecionado;
     this._usuarioService.actualizarRol(this.rolSeleccionado)
       .subscribe((rol: any) => {
-        this.rolSeleccionado=rol;
-        this.bandera=0;
-        this.msgsRol.push({severity:'success', summary:'Éxito', detail:'Permisos Actualizados.'});
-      }, (err: any) => this.msgsRol.push({severity:'error', summary:'Error', detail:'No se pudo actualizar los permisos'}),
-      () => {
-      });
+        this.rolSeleccionado = rol;
+        this.bandera = 0;
+        this.msgsRol.push({ severity: 'success', summary: 'Éxito', detail: 'Permisos Actualizados.' });
+      }, (err: any) => this.msgsRol.push({ severity: 'error', summary: 'Error', detail: 'No se pudo actualizar los permisos' }),
+        () => {
+        });
   }
 
-    actualizarRol(event,usuario){
-    usuario.rolId=event;
-    this.usuarioSeleccionado=usuario;
-    
+  actualizarRol(event, usuario) {
+    usuario.rolId = event;
+    this.usuarioSeleccionado = usuario;
+
 
     this.confirmationService.confirm({
       key: "confirmar",
-      message: "¿Está seguro de asignar el ROL <strong> "+event.nombre+" </strong> al usuario <strong> "+usuario.nombres+" </strong>?",
+      message: "¿Está seguro de asignar el ROL <strong> " + event.nombre + " </strong> al usuario <strong> " + usuario.nombres + " </strong>?",
       header: this.properties.titutloPreguntaConfirmacion,
       icon: this.properties.iconAdvertencia,
-  });
+    });
   }
 
-  actualizarUsuarioRol(){
+  actualizarUsuarioRol() {
     this.msgs = [];
-    
+
     this._usuarioService.actualizarUsuario(this.usuarioSeleccionado)
       .subscribe((rol: any) => {
-        this.msgs.push({severity:'success', summary:'Éxito', detail:'Rol Asignado'});
-      }, (err: any) => this.msgs.push({severity:'error', summary:'Error', detail:'No se pudo asignar el Rol'}),
-      () => {
-      });
+        this.msgs.push({ severity: 'success', summary: 'Éxito', detail: 'Rol Asignado' });
+      }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo asignar el Rol' }),
+        () => {
+        });
   }
 }

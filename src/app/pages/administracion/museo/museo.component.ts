@@ -35,6 +35,8 @@ export class MuseoComponent implements OnInit {
     administrativoId: any
     tecnologiaId: any
 
+    rolesEditar = []
+
     constructor(
         public museoService: MuseoServices,
         public usuarioService: UsuarioService

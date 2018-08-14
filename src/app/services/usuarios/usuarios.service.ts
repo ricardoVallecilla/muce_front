@@ -39,6 +39,12 @@ export class UsuarioService {
         return this._generalServices.getResources('get', this.url.rolUsuario + 'rol/' + userId)
     }
 
+    asignarRoles(rolesUsuario): Observable<any> {
+        const formData = new FormData()
+        formData.append('roles', JSON.stringify(rolesUsuario));
+        return this._generalServices.getResources('post', this.url.rolUsuario + 'asignar', formData)
+    }
+
     //     getUsuarioId(){
     //         return this._generalServices.getPersonaId();
     //     }
