@@ -133,15 +133,16 @@ export class MenuItems {
       var decrypted = CryptoJS.AES.decrypt(localStorage.getItem("sesion"), this.properties.key);
       let persona = JSON.parse(decrypted.toString(CryptoJS.enc.Utf8))
       //console.log(persona)
-      if(persona.usuario.rolId.rolid==this.constantes.rolAdministrador ){
-        MENUITEMS.push(MenuAdmin)
-      }else if (persona.usuario.rolId.rolid==this.constantes.rolCustodio 
-        ||persona.usuario.rolId.rolid==this.constantes.rolDirector
-        ||persona.usuario.rolId.rolid==this.constantes.rolCoordinador
-        ||persona.usuario.rolId.rolid==this.constantes.rolAdministrativo
-        ||persona.usuario.rolId.rolid==this.constantes.rolTecnologia){
-        MENUITEMS.push(MenuCustodio)
+      let roles= persona.usuario.roles 
+      if(roles){
+        let admin = roles.find(x=>x.rolid==this.constantes.rolAdministrador)
+        if(admin){
+          MENUITEMS.push(MenuAdmin)
+        }else {
+          MENUITEMS.push(MenuCustodio)
+        }
       }
+     
       
     }
     return MENUITEMS;
