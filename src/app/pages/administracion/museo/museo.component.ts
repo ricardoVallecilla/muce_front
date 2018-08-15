@@ -5,6 +5,7 @@ import { UsuarioService } from '../../../services/usuarios/usuarios.service';
 import { Message } from 'primeng/primeng';
 import { Constantes } from '../../constantes';
 import { log } from 'util';
+import { Router } from '../../../../../node_modules/@angular/router';
 
 @Component({
     selector: 'museo',
@@ -39,11 +40,18 @@ export class MuseoComponent implements OnInit {
 
     constructor(
         public museoService: MuseoServices,
-        public usuarioService: UsuarioService
+        public usuarioService: UsuarioService,
+        private _router: Router,
     ){}
 
     ngOnInit() {
-        this.obtenerTodoMuseos();
+        try {
+            this.obtenerTodoMuseos();
+        } catch (error) {
+            
+            this._router.navigate(['/authentication/login']);
+        }
+        
     }
 
     obtenerTodoMuseos() {

@@ -68,33 +68,43 @@ export class ItemComponent implements OnInit {
 
       this.museo = persona.usuario.museoId;
 
-      if (persona.usuario.rolId.rolid == this.constantes.rolAdministrador
-        || persona.usuario.rolId.rolid == this.constantes.rolDirector) {
-        this.filtrarMuseos = true;
-        this.buscarTodosMuseo();
-      } else if (persona.usuario.rolId.rolid == this.constantes.rolCoordinador && this.museo != null) {
-        this.filtrarMuseos = true;
-        this.especifico = true;
-        this.buscarMuseo();
-      } else if (persona.usuario.rolId.rolid == this.constantes.rolCustodio && this.museo != null) {
-        grupoId = this.constantes.grupoCultural
-        this.esCustodio = true;
-        this.buscarMuseo();
-      } else if (persona.usuario.rolId.rolid == this.constantes.rolAdministrativo && this.museo != null) {
-        grupoId = this.constantes.grupoAdminsitrativo
-        this.esCustodio = true;
-        this.buscarMuseo();
-      } else if (persona.usuario.rolId.rolid == this.constantes.rolTecnologia && this.museo != null) {
-        grupoId = this.constantes.grupoTecnologico
-        this.esCustodio = true;
-        this.buscarMuseo();
-      } else {
-        this.noTieneMuseo = true
-        this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No tiene asignado ningun museo. Consulte con el administrador de sistema.' })
-      }
+      let roles = persona.usuario.roles
+      
+      
+      roles.forEach(rolId => {
+        if (rolId.rolid == this.constantes.rolAdministrador  || rolId.rolid == this.constantes.rolDirector) {
+          this.filtrarMuseos = true;
+          this.buscarTodosMuseo();
+        } else if (rolId.rolid == this.constantes.rolCoordinador && this.museo != null) {
+          this.filtrarMuseos = true;
+          
+          this.buscarMuseo();
+        } else if (rolId.rolid == this.constantes.rolCustodio && this.museo != null) {
+          grupoId = this.constantes.grupoCultural
+          this.filtrarMuseos=false
+          this.esCustodio = true;
+          this.buscarMuseo();
+        } else if (rolId.rolid == this.constantes.rolAdministrativo && this.museo != null) {
+          grupoId = this.constantes.grupoAdminsitrativo
+          this.filtrarMuseos=false
+          this.esCustodio = true;
+          this.buscarMuseo();
+        } else if (rolId.rolid == this.constantes.rolTecnologia && this.museo != null) {
+          grupoId = this.constantes.grupoTecnologico
+          this.filtrarMuseos=false
+          this.esCustodio = true;
+          this.buscarMuseo();
+        } else {
+          this.noTieneMuseo = true
+          this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No tiene asignado ningun museo. Consulte con el administrador de sistema.' })
+        }
+      });
+     
 
-      this.cargarCatalogos(grupoId)
+      this.cargarCatalogos(null)
     }
+    console.log(this.filtrarMuseos);
+    
 
   }
 

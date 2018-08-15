@@ -82,7 +82,7 @@ export class AdminComponent implements OnInit {
   isHeaderChecked: boolean;
   usuario:string;
   museo:string;
-  rol:string;
+  roles=[];
 
   @ViewChild('searchFriends') search_friends: ElementRef;
 /*  @ViewChild('toggleButton') toggle_button: ElementRef;
@@ -139,7 +139,7 @@ export class AdminComponent implements OnInit {
         let persona = JSON.parse(decrypted.toString(CryptoJS.enc.Utf8))
         //console.log(persona)
         if(persona.usuario.museoId)this.museo = persona.usuario.museoId.nombres;
-        this.rol=persona.usuario.rolId.nombre.charAt(0).toUpperCase()+  persona.usuario.rolId.nombre.slice(1);
+        this.roles=persona.usuario.roles;
         this.usuario=persona.usuario.nombres;
       } catch (error) {
         this.logout();

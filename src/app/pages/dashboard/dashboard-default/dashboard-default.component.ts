@@ -14,6 +14,7 @@ import * as CryptoJS from 'crypto-js';
 import { MuseoServices } from '../../../services/museo/museo.services';
 import { GeneralService } from '../../../services/general/general.service';
 import { Router } from '@angular/router';
+import { UrlServices } from '../../../services/urls.js';
 
 declare const AmCharts: any;
 declare const $: any;
@@ -40,6 +41,7 @@ export class DashboardDefaultComponent implements OnInit {
   cantidadPiezasInventario = []
   cantidadPiezasCatalogacion = []
   restauracion=0;
+  
   constructor(
     private _generalService: GeneralService,
     private _router: Router,
@@ -48,14 +50,16 @@ export class DashboardDefaultComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    
     try {
       if (localStorage.getItem("sesion") != null) {
         var decrypted = CryptoJS.AES.decrypt(localStorage.getItem("sesion"), this.key);
         let persona = JSON.parse(decrypted.toString(CryptoJS.enc.Utf8))
+        console.log(persona);
         
 
         this.museo = persona.usuario.museoId;
-
+        
         if (persona.usuario.rolId.rolid == this.constantes.rolAdministrador || persona.usuario.rolId.rolid == this.constantes.rolDirector) {
           this.esAdmin = true;
           this.verDasboard = true;

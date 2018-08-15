@@ -9,9 +9,9 @@
         </div>
         <div class="ui-g-12 ui-md-12 ui-lg-1">Grupo</div>
         <div class="ui-g-12 ui-md-12 ui-lg-2">
-          <p-dropdown *ngIf="filtrarMuseos" [disabled]="bandera==1 || !filtrarMuseos" [options]="grupoItem" name="grupo" filter="true"
+          <p-dropdown  [disabled]="bandera==1" [options]="grupoItem" name="grupo" filter="true"
             [style]="{'width': '100%'}" [(ngModel)]="grupo" (ngModelChange)="obtenerCategorias($event)"></p-dropdown>
-          <span *ngIf="!filtrarMuseos"> {{grupo?.nombre}}</span>
+          
         </div>
         <div class="ui-g-12 ui-md-12 ui-lg-1">Categorias</div>
         <div class="ui-g-12 ui-md-12 ui-lg-2">
@@ -57,22 +57,22 @@
             <p-column header="Opciones" [style]="{'width':'205px','text-align':'center'}">
               <ng-template let-item="rowData" pTemplate="body">
                 <button type="button" class="buttonAction" pButton (click)="editarItem(item)" icon="{{properties.iconEditar}}" title="Editar"></button>
-                <button type="button" class="buttonAction" *ngIf="item.grupoid.catalogoid==constantes.grupoCultural" pButton (click)="piezaMuseable(item)"
+                <button type="button" class="buttonAction" *ngIf="grupo && grupo.catalogoid==constantes.grupoCultural" pButton (click)="piezaMuseable(item)"
                   icon="fa-columns" title="Inventario"></button>
-                <button type="button" class="buttonAction" *ngIf="item.grupoid.catalogoid==constantes.grupoCultural" pButton (click)="verCatalogacion(item)"
+                <button type="button" class="buttonAction" *ngIf="grupo && grupo.catalogoid==constantes.grupoCultural" pButton (click)="verCatalogacion(item)"
                   icon="fa-archive" title="Catalogacion"></button>
-                <button type="button" class="buttonAction" *ngIf="item.grupoid.catalogoid==constantes.grupoCultural" pButton (click)="verMovimientos(item)"
+                <button type="button" class="buttonAction" *ngIf="grupo && grupo.catalogoid==constantes.grupoCultural" pButton (click)="verMovimientos(item)"
                   icon="fas fa-align-justify" title="Movimientos Pieza"></button>
-                <button type="button" class="buttonAction" *ngIf="item.grupoid.catalogoid==constantes.grupoCultural" pButton (click)="verFormBaja(item)"
+                <button type="button" class="buttonAction" *ngIf="grupo && grupo.catalogoid==constantes.grupoCultural" pButton (click)="verFormBaja(item)"
                   icon="fas fa fa-window-close" title="Baja"></button>
-                <button type="button" class="buttonAction" *ngIf="item.grupoid.catalogoid==constantes.grupoCultural" pButton (click)="verFormRestauracion(item)"
+                <button type="button" class="buttonAction" *ngIf="grupo && grupo.catalogoid==constantes.grupoCultural" pButton (click)="verFormRestauracion(item)"
                   icon="fas fa fa-cogs" title="Restauración"></button>
               </ng-template>
             </p-column>
           </p-dataTable>
         </div>
         <div class="ui-g-12 ui-md-12 ui-lg-12 alineacionBotones">
-          <button *ngIf="!filtrarMuseos" pButton [disabled]="grupo==null ||  categoria==null" (click)="nuevo()" icon="{{properties.nuevo.icon}}"
+          <button *ngIf="esCustodio" pButton [disabled]="grupo==null ||  categoria==null" (click)="nuevo()" icon="{{properties.nuevo.icon}}"
             label="{{properties.nuevo.label}}"></button>
 
 
@@ -239,7 +239,7 @@
             <div class="ui-grid-row">
               <div class="ui-grid-col-2"></div>
               <div class="ui-grid-col-3">
-                <button pButton type="submit" *ngIf="!filtrarMuseos" label="{{properties.guardar.label}}" icon="{{properties.guardar.icon}}"></button>
+                <button pButton type="submit" *ngIf="esCustodio" label="{{properties.guardar.label}}" icon="{{properties.guardar.icon}}"></button>
               </div>
               <div class="ui-grid-col-3">
                 <button pButton type="button" (click)="volver()" label="{{properties.cancelar.label}}" icon="{{properties.cancelar.icon}}"

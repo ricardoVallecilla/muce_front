@@ -23,7 +23,7 @@ export class GeneralService {
         let headers = new Headers();
         headers.append('Authorization', 'Basic ' + btoa("uce.edu.ec.muce.seguridad:uce.edu.ec.muce.seguridad"))
         let options = new RequestOptions({ headers: headers });
-        console.log(params.toString());
+        
         this._http.post(this.url.login + '&username=' + username + '&password=' + password, params.toString(), options)
             .map(res => res.json())
             .subscribe(
@@ -37,16 +37,41 @@ export class GeneralService {
                             usuario => {
 
 
-                                let usuarioLocalStorage = { "token": token, "usuario": usuario.principal }
-                                //console.log(usuarioLocalStorage);                                     
-                                var encrypted = CryptoJS.AES.encrypt(JSON.stringify(usuarioLocalStorage), this.key);
-                                // console.log(encrypted.toString());
-                                // var decrypted = CryptoJS.AES.decrypt(encrypted, key);
-                                // console.log(decrypted.toString(CryptoJS.enc.Utf8));
-                                let sesion = encrypted.toString()
-                                localStorage.setItem(this.strSesion, sesion);
+                                
 
-                                window.open("/", "_self")
+                                this._http.get( this.url.rolUsuario + 'rol/' + usuario.principal.id, optionsToken)
+                                    .map(res => res.json())
+                                    .subscribe(
+                                        roles => {
+                                                
+                                                
+                                            usuario.principal.roles=roles
+                                            let usuarioLocalStorage = { "token": token, "usuario": usuario.principal }
+                                            localStorage.setItem("username", usuario.principal.username);
+
+                                            var encrypted = CryptoJS.AES.encrypt(JSON.stringify(usuarioLocalStorage), this.key);
+                                            // console.log(encrypted.toString());
+                                            // var decrypted = CryptoJS.AES.decrypt(encrypted, key);
+                                            // console.log(decrypted.toString(CryptoJS.enc.Utf8));
+                                            let sesion = encrypted.toString()
+                                            localStorage.setItem(this.strSesion, sesion);
+
+                                            window.open("/", "_self")
+
+
+
+
+                                        },
+                                        err => {
+                                            //console.log("error",err.status)
+                                            if (err.status == 401) {
+                                                this.stopBlock()
+                                                this._router.navigate(['/authentication/login/error']);
+                                            }
+                                        }
+                                    );
+
+                                
 
 
 
@@ -79,11 +104,11 @@ export class GeneralService {
         this._http.post(this.url.loginActive, credenciales)
             //.map(res => res.json())
             .subscribe(
-                
-                
+
+
                 res => {
-                    let codigo=res["_body"]
-                    console.log("asdfgbn");
+                    let codigo = res["_body"]
+                    
                     if (codigo == "0000002" || codigo == "0000003")
                         this.autenticarMuse(username, password)
                     else
@@ -188,6 +213,23 @@ export class GeneralService {
                         return result;
                     }).catch(this.handleError());
             } else if (tipo == "post") {
+                
+                if(Array.isArray(body)){
+                    body.forEach(element => {
+                        if(typeof element == 'object'){
+                            element["usuarioregistroid"]=localStorage.getItem("username")
+                            element["fecharegistro"]=new Date()
+                            
+                        }
+                    });
+
+                }else if(typeof body == 'object'){
+                    body["usuarioregistroid"]=localStorage.getItem("username")
+                    body["fecharegistro"]=new Date()
+                    
+                }
+                
+                
                 return this._http["post"](url, body, optionsToken)
                     .map((res: Response) => {
                         this.blockUI.stop();

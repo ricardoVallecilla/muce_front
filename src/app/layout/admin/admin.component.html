@@ -224,7 +224,7 @@
               </li> -->
               <li class="user-profile header-notification">
                   <span >
-                    <h4 style="padding-top: 20px">{{usuario}} | {{rol}} <span *ngIf="museo">| {{museo}} </span></h4>
+                    <h3 style="padding-top: 20px">{{usuario}}  <span *ngIf="museo">| {{museo}} </span>| <ul style="font-size: 16px;display: inline-flex" ><li *ngFor="let rol of roles" >{{rol.nombre}}</li></ul></h3> 
                   </span>
                 <!-- <a [routerLink]="['/']">
                   <img src="assets/images/avatar-4.jpg" class="img-radius" alt="User-Profile-Image">
