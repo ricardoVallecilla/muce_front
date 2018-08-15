@@ -10,7 +10,7 @@
             <p-column header="Rol" [style]="{'width':'175px'}">
               <ng-template let-usuario="rowData" pTemplate="body">
                 <ul>
-                  <li *ngFor="let rol of usuario.roles">{{rol.nombre}}</li>
+                  <li *ngFor="let rol of usuario.roles">{{rol.rolId.nombre}}</li>
                 </ul>
                 <!--p-dropdown *ngIf="usuario.id!=0" [options]="rolItem" [(ngModel)]="usuario.rolId" (ngModelChange)="actualizarRol($event,usuario)"></p-dropdown-->
               </ng-template>

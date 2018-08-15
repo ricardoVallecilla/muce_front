@@ -78,7 +78,8 @@ export class UsuarioComponent implements OnInit {
       .subscribe(() => {
           this.cargarUsuarios()
           this.asignar = false
-          console.log('Asignados');
+
+         
       }, (err: any) => {
         console.log(err);
       }, () => { })
@@ -88,16 +89,8 @@ export class UsuarioComponent implements OnInit {
     this.usuarios = []
     this._usuarioService.optenerUsuarios()
       .subscribe((usuarios: any[]) => {
-        usuarios.forEach(element => {
-          this._usuarioService.getRolUsuarioByRolId(element.id)
-            .subscribe((roles: any) => {
-              element.roles = roles
-              this.usuarios.push(element)
-              this.usuarios = this.usuarios.slice()
-            }, (err: any) => {
-              console.log(err)
-            }, () => { })
-        })
+        this.usuarios = usuarios   
+      
       }, (err: any) => console.log(err),
         () => {
         });
