@@ -59,8 +59,9 @@ export class DashboardDefaultComponent implements OnInit {
         
 
         this.museo = persona.usuario.museoId;
-        
-        if (persona.usuario.rolId.rolid == this.constantes.rolAdministrador || persona.usuario.rolId.rolid == this.constantes.rolDirector) {
+        let roles = persona.usuario.roles
+
+        if (roles.find(x=>x.rolid== this.constantes.rolAdministrador) ||roles.find(x=>x.rolid== this.constantes.rolDirector)   ) {
           this.esAdmin = true;
           this.verDasboard = true;
 

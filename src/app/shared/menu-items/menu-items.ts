@@ -134,9 +134,11 @@ export class MenuItems {
       let persona = JSON.parse(decrypted.toString(CryptoJS.enc.Utf8))
       //console.log(persona)
       let roles= persona.usuario.roles 
-      if(roles){
+      console.log(persona.usuario);
+      
+      if(roles ){
         let admin = roles.find(x=>x.rolid==this.constantes.rolAdministrador)
-        if(admin){
+        if(admin  ||persona.usuario.username=="admin"){
           MENUITEMS.push(MenuAdmin)
         }else {
           MENUITEMS.push(MenuCustodio)
