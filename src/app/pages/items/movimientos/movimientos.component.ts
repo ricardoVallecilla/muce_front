@@ -19,7 +19,7 @@ import { EstilosReportes } from '../../estiloImpresion';
 export class MovimientosComponent implements OnInit {
 
   properties = new Properties();
-  constantes = new Constantes(); 
+  constantes = new Constantes();
   title = "Movimientos Piezas Patrimoniales"
   acciones = "Detalle de la pieza: ";
   msgs: Message[] = [];
@@ -51,6 +51,7 @@ export class MovimientosComponent implements OnInit {
   movimientosPendientesDevolucion = []
   esAdmin = false;
   totalRecords = null;
+  esCustodioCultural=false
   constructor(
     private domSanitizer: DomSanitizer,
     private _museoServices: MuseoServices,
@@ -74,12 +75,18 @@ export class MovimientosComponent implements OnInit {
       var decrypted = CryptoJS.AES.decrypt(localStorage.getItem("sesion"), this.key);
       let persona = JSON.parse(decrypted.toString(CryptoJS.enc.Utf8))
       this.museo = persona.usuario.museoId;
+      let roles = persona.usuario.roles
+      if (roles) {
+        if (roles.find(x => x.rolid == this.constantes.rolAdministrador) || roles.find(x => x.rolid == this.constantes.rolDirector)) {
+          this.esAdmin = true;
 
-      if (persona.usuario.rolId.rolid == this.constantes.rolAdministrador || persona.usuario.rolId.rolid == this.constantes.rolDirector) {
-        this.esAdmin = true;
+        } else {
+          this.esAdmin = false;
+        }
 
-      } else {
-        this.esAdmin = false;
+        if (roles.find(x => x.rolid == this.constantes.rolCustodio)) {          
+          this.esCustodioCultural = false          
+        }
       }
     }
     this.cargarMuseos();
@@ -124,7 +131,7 @@ export class MovimientosComponent implements OnInit {
           this.movimientos = []
           this._movimientosService.obtenerMovimientos(this.museo.museoid, first, rows)
             .subscribe((movimientos: any[]) => {
-              
+
               let movimientosLocal = []
               movimientos.forEach(x => {
 
@@ -138,15 +145,15 @@ export class MovimientosComponent implements OnInit {
     devolucionPrestamoInterno=733
     devolucionPrestamoExterno=734
                    */
-                  if(x.tipomovimientoid.catalogoid==this.constantes.devolucionOtro 
-                    ||x.tipomovimientoid.catalogoid==this.constantes.devolucionDesinfeccion
-                    ||x.tipomovimientoid.catalogoid==this.constantes.devolucionPrestamoExterno
-                    ||x.tipomovimientoid.catalogoid==this.constantes.devolucionRestauracion 
-                    ||x.museoreceptorid==this.museo.museoid                  
-                  ){
-                    x.receptor=true;
-                  }else if (x.museoid==this.museo.museoid){
-                    x.receptor=false;                  
+                  if (x.tipomovimientoid.catalogoid == this.constantes.devolucionOtro
+                    || x.tipomovimientoid.catalogoid == this.constantes.devolucionDesinfeccion
+                    || x.tipomovimientoid.catalogoid == this.constantes.devolucionPrestamoExterno
+                    || x.tipomovimientoid.catalogoid == this.constantes.devolucionRestauracion
+                    || x.museoreceptorid == this.museo.museoid
+                  ) {
+                    x.receptor = true;
+                  } else if (x.museoid == this.museo.museoid) {
+                    x.receptor = false;
                   }
 
                   movimientosLocal.push(x);
@@ -192,7 +199,7 @@ export class MovimientosComponent implements OnInit {
   cargarMuseos() {
     this._museoServices.obtenerTodoMuseos()
       .subscribe((museos: any[]) => {
-        
+
         if (this.museo) this.museo = museos.find(x => x.museoid == this.museo.museoid);
         this.museoItem = [{ label: this.properties.labelSeleccione, value: null }];
         let museosLocales = []
@@ -244,7 +251,7 @@ export class MovimientosComponent implements OnInit {
   }
 
   agregarItems() {
-    
+
     let piezas = [...this.piezasAgregadas];
     this.itemsSeleccionados.forEach(x => {
       let encontrado = this.piezasAgregadas.find(x2 => x2.itemid == x.itemid)
@@ -276,7 +283,7 @@ export class MovimientosComponent implements OnInit {
 
   actualizarVista(event) {
 
-    
+
 
     switch (event) {
       case 1:
@@ -357,5 +364,5 @@ export class MovimientosComponent implements OnInit {
   }
 
 
- 
+
 }

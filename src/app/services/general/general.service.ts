@@ -117,7 +117,7 @@ export class GeneralService {
                 },
                 err => {
                     this.stopBlock()
-                    if (err.status == 401) {
+                    if (err.status == 401 || err.status == 400) {
                         this._router.navigate(['/authentication/login/error']);
                     }
                 }

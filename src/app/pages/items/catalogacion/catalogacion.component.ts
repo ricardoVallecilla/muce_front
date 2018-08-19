@@ -48,6 +48,7 @@ export class CatalogacionComponent implements OnInit {
   validado = false;
   paisItem = [{ label: this.properties.labelSeleccione, value: null }]
   constructor(
+    
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
     private domSanitizer: DomSanitizer,
@@ -247,6 +248,11 @@ export class CatalogacionComponent implements OnInit {
     let piezaDetalle = new PiezaDetalle();
     let catalogosDetalle = null;
     let tipo;
+    
+    this.detalle["usuarioregistroid"]=localStorage.getItem("username")
+    this.detalle["fecharegistro"]=new Date()
+    piezaDetalle["usuarioregistroid"]=localStorage.getItem("username")
+    piezaDetalle["fecharegistro"]=new Date()
     switch (this.item.categoriaid.catalogoid) {
       case this.constantes.instrumental:
         tipo = 6
@@ -466,5 +472,11 @@ export class CatalogacionComponent implements OnInit {
   }
   validar() {
     this.submitted += 1;
+  }
+
+  imprimirCatalogacion(){
+    
+    
+    window.open('/#/item/impresionCatalogacion/'+this.piezaMuseable.itemid.itemid, '_blank')
   }
 }

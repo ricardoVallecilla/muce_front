@@ -103,25 +103,9 @@ const MenuCustodio={
 }
 
 
-const MenuRestaurador={
-  label: 'Item',
-  main: [
-    
-    {
-      state: 'item',
-      short_label: 'B',
-      name: 'Items',
-      type: 'sub',
-      icon: 'ti-layout-grid2-alt',
-      children: [
-        {
-          state: 'item',
-          name: 'Item'
-        }
-      ]
-    },
-  ],
-}
+
+
+
 
 @Injectable()
 export class MenuItems {
@@ -132,10 +116,8 @@ export class MenuItems {
     if (localStorage.getItem("sesion") != null) {
       var decrypted = CryptoJS.AES.decrypt(localStorage.getItem("sesion"), this.properties.key);
       let persona = JSON.parse(decrypted.toString(CryptoJS.enc.Utf8))
-      //console.log(persona)
+     
       let roles= persona.usuario.roles 
-      console.log(persona.usuario);
-      
       if(roles ){
         let admin = roles.find(x=>x.rolid==this.constantes.rolAdministrador)
         if(admin  ||persona.usuario.username=="admin"){

@@ -43,7 +43,8 @@ export class ItemComponent implements OnInit {
   esfiltroTexto = false;
   textoFiltra = null
   museosItem = [{ label: this.properties.labelSeleccione, value: null }]
-  esAdmin = false;
+  //banderas de roles
+  gruposPermitidos = []
   noTieneMuseo = false;
   especifico = false;
   esCustodio = false;
@@ -69,42 +70,45 @@ export class ItemComponent implements OnInit {
       this.museo = persona.usuario.museoId;
 
       let roles = persona.usuario.roles
-      
-      
-      roles.forEach(rolId => {
-        if (rolId.rolid == this.constantes.rolAdministrador  || rolId.rolid == this.constantes.rolDirector) {
-          this.filtrarMuseos = true;
-          this.buscarTodosMuseo();
-        } else if (rolId.rolid == this.constantes.rolCoordinador && this.museo != null) {
-          this.filtrarMuseos = true;
-          
-          this.buscarMuseo();
-        } else if (rolId.rolid == this.constantes.rolCustodio && this.museo != null) {
-          grupoId = this.constantes.grupoCultural
-          this.filtrarMuseos=false
-          this.esCustodio = true;
-          this.buscarMuseo();
-        } else if (rolId.rolid == this.constantes.rolAdministrativo && this.museo != null) {
-          grupoId = this.constantes.grupoAdminsitrativo
-          this.filtrarMuseos=false
-          this.esCustodio = true;
-          this.buscarMuseo();
-        } else if (rolId.rolid == this.constantes.rolTecnologia && this.museo != null) {
-          grupoId = this.constantes.grupoTecnologico
-          this.filtrarMuseos=false
-          this.esCustodio = true;
-          this.buscarMuseo();
-        } else {
-          this.noTieneMuseo = true
-          this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No tiene asignado ningun museo. Consulte con el administrador de sistema.' })
-        }
-      });
-     
 
-      this.cargarCatalogos(null)
+      this.filtrarMuseos = false;
+
+
+      if (roles.find(x => x.rolid == this.constantes.rolAdministrador) || roles.find(x => x.rolid == this.constantes.rolDirector)) {
+        this.filtrarMuseos = true;
+      }
+      if (roles.find(x => x.rolid == this.constantes.rolCoordinador)) {
+        this.filtrarMuseos = true;
+      }
+      if (roles.find(x => x.rolid == this.constantes.rolCustodio)) {
+        this.gruposPermitidos.push(this.constantes.grupoCultural)
+        this.filtrarMuseos = false
+        this.esCustodio = true;
+      }
+      if (roles.find(x => x.rolid == this.constantes.rolAdministrativo)) {
+        this.gruposPermitidos.push(this.constantes.grupoAdminsitrativo)
+        this.filtrarMuseos = false
+        this.esCustodio = true;
+
+      }
+      if (roles.find(x => x.rolid == this.constantes.rolTecnologia)) {
+        this.gruposPermitidos.push(this.constantes.grupoTecnologico)
+        this.filtrarMuseos = false
+        this.esCustodio = true;
+      }
+
+      if (this.filtrarMuseos) {
+        this.buscarTodosMuseo();
+      } else if (this.museo != null) {
+        this.buscarMuseo();
+      } else {
+        this.noTieneMuseo = true
+        this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No tiene asignado ningun museo. Consulte con el administrador de sistema.' })
+      }
+      this.cargarCatalogos()
     }
     console.log(this.filtrarMuseos);
-    
+
 
   }
 
@@ -222,7 +226,9 @@ export class ItemComponent implements OnInit {
 
 
 
-  cargarCatalogos(grupo) {
+  cargarCatalogos() {
+    
+    
     try {
       this._catalogoService.obtenerCatalogosHijosPorPadres([this.constantes.tipoIngreso, this.constantes.grupo])
         .subscribe((catalogos: any[]) => {
@@ -232,11 +238,24 @@ export class ItemComponent implements OnInit {
           catalogos.filter(x => x.catalogopadreid.catalogoid == this.constantes.grupo).forEach(x => {
             this.grupoItem.push({ label: x.nombre, value: x })
           });
-
-          if (grupo) {
-            this.grupo = this.grupoItem.find(x => x.value != null && x.value.catalogoid == grupo).value;
-            this.obtenerCategorias(this.grupo)
+          console.log(this.gruposPermitidos.length);
+          
+          switch (this.gruposPermitidos.length) {
+            case 1:
+              this.grupo = this.grupoItem.find(x => x.value != null && x.value.catalogoid == this.gruposPermitidos[0]).value;
+              this.grupoItem=this.grupoItem.filter(x => x.value == null || x.value.catalogoid == this.gruposPermitidos[0])
+              this.obtenerCategorias(this.grupo)
+              break;
+            case 2:
+            case 3:
+              let grupoTmp = [{ label: this.properties.labelSeleccione, value: null }]
+              this.gruposPermitidos.forEach(x2 => {
+                grupoTmp.push(this.grupoItem.find(x => x.value != null && x.value.catalogoid == x2))
+              });
+              this.grupoItem=grupoTmp
+              break;
           }
+
         }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Catalogos.' }),
           () => {
           });

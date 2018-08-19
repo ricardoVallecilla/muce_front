@@ -88,7 +88,7 @@
               </p-dataTable>
             </div>
             <div class="ui-g-12 ui-md-12 ui-lg-12 alineacionBotones">
-              <button pButton *ngIf="!esAdmin" (click)="nuevo()" icon="{{properties.nuevo.icon}}" label="{{properties.nuevo.label}}"></button>
+              <button pButton *ngIf="esCustodioCultural" (click)="nuevo()" icon="{{properties.nuevo.icon}}" label="{{properties.nuevo.label}}"></button>
 
 
             </div>

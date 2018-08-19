@@ -110,9 +110,13 @@ export class PiezaMuseableComponent implements OnInit {
         .subscribe((piezas: any[]) => {
           if (piezas.length == 0) {
             this.piezaMuseable = new PiezaMuseable(this.item);
+            this.piezaMuseable["usuarioregistroid"]=localStorage.getItem("username")
+            this.piezaMuseable["fecharegistro"]=new Date()
             this.crearDetalle();
           } else {
             this.piezaMuseable = piezas[0];
+            this.piezaMuseable["usuarioregistroid"]=localStorage.getItem("username")
+            this.piezaMuseable["fecharegistro"]=new Date()
             if (this.piezaMuseable.fechainventario != null) this.piezaMuseable.fechainventario = new Date(this.piezaMuseable.fechainventario)
             if (this.piezaMuseable.fecharevision != null) this.piezaMuseable.fecharevision = new Date(this.piezaMuseable.fecharevision)
             if (this.piezaMuseable.fechaaprobacion != null) this.piezaMuseable.fechaaprobacion = new Date(this.piezaMuseable.fechaaprobacion)
@@ -571,6 +575,10 @@ export class PiezaMuseableComponent implements OnInit {
     let piezaDetalle = new PiezaDetalle();
     let catalogosDetalle = null;
     let tipo;
+    this.detalle["usuarioregistroid"]=localStorage.getItem("username")
+    this.detalle["fecharegistro"]=new Date()
+    piezaDetalle["usuarioregistroid"]=localStorage.getItem("username")
+    piezaDetalle["fecharegistro"]=new Date()
     if(this.detalle.detalleid==null)this.piezaMuseable.fecharegistroinventario= new Date()
     switch (this.item.categoriaid.catalogoid) {
       case this.constantes.instrumental:
