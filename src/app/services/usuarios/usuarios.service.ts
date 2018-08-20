@@ -39,9 +39,10 @@ export class UsuarioService {
         return this._generalServices.getResources('get', this.url.rolUsuario + 'rol/' + userId)
     }
 
-    asignarRoles(rolesUsuario): Observable<any> {
+    asignarRoles(rolesUsuario, idUser): Observable<any> {
         const formData = new FormData()
         formData.append('roles', JSON.stringify(rolesUsuario));
+        formData.append('idUser', JSON.stringify(idUser));
         return this._generalServices.getResources('post', this.url.rolUsuario + 'asignar', formData)
     }
 

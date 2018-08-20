@@ -54,6 +54,10 @@ const MenuAdmin= {
         {
           state: 'museo',
           name: 'Museos'
+        },
+        {
+          state: 'eliminacion',
+          name: 'Eliminacion'
         }
 
       ]

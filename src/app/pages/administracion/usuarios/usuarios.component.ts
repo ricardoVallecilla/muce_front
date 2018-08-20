@@ -60,7 +60,11 @@ export class UsuarioComponent implements OnInit {
 
   modificarRoles(usuario) {
     this.usuarioSeleccionado = usuario
-    this.rolesEditar = usuario.roles
+    this.rolesEditar = []
+    usuario.roles.forEach(element => {
+      this.rolesEditar.push(element.rolId)
+      this.rolesEditar = this.rolesEditar.slice()
+    });
     this.asignar = true
   }
 
@@ -71,10 +75,12 @@ export class UsuarioComponent implements OnInit {
 
   asignarRoles() {
     let rolAsignar = []
+    let usuarioAlmacenar = this.usuarioSeleccionado
+    usuarioAlmacenar.roles = null
     this.rolesEditar.forEach(element => {
-      rolAsignar.push({ rolId: element, usrId: this.usuarioSeleccionado})
+      rolAsignar.push({ rolId: element, usrId: usuarioAlmacenar})
     })
-    this._usuarioService.asignarRoles(rolAsignar)
+    this._usuarioService.asignarRoles(rolAsignar, this.usuarioSeleccionado.id)
       .subscribe(() => {
           this.cargarUsuarios()
           this.asignar = false

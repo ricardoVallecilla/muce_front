@@ -26,6 +26,8 @@ import {GeneralService} from '../../services/general/general.service'
 import {UsuarioService} from '../../services/usuarios/usuarios.service'
 import { MuseoComponent } from './museo/museo.component';
 import { MuseoServices } from '../../services/museo/museo.services';
+import { EliminacionComponent } from './eliminacion/eliminacion.component';
+import { ItemService } from '../../services/item/items.service';
 
 //import {WithSocialComponent} from './registration/with-social/with-social.component';
 
@@ -64,6 +66,16 @@ export const AuthenticationRoutes: Routes = [
           status: true,
           descripcion:"Administración de museos."
         }
+      },
+      {
+        path: 'eliminacion',
+        component: EliminacionComponent,
+        data: {
+          breadcrumb: 'Eliminacion',
+          icon: 'icofont-bank-alt bg-c-blue',
+          status: true,
+          descripcion:"Eliminacion item."
+        }
       }
     ]
   }
@@ -89,7 +101,7 @@ export const AuthenticationRoutes: Routes = [
     FormsModule,
     ReactiveFormsModule
   ],
-  declarations: [UsuarioComponent,CatalogoComponent, MuseoComponent]
-  ,providers:[GeneralService,ConfirmationService,CatalogoService,UsuarioService, MuseoServices]
+  declarations: [UsuarioComponent,CatalogoComponent, MuseoComponent, EliminacionComponent]
+  ,providers:[GeneralService,ConfirmationService,CatalogoService,UsuarioService, MuseoServices, ItemService]
 })
 export class AdministracionModule { }

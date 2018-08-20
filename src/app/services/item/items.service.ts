@@ -14,6 +14,10 @@ export class ItemService {
         return this._generalServices.getPersonaId();
     }
 
+    delete(item) {
+        return this._generalServices.getResources("post", this.url.item + "delete", item)
+    }
+
     itemById(id) {
         return this._generalServices.getResources("get", this.url.item + id)
     }
