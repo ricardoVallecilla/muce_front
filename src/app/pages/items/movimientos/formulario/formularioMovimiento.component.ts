@@ -62,6 +62,8 @@ export class FormularioMovimientoComponent implements OnInit {
   textoFiltra;
   diccionarioImpresion = {}
   categoriasCultural = []
+  verDetalleDevolucion=false;
+  motivoDevolucion=null;
   constructor(
     private confirmationService: ConfirmationService,
     private domSanitizer: DomSanitizer,
@@ -214,10 +216,10 @@ export class FormularioMovimientoComponent implements OnInit {
 
   buscar(first = 0, rows = this.properties.cantidadRegistros) {
     if (this.categoria != null)
-      this._itemService.cantidadfiltrarItemsMovimientos(this.museo.museoid, 0, this.categoria.catalogoid)
+      this._itemService.cantidadfiltrarItemsMovimientos(this.museo.museoid, this.constantes.grupoCultural, this.categoria.catalogoid)
         .subscribe((cantidad: number) => {
           this.totalRecords = cantidad;
-          this._itemService.filtrarItemsMovimientos(this.museo.museoid, 0, this.categoria.catalogoid, first, rows)
+          this._itemService.filtrarItemsMovimientos(this.museo.museoid, this.constantes.grupoCultural, this.categoria.catalogoid, first, rows)
             .subscribe((items: any[]) => {
               this.items = items;
             }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }));
@@ -239,7 +241,7 @@ export class FormularioMovimientoComponent implements OnInit {
           if (cantidad > 0) {
             this._itemService.filtroTexto(this.museo.museoid, this.textoFiltra, first, rows)
               .subscribe((items: any[]) => {
-                items=items.filter(x=>x.estadoid==null)
+                items = items.filter(x => x.estadoid == null)
                 this.items = items;
               }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }));
           } else {
@@ -287,8 +289,8 @@ export class FormularioMovimientoComponent implements OnInit {
         this.tiposMovimientosGeneral = catalogos;
         this.tiposEgresos = catalogos.filter(x => x.catalogopadreid.catalogoid == this.constantes.tipoMovimientosEgreso);
         this.tiposIngresos = catalogos.filter(x => x.catalogopadreid.catalogoid == this.constantes.tipoMovimientosIngreso);
-        this.categoriasCultural = catalogos.filter(x => x.catalogopadreid.catalogoid == this.constantes.grupoCulturalPadre);
-        catalogos.filter(x => x.catalogopadreid.catalogoid == this.constantes.grupo).forEach(x => {
+        this.categoriasCultural = catalogos.filter(x => x.catalogopadreid.catalogoid == this.constantes.grupoCulturalPadre);                
+        catalogos.filter(x => x.catalogoid == this.constantes.grupoCultural).forEach(x => {
           this.grupoItem.push({ label: x.nombre, value: x })
 
         });
@@ -450,7 +452,7 @@ export class FormularioMovimientoComponent implements OnInit {
   guardar() {
     if (this.tipoFormulario == 1) {
       this.movimiento.tipomovimientoid = this.tiposMovimientosGeneral.find(x => x.catalogoid + "" == this.tipoSeleccionado);
-      if (this.tipoSeleccionado == this.constantes.prestamoInterno + "") {
+      if (this.tipoSeleccionado == this.constantes.prestamoInterno + "" || this.tipoSeleccionado == this.constantes.traspasointerno + "") {
         this.movimiento.museoreceptorid = this.museoSeleccionado.museoid;
       }
       let piezas = [];
@@ -477,8 +479,11 @@ export class FormularioMovimientoComponent implements OnInit {
         case this.constantes.diccionarioMovimientoEstado.otro.tipoMovimiento:
           nuevoEstadoPiezas = this.tiposMovimientosGeneral.find(x => x.catalogoid == this.constantes.diccionarioMovimientoEstado.otro.estadoPieza);
           break;
-          case this.constantes.diccionarioMovimientoEstado.exposicion.tipoMovimiento:
+        case this.constantes.diccionarioMovimientoEstado.exposicion.tipoMovimiento:
           nuevoEstadoPiezas = this.tiposMovimientosGeneral.find(x => x.catalogoid == this.constantes.diccionarioMovimientoEstado.exposicion.estadoPieza);
+          break;
+        case this.constantes.diccionarioMovimientoEstado.traspasoInterno.tipoMovimiento:
+          nuevoEstadoPiezas = this.tiposMovimientosGeneral.find(x => x.catalogoid == this.constantes.diccionarioMovimientoEstado.traspasoInterno.estadoPieza);
           break;
 
         default:
@@ -776,5 +781,23 @@ export class FormularioMovimientoComponent implements OnInit {
         //this.foto = this.domSanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
       }, (err: any) => {
       }, () => { });
+  }
+  devolver(){
+
+    this.motivoDevolucion=null;
+    this.verDetalleDevolucion=true;
+
+  }
+
+  confirmarDevolucion(){
+    let guardar =Object.assign({}, this.movimiento);
+    guardar["motivoDevolucion"]=this.motivoDevolucion
+
+    this._movimientosService.confirmarDevolucionMovimiento(guardar)
+          .subscribe((museos: any[]) => {
+            this.motivoDevolucion=null;
+            this.verDetalleDevolucion=false;
+            this.notificarGuardar.emit(5)
+          }, (err: any) => this.notificarGuardar.emit(6));
   }
 }

@@ -54,4 +54,9 @@ export class MovimientosService {
         return this._generalServices.getResources("post", this.url.pendientesgeneral, objGuardar)
     }
 
+    confirmarDevolucionMovimiento(movimiento): Observable<any> {        
+        
+        return this._generalServices.getResources("post", this.url.confirmarDevolucionMovimiento, movimiento)
+    }
+
 }

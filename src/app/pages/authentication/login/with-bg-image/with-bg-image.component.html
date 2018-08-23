@@ -1,11 +1,11 @@
 <section class="login p-fixed d-flex text-center bg-primary common-img-bg">
-  <div class="auth-fluid">
+  <div class="auth-fluid" style="margin-left: 12%;margin: none">
     <div class="row">
       <div class="col-sm-12">
         <div class="login-card card-body auth-body">
-          <form class="md-float-material">
+          <div class="md-float-material">
             <div class="text-center">
-              <img src="assets/images/muce_logo.png" style="width: 40%" alt="logo.png">
+              <!-- <img src="assets/images/muce_logo.png" style="width: 40%" alt="logo.png"> -->
             </div>
             <div class="auth-box">
               <div class="row m-b-20">
@@ -30,7 +30,7 @@
                 </div>
                 <div class="row m-t-30">
                   <div class="col-md-12">
-                    <button type="button" [disabled]="usuario==null || password==null" (click)="logear()" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20">Ingresar</button>
+                    <button type="submit" [disabled]="usuario==null || password==null" (click)="logear()" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20">Ingresar</button>
                   </div>
                 </div>
                 
@@ -47,7 +47,7 @@
                 </div>
               </div> -->
             </div>
-          </form>
+          </div>
         </div>
       </div>
     </div>

@@ -32,6 +32,7 @@
     </div>
 
   </div>
+
   <div class="ui-grid-row">
     <div class="ui-grid-col-2">
       Material *:
@@ -52,8 +53,26 @@
             
           </div>
     </div>
-
-
+  </div>
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Clasificación:
+    </div>
+    <div class="ui-grid-col-4">
+      <input pInputText type="text" maxlength="150" name="clasificacion" [(ngModel)]="detalle.clasificacion" />
+      <div class="impresion">
+          {{detalle.clasificacion}}
+        </div>
+    </div>
+    <div class="ui-grid-col-2">
+      Otro Material:
+    </div>
+    <div class="ui-grid-col-4">
+      <input pInputText type="text" maxlength="150" name="otroMaterial" [(ngModel)]="detalle.otroMaterial" />
+      <div class="impresion">
+          {{detalle.otroMaterial}}
+        </div>
+    </div>
   </div>
   <div class="ui-grid-row">
     <div class="ui-grid-col-2">
@@ -91,12 +110,14 @@
       Fecha fabricación:
     </div>
     <div class="ui-grid-col-4">
-      <p-calendar name="fechafabricacion" [locale]="es" [(ngModel)]="detalle.fechafabricacion" [showIcon]="true" #fechafabricacion="ngModel" required></p-calendar>       
+        <input pInputText type="text" maxlength="150" #fechafabricacion="ngModel" name="fechafabricacion" [(ngModel)]="detalle.fechafabricacion" />
+        <div class="impresion">
+            {{detalle.fechafabricacion}}
+          </div>
+      <!-- <p-calendar name="fechafabricacion" [locale]="es" [(ngModel)]="detalle.fechafabricacion" [showIcon]="true" #fechafabricacion="ngModel" required></p-calendar>        -->
         
       <div class="ui-messages-error" *ngIf="submitted>0  && fechafabricacion.invalid">El campo Fecha fabricación es requerido</div>
-      <div class="impresion">
-          {{detalle.fechafabricacion | date: properties.formatoFecha}}
-        </div>
+     
     </div>
 
 
@@ -130,8 +151,9 @@
     <div class="ui-grid-col-2">
       Inscripciones:
     </div>
-    <div class="ui-grid-col-4">
-      <input pInputText type="text" maxlength="150" name="procedencia" [(ngModel)]="detalle.inscripciones" />
+    <div class="ui-grid-col-10">
+      
+      <textarea pInputTextarea style="resize: none; width: 100%" rows="4" maxlength="550" name="inscripciones" [(ngModel)]="detalle.inscripciones" ></textarea>
       <div class="impresion">
           {{detalle.inscripciones}}
         </div>
@@ -176,11 +198,11 @@
             </div>
           </div>
           <div class="ui-g-2">
-            Diámetro *:
+            Diámetro:
           </div>
           <div class="ui-g-2">
   
-            <input pInputText type="number"  name="diametro" [(ngModel)]="detalle.diametro"  #diametro="ngModel" required />
+            <input pInputText type="number"  name="diametro" [(ngModel)]="detalle.diametro"  #diametro="ngModel"  />
         
             <div class="ui-messages-error" *ngIf="submitted>0  && diametro.invalid">El campo Diámetro es requerido</div>
             <div class="impresion">
@@ -189,10 +211,10 @@
   
           </div>
           <div class="ui-g-2">
-            Espesor *:
+            Espesor:
           </div>
           <div class="ui-g-2">
-            <input pInputText type="number"  name="espesor" [(ngModel)]="detalle.espesor"  #espesor="ngModel" required />
+            <input pInputText type="number"  name="espesor" [(ngModel)]="detalle.espesor"  #espesor="ngModel"  />
         
             <div class="ui-messages-error" *ngIf="submitted>0  && espesor.invalid">El campo Espesor es requerido</div>
             <div class="impresion">
@@ -200,10 +222,10 @@
             </div>
           </div>
           <div class="ui-g-2">
-            Peso *:
+            Peso:
           </div>
           <div class="ui-g-2">
-            <input pInputText type="number"  name="peso" [(ngModel)]="detalle.peso"  #peso="ngModel" required />
+            <input pInputText type="number"  name="peso" [(ngModel)]="detalle.peso"  #peso="ngModel"  />
         
             <div class="ui-messages-error" *ngIf="submitted>0  && peso.invalid">El campo Peso es requerido</div>
             <div class="impresion">

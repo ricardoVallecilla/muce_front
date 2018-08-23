@@ -85,7 +85,7 @@ export class MovimientosComponent implements OnInit {
         }
 
         if (roles.find(x => x.rolid == this.constantes.rolCustodio)) {          
-          this.esCustodioCultural = false          
+          this.esCustodioCultural = true          
         }
       }
     }
@@ -361,6 +361,10 @@ export class MovimientosComponent implements OnInit {
       }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo cargar los movimientos.' }),
         () => {
         });
+  }
+
+  devolverMovimiento(movimiento){
+    
   }
 
 

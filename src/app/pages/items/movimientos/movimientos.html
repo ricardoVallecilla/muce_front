@@ -72,9 +72,15 @@
                     ||  movimiento.tipomovimientoid.catalogoid== constantes.traspasointerno 
                     ||  movimiento.tipomovimientoid.catalogoid== constantes.devolucionPrestamoInterno" style="font-size: 13px">
 
-                      <span *ngIf="movimiento.confirmacion">CONFIRMADA
-                        <br> RECEPCIÓN</span>
-                      <span *ngIf="!movimiento.confirmacion">NO CONFIRMADO</span>
+                      <span  *ngIf="movimiento.devuelto" >
+                          DEVUELTO: {{movimiento.motivoDevolucion}}
+                      </span>
+                      <span *ngIf="!movimiento.devuelto">
+                        <span *ngIf="movimiento.confirmacion">CONFIRMADA
+                          <br> RECEPCIÓN</span>
+                        <span *ngIf="!movimiento.confirmacion">NO CONFIRMADO</span>
+                      </span>
+                      
 
                     </div>
                   </ng-template>
@@ -136,6 +142,7 @@
                 <p-column header="Opciones" [style]="{'width':'85px','text-align': 'center'}">
                   <ng-template let-movimiento="rowData" pTemplate="body">
                     <button pButton (click)="confirmarMovimmiento(movimiento)" icon="fas fa-check-circle" title="Confirmarn Recepción"></button>
+                    
                   </ng-template>
                 </p-column>
 

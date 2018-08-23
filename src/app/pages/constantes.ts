@@ -69,6 +69,7 @@ export class Constantes{
     */
     estadosPiezasMovimientos=735;
     diccionarioMovimientoEstado={
+        traspasoInterno:{tipoMovimiento:725,estadoPieza:797},
         prestamoInterno:{tipoMovimiento:724,estadoPieza:736},
         prestamoExterno:{tipoMovimiento:723,estadoPieza:737},
         restauracion:{tipoMovimiento:726,estadoPieza:739},

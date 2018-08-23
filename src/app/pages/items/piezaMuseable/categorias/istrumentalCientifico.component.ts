@@ -29,7 +29,7 @@ export class IstrumentalCientificoComponent implements OnInit, OnChanges {
   es = this.properties.es;
   @Input() submitted = 0;
   @Output() validacionFormulario = new EventEmitter();
-  camposObligatorios=["descripcion","alto"  ,"largo","profundidad","diametro","espesor","peso","fechafabricacion"]
+  camposObligatorios=["descripcion","alto"  ,"largo","profundidad","fechafabricacion"]
   constructor(
     private _catalogoService: CatalogoService,
     

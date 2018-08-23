@@ -445,6 +445,7 @@
         <button *ngIf="tipoFormulario==1" pButton type="submit" label="{{properties.guardar.label}}" icon="{{properties.guardar.icon}}"
           [disabled]="!form.valid || tipoSeleccionado==null || ((tipoSeleccionado == constantes.prestamoInterno || tipoSeleccionado == constantes.traspasointerno)&& museoSeleccionado==null)"></button>
         <button *ngIf="tipoFormulario==2" pButton type="button" (click)="confirmar()" label="Confirmar Recepción" icon="{{properties.guardar.icon}}"></button>
+        <button *ngIf="tipoFormulario==2" pButton type="button" (click)="devolver()" label="Devolver Movimiento" icon="{{properties.cancelar.icon}}"></button>
       </div>
       <div class="ui-grid-col-3">
         <button pButton type="button" (click)="volver()" label="{{properties.cancelar.label}}" icon="{{properties.cancelar.icon}}"
@@ -833,3 +834,21 @@
     <!-- </td> -->
   </p-footer>
 </p-confirmDialog>
+
+<p-dialog [(visible)]="verDetalleDevolucion" [style]="{'overflow': 'auto','max-height':'650px'}" [responsive]="true" showEffect="fade"
+  [modal]="true" [draggable]="false" resizable="false" resizable="false" minWidth="1100" [positionTop]="140" [positionLeft]="350">
+  <p-header>
+    DETALEL DEVOLUCIÓN
+
+  </p-header>
+  <div >
+    <label for="">Detalle Devolución:</label>
+    <textarea pInputTextarea style="resize: none; width: 100%" rows="7" maxlength="550" name="observaciones" [(ngModel)]="motivoDevolucion"></textarea>
+
+  </div>
+
+  <div style="text-align: center">
+    <button type="button" [disabled]="motivoDevolucion==null" id="aceptarEliminarBtn" pButton icon="{{properties.guardar.icon}}" label="Aceptar" (click)="confirmarDevolucion()"></button>
+    <button type="button" id="cancelarEliminarBtn" pButton icon="{{properties.cancelar.icon}}" label="Cancelar" (click)="verDetalleDevolucion=false"></button>
+  </div>
+  </p-dialog>
