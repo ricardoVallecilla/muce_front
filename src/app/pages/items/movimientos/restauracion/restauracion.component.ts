@@ -101,7 +101,7 @@ import * as CryptoJS from 'crypto-js';
       this.buscar()
       this.obtenerLastRestauracion()
       
-      if (this.item.estadoid.catalogoid == this.constantes.estadoItemRestauracion) {
+      if (!this.item.estadoid && (this.item.estadoid.catalogoid == this.constantes.estadoItemRestauracion)) {
         this.bandera = 0 
       } else { 
         this.obtenerRestauracionByItem()
