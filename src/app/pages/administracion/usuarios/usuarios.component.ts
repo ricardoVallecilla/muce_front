@@ -91,12 +91,30 @@ export class UsuarioComponent implements OnInit {
       }, () => { })
   }
 
+  eliminar() {
+    let usuarioAlmacenar = this.usuarioSeleccionado
+    usuarioAlmacenar.enabled = false
+    this._usuarioService.actualizarUsuario(usuarioAlmacenar)
+      .subscribe((rol: any) => {
+        this.bandera = 0
+        this.asignar = false
+        this.cargarUsuarios()
+        this.msgs.push({ severity: 'success', summary: 'Éxito', detail: 'Usuario eliminado' });
+      }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo eliminar el usuario' }),
+        () => {
+        });
+  }
+
   cargarUsuarios() {
     this.usuarios = []
     this._usuarioService.optenerUsuarios()
       .subscribe((usuarios: any[]) => {
-        this.usuarios = usuarios   
-      
+        usuarios.forEach(element => {
+          if(element.enabled) {
+            this.usuarios.push(element)
+            this.usuarios = this.usuarios.slice()
+          }
+        });
       }, (err: any) => console.log(err),
         () => {
         });

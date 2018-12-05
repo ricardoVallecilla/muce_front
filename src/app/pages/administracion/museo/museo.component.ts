@@ -86,8 +86,10 @@ export class MuseoComponent implements OnInit {
             .subscribe((custodios : any[]) => {
                 this.custodiosModel = custodios;
                 custodios.forEach(element => {
-                    this.custodios.push({label: element.nombres, value: element.id })
-                    this.custodios = this.custodios.slice()
+                    if(element.enabled) {
+                        this.custodios.push({label: element.nombres, value: element.id })
+                        this.custodios = this.custodios.slice()
+                    }
                 })
             },
             (err: any) => {
@@ -103,8 +105,10 @@ export class MuseoComponent implements OnInit {
             .subscribe((coordinares : any[]) => {
                 this.coordinadoresModel = coordinares;
                 coordinares.forEach(element => {
-                    this.coordinadors.push({label: element.nombres, value: element.id })
-                    this.coordinadors = this.coordinadors.slice()
+                    if(element.enabled) {
+                        this.coordinadors.push({label: element.nombres, value: element.id })
+                        this.coordinadors = this.coordinadors.slice()
+                    }
                 })
             },
             (err: any) => {
@@ -120,8 +124,10 @@ export class MuseoComponent implements OnInit {
             .subscribe((administrativos : any[]) => {
                 this.administrativosModel = administrativos;
                 administrativos.forEach(element => {
-                    this.administrativos.push({label: element.nombres, value: element.id })
-                    this.administrativos = this.administrativos.slice()
+                    if(element.enabled) {
+                        this.administrativos.push({label: element.nombres, value: element.id })
+                        this.administrativos = this.administrativos.slice()
+                    }
                 })
             },
             (err: any) => {
@@ -137,8 +143,10 @@ export class MuseoComponent implements OnInit {
             .subscribe((tecnologicos : any[]) => {
                 this.tecnologicosModel = tecnologicos;
                 tecnologicos.forEach(element => {
-                    this.tecnologias.push({label: element.nombres, value: element.id })
-                    this.tecnologias = this.tecnologias.slice()
+                    if(element.enabled) {
+                        this.tecnologias.push({label: element.nombres, value: element.id })
+                        this.tecnologias = this.tecnologias.slice()
+                    }
                 })
             },
             (err: any) => {
