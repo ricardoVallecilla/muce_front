@@ -35,6 +35,7 @@ export class MovimientosComponent implements OnInit {
   museoSeleccionado = null;
   categoriaItem = []
   museoItem = [{ label: this.properties.labelSeleccione, value: null }];
+  museoFiltroItem= [{ label: this.properties.labelSeleccione, value: null }];
   movimiento: Movimiento = null;
   piezasAgregadas = [];
   itemsSeleccionados = [];
@@ -51,7 +52,7 @@ export class MovimientosComponent implements OnInit {
   movimientosPendientesDevolucion = []
   esAdmin = false;
   totalRecords = null;
-  esCustodioCultural=false
+  esCustodioCultural = false
   constructor(
     private domSanitizer: DomSanitizer,
     private _museoServices: MuseoServices,
@@ -70,7 +71,7 @@ export class MovimientosComponent implements OnInit {
     this.obtenerCategorias();
 
 
-
+    let filtrarMuseos = false
     if (localStorage.getItem("sesion") != null) {
       var decrypted = CryptoJS.AES.decrypt(localStorage.getItem("sesion"), this.key);
       let persona = JSON.parse(decrypted.toString(CryptoJS.enc.Utf8))
@@ -84,17 +85,27 @@ export class MovimientosComponent implements OnInit {
           this.esAdmin = false;
         }
 
-        if (roles.find(x => x.rolid == this.constantes.rolCustodio)) {          
-          this.esCustodioCultural = true          
+        if (roles.find(x => x.rolid == this.constantes.rolCustodio)) {
+          this.esCustodioCultural = true
         }
       }
-    }
-    this.cargarMuseos();
-    if (this.museo) {
-      this.cargarMovimientos();
-      this.cargarMovimientosPendientes();
+      if (persona.usuario.museoDosId) {
+        this.esAdmin=true
+        filtrarMuseos = true;
+      }
+      console.log(filtrarMuseos);
+      
 
+      this.cargarMuseos(filtrarMuseos, persona.usuario);
+      if (this.museo && !filtrarMuseos) {
+        this.cargarMovimientos();
+        this.cargarMovimientosPendientes();
+
+      }
     }
+
+
+
 
 
 
@@ -196,20 +207,29 @@ export class MovimientosComponent implements OnInit {
 
 
 
-  cargarMuseos() {
+  cargarMuseos(filtrar = false, persona = null) {
     this._museoServices.obtenerTodoMuseos()
       .subscribe((museos: any[]) => {
 
         if (this.museo) this.museo = museos.find(x => x.museoid == this.museo.museoid);
         this.museoItem = [{ label: this.properties.labelSeleccione, value: null }];
+        this.museoFiltroItem = [{ label: this.properties.labelSeleccione, value: null }];
+        let museoFiltroItem=[]
         let museosLocales = []
         if (this.museo) {
           museosLocales = museos.filter(x => x.museoid != this.museo.museoid)
         } else {
           museosLocales = museos;
         }
+        if (filtrar) {
+          museoFiltroItem = museos.filter(x => (x.museoid == persona.museoId.museoid || x.museoid == persona.museoDosId.museoid))
+        }
         museosLocales.forEach(x => {
           this.museoItem.push({ label: x.nombres, value: x });
+
+        });
+        museoFiltroItem.forEach(x => {
+          this.museoFiltroItem.push({ label: x.nombres, value: x });
 
         });
       }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }),
@@ -363,8 +383,8 @@ export class MovimientosComponent implements OnInit {
         });
   }
 
-  devolverMovimiento(movimiento){
-    
+  devolverMovimiento(movimiento) {
+
   }
 
 

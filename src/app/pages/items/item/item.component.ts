@@ -48,6 +48,7 @@ export class ItemComponent implements OnInit {
   noTieneMuseo = false;
   especifico = false;
   esCustodio = false;
+
   textoGrupo
   constructor(
     private _generalService: GeneralService,
@@ -96,9 +97,18 @@ export class ItemComponent implements OnInit {
         this.filtrarMuseos = false
         this.esCustodio = true;
       }
+      
+      if (persona.usuario.museoDosId) {
+        this.filtrarMuseos = true;
+      }
 
       if (this.filtrarMuseos) {
-        this.buscarTodosMuseo();
+        
+        
+        if (persona.usuario.museoDosId)
+          this.buscarTodosMuseo(persona.usuario);
+        else
+          this.buscarTodosMuseo();
       } else if (this.museo != null) {
         this.buscarMuseo();
       } else {
@@ -121,13 +131,23 @@ export class ItemComponent implements OnInit {
       }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar el museo.' }));
   }
 
-  buscarTodosMuseo() {
+  buscarTodosMuseo(persona = null) {
     this._museoServices.obtenerTodoMuseos()
       .subscribe((museos: any[]) => {
+        let museosTmp = []
         museos.forEach(x => {
-          this.museosItem.push({ label: x.nombres.toUpperCase(), value: x })
-        })
+          museosTmp.push({ label: x.nombres.toUpperCase(), value: x })
 
+
+
+        })
+        console.log("persona");
+       console.log(persona);
+       
+        if (persona) {
+          museosTmp=museosTmp.filter(x=>(x.value.museoid==persona.museoId.museoid||x.value.museoid==persona.museoDosId.museoid))
+        }
+        this.museosItem=museosTmp
       }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Museos.' }));
   }
 
@@ -227,8 +247,8 @@ export class ItemComponent implements OnInit {
 
 
   cargarCatalogos() {
-    
-    
+
+
     try {
       this._catalogoService.obtenerCatalogosHijosPorPadres([this.constantes.tipoIngreso, this.constantes.grupo])
         .subscribe((catalogos: any[]) => {
@@ -239,11 +259,11 @@ export class ItemComponent implements OnInit {
             this.grupoItem.push({ label: x.nombre, value: x })
           });
           console.log(this.gruposPermitidos.length);
-          
+
           switch (this.gruposPermitidos.length) {
             case 1:
               this.grupo = this.grupoItem.find(x => x.value != null && x.value.catalogoid == this.gruposPermitidos[0]).value;
-              this.grupoItem=this.grupoItem.filter(x => x.value == null || x.value.catalogoid == this.gruposPermitidos[0])
+              this.grupoItem = this.grupoItem.filter(x => x.value == null || x.value.catalogoid == this.gruposPermitidos[0])
               this.obtenerCategorias(this.grupo)
               break;
             case 2:
@@ -252,7 +272,7 @@ export class ItemComponent implements OnInit {
               this.gruposPermitidos.forEach(x2 => {
                 grupoTmp.push(this.grupoItem.find(x => x.value != null && x.value.catalogoid == x2))
               });
-              this.grupoItem=grupoTmp
+              this.grupoItem = grupoTmp
               break;
           }
 

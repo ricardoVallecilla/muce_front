@@ -5,7 +5,7 @@
         <div  class="ui-g-12 ui-md-12 ui-lg-1">Museo</div>
         <div  class="ui-g-12 ui-md-12 ui-lg-2">
 
-          <p-dropdown [disabled]="bandera==1" [options]="museoItem" name="museo" (ngModelChange)="movimientos=[]" filter="true" [style]="{'width': '100%'}" [(ngModel)]="museo"></p-dropdown>
+          <p-dropdown [disabled]="bandera==1" [options]="museoFiltroItem" name="museo" (ngModelChange)="buscarMuseo()" filter="true" [style]="{'width': '100%'}" [(ngModel)]="museo"></p-dropdown>
         </div>
         <div class="ui-g-12 ui-md-12 ui-lg-9" style="text-align: right">
           
@@ -94,7 +94,7 @@
               </p-dataTable>
             </div>
             <div class="ui-g-12 ui-md-12 ui-lg-12 alineacionBotones">
-              <button pButton *ngIf="esCustodioCultural" (click)="nuevo()" icon="{{properties.nuevo.icon}}" label="{{properties.nuevo.label}}"></button>
+              <button pButton *ngIf="esCustodioCultural && museo!=null" (click)="nuevo()" icon="{{properties.nuevo.icon}}" label="{{properties.nuevo.label}}"></button>
 
 
             </div>
@@ -108,7 +108,7 @@
             <br>
 
             <div class="ui-g" style="width: 100%">
-              <formularioMovimiento *ngIf="bandera==1" [movimiento]="movimiento" [tipoFormulario]="tipoFormulario" (notificarGuardar)="actualizarVista($event)"></formularioMovimiento>
+              <formularioMovimiento *ngIf="bandera==1" [movimiento]="movimiento" [museo]="museo" [tipoFormulario]="tipoFormulario" (notificarGuardar)="actualizarVista($event)"></formularioMovimiento>
             </div>
 
           </div>

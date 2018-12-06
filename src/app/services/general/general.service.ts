@@ -29,6 +29,8 @@ export class GeneralService {
             .subscribe(
                 token => {
                     let headersToken = new Headers();
+                    console.log(token.access_token);
+                    
                     headersToken.append('Authorization', 'Bearer ' + token.access_token)
                     let optionsToken = new RequestOptions({ headers: headersToken });
                     this._http.get(this.url.token, optionsToken)

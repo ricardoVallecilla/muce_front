@@ -73,6 +73,18 @@
                         </div>
                         <div class="ui-grid-row">
                             <div class="ui-grid-col-2">
+                                Custodio Dos:
+                            </div>
+                            <div class="ui-grid-col-4">
+                                <p-dropdown name="dCustodioDos" [options]="custodios" [(ngModel)]="cutodioDosId"
+                                    [autoWidth]="false" [filter]="true" *ngIf="bandera==1"></p-dropdown>
+                            </div>
+                            <div class="ui-grid-col-6">
+                               
+                            </div>
+                        </div>
+                        <div class="ui-grid-row">
+                            <div class="ui-grid-col-2">
                                 Administrativo :
                             </div>
                             <div class="ui-grid-col-4">

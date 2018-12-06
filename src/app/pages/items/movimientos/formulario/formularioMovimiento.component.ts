@@ -29,7 +29,7 @@ export class FormularioMovimientoComponent implements OnInit {
   tiposEgresos = [];
   tiposIngresos = [];
   key = "HackersSeeIT2";
-  museo = null;
+  @Input() museo = null;
   tipo = "1"
   tipoSeleccionado = null;
   museoSeleccionado = null;
@@ -82,12 +82,12 @@ export class FormularioMovimientoComponent implements OnInit {
       this.desabilitados = false;
     }
     this.cargarCatalogos();
-    if (localStorage.getItem("sesion") != null) {
+    /*if (localStorage.getItem("sesion") != null) {
       var decrypted = CryptoJS.AES.decrypt(localStorage.getItem("sesion"), this.key);
       let persona = JSON.parse(decrypted.toString(CryptoJS.enc.Utf8))
       //console.log(persona)
       this.museo = persona.usuario.museoId;
-    }
+    }*/
     this.cargarMuseos();
   }
 

@@ -32,6 +32,7 @@ export class MuseoComponent implements OnInit {
     msgs: Message[] = []
 
     cutodioId: any
+    cutodioDosId: any
     coordinadorId: any
     administrativoId: any
     tecnologiaId: any
@@ -69,6 +70,7 @@ export class MuseoComponent implements OnInit {
     modificarMuseo(museo) {
         this.museo = museo
         this.cutodioId = this.museo.cutodioId ? this.museo.cutodioId.id : null
+        this.cutodioDosId = this.museo.cutodioDosId ? this.museo.cutodioDosId.id : null
         this.coordinadorId = this.museo.coordinadorId ? this.museo.coordinadorId.id : null
         this.administrativoId = this.museo.administrativoId ? this.museo.administrativoId.id : null
         this.tecnologiaId = this.museo.tecnologiaId ? this.museo.tecnologiaId.id : null
@@ -184,6 +186,15 @@ export class MuseoComponent implements OnInit {
             }
         } else {
             museoGuardar.cutodioId = null
+        }
+
+        if (this.cutodioDosId) {
+            let index1: number = this.custodiosModel.findIndex(x => x.id == this.cutodioDosId);
+            if (index1 != -1) {
+                museoGuardar.cutodioDosId = this.custodiosModel[index1]
+            }
+        } else {
+            museoGuardar.cutodioDosId = null
         }
 
         if (this.coordinadorId) {
