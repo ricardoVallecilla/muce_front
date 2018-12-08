@@ -48,6 +48,7 @@ export class ItemComponent implements OnInit {
   noTieneMuseo = false;
   especifico = false;
   esCustodio = false;
+  verTabla=true;
 
   textoGrupo
   constructor(
@@ -117,7 +118,8 @@ export class ItemComponent implements OnInit {
       }
       this.cargarCatalogos()
     }
-    console.log(this.filtrarMuseos);
+    
+    
 
 
   }
@@ -141,8 +143,7 @@ export class ItemComponent implements OnInit {
 
 
         })
-        console.log("persona");
-       console.log(persona);
+      
        
         if (persona) {
           museosTmp=museosTmp.filter(x=>(x.value.museoid==persona.museoId.museoid||x.value.museoid==persona.museoDosId.museoid))
@@ -201,6 +202,11 @@ export class ItemComponent implements OnInit {
                 });
         }
       }
+    }else{
+      this._itemService.filtrarItem(this.museo.museoid, this.grupo.catalogoid, null, event.first, event.rows)
+      .subscribe((items: any[]) => {
+        this.items = items;
+      }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }));
     }
   }
 
@@ -226,10 +232,16 @@ export class ItemComponent implements OnInit {
   }
 
   buscarTodos() {
-    this.items = []
+    
+    this.esfiltroTexto = false;
+    this.textoFiltra = null;
+    
+    this.msgs = []
     this._itemService.cantidad(this.museo.museoid, this.grupo.catalogoid)
       .subscribe((cantidad: number) => {
         this.totalRecords = cantidad
+        
+        
         if (cantidad > 0) {
           this._itemService.filtrarItem(this.museo.museoid, this.grupo.catalogoid, null, 0, this.properties.cantidadRegistros)
             .subscribe((items: any[]) => {
@@ -258,7 +270,7 @@ export class ItemComponent implements OnInit {
           catalogos.filter(x => x.catalogopadreid.catalogoid == this.constantes.grupo).forEach(x => {
             this.grupoItem.push({ label: x.nombre, value: x })
           });
-          console.log(this.gruposPermitidos.length);
+          
 
           switch (this.gruposPermitidos.length) {
             case 1:

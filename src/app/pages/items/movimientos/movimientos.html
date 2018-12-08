@@ -5,7 +5,7 @@
         <div  class="ui-g-12 ui-md-12 ui-lg-1">Museo</div>
         <div  class="ui-g-12 ui-md-12 ui-lg-2">
 
-          <p-dropdown [disabled]="bandera==1" [options]="museoFiltroItem" name="museo" (ngModelChange)="buscarMuseo()" filter="true" [style]="{'width': '100%'}" [(ngModel)]="museo"></p-dropdown>
+          <p-dropdown [disabled]="bandera==1" [options]="museoFiltroItem" name="museo" (ngModelChange)="buscarMuseo($event)" filter="true" [style]="{'width': '100%'}" [(ngModel)]="museo"></p-dropdown>
         </div>
         <div class="ui-g-12 ui-md-12 ui-lg-9" style="text-align: right">
           
@@ -14,7 +14,7 @@
         </div>
       </div>
       <p-messages [(value)]="msgs"></p-messages>
-      <p-tabView>
+      <p-tabView  (onChange)="buscarMuseo()">
         <p-tabPanel header="Movimientos">
 
 

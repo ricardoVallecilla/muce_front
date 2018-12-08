@@ -35,7 +35,7 @@ export class MovimientosComponent implements OnInit {
   museoSeleccionado = null;
   categoriaItem = []
   museoItem = [{ label: this.properties.labelSeleccione, value: null }];
-  museoFiltroItem= [{ label: this.properties.labelSeleccione, value: null }];
+  museoFiltroItem = [{ label: this.properties.labelSeleccione, value: null }];
   movimiento: Movimiento = null;
   piezasAgregadas = [];
   itemsSeleccionados = [];
@@ -90,11 +90,11 @@ export class MovimientosComponent implements OnInit {
         }
       }
       if (persona.usuario.museoDosId) {
-        this.esAdmin=true
+        this.esAdmin = true
         filtrarMuseos = true;
       }
       console.log(filtrarMuseos);
-      
+
 
       this.cargarMuseos(filtrarMuseos, persona.usuario);
       if (this.museo && !filtrarMuseos) {
@@ -111,9 +111,14 @@ export class MovimientosComponent implements OnInit {
 
   }
 
-  buscarMuseo() {
-    this.cargarMovimientos();
-    this.cargarMovimientosPendientes();
+  buscarMuseo(museo = null) {
+    if(museo)this.museo = museo
+
+    if (this.museo != null) {
+      this.cargarMovimientos();
+      this.cargarMovimientosPendientes();
+    }
+
   }
   agregarItem() {
     this.categoria = null;
@@ -124,6 +129,7 @@ export class MovimientosComponent implements OnInit {
   }
   cargarMovimientosPendientes() {
     this.msgs = [];
+    if (this.museo)
     this._movimientosService.obtenerMovimientosPendientes(this.museo.museoid)
       .subscribe((movimientos: any[]) => {
         this.movimientosPendientesLista = movimientos;
@@ -213,8 +219,8 @@ export class MovimientosComponent implements OnInit {
 
         if (this.museo) this.museo = museos.find(x => x.museoid == this.museo.museoid);
         this.museoItem = [{ label: this.properties.labelSeleccione, value: null }];
-        this.museoFiltroItem = [{ label: this.properties.labelSeleccione, value: null }];
-        let museoFiltroItem=[]
+        this.museoFiltroItem = [];
+        let museoFiltroItem = []
         let museosLocales = []
         if (this.museo) {
           museosLocales = museos.filter(x => x.museoid != this.museo.museoid)

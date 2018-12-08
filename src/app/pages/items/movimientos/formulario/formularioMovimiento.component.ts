@@ -304,6 +304,11 @@ export class FormularioMovimientoComponent implements OnInit {
 
   cambiarTipo() {
 
+    if(this.tipo=="2"){
+      this.movimiento.fechainicioprestamo=new Date()
+      this.movimiento.fechafinprestamo=new Date()
+    }
+
     switch (this.tipoSeleccionado) {
       case this.constantes.prestamoInterno + "":
       case this.constantes.traspasointerno + "":
