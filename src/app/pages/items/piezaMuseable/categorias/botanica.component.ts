@@ -1,4 +1,4 @@
-import { Component, OnInit, Input,Output,EventEmitter } from '@angular/core';
+import { Component, OnInit, Input,Output,EventEmitter, SimpleChange } from '@angular/core';
 import { Properties } from '../../../properties'
 import { Constantes } from '../../../constantes'
 import { CatalogoService } from '../../../../services/catalogos/catalogos.service'
@@ -27,12 +27,35 @@ export class BotanicaComponent implements OnInit {
   origenItem=[];
   tecnicasItem=[];
   diccionarioImpresion={};
+
+  @Input() submitted = 0;
+  @Output() validacionFormulario = new EventEmitter();
+  @Output() enviadorCondicion = new EventEmitter();
+  @Input() materialesSelecionados = []
   constructor(
     private _catalogoService: CatalogoService,
     ) {}
 
   ngOnInit() {
     this.cargarCatalogos()
+  }
+
+  ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
+
+    if(changes.submitted!=undefined){
+      
+      if(this.submitted>0){
+        let valido=1
+        
+        if (valido==1){
+          this.validacionFormulario.emit(true)
+        }else{
+          this.validacionFormulario.emit(false)
+        }
+      }
+      
+    }
+
   }
 
   impr() {

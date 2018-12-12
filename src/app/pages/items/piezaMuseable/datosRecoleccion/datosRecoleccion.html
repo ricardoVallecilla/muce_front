@@ -92,9 +92,20 @@
       Persona recolectora:
     </div>
     <div class="ui-grid-col-10">
-      <input pInputText type="text" maxlength="150" name="morfofuncional" [(ngModel)]="detalle.personarecolectora" />
+      <input pInputText type="text" maxlength="150" name="personarecolectora" [(ngModel)]="detalle.personarecolectora" />
       <div class="impresion">
           {{detalle.personarecolectora}}
+        </div>
+    </div>
+  </div>
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+      Determinado Por:
+    </div>
+    <div class="ui-grid-col-10">
+      <input pInputText type="text" maxlength="150" name="determinadoPor" [(ngModel)]="detalle.determinadoPor" />
+      <div class="impresion">
+          {{detalle.determinadoPor}}
         </div>
     </div>
   </div>

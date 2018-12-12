@@ -33,7 +33,7 @@
               (enviadorCondicion)="obtenerMaterialesArquelogica($event)" [submitted]="submitted" (validacionFormulario)="validarGuardar($event)"></arqueologia>
             <botanica [item]="item" *ngIf="item.categoriaid.catalogoid==constantes.botanica" [detalle]="detalle" [origenesBotanicaSeleccionados]="origenesBotanicaSeleccionados"
               [tecnicaConservacionBotanicaSelecionados]="tecnicaConservacionBotanicaSelecionados" (enviadorTecnicas)="optenerBotanicaTecnicas($event)"
-              (enviadorOrigenes)="optenerBotanicaOrigenes($event)"></botanica>
+              (enviadorOrigenes)="optenerBotanicaOrigenes($event)" [submitted]="submitted" (validacionFormulario)="validarGuardar($event)"></botanica>
             <entomologia [item]="item" *ngIf="item.categoriaid.catalogoid==constantes.entomologia" [detalle]="detalle" (enviadorCondicion)="obtenerDatoHijoEntomologia($event)"
               [tecnicaConservacionSelecionados]="tecnicaConservacionSelecionados" [submitted]="submitted" (validacionFormulario)="validarGuardar($event)"></entomologia>
             <fotografia [item]="item" *ngIf="item.categoriaid.catalogoid==constantes.fotografia" [detalle]="detalle" [submitted]="submitted" (validacionFormulario)="validarGuardar($event)"></fotografia>

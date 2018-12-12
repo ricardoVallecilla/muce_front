@@ -183,7 +183,7 @@ export class PiezaMuseableComponent implements OnInit {
     if (!this.esCatalogacion)
       this._itemService.optenerDetalle(tipo, piezaMuseableId)
         .subscribe((detalle: any[]) => {
-          if (detalle[0].fechafabricacion != undefined && detalle[0].fechafabricacion != null) detalle[0].fechafabricacion = new Date(detalle[0].fechafabricacion)
+          if (detalle[0] && detalle[0].fechafabricacion != undefined && detalle[0].fechafabricacion != null) detalle[0].fechafabricacion = new Date(detalle[0].fechafabricacion)
           this.detalle = detalle[0]
           this.detalle.piezamuseableid = this.piezaMuseable
 
@@ -580,6 +580,8 @@ export class PiezaMuseableComponent implements OnInit {
     piezaDetalle["usuarioregistroid"]=localStorage.getItem("username")
     piezaDetalle["fecharegistro"]=new Date()
     if(this.detalle.detalleid==null)this.piezaMuseable.fecharegistroinventario= new Date()
+    console.log(this.item.categoriaid.catalogoid);
+    
     switch (this.item.categoriaid.catalogoid) {
       case this.constantes.instrumental:
         tipo = 6

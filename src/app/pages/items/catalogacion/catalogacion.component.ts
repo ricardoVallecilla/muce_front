@@ -156,7 +156,7 @@ export class CatalogacionComponent implements OnInit {
 
     this._itemService.optenerDetalle(tipo, piezaMuseableId)
       .subscribe((detalle: any[]) => {
-        if (detalle[0].fechafabricacion != undefined && detalle[0].fechafabricacion != null) detalle[0].fechafabricacion = new Date(detalle[0].fechafabricacion)
+        if (detalle[0] && detalle[0].fechafabricacion != undefined && detalle[0].fechafabricacion != null) detalle[0].fechafabricacion = new Date(detalle[0].fechafabricacion)
         this.detalle = detalle[0]
         if (this.piezaMuseable.catalogado == null) {
           this.piezaMuseable.fecharegistrocatalogacion = new Date()
@@ -289,7 +289,7 @@ export class CatalogacionComponent implements OnInit {
         piezaDetalle.piezapaleontologicadetalle = this.detalle
         break;
       case this.constantes.zoologia:
-        tipo = 10
+        tipo = 9
         piezaDetalle.piezazoologicadetalle = this.detalle
         break;
       default:

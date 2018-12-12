@@ -11,6 +11,7 @@ import { Message, ConfirmationService } from 'primeng/primeng';
 export class PaleontologiaComponent implements OnInit, OnChanges {
 
   properties = new Properties();
+  
   constantes = new Constantes();
   title = "Items"
   acciones = "Detalle de la pieza: ";

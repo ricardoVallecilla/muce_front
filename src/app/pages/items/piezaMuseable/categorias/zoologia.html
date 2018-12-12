@@ -29,7 +29,7 @@
 
     <div class="ui-grid-row">
       <div class="ui-grid-col-2">
-        Estado de integridad *:
+        Técnica de conservación *:
       </div>
       <div class="ui-grid-col-10">
         <div class="ui-g ocultar" *ngIf="materialesItem">
@@ -51,10 +51,18 @@
 
     <div class="ui-grid-row">
       <div class="ui-grid-col-2">
-        Autor:
+        Categoría de conservación (EX,EW,CR,EN,VU,NT,LC):
       </div>
       <div class="ui-grid-col-10">
-        <input pInputText type="text" maxlength="150" name="morfofuncional" [(ngModel)]="detalle.autor" required />
+        <input pInputText type="text" maxlength="150" name="categoriaConservacion" [(ngModel)]="detalle.categoriaConservacion" required />
+      </div>
+    </div>
+    <div class="ui-grid-row">
+      <div class="ui-grid-col-2">
+        Puntaje emergencia:
+      </div>
+      <div class="ui-grid-col-10">
+        <input pInputText type="text" maxlength="150" name="puntajeEmergencia" [(ngModel)]="detalle.puntajeEmergencia" required />
       </div>
     </div>
   
