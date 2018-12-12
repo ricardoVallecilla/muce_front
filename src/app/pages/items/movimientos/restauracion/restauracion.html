@@ -681,10 +681,10 @@
               <div *ngIf="!esCatalogacion" class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid margin ocultar">
                 <div class="ui-grid-row">
                   <div class="ui-grid-col-3">
-                    <button pButton type="button" *ngIf="isRestaurador && esCustodio" (click)="guardar()"  label="{{properties.guardar.label}}" icon="{{properties.guardar.icon}}"></button>
+                    <button pButton type="button" (click)="guardar()"  label="{{properties.guardar.label}}" icon="{{properties.guardar.icon}}"></button>
                   </div>
                   <div class="ui-grid-col-3">
-                    <button pButton type="button" *ngIf="isRestaurador" (click)="volver()" label="{{properties.cancelar.label}}" icon="{{properties.cancelar.icon}}"
+                    <button pButton type="button" (click)="volver()" label="{{properties.cancelar.label}}" icon="{{properties.cancelar.icon}}"
                       class="ui-button-secondary"></button>
                   </div>
                   <div class="ui-grid-col-3">

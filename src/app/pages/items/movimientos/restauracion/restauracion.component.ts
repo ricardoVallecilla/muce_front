@@ -548,8 +548,8 @@ import * as CryptoJS from 'crypto-js';
     this.submitted = 0;
     this.msgs = [];
     this.acciones = this.properties.labelNuevo + " Item"
-    this.bandera = 1;
-    this.item = new Item();
+    this.bandera = 0;
+    //this.item = new Item();
   }
   subtmit() {
     this.submitted += 1;
