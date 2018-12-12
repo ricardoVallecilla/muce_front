@@ -211,8 +211,12 @@ export class GeneralService {
                 return this._http["get"](url, optionsToken)
                     .map((res: Response) => {
                         this.blockUI.stop();
-                        result = res.json();
-                        return result;
+                        try {
+                            result = res.json();
+                            return result;    
+                        } catch (error) {
+                            return {};
+                        }
                     }).catch(this.handleError());
             } else if (tipo == "post") {
                 
