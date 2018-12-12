@@ -288,7 +288,7 @@ export class ItemComponent implements OnInit {
               break;
           }
 
-        }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Catalogos.' }),
+        }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Catálogos.' }),
           () => {
           });
     } catch (error) {

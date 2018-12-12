@@ -45,7 +45,7 @@ const MenuAdmin= {
       children: [
         {
           state: 'catalogos',
-          name: 'Catalogos'
+          name: 'Catálogos'
         },
         {
           state: 'usuarios',
@@ -57,7 +57,7 @@ const MenuAdmin= {
         },
         {
           state: 'eliminacion',
-          name: 'Eliminacion'
+          name: 'Eliminación'
         }
 
       ]

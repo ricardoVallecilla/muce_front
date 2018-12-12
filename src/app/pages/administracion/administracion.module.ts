@@ -40,7 +40,7 @@ export const AuthenticationRoutes: Routes = [
         component: CatalogoComponent,
         
         data: {
-          breadcrumb: 'Catalogos',
+          breadcrumb: 'Catálogos',
           icon: 'icofont-sub-listing bg-c-blue',
           status: true,
           descripcion:"Administración de catalogos usados en el sistema."
@@ -71,7 +71,7 @@ export const AuthenticationRoutes: Routes = [
         path: 'eliminacion',
         component: EliminacionComponent,
         data: {
-          breadcrumb: 'Eliminacion',
+          breadcrumb: 'Eliminación',
           icon: 'icofont-bank-alt bg-c-blue',
           status: true,
           descripcion:"Eliminacion item."

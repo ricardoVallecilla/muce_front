@@ -11,7 +11,7 @@ import { Message, ConfirmationService } from 'primeng/primeng';
 export class CatalogoComponent implements OnInit {
 
   properties = new Properties();
-  title = "Catalogos"
+  title = "Catálogos"
   acciones = this.properties.labelLista + this.title;
   msgs: Message[] = [];
   catalogos = [];
@@ -36,8 +36,8 @@ export class CatalogoComponent implements OnInit {
           .subscribe((catalogos: any[]) => {
             this.catalogos = [];
             this.catalogos = catalogos;
-          }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Catalogos.' }));
-      }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Catalogos.' }));
+          }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Catálogos.' }));
+      }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Catálogos.' }));
 
   }
 
@@ -62,11 +62,11 @@ export class CatalogoComponent implements OnInit {
           .subscribe((catalogos: any[]) => {
             this.catalogos = [];
             this.catalogos = catalogos;
-          }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Catalogos.' }),
+          }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Catálogos.' }),
             () => {
               this.bandera = 0;
             });
-      }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Catalogos.' }));
+      }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Catálogos.' }));
 
   }
 
