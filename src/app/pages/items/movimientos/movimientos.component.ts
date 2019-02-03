@@ -78,6 +78,8 @@ export class MovimientosComponent implements OnInit {
       this.museo = persona.usuario.museoId;
       let roles = persona.usuario.roles
       if (roles) {
+        console.log(roles);
+        
         if (roles.find(x => x.rolid == this.constantes.rolAdministrador) || roles.find(x => x.rolid == this.constantes.rolDirector)) {
           this.esAdmin = true;
 
@@ -238,6 +240,14 @@ export class MovimientosComponent implements OnInit {
           this.museoFiltroItem.push({ label: x.nombres, value: x });
 
         });
+        
+        if(this.esAdmin){
+          this.museoFiltroItem = [{ label: this.properties.labelSeleccione, value: null }];
+          museos.forEach(x => {
+            this.museoFiltroItem.push({ label: x.nombres, value: x });
+  
+          });
+        }
       }, (err: any) => this.msgs.push({ severity: 'error', summary: 'Error', detail: 'No se pudo consultar la lista de Items.' }),
         () => {
         });

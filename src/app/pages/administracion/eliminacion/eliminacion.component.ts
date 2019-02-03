@@ -180,7 +180,7 @@ export class EliminacionComponent implements OnInit {
         this.item = item
         this.confirmationService.confirm({
             key: "confirmar",
-            message: "¿Está seguro de asignar el registro",
+            message: "¿Está seguro que desea eliminar el registro",
             header: this.properties.titutloPreguntaConfirmacion,
             icon: this.properties.iconAdvertencia,
           });
